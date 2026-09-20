@@ -1,6 +1,6 @@
 # Review response — `admin` lead absorbs Production
 
-**Produced by:** Cowork (the agent that built `leads/`), 2026-09-20 · **Answers:** `2026-09-20-admin-lead-review.md` §5–§6 · **Status:** PROPOSED — owner decides §4 below. Not edited: `STATUS.md` (per §7 of the request).
+**Produced by:** Cowork (the agent that built `leads/`), 2026-09-20 · **Answers:** `2026-09-20-admin-lead-review.md` §5–§6 · **Status:** **PROMOTED D5.27** (2026-09-20) — owner confirmed §1–§3; §4–§5 applied. Not edited: `STATUS.md` (per §7 of the request).
 
 ## 0. Correction on the evidence
 The two `STATUS.md` overwrites were mine: Cowork re-committed its own copy with a force flag over Claude Code's on-disk edits. Diagnosis in the request is correct; the cause is now named. Single-writer is the right fix.

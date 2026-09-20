@@ -1,6 +1,6 @@
 # Direction — umbrella (art · level · scenario)
 
-Reports to: owner (via Production) · Three authoritative leads: `art.md`, `level.md`, `scenario.md` · Updated: 2026-09-20
+Reports to: owner · Three authoritative leads: `art.md`, `level.md`, `scenario.md` · Updated: 2026-09-20
 
 ## What Direction is
 The leads with an **authoritative grasp** of how the game should look, how its spaces are built, and how its encounters are staged. Each defines **clusters of content** — a coherent, named set of things the game needs (e.g. "Kaede + Genzo cut-outs, 2 poses", "one duel arena: 2 zones, 2 anchors, 1 cover edge", "M1 scripted opponent with counter-memory"). Content produces the cluster; Tech builds and loads it; Systems supplies the vocabulary it is expressed in.

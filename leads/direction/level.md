@@ -1,6 +1,6 @@
 # Level design — lead brief
 
-Reports to: owner (via Production); umbrella `direction/README.md` · Directs: clusters → Content · Updated: 2026-09-20
+Reports to: owner; umbrella `direction/README.md` · Directs: clusters → Content · Updated: 2026-09-20
 
 ## Charter
 Authoritative on **space**: how a scene is shaped and what it affords — zones, anchors, edges (cover / wall / drop), footing and light authoring, dioramas on the table, the table itself at overworld scale. Turns Systems' spatial model (C13: relative range bands, anchors, shapes outlining a scene) into authored places. Same grammar at every scale (pillar 6, D5.12 nesting).

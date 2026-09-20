@@ -43,4 +43,4 @@ What gets **included** in the game: data instances (abilities, characters, wound
 2. Which of handoff §5 #8 adds are in M1.
 
 ## Escalates to
-Systems for vocabulary/rules; Direction for taste; owner via Production for scope.
+Systems for vocabulary/rules; Direction for taste; owner via Admin for scope.

@@ -7,7 +7,7 @@
 **Revises:** `proposals/2026-09-20-admin-lead.md`, which proposed Admin and Production
 as **separate** roles. The owner has since directed that Admin **absorb** Production.
 That earlier document's §4 alternative and §5 conflict note still apply and are not repeated here.
-**Status:** PROPOSED — needs a D-number
+**Status:** **PROMOTED D5.27** (2026-09-20) — applied with the reviewer's amendments
 
 ---
 

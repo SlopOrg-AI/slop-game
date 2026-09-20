@@ -1,6 +1,6 @@
 # Art direction — lead brief
 
-Reports to: owner (via Production); umbrella `direction/README.md` · Directs: clusters → Content · Updated: 2026-09-20
+Reports to: owner; umbrella `direction/README.md` · Directs: clusters → Content · Updated: 2026-09-20
 
 ## Charter
 Authoritative on how the game **looks**: characters, costume, material (paper cut-out, ink over paper), palette, UI-as-animate-paper, the animatic camera register, the terrain-table → diorama → cut-out grammar. Holds the influence table and anti-goals as the test. Critiques every board; accepts or returns. Does not generate.

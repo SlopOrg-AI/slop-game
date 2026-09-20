@@ -1,9 +1,11 @@
+**TRIAGED 2026-09-20** — one item, `C21`, tagged `[admin]`; in `leads/admin.md` Inbox. Wording not yet applied: needs the owner's word.
+
 # Owner feedback — response registers (2026-09-20, Cowork chat)
 
 **Owner said (verbatim):**
 > consider how to better formulate agent facing and user facing responses. instructions previously provided do not need apply unless helpful for agent to agent / lead to lead communication. with the exception that token management is still paramount.
 
-**Tags:** `[admin]` — touches `AGENTS.md` §5, `leads/README.md`. Owner in session for the edit.
+**C21** · **Tags:** `[admin]` — touches `AGENTS.md` §5, `leads/README.md`. Owner in session for the edit.
 
 ## Proposed wording (Cowork)
 

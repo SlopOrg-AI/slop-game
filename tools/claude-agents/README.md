@@ -9,7 +9,7 @@ copy tools\claude-agents\*.md .claude\agents\
 del .claude\agents\README.md
 ```
 
-Claude Code defaults to the **tech** lead in this repo; name another lead ("act as systems") to switch.
+Claude Code wears two hats in this repo: **admin** for session open/close, the board, triage and git; **tech** for the work. Name another lead ("act as systems") to switch.
 
 ```
 ```

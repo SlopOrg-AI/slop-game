@@ -57,9 +57,9 @@ Owner decides; **leads** are agent roles that track status and direct next steps
 
 | Lead | Owns the question |
 |---|---|
-| `leads/production.md` | what's next, blocked, in conflict — `STATUS.md`, triage, milestones |
+| `leads/admin.md` | what's next, blocked, in conflict — `STATUS.md` (**sole writer**), triage, milestones, git. Absorbs Production; **run by Claude Code** (D5.27) |
 | `leads/systems.md` | the game: ontology + rules. Directs `systems/content.md` (what's included) and `systems/tech.md` (what runs it — the **Tech lead, run by Claude Code**: Godot, validator, tooling, git, `.claude/`) |
 | `leads/direction/` | authoritative art · level · scenario direction; defines clusters Content produces |
 | `leads/marketing.md` | YouTube / devlog |
 
-Rules 1–7 above are unchanged: a lead writes to `proposals/` unless the owner is in the session; a lead never logs a D-number on its own. Session prompt: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/<lead>.md`, then only the docs the task touches."*
+Rules 1–7 above are unchanged: a lead writes to `proposals/` unless the owner is in the session; a lead never logs a D-number on its own. **Single-writer (D5.27):** a lead's own brief is written only by that lead; `STATUS.md` is written only by Admin, which transcribes each lead's row from that brief. Session prompt: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/<lead>.md`, then only the docs the task touches."*

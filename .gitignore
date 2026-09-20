@@ -1,7 +1,9 @@
-# Individual frames from the sampler/scheduler experiment are throwaway; the
-# contact sheet is the summary worth keeping.
-proposals/art/2026-09-20-sampler-sweep/*.png
-!proposals/art/2026-09-20-sampler-sweep/_contact-sheet.png
+# D5.28 - art binaries: contact sheets and *selected* boards only; raw
+# generations stay local. Already-committed PNGs are left in history (no
+# rewrite); which of those are keepers is Art/Content's call, not git's.
+proposals/art/**/*.png
+!proposals/art/**/_contact-sheet.png
+!proposals/art/**/accepted/**
 
 # Python
 __pycache__/

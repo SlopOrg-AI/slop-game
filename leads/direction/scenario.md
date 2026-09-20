@@ -1,6 +1,6 @@
 # Mission / scenario design — lead brief
 
-Reports to: owner (via Production); umbrella `direction/README.md` · Directs: clusters → Content · Updated: 2026-09-20
+Reports to: owner; umbrella `direction/README.md` · Directs: clusters → Content · Updated: 2026-09-20
 
 ## Charter
 Authoritative on **what happens**: the encounter as staged — which actors, which loadouts, what the opponent does and remembers, win conditions in play, pacing of a fight, and later the mission that puts the player in the scene. Owns the human-play loop's *setup*: the 10 duels the owner must play are ten scenarios, not one. Feeds findings from play back to Systems as evidence.
