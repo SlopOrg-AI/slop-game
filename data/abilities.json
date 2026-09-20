@@ -1,0 +1,532 @@
+{
+  "_doc": "Ability schema — bible §9.2 + §3.2a tag stacks + §1a variance. Costs draw on reserves; requires test attributes; reach tests initiative. damage[].tags = [channel, form?, element*, effect*, intent*]. initiative deltas are on the 100-pt bar (D2.12), irregular values.",
+  "schema_version": 2,
+  "abilities": [
+    {
+      "id": "palm_strike",
+      "name": "Palm Strike",
+      "group": "body",
+      "kind": "action",
+      "reach": "melee",
+      "requires": {
+        "strength": 60
+      },
+      "costs": {
+        "stamina": 12,
+        "focus": 22
+      },
+      "damage": [
+        {
+          "amount": 22,
+          "region": "torso",
+          "tags": [
+            "physical",
+            "blunt",
+            "stagger"
+          ]
+        }
+      ],
+      "initiative": 4,
+      "insight": 0,
+      "tags": [
+        "strike"
+      ],
+      "cost_mods": [
+        {
+          "condition": "footing",
+          "reserve": "stamina",
+          "per_point": -1
+        }
+      ],
+      "shot": "strike_close"
+    },
+    {
+      "id": "crushing_blow",
+      "name": "Crushing Blow",
+      "group": "body",
+      "kind": "action",
+      "reach": "melee",
+      "requires": {
+        "strength": 120
+      },
+      "costs": {
+        "stamina": 28,
+        "focus": 40
+      },
+      "damage": [
+        {
+          "amount": 34,
+          "region": "torso",
+          "tags": [
+            "physical",
+            "crushing",
+            "stagger",
+            "finisher"
+          ]
+        }
+      ],
+      "initiative": 9,
+      "tags": [
+        "strike",
+        "heavy"
+      ],
+      "gates": [
+        {
+          "condition": "footing",
+          "op": ">=",
+          "value": -2
+        }
+      ],
+      "amplify": [
+        {
+          "state": "exposed",
+          "on": "target",
+          "mult": 1.5
+        }
+      ],
+      "shot": "finisher"
+    },
+    {
+      "id": "lunge_kick",
+      "name": "Lunge Kick",
+      "group": "body",
+      "kind": "action",
+      "reach": "melee",
+      "requires": {
+        "quickness": 80
+      },
+      "costs": {
+        "stamina": 16,
+        "focus": 28
+      },
+      "damage": [
+        {
+          "amount": 24,
+          "region": "legs",
+          "tags": [
+            "physical",
+            "blunt"
+          ]
+        }
+      ],
+      "initiative": 11,
+      "tags": [
+        "strike",
+        "lunge"
+      ],
+      "shot": "lunge"
+    },
+    {
+      "id": "grapple",
+      "name": "Grapple",
+      "group": "body",
+      "kind": "action",
+      "reach": "melee",
+      "requires": {
+        "strength": 80
+      },
+      "costs": {
+        "stamina": 18,
+        "focus": 26
+      },
+      "damage": [
+        {
+          "amount": 14,
+          "region": "arms",
+          "tags": [
+            "physical",
+            "grappling",
+            "expose"
+          ]
+        }
+      ],
+      "initiative": 8,
+      "tags": [
+        "control",
+        "grapple"
+      ],
+      "shot": "brace"
+    },
+    {
+      "id": "shoulder_charge",
+      "name": "Shoulder Charge",
+      "group": "body",
+      "kind": "action",
+      "reach": "any",
+      "requires": {
+        "strength": 110
+      },
+      "costs": {
+        "stamina": 22,
+        "focus": 30
+      },
+      "damage": [
+        {
+          "amount": 26,
+          "region": "torso",
+          "tags": [
+            "physical",
+            "blunt",
+            "stagger"
+          ]
+        }
+      ],
+      "initiative": 14,
+      "tags": [
+        "strike",
+        "heavy",
+        "movement"
+      ],
+      "variance": {
+        "low": 0.8,
+        "high": 1.3
+      },
+      "shot": "approach"
+    },
+    {
+      "id": "flicker_step",
+      "name": "Flicker Step",
+      "group": "body",
+      "kind": "action",
+      "reach": "any",
+      "requires": {
+        "quickness": 60
+      },
+      "costs": {
+        "stamina": 14,
+        "focus": 20
+      },
+      "damage": [],
+      "initiative": 13,
+      "self_applies": [
+        "focused"
+      ],
+      "tags": [
+        "movement"
+      ],
+      "cost_mods": [
+        {
+          "condition": "footing",
+          "reserve": "stamina",
+          "per_point": -2
+        }
+      ],
+      "shot": "approach"
+    },
+    {
+      "id": "read_the_field",
+      "name": "Read the Field",
+      "group": "mind",
+      "kind": "action",
+      "reach": "any",
+      "requires": {
+        "wits": 50
+      },
+      "costs": {
+        "focus": 25
+      },
+      "damage": [],
+      "initiative": 3,
+      "insight": 9,
+      "tags": [
+        "read"
+      ],
+      "shot": "observe"
+    },
+    {
+      "id": "feint",
+      "name": "Feint",
+      "group": "mind",
+      "kind": "action",
+      "reach": "any",
+      "requires": {
+        "wits": 70
+      },
+      "costs": {
+        "stamina": 6,
+        "focus": 18
+      },
+      "damage": [
+        {
+          "amount": 0,
+          "region": "mind",
+          "tags": [
+            "mental",
+            "expose",
+            "feint"
+          ]
+        }
+      ],
+      "initiative": 0,
+      "insight": 6,
+      "tags": [
+        "feint"
+      ],
+      "shot": "feint"
+    },
+    {
+      "id": "hear_the_wind",
+      "name": "Hear the Wind",
+      "group": "mind",
+      "kind": "action",
+      "reach": "any",
+      "requires": {
+        "wits": 90
+      },
+      "costs": {
+        "focus": 35
+      },
+      "damage": [],
+      "initiative": 0,
+      "insight": 14,
+      "tags": [
+        "read"
+      ],
+      "shot": "observe"
+    },
+    {
+      "id": "pressure",
+      "name": "Pressure",
+      "group": "spirit",
+      "kind": "action",
+      "reach": "any",
+      "requires": {
+        "heart": 90
+      },
+      "costs": {
+        "chakra": 16,
+        "focus": 26
+      },
+      "damage": [
+        {
+          "amount": 28,
+          "region": "spirit",
+          "tags": [
+            "spiritual",
+            "dread",
+            "pressure"
+          ]
+        }
+      ],
+      "initiative": 6,
+      "tags": [
+        "intimidate"
+      ],
+      "shot": "glare"
+    },
+    {
+      "id": "killing_intent",
+      "name": "Killing Intent",
+      "group": "spirit",
+      "kind": "action",
+      "reach": "any",
+      "requires": {
+        "heart": 70
+      },
+      "costs": {
+        "chakra": 22,
+        "focus": 32
+      },
+      "damage": [
+        {
+          "amount": 30,
+          "region": "spirit",
+          "tags": [
+            "spiritual",
+            "dread"
+          ]
+        }
+      ],
+      "initiative": 5,
+      "tags": [
+        "intimidate"
+      ],
+      "shot": "glare"
+    },
+    {
+      "id": "water_lash",
+      "name": "Water Lash",
+      "group": "spirit",
+      "kind": "action",
+      "reach": "ranged",
+      "requires": {
+        "wits": 60
+      },
+      "costs": {
+        "chakra": 24,
+        "focus": 30
+      },
+      "damage": [
+        {
+          "amount": 26,
+          "region": "arms",
+          "tags": [
+            "physical",
+            "slashing",
+            "water"
+          ]
+        }
+      ],
+      "initiative": 4,
+      "tags": [
+        "ninjutsu",
+        "water"
+      ],
+      "shot": "cast_ranged"
+    },
+    {
+      "id": "lightning_palm",
+      "name": "Lightning Palm",
+      "group": "spirit",
+      "kind": "action",
+      "reach": "melee",
+      "requires": {
+        "wits": 75,
+        "quickness": 70
+      },
+      "costs": {
+        "chakra": 30,
+        "focus": 38
+      },
+      "damage": [
+        {
+          "amount": 34,
+          "region": "torso",
+          "tags": [
+            "physical",
+            "piercing",
+            "lightning",
+            "daze"
+          ]
+        }
+      ],
+      "initiative": 9,
+      "tags": [
+        "ninjutsu",
+        "lightning",
+        "swing"
+      ],
+      "amplify": [
+        {
+          "state": "wet",
+          "on": "target",
+          "mult": 2.0
+        }
+      ],
+      "variance": {
+        "low": 0.8,
+        "high": 1.4
+      },
+      "shot": "strike_close"
+    },
+    {
+      "id": "steel_nerve",
+      "name": "Steel Nerve",
+      "group": "spirit",
+      "kind": "action",
+      "reach": "any",
+      "requires": {
+        "courage": 80
+      },
+      "costs": {
+        "chakra": 12,
+        "focus": 20
+      },
+      "damage": [],
+      "initiative": 0,
+      "self_applies": [
+        "braced"
+      ],
+      "tags": [
+        "resolve"
+      ],
+      "shot": "brace"
+    },
+    {
+      "id": "anticipate",
+      "name": "Anticipate",
+      "group": "mind",
+      "kind": "reaction",
+      "requires": {
+        "wits": 70
+      },
+      "costs": {
+        "focus": 20
+      },
+      "trigger": {
+        "predicates": [
+          "heavy"
+        ]
+      },
+      "grade": "partial",
+      "insight": 8,
+      "tags": [
+        "read"
+      ],
+      "shot": "sidestep"
+    },
+    {
+      "id": "counter_throw",
+      "name": "Counter Throw",
+      "group": "body",
+      "kind": "reaction",
+      "requires": {
+        "quickness": 75,
+        "strength": 70
+      },
+      "costs": {
+        "stamina": 14,
+        "focus": 20
+      },
+      "trigger": {
+        "predicates": [
+          "melee",
+          "heavy"
+        ]
+      },
+      "grade": "perfect",
+      "on_fire": {
+        "initiative": "reverse",
+        "attacker_loses_spend": true,
+        "damage": [
+          {
+            "amount": 18,
+            "region": "torso",
+            "tags": [
+              "physical",
+              "grappling",
+              "stagger"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "counter"
+      ],
+      "shot": "throw"
+    },
+    {
+      "id": "iron_guard",
+      "name": "Iron Guard",
+      "group": "body",
+      "kind": "reaction",
+      "requires": {
+        "strength": 60
+      },
+      "costs": {
+        "stamina": 10,
+        "focus": 15
+      },
+      "trigger": {
+        "predicates": [
+          "physical"
+        ]
+      },
+      "grade": "partial",
+      "tags": [
+        "guard"
+      ],
+      "shot": "block"
+    }
+  ]
+}

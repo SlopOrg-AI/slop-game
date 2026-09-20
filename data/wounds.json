@@ -1,0 +1,58 @@
+{
+  "_doc": "Anatomical wound tables — bible §8. Net damage (after guard/form/amplify) maps to a severity band per region; the band picks a wound by matching form tag (first match wins, '*' = any). Effects apply immediately and persist for the scene. No HP anywhere.",
+  "schema_version": 2,
+
+  "regions": ["head", "torso", "arms", "legs", "mind", "spirit"],
+  "_regions_note": "OPEN #2 — confirm",
+
+  "severity_bands": {
+    "_note": "net damage thresholds; same for every region in MVP, per-region later",
+    "minor": 8, "moderate": 18, "severe": 30, "crippling": 45
+  },
+
+  "wounds": [
+    { "id": "bruised_ribs", "name": "Bruised ribs", "region": "torso", "severity": "minor", "form": "*",
+      "effects": [{ "reserve_cur": { "stamina": -10 } }] },
+    { "id": "cracked_ribs", "name": "Cracked ribs", "region": "torso", "severity": "moderate", "form": "blunt",
+      "effects": [{ "reserve_max": { "stamina": -15 } }, { "refill": { "stamina": -0.10 } }] },
+    { "id": "punctured_lung", "name": "Punctured lung", "region": "torso", "severity": "moderate", "form": "piercing",
+      "effects": [{ "refill": { "stamina": -0.20 } }, { "state": "bleeding" }] },
+    { "id": "crushed_sternum", "name": "Crushed sternum", "region": "torso", "severity": "severe", "form": "*",
+      "effects": [{ "attribute": { "strength": -30 } }, { "reserve_max": { "stamina": -30 } }, { "refill": { "focus": -0.20 } }] },
+
+    { "id": "cut_brow", "name": "Cut brow", "region": "head", "severity": "minor", "form": "*",
+      "effects": [{ "attribute": { "wits": -6 } }] },
+    { "id": "concussed", "name": "Concussed", "region": "head", "severity": "moderate", "form": "*",
+      "effects": [{ "refill": { "focus": -0.40 } }, { "attribute": { "wits": -15 } }] },
+    { "id": "fractured_skull", "name": "Fractured skull", "region": "head", "severity": "severe", "form": "*",
+      "effects": [{ "refill": { "focus": -0.60 } }, { "attribute": { "wits": -30, "quickness": -20 } }, { "state": "dazed" }] },
+
+    { "id": "bruised_forearm", "name": "Bruised forearm", "region": "arms", "severity": "minor", "form": "*",
+      "effects": [{ "attribute": { "strength": -8 } }] },
+    { "id": "wrenched_shoulder", "name": "Wrenched shoulder", "region": "arms", "severity": "moderate", "form": "grappling",
+      "effects": [{ "attribute": { "strength": -20 } }, { "lock_tag": "grapple" }] },
+    { "id": "gashed_arm", "name": "Gashed arm", "region": "arms", "severity": "moderate", "form": "slashing",
+      "effects": [{ "attribute": { "strength": -14 } }, { "state": "bleeding" }] },
+    { "id": "broken_forearm", "name": "Broken forearm", "region": "arms", "severity": "severe", "form": "*",
+      "effects": [{ "attribute": { "strength": -35 } }, { "lock_tag": "grapple" }, { "lock_tag": "heavy" }] },
+
+    { "id": "bruised_thigh", "name": "Bruised thigh", "region": "legs", "severity": "minor", "form": "*",
+      "effects": [{ "attribute": { "quickness": -8 } }] },
+    { "id": "torn_calf", "name": "Torn calf", "region": "legs", "severity": "moderate", "form": "*",
+      "effects": [{ "attribute": { "quickness": -22 } }, { "refill": { "stamina": -0.10 } }, { "lock_tag": "lunge" }] },
+    { "id": "shattered_knee", "name": "Shattered knee", "region": "legs", "severity": "severe", "form": "*",
+      "effects": [{ "attribute": { "quickness": -45 } }, { "lock_tag": "lunge" }, { "lock_tag": "movement" }, { "refill": { "stamina": -0.20 } }] },
+
+    { "id": "rattled", "name": "Rattled", "region": "mind", "severity": "minor", "form": "*",
+      "effects": [{ "reserve_cur": { "focus": -30 } }] },
+    { "id": "confounded", "name": "Confounded", "region": "mind", "severity": "moderate", "form": "*",
+      "effects": [{ "refill": { "focus": -0.30 } }, { "attribute": { "wits": -12 } }] },
+
+    { "id": "unnerved", "name": "Unnerved", "region": "spirit", "severity": "minor", "form": "*",
+      "effects": [{ "attribute": { "courage": -8 } }] },
+    { "id": "shaken", "name": "Shaken", "region": "spirit", "severity": "moderate", "form": "*",
+      "effects": [{ "attribute": { "courage": -20, "heart": -10 } }] },
+    { "id": "broken_will", "name": "Will broken", "region": "spirit", "severity": "severe", "form": "*",
+      "effects": [{ "attribute": { "courage": -40, "heart": -25 } }, { "state": "dreading" }] }
+  ]
+}

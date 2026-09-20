@@ -1,0 +1,100 @@
+{
+  "_doc": "Scene condition tracks — bible §10.1. Baseline + increments; ±1 normal; +4 tipping. Each declares its own tick. Cascades push each other; depth ≤ 2 per round. MVP authors footing and light only.",
+  "schema_version": 2,
+  "scene_conditions": {
+    "light": {
+      "baseline": 0,
+      "min": -5,
+      "max": 5,
+      "tick": 0
+    },
+    "noise": {
+      "baseline": 0,
+      "min": -5,
+      "max": 5,
+      "tick": -1
+    },
+    "alert": {
+      "baseline": 0,
+      "min": 0,
+      "max": 5,
+      "tick": 0
+    },
+    "footing": {
+      "baseline": 0,
+      "min": -5,
+      "max": 5,
+      "tick": 0
+    },
+    "weather": {
+      "baseline": 0,
+      "min": -5,
+      "max": 5,
+      "tick": 0
+    },
+    "time_of_day": {
+      "baseline": 0,
+      "min": -5,
+      "max": 5,
+      "tick": 0
+    }
+  },
+  "tipping_threshold": 4,
+  "cascades": [
+    {
+      "from": "weather",
+      "when": ">=",
+      "value": 3,
+      "to": "footing",
+      "delta": -1
+    },
+    {
+      "from": "weather",
+      "when": ">=",
+      "value": 3,
+      "to": "light",
+      "delta": -1
+    },
+    {
+      "from": "weather",
+      "when": ">=",
+      "value": 3,
+      "apply_state": "wet",
+      "to_all": true
+    },
+    {
+      "from": "noise",
+      "when": ">=",
+      "value": 4,
+      "to": "alert",
+      "delta": 1
+    }
+  ],
+  "cascade_depth_limit": 2,
+  "mvp_active": [
+    "footing",
+    "light"
+  ],
+  "scenes": [
+    {
+      "id": "courtyard_rain",
+      "name": "Courtyard in rain",
+      "objective": "Force surrender — or break Courage",
+      "lethal": false,
+      "win": [
+        "surrender",
+        "courage_break"
+      ],
+      "fail": [
+        "courage_break_self",
+        "incapacitated_self"
+      ],
+      "start": {
+        "footing": -1,
+        "light": 0,
+        "weather": 3
+      },
+      "initiative_start": 0
+    }
+  ]
+}

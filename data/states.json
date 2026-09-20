@@ -1,0 +1,18 @@
+{
+  "_doc": "Actor states — bible §10.2. Boolean + round count. Applied by effect and element tags (§3.2a). `clears` = states removed when this one is applied. `amplify_in` = incoming damage tags multiplied.",
+  "schema_version": 2,
+
+  "states": {
+    "wet":       { "duration": 3, "applied_by": ["water"],     "clears": ["burning"], "amplify_in": { "lightning": 2.0 } },
+    "burning":   { "duration": 2, "applied_by": ["fire"],      "clears": ["wet", "chilled"], "tick": { "damage": 6, "region": "torso", "tags": ["physical", "fire"] } },
+    "charged":   { "duration": 1, "applied_by": ["lightning"], "effect": { "attribute": { "quickness": -10 } } },
+    "chilled":   { "duration": 2, "applied_by": ["wind"],      "clears": ["burning"], "effect": { "refill": { "stamina": -0.15 } } },
+    "staggered": { "duration": 1, "applied_by": ["stagger"],   "effect": { "reserve_cur": { "focus": -35 } }, "blocks": ["arm_reaction"], "amplify_in": { "physical": 1.3 } },
+    "exposed":   { "duration": 2, "applied_by": ["expose"],    "effect": { "guard_mult": 0.5 } },
+    "bleeding":  { "duration": 3, "applied_by": ["bleed"],     "tick": { "reserve_cur": { "stamina": -8 } } },
+    "dazed":     { "duration": 1, "applied_by": ["daze"],      "effect": { "refill": { "focus": -0.30 } } },
+    "dreading":  { "duration": 2, "applied_by": ["dread"],     "effect": { "attribute": { "courage": -10 } } },
+    "focused":   { "duration": 2, "applied_by": ["self"],      "effect": { "reaction_grade": 1 } },
+    "braced":    { "duration": 1, "applied_by": ["self"],      "effect": { "guard_add": 8 } }
+  }
+}

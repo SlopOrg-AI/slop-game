@@ -1,0 +1,40 @@
+{
+  "_doc": "Characters on the v2 stat model (bible §3). attributes = tested, reserves = spent, guards = absorb. library = full ability pool; loadout = chosen pre-scene into typed slots.",
+  "schema_version": 2,
+
+  "characters": [
+    {
+      "id": "kaede",
+      "name": "Kaede",
+      "epithet": "generalist",
+      "attributes": { "strength": 104, "quickness": 97, "wits": 92, "courage": 94, "heart": 88 },
+      "reserves":   { "stamina": 110, "focus": 100, "chakra": 101 },
+      "guards":     { "toughness": 14, "grit": 9, "will": 12 },
+      "slots":      { "body": 4, "mind": 3, "spirit": 3, "reaction": 1 },
+      "library": ["palm_strike", "crushing_blow", "lunge_kick", "flicker_step", "grapple",
+                  "read_the_field", "feint", "anticipate", "hear_the_wind",
+                  "water_lash", "lightning_palm", "killing_intent", "steel_nerve",
+                  "counter_throw", "iron_guard"],
+      "loadout": ["palm_strike", "crushing_blow", "lunge_kick", "flicker_step",
+                  "read_the_field", "feint", "anticipate",
+                  "water_lash", "lightning_palm", "killing_intent",
+                  "counter_throw"],
+      "poses": { "idle": "guard_low", "wounded": "guard_low_wounded" }
+    },
+    {
+      "id": "genzo",
+      "name": "Genzo the Ox",
+      "epithet": "brute · many slots, low craft",
+      "attributes": { "strength": 141, "quickness": 71, "wits": 58, "courage": 117, "heart": 126 },
+      "reserves":   { "stamina": 138, "focus": 80, "chakra": 66 },
+      "guards":     { "toughness": 26, "grit": 11, "will": 6 },
+      "slots":      { "body": 5, "mind": 1, "spirit": 2, "reaction": 1 },
+      "library": ["palm_strike", "crushing_blow", "grapple", "shoulder_charge", "flicker_step",
+                  "read_the_field", "pressure", "killing_intent", "iron_guard", "counter_throw"],
+      "loadout": ["palm_strike", "crushing_blow", "grapple", "shoulder_charge", "flicker_step",
+                  "read_the_field", "pressure", "killing_intent", "iron_guard"],
+      "poses": { "idle": "advance", "wounded": "advance_cut" },
+      "ai_policy": "aggressive"
+    }
+  ]
+}

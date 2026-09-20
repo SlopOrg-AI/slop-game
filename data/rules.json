@@ -1,0 +1,134 @@
+{
+  "_doc": "Global tuning knobs. Bible §3–§8. Godot and the wireframe read this file; change numbers here, not in code.",
+  "schema_version": 2,
+  "scale": {
+    "_note": "Attributes and reserve maxes live on 0–300+. ~100 competent, ~150 elite, 200+ legendary.",
+    "bands": [
+      {
+        "max": 39,
+        "label": "Frail"
+      },
+      {
+        "max": 69,
+        "label": "Weak"
+      },
+      {
+        "max": 89,
+        "label": "Fair"
+      },
+      {
+        "max": 119,
+        "label": "Sound"
+      },
+      {
+        "max": 149,
+        "label": "Strong"
+      },
+      {
+        "max": 199,
+        "label": "Formidable"
+      },
+      {
+        "max": 999,
+        "label": "Legendary"
+      }
+    ]
+  },
+  "reserves": {
+    "_note": "Refill is a fraction of MAX per round, applied at end of RESOLVE. Wounds/states modify these.",
+    "stamina": {
+      "refill": 0.4,
+      "band": [
+        0.3,
+        0.5
+      ]
+    },
+    "focus": {
+      "refill": 1.0,
+      "band": [
+        1.0,
+        1.0
+      ],
+      "_note": "100% unless hindered — the per-round attention budget"
+    },
+    "chakra": {
+      "refill": 0.3,
+      "band": [
+        0.25,
+        0.33
+      ]
+    }
+  },
+  "courage_break_fraction": 0.25,
+  "initiative": {
+    "range": [
+      -50,
+      50
+    ],
+    "reach_threshold": -10,
+    "dominant_at": 25,
+    "desperate_at": -25,
+    "dominant_damage_mult": 1.25,
+    "tie_rule": "quickness_then_insight",
+    "_tie_note": "OPEN #4 — proposal only",
+    "_scale_note": "D2.12 — 100-pt bar centred on 0. Ability deltas are irregular, roughly normal around ±8; big swings ±15–20; reveals/perfect counters can move 20+."
+  },
+  "insight": {
+    "per_initiative_unit": 2,
+    "_note": "2 insight committed = +1 effective initiative on the 100-pt bar. Partial spend allowed.",
+    "reveal_costs": {
+      "cost": 5,
+      "ability": 12,
+      "wounds": 8,
+      "reserves": 8
+    },
+    "reaction_grade_shift_if_higher": 1,
+    "reveal_timing": "OPEN #1 — arm_declared | resolve_interrupt"
+  },
+  "action_budget": {
+    "_note": "D2.7 — no action count. Queue until any required reserve is unaffordable.",
+    "max_queue_display": 6
+  },
+  "reactions": {
+    "max_armed": 1,
+    "persist_until_fired": true,
+    "perfect_min_predicates": 2,
+    "partial_damage_mult": 0.5,
+    "grade_up_states": [
+      "focused"
+    ],
+    "grade_up_zone": "desperate"
+  },
+  "damage": {
+    "channels": [
+      "physical",
+      "mental",
+      "spiritual"
+    ],
+    "channel_guard": {
+      "physical": "toughness",
+      "mental": "grit",
+      "spiritual": "will"
+    },
+    "form_guard_bypass": {
+      "piercing": 0.5,
+      "crushing": 0.0,
+      "blunt": 0.0,
+      "slashing": 0.25,
+      "grappling": 0.0
+    },
+    "_bypass_note": "fraction of the guard the form ignores"
+  },
+  "variance": {
+    "_note": "OPEN #0 — bible §1a. Default band 1.0–1.0 = deterministic. Applies to damage amount and initiative delta only.",
+    "enabled": true,
+    "roll_at": "resolve"
+  },
+  "stamina_conversion": {
+    "chakra": 2,
+    "brace_strength": 3,
+    "brace_quickness": 3,
+    "_note": "stamina points per 1 point of the target; brace lasts one round"
+  },
+  "max_rounds": 30
+}

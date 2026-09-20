@@ -1,0 +1,28 @@
+{
+  "image": "2026-09-20-smoketest/qwen-smoketest_00001_.png",
+  "image_size": [
+    1328,
+    1328
+  ],
+  "updated": "2026-09-20T21:13:52+00:00",
+  "annotations": [
+    {
+      "id": "a1",
+      "tag": "silhouette",
+      "note": "Hair silhouette reads mushy - needs a cleaner cut-paper edge",
+      "kind": "pin",
+      "x": 0.4613526570048309,
+      "y": 0.13043478260869565
+    },
+    {
+      "id": "a2",
+      "tag": "palette",
+      "note": "Sash is the one place the palette breaks - too warm against the slate",
+      "kind": "box",
+      "x": 0.3140096618357488,
+      "y": 0.5024154589371981,
+      "w": 0.357487922705314,
+      "h": 0.12318840579710144
+    }
+  ]
+}
