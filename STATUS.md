@@ -4,7 +4,7 @@ Maintained by **Admin** (`leads/admin.md`) — sole writer (D5.27). Every lead w
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
 **Next free numbers:** D-number **D5.29** (D5.24 still unlogged — being resolved with C20/C13) · C-ref **C22**.
-**Git:** `main`, local only, 13 commits, clean tree. Admin (Claude Code) executes git on the owner's behalf, staging by path — never `git add -A`, two surfaces are live. Tech owns the tooling (hooks, `.gitignore`).
+**Git:** `main`, local only, clean tree (a commit count here rots the moment the board is committed). Admin (Claude Code) executes git on the owner's behalf, staging by path — never `git add -A`, two surfaces are live. Tech owns the tooling (hooks, `.gitignore`).
 
 ## Board
 
