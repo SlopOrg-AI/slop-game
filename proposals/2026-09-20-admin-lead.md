@@ -6,7 +6,10 @@
 writer of `STATUS.md` and the keeper of repo hygiene
 **Would supersede:** Production's ownership of `STATUS.md`, `inbox/` triage mechanics
 and `leads/README.md` (sequencing and scope judgement stay with Production)
-**Status:** PROPOSED — needs a D-number
+**Status:** SUPERSEDED by `2026-09-20-admin-lead-review.md` — the owner has since
+directed that Admin **absorb** Production rather than split from it. §4 (the
+alternative) and §5 (the Tech conflict-of-interest case) still stand; the rest is
+history. Kept per `proposals/README.md` — never delete.
 
 ---
 
