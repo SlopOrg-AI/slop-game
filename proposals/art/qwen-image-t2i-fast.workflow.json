@@ -1,7 +1,7 @@
 {
   "id": "qwen-image-t2i-fast",
   "revision": 0,
-  "last_node_id": 14,
+  "last_node_id": 12,
   "last_link_id": 12,
   "nodes": [
     {
@@ -24,7 +24,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            1
+            11
           ],
           "slot_index": 0
         }
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "id": 14,
+      "id": 12,
       "type": "LoraLoaderModelOnly",
       "pos": [
         40,
@@ -48,13 +48,13 @@
         90
       ],
       "flags": {},
-      "order": 13,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 1
+          "link": 11
         }
       ],
       "outputs": [
@@ -62,7 +62,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            2
+            12
           ],
           "slot_index": 0
         }
@@ -71,7 +71,7 @@
         "Node name for S&R": "LoraLoaderModelOnly"
       },
       "widgets_values": [
-        "Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors",
+        "Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors",
         1.0
       ]
     },
@@ -80,7 +80,7 @@
       "type": "CLIPLoader",
       "pos": [
         40,
-        250
+        260
       ],
       "size": [
         400,
@@ -95,8 +95,8 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            5,
-            6
+            1,
+            2
           ],
           "slot_index": 0
         }
@@ -115,7 +115,7 @@
       "type": "VAELoader",
       "pos": [
         40,
-        400
+        410
       ],
       "size": [
         400,
@@ -130,7 +130,7 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            11
+            9
           ],
           "slot_index": 0
         }
@@ -147,7 +147,7 @@
       "type": "ModelSamplingAuraFlow",
       "pos": [
         40,
-        500
+        510
       ],
       "size": [
         400,
@@ -160,7 +160,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 2
+          "link": 12
         }
       ],
       "outputs": [
@@ -185,7 +185,7 @@
       "type": "CFGNorm",
       "pos": [
         40,
-        600
+        610
       ],
       "size": [
         400,
@@ -227,8 +227,8 @@
         40
       ],
       "size": [
-        460,
-        200
+        470,
+        240
       ],
       "flags": {},
       "order": 5,
@@ -237,7 +237,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 5
+          "link": 1
         }
       ],
       "outputs": [
@@ -245,7 +245,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            7
+            5
           ],
           "slot_index": 0
         }
@@ -254,7 +254,7 @@
         "Node name for S&R": "CLIPTextEncode"
       },
       "widgets_values": [
-        "full-body character cut-out of a young female ninja, flat shaded, thick clean outlines, limited muted palette, paper-cutout diorama style, three-quarter view, plain neutral background, entire figure visible head to feet"
+        "A full-body cut-paper illustration of a young female ninja, standing in a three-quarter view with her entire figure visible from head to feet. She is built from flat layered paper shapes with clean white cut edges and no gradient shading, in a restrained palette of slate greys and soft putty tones. She is isolated on a plain off-white background with a soft drop shadow."
       ]
     },
     {
@@ -262,10 +262,10 @@
       "type": "CLIPTextEncode",
       "pos": [
         490,
-        280
+        320
       ],
       "size": [
-        460,
+        470,
         140
       ],
       "flags": {},
@@ -275,7 +275,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 6
+          "link": 2
         }
       ],
       "outputs": [
@@ -283,7 +283,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            8
+            6
           ],
           "slot_index": 0
         }
@@ -292,7 +292,7 @@
         "Node name for S&R": "CLIPTextEncode"
       },
       "widgets_values": [
-        "photorealistic, 3d render, gradient shading, busy background, text, watermark"
+        "photographic, 3d render, gradient shading, busy background, text, watermark"
       ]
     },
     {
@@ -300,10 +300,10 @@
       "type": "EmptySD3LatentImage",
       "pos": [
         490,
-        460
+        500
       ],
       "size": [
-        460,
+        470,
         110
       ],
       "flags": {},
@@ -315,7 +315,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            9
+            7
           ],
           "slot_index": 0
         }
@@ -333,7 +333,7 @@
       "id": 9,
       "type": "KSampler",
       "pos": [
-        1000,
+        1010,
         40
       ],
       "size": [
@@ -352,17 +352,17 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 7
+          "link": 5
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 8
+          "link": 6
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 9
+          "link": 7
         }
       ],
       "outputs": [
@@ -370,7 +370,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            10
+            8
           ],
           "slot_index": 0
         }
@@ -381,7 +381,7 @@
       "widgets_values": [
         20260920,
         "randomize",
-        4,
+        8,
         1.0,
         "euler",
         "simple",
@@ -392,7 +392,7 @@
       "id": 10,
       "type": "VAEDecode",
       "pos": [
-        1000,
+        1010,
         360
       ],
       "size": [
@@ -406,12 +406,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 10
+          "link": 8
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 11
+          "link": 9
         }
       ],
       "outputs": [
@@ -419,7 +419,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            12
+            10
           ],
           "slot_index": 0
         }
@@ -433,12 +433,12 @@
       "id": 11,
       "type": "SaveImage",
       "pos": [
-        1000,
+        1010,
         470
       ],
       "size": [
-        480,
-        300
+        490,
+        320
       ],
       "flags": {},
       "order": 10,
@@ -447,7 +447,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 12
+          "link": 10
         }
       ],
       "outputs": [],
@@ -462,19 +462,19 @@
   "links": [
     [
       1,
-      1,
+      2,
       0,
-      14,
+      6,
       0,
-      "MODEL"
+      "CLIP"
     ],
     [
       2,
-      14,
+      2,
       0,
-      4,
+      7,
       0,
-      "MODEL"
+      "CLIP"
     ],
     [
       3,
@@ -494,22 +494,6 @@
     ],
     [
       5,
-      2,
-      0,
-      6,
-      0,
-      "CLIP"
-    ],
-    [
-      6,
-      2,
-      0,
-      7,
-      0,
-      "CLIP"
-    ],
-    [
-      7,
       6,
       0,
       9,
@@ -517,7 +501,7 @@
       "CONDITIONING"
     ],
     [
-      8,
+      6,
       7,
       0,
       9,
@@ -525,7 +509,7 @@
       "CONDITIONING"
     ],
     [
-      9,
+      7,
       8,
       0,
       9,
@@ -533,7 +517,7 @@
       "LATENT"
     ],
     [
-      10,
+      8,
       9,
       0,
       10,
@@ -541,7 +525,7 @@
       "LATENT"
     ],
     [
-      11,
+      9,
       3,
       0,
       10,
@@ -549,12 +533,28 @@
       "VAE"
     ],
     [
-      12,
+      10,
       10,
       0,
       11,
       0,
       "IMAGE"
+    ],
+    [
+      11,
+      1,
+      0,
+      12,
+      0,
+      "MODEL"
+    ],
+    [
+      12,
+      12,
+      0,
+      4,
+      0,
+      "MODEL"
     ]
   ],
   "groups": [],
