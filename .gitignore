@@ -6,3 +6,6 @@ proposals/art/2026-09-20-sampler-sweep/*.png
 # Python
 __pycache__/
 *.pyc
+
+# Local copies of tools/claude-agents/ (that folder is the source of truth).
+.claude/agents/
