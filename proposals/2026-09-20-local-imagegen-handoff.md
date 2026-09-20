@@ -186,14 +186,23 @@ cut-paper register.
 edits shift, zoom, or crop relative to the input — this is why an early edit came
 back 1024² with the figure cropped at mid-thigh.
 
-*Mitigated:* `FluxKontextImageScale` has been removed from the edit graphs. That
-node rescaled the source into a Kontext bucket and was what triggered the
-downscale; the graphs now feed the source at its native size, which is what
-`regional_edit.py` already did when it measured zero drift. **The rebuilt edit
-graphs have not yet been run** — verify the output comes back at 1328² before
-trusting this. If drift reappears, the documented fallback is
-pad → resize to 1024 → edit → resize back → crop, or the
-`comfyui-qwen-zoom-fix` custom node.
+**Do not "fix" it by removing `FluxKontextImageScale`.** That was tried and
+measured. Without the node the output keeps its native 1328², but the edit stops
+happening — mean absolute difference from the source fell from **20.99** (working
+pose change) to **3.48** (effectively a copy). The node snaps the input into a
+resolution bucket the model was trained on; outside that bucket the conditioning
+collapses into reconstruction. It has been restored.
+
+The real trade-off:
+
+- **Full-image edits** keep `FluxKontextImageScale`, work correctly, and come
+  back at ~1024². Upscale afterwards if you need more.
+- **When native resolution matters**, use `tools/annotate/regional_edit.py`. The
+  masked path forces resampling of the target region, so it edits correctly at
+  1328² and measured zero drift. This is also what the published guidance calls
+  the drift-free "local editing" pattern.
+- Documented fallbacks if drift still bites: pad → resize to 1024 → edit →
+  resize back → crop, or the `comfyui-qwen-zoom-fix` custom node.
 
 **Annotation notes must be phrased as fixes, not diagnoses.** A note reading
 "sash is too warm" was fed to the model verbatim and it made the sash *warmer* —

@@ -1,8 +1,8 @@
 {
   "id": "qwen-image-edit-fast",
   "revision": 0,
-  "last_node_id": 13,
-  "last_link_id": 18,
+  "last_node_id": 14,
+  "last_link_id": 19,
   "nodes": [
     {
       "id": 1,
@@ -24,7 +24,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            17
+            18
           ],
           "slot_index": 0
         }
@@ -54,7 +54,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 17
+          "link": 18
         }
       ],
       "outputs": [
@@ -62,7 +62,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            18
+            19
           ],
           "slot_index": 0
         }
@@ -95,8 +95,8 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            5,
-            6
+            6,
+            7
           ],
           "slot_index": 0
         }
@@ -130,10 +130,10 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            2,
-            7,
+            3,
             8,
-            15
+            9,
+            16
           ],
           "slot_index": 0
         }
@@ -165,9 +165,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1,
-            3,
-            4
+            1
           ],
           "slot_index": 0
         },
@@ -204,7 +202,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 18
+          "link": 19
         }
       ],
       "outputs": [
@@ -212,7 +210,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            9
+            10
           ],
           "slot_index": 0
         }
@@ -242,7 +240,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 9
+          "link": 10
         }
       ],
       "outputs": [
@@ -250,7 +248,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            10
+            11
           ],
           "slot_index": 0
         }
@@ -264,11 +262,49 @@
       ]
     },
     {
+      "id": 14,
+      "type": "FluxKontextImageScale",
+      "pos": [
+        500,
+        40
+      ],
+      "size": [
+        380,
+        60
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2,
+            4,
+            5
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextImageScale"
+      },
+      "widgets_values": []
+    },
+    {
       "id": 7,
       "type": "TextEncodeQwenImageEditPlus",
       "pos": [
         500,
-        40
+        140
       ],
       "size": [
         470,
@@ -276,54 +312,6 @@
       ],
       "flags": {},
       "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 5
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 7
-        },
-        {
-          "name": "image1",
-          "type": "IMAGE",
-          "link": 3
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            11
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "TextEncodeQwenImageEditPlus"
-      },
-      "widgets_values": [
-        "Turn the figure to face left in a full side profile. Keep the same character, the same flat cut-paper construction and white cut edges, the same slate and putty palette, and the same framing and scale with the whole figure visible."
-      ]
-    },
-    {
-      "id": 8,
-      "type": "TextEncodeQwenImageEditPlus",
-      "pos": [
-        500,
-        330
-      ],
-      "size": [
-        470,
-        150
-      ],
-      "flags": {},
-      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -356,6 +344,54 @@
         "Node name for S&R": "TextEncodeQwenImageEditPlus"
       },
       "widgets_values": [
+        "Turn the figure to face left in a full side profile. Keep the same character, the same flat cut-paper construction and white cut edges, the same slate and putty palette, and the same framing and scale with the whole figure visible."
+      ]
+    },
+    {
+      "id": 8,
+      "type": "TextEncodeQwenImageEditPlus",
+      "pos": [
+        500,
+        430
+      ],
+      "size": [
+        470,
+        150
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 9
+        },
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            13
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeQwenImageEditPlus"
+      },
+      "widgets_values": [
         ""
       ]
     },
@@ -364,7 +400,7 @@
       "type": "VAEEncode",
       "pos": [
         500,
-        520
+        620
       ],
       "size": [
         400,
@@ -377,12 +413,12 @@
         {
           "name": "pixels",
           "type": "IMAGE",
-          "link": 1
+          "link": 2
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 2
+          "link": 3
         }
       ],
       "outputs": [
@@ -390,7 +426,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            13
+            14
           ],
           "slot_index": 0
         }
@@ -418,22 +454,22 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 10
+          "link": 11
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 11
+          "link": 12
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 12
+          "link": 13
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 13
+          "link": 14
         }
       ],
       "outputs": [
@@ -441,7 +477,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            14
+            15
           ],
           "slot_index": 0
         }
@@ -477,12 +513,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 14
+          "link": 15
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 15
+          "link": 16
         }
       ],
       "outputs": [
@@ -490,7 +526,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            16
+            17
           ],
           "slot_index": 0
         }
@@ -518,7 +554,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 16
+          "link": 17
         }
       ],
       "outputs": [],
@@ -535,12 +571,20 @@
       1,
       4,
       0,
-      9,
+      14,
       0,
       "IMAGE"
     ],
     [
       2,
+      14,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      3,
       3,
       0,
       9,
@@ -548,23 +592,23 @@
       "VAE"
     ],
     [
-      3,
       4,
+      14,
       0,
       7,
       2,
       "IMAGE"
     ],
     [
-      4,
-      4,
+      5,
+      14,
       0,
       8,
       2,
       "IMAGE"
     ],
     [
-      5,
+      6,
       2,
       0,
       7,
@@ -572,7 +616,7 @@
       "CLIP"
     ],
     [
-      6,
+      7,
       2,
       0,
       8,
@@ -580,71 +624,71 @@
       "CLIP"
     ],
     [
-      7,
-      3,
-      0,
-      7,
-      1,
-      "VAE"
-    ],
-    [
       8,
       3,
       0,
-      8,
+      7,
       1,
       "VAE"
     ],
     [
       9,
-      5,
+      3,
       0,
-      6,
-      0,
-      "MODEL"
+      8,
+      1,
+      "VAE"
     ],
     [
       10,
-      6,
+      5,
       0,
-      10,
+      6,
       0,
       "MODEL"
     ],
     [
       11,
+      6,
+      0,
+      10,
+      0,
+      "MODEL"
+    ],
+    [
+      12,
       7,
       0,
       10,
       1,
-      "CONDITIONING"
-    ],
-    [
-      12,
-      8,
-      0,
-      10,
-      2,
       "CONDITIONING"
     ],
     [
       13,
+      8,
+      0,
+      10,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      14,
       9,
       0,
       10,
       3,
-      "LATENT"
-    ],
-    [
-      14,
-      10,
-      0,
-      11,
-      0,
       "LATENT"
     ],
     [
       15,
+      10,
+      0,
+      11,
+      0,
+      "LATENT"
+    ],
+    [
+      16,
       3,
       0,
       11,
@@ -652,7 +696,7 @@
       "VAE"
     ],
     [
-      16,
+      17,
       11,
       0,
       12,
@@ -660,7 +704,7 @@
       "IMAGE"
     ],
     [
-      17,
+      18,
       1,
       0,
       13,
@@ -668,7 +712,7 @@
       "MODEL"
     ],
     [
-      18,
+      19,
       13,
       0,
       5,

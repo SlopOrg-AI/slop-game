@@ -126,11 +126,15 @@ def t2i(fast: bool):
 def edit(fast: bool):
     steps, cfg = (FAST_STEPS, FAST_CFG) if fast else (EDIT_STEPS, EDIT_CFG)
     prefix = "2026-09-20-smoketest/" + ("edit-fast" if fast else "edit")
-    # NOTE: no FluxKontextImageScale. That node rescales the source to a
-    # Kontext bucket, which is how an earlier run came back 1024 instead of 1328
-    # with the figure cropped. Qwen-Image-Edit has a documented pixel-drift /
-    # zoom bug; feeding the source at its native size avoids triggering it, and
-    # a native-size run measured zero drift.
+    # FluxKontextImageScale is REQUIRED, despite being the reason output comes
+    # back ~1024 rather than at the source's size. Removing it was tried: the
+    # output kept its native 1328 but the edit stopped happening -- mean abs
+    # difference from the source fell from 20.99 (working edit) to 3.48
+    # (effectively a copy). The node snaps the input into a resolution bucket
+    # the model was trained on; outside it, conditioning collapses to
+    # reconstruction. Accept the downscale on full-image edits, or use
+    # tools/annotate/regional_edit.py when native resolution matters -- the
+    # masked path forces resampling and works fine at 1328.
     spec = [
         (1, "UnetLoaderGGUF", [40, 40], [400, 60], [], [("MODEL", "MODEL")], [GGUF_EDIT]),
         (2, "CLIPLoader", [40, 260], [400, 110], [], [("CLIP", "CLIP")],
@@ -142,13 +146,15 @@ def edit(fast: bool):
             [("MODEL", "MODEL")], [EDIT_SHIFT]),
         (6, "CFGNorm", [40, 1030], [400, 80], [("model", "MODEL")],
             [("MODEL", "MODEL")], [1.0, False]),
-        (7, "TextEncodeQwenImageEditPlus", [500, 40], [470, 250],
+        (14, "FluxKontextImageScale", [500, 40], [380, 60], [("image", "IMAGE")],
+            [("IMAGE", "IMAGE")], []),
+        (7, "TextEncodeQwenImageEditPlus", [500, 140], [470, 250],
             [("clip", "CLIP"), ("vae", "VAE"), ("image1", "IMAGE")],
             [("CONDITIONING", "CONDITIONING")], [EDIT_POS]),
-        (8, "TextEncodeQwenImageEditPlus", [500, 330], [470, 150],
+        (8, "TextEncodeQwenImageEditPlus", [500, 430], [470, 150],
             [("clip", "CLIP"), ("vae", "VAE"), ("image1", "IMAGE")],
             [("CONDITIONING", "CONDITIONING")], [""]),
-        (9, "VAEEncode", [500, 520], [400, 60],
+        (9, "VAEEncode", [500, 620], [400, 60],
             [("pixels", "IMAGE"), ("vae", "VAE")], [("LATENT", "LATENT")], []),
         (10, "KSampler", [1010, 40], [340, 270],
             [("model", "MODEL"), ("positive", "CONDITIONING"),
@@ -159,8 +165,8 @@ def edit(fast: bool):
             [("samples", "LATENT"), ("vae", "VAE")], [("IMAGE", "IMAGE")], []),
         (12, "SaveImage", [1010, 470], [490, 320], [("images", "IMAGE")], [], [prefix]),
     ]
-    wires = [(4, 0, 9, "pixels"), (3, 0, 9, "vae"),
-             (4, 0, 7, "image1"), (4, 0, 8, "image1"),
+    wires = [(4, 0, 14, "image"), (14, 0, 9, "pixels"), (3, 0, 9, "vae"),
+             (14, 0, 7, "image1"), (14, 0, 8, "image1"),
              (2, 0, 7, "clip"), (2, 0, 8, "clip"),
              (3, 0, 7, "vae"), (3, 0, 8, "vae"),
              (5, 0, 6, "model"), (6, 0, 10, "model"),
