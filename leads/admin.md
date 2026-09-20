@@ -40,7 +40,8 @@ What's next, what's blocked, what conflicts — and custody of the record that s
 | Two single-writer rules (own brief; `STATUS.md`) | DECIDED — D5.27 | all | review response §1 |
 | Art binaries in git (conflict #3) | DECIDED — D5.28 | all | this session |
 | Critical path in `STATUS.md` | PROPOSED (Admin, 2026-09-20) | M1 | `STATUS.md` |
-| `design/40-production.md` | STUB | MVP | successor-review §3B |
+| `design/40-production.md` §1–§4 (tool split, art loop, record discipline, gate) | DECIDED | MVP | this session |
+| `design/40-production.md` §5 (M1/M2 definitions) | PENDING — waits on conflicts A/B and the C-ref promotions | MVP | `00-steer` §3 |
 | D1–D4 compression into `decisions.md` | OPEN | all | `sources/README.md` |
 | Git: local, `main`, no remote | DECIDED (owner: local only for now) | — | leads structure session |
 | Housekeeping sweep: stale `12-reactions-insight.md` deleted, `01-pillars.md` rows 7/8 ordered, mirror drift itemised | DONE 2026-09-20 | — | `STATUS.md` |
@@ -48,7 +49,7 @@ What's next, what's blocked, what conflicts — and custody of the record that s
 ## Next actions
 1. Watch the registers in practice — C22 exists because agents wrote shorthand at the owner. Gate: ongoing; re-file as a new C-ref if it slips.
 2. ~~Sequence the remaining C-refs~~ — Systems did it itself in `proposals/2026-09-20-c-coherence.md` §4; transcribed to the board. Remaining Admin job: hold the D-number sequence straight across concurrent surfaces (that file reserves D5.27, which this session took; Systems starts at D5.29). Gate: none.
-3. `design/40-production.md`: the tool-split and image-gen-loop halves can be written now; M1/M2 milestone definitions wait on the C-ref promotions (they define the scope the milestones bound). Gate: owner's go on the first half.
+3. Move M1/M2 out of `00-steer` §3 into `40-production.md` §5 as checkable done-lists. Gate: combat docs 10–15 distilled.
 
 ## Open questions
 1. Project mirror: re-sync `AGENTS.md` after §6 changed — owner action, Admin only flags it.

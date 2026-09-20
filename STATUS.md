@@ -10,7 +10,7 @@ Maintained by **Admin** (`leads/admin.md`) — sole writer (D5.27). Every lead w
 
 | Lead | Phase | Blocked on | Next action | Updated |
 |---|---|---|---|---|
-| Admin | structure DECIDED (D5.27); C21 + C22 registers landed in `AGENTS.md` §5 | — | `40-production.md` first half, on the owner's go | 2026-09-20 |
+| Admin | structure DECIDED (D5.27); registers landed (C21/C22); `40-production.md` written — process DECIDED, milestones PENDING on combat | — | hold the D-number line across surfaces; transcribe the Systems walk as it lands | 2026-09-20 |
 | Systems | C1→D5.25, C3→D5.26 logged; coherence pass done — the 20 C-refs distil to **9 statements**, with **7 clashes + 4 readings** open | owner present | **A first** (armed-ability economy: D5.25 removed the cap, D5.9 makes `hold` optional — live canon with a hole), then B + C20 + C13 as one exchange → `11-initiative.md` | 2026-09-20 |
 | ↳ Content | v1-schema data on disk; no accepted board | schema v3 · accepted style card | hold; then Kaede/Genzo × 2 poses | 2026-09-20 |
 | ↳ Tech | image-gen pipeline + `tools/` shipped and verified; art-binary policy landed (D5.28); Godot still gated | schema v3 for `validate.py` | propose `.claude/settings.json` + pre-commit hook | 2026-09-20 |
@@ -38,7 +38,7 @@ Owner: tag this `CONFIRMED (owner, date)` to settle it. Any change re-opens it a
 ## Housekeeping owed
 - `decisions.md` `Acts on it` value **"Production"** now names a retired lead — Systems' call whether to rename it (`Process`?); existing rows are history and stay
 - Which of the committed `proposals/art/2026-09-20-smoketest/` PNGs are keepers; the rest can be untracked (Art/Content, then Tech)
-- `design/40-production.md` — empty stub (Admin owns it). Gated: M1/M2 milestone content depends on the C-ref promotions; the tool-split and image-gen-loop halves could be written now
+- `design/40-production.md` — process half written; M1/M2 definitions stay in `00-steer` §3 and move here once the combat docs are distilled (§5 of that doc says what each needs)
 - D1–D4 not compressed into `decisions.md`
 - `rules.json` `_note`s cite v1 open-question numbers; `insight.reveal_timing` references the removed Arm step
 - **Project mirror re-sync owed (owner action):** `AGENTS.md` — §6 lead-table row and the single-writer sentence; `01-pillars.md` — rows 7/8 reordered. `00-steer.md` unchanged. Re-upload those two files to the Claude.ai Project and the mirror is level again
