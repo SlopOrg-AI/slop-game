@@ -45,7 +45,7 @@ What's next, what's blocked, what conflicts — and custody of the record that s
 
 ## Next actions
 1. Land C21 (response registers) in `AGENTS.md` §5 + `leads/README.md` brief template. Gate: owner's word on the wording already drafted in `inbox/2026-09-20-response-registers.md`.
-2. Sequence the remaining 15 open C-refs for the Systems walk; carry D5.24 + C20 + C13 as one unit. Gate: owner present.
+2. ~~Sequence the remaining C-refs~~ — Systems did it itself in `proposals/2026-09-20-c-coherence.md` §4; transcribed to the board. Remaining Admin job: hold the D-number sequence straight across concurrent surfaces (that file reserves D5.27, which this session took; Systems starts at D5.29). Gate: none.
 3. Distill `design/40-production.md` from `00-steer` §3 + handoff §6 (move M1/M2 definitions out of `00-steer`). Gate: after the C-ref promotions.
 
 ## Open questions

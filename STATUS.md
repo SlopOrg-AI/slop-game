@@ -11,13 +11,15 @@ Maintained by **Admin** (`leads/admin.md`) — sole writer (D5.27). Every lead w
 | Lead | Phase | Blocked on | Next action | Updated |
 |---|---|---|---|---|
 | Admin | structure DECIDED (D5.27); Production retired into `admin.md`, 14 files re-pointed | owner's word on C21 wording | land C21 registers; sequence the 15 open C-refs | 2026-09-20 |
-| Systems | C1→D5.25, C3→D5.26 logged; `decisions.md` now carries an `Acts on it` column; 15/20 C-refs still open | owner present | momentum + space exchange: D5.24 + C20 + C13 together → D5.29+ and `11-initiative.md` | 2026-09-20 |
+| Systems | C1→D5.25, C3→D5.26 logged; coherence pass done — the 20 C-refs distil to **9 statements**, with **7 clashes + 4 readings** open | owner present | **A first** (armed-ability economy: D5.25 removed the cap, D5.9 makes `hold` optional — live canon with a hole), then B + C20 + C13 as one exchange → `11-initiative.md` | 2026-09-20 |
 | ↳ Content | v1-schema data on disk; no accepted board | schema v3 · accepted style card | hold; then Kaede/Genzo × 2 poses | 2026-09-20 |
 | ↳ Tech | image-gen pipeline + `tools/` shipped and verified; art-binary policy landed (D5.28); Godot still gated | schema v3 for `validate.py` | propose `.claude/settings.json` + pre-commit hook | 2026-09-20 |
 | Direction / Art | table decided; 30/31 stubs | — | distill `31-ui.md` component list | 2026-09-20 |
 | Direction / Level | spatial model PROPOSED | C13 promotion · §5 #2 | `arena-m1` cluster | 2026-09-20 |
 | Direction / Scenario | nothing authored | — | playtest protocol | 2026-09-20 |
 | Marketing | scope undefined | owner | define scope in `inbox/` | 2026-09-20 |
+
+Systems' input document for the walk: `proposals/2026-09-20-c-coherence.md` (§2 the clashes, §4 its own suggested order).
 
 ## Critical path to M1 — `PROPOSED (Admin, 2026-09-20)`
 Systems promotions → `02-ontology` + `SCHEMA.md` → distill 10→11→13→14→12→15 (+ D1–D4 compression) → schema v3 + validator → Godot headless engine → screens (needs `31` component list) → owner plays 10 duels (needs Scenario's `duels-m1`).
