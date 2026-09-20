@@ -50,3 +50,16 @@ Every file in `design/` follows `design/_TEMPLATE.md`: Purpose → Player experi
 - Prefer open-source tooling. Data-driven: decisions live as JSON, not prose.
 - Do not lock architecture prematurely. Do not treat unresolved items as settled.
 - Bold, multitudinous design thinking is welcome; scope discipline is mandatory.
+
+## 6. Leads and routing (2026-09-20)
+
+Owner decides; **leads** are agent roles that track status and direct next steps per discipline. Briefs in `leads/` (start at `leads/README.md`); one board in `STATUS.md`; owner feedback lands verbatim in `inbox/` and is triaged to lead inboxes with C-refs.
+
+| Lead | Owns the question |
+|---|---|
+| `leads/production.md` | what's next, blocked, in conflict — `STATUS.md`, triage, milestones |
+| `leads/systems.md` | the game: ontology + rules. Directs `systems/content.md` (what's included) and `systems/engine.md` (what runs it, incl. Claude Code / git tooling) |
+| `leads/direction/` | authoritative art · level · scenario direction; defines clusters Content produces |
+| `leads/marketing.md` | YouTube / devlog |
+
+Rules 1–7 above are unchanged: a lead writes to `proposals/` unless the owner is in the session; a lead never logs a D-number on its own. Session prompt: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/<lead>.md`, then only the docs the task touches."*
