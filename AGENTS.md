@@ -58,7 +58,7 @@ Owner decides; **leads** are agent roles that track status and direct next steps
 | Lead | Owns the question |
 |---|---|
 | `leads/production.md` | what's next, blocked, in conflict — `STATUS.md`, triage, milestones |
-| `leads/systems.md` | the game: ontology + rules. Directs `systems/content.md` (what's included) and `systems/engine.md` (what runs it, incl. Claude Code / git tooling) |
+| `leads/systems.md` | the game: ontology + rules. Directs `systems/content.md` (what's included) and `systems/tech.md` (what runs it — the **Tech lead, run by Claude Code**: Godot, validator, tooling, git, `.claude/`) |
 | `leads/direction/` | authoritative art · level · scenario direction; defines clusters Content produces |
 | `leads/marketing.md` | YouTube / devlog |
 

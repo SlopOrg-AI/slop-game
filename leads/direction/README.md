@@ -3,7 +3,7 @@
 Reports to: owner (via Production) · Three authoritative leads: `art.md`, `level.md`, `scenario.md` · Updated: 2026-09-20
 
 ## What Direction is
-The leads with an **authoritative grasp** of how the game should look, how its spaces are built, and how its encounters are staged. Each defines **clusters of content** — a coherent, named set of things the game needs (e.g. "Kaede + Genzo cut-outs, 2 poses", "one duel arena: 2 zones, 2 anchors, 1 cover edge", "M1 scripted opponent with counter-memory"). Content produces the cluster; Engine loads it; Systems supplies the vocabulary it is expressed in.
+The leads with an **authoritative grasp** of how the game should look, how its spaces are built, and how its encounters are staged. Each defines **clusters of content** — a coherent, named set of things the game needs (e.g. "Kaede + Genzo cut-outs, 2 poses", "one duel arena: 2 zones, 2 anchors, 1 cover edge", "M1 scripted opponent with counter-memory"). Content produces the cluster; Tech builds and loads it; Systems supplies the vocabulary it is expressed in.
 
 ## Shared rules (all three)
 - The test is `design/01-pillars.md`: pillars, the **influence allocation table** (each influence owns one job and is barred from others), anti-goals. Direction may propose a new row; only the owner adds one (D5.5, D5.16–D5.23 precedent).
@@ -23,7 +23,7 @@ A cluster is ready for Content when its Direction lead has written, in its own b
 | Scope | MVP / TARGET / FUTURE |
 | Systems dependency | which ontology terms / schema fields it needs (blocks until Systems has them) |
 
-Content works only from a cluster in that form. Direction reviews the result against **Acceptance** and either accepts (Engine may load) or returns with annotated critique.
+Content works only from a cluster in that form. Direction reviews the result against **Acceptance** and either accepts (Tech may load) or returns with annotated critique.
 
 ## Split between the three
 | Lead | Owns | Overlap rule |

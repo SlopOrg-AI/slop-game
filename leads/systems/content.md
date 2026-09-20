@@ -7,13 +7,13 @@ What gets **included** in the game: data instances (abilities, characters, wound
 
 ## Owns
 - `data/*.json` **instances** (not the schema) — `abilities`, `characters`, `wounds`, `states`, `conditions`, and new `materials`/`scenes` entries once the schema exists
-- Asset production runs: `proposals/art/<date>-<topic>/` as *working* area; selected assets to a location Engine specifies (TBD, likely `demo/assets/`)
+- Asset production runs: `proposals/art/<date>-<topic>/` as *working* area; selected assets to a location Tech specifies (TBD, likely `demo/assets/`)
 - The local image-gen pipeline as a *production* tool (`proposals/2026-09-20-local-imagegen-handoff.md`, ComfyUI workflows, `tools/annotate/` usage)
 - `design/21-world-factions.md` content (factions, regions, names) — dormant until TARGET
 - `sources/lore.md` as evidence for content, never as canon
 
 ## Does NOT own
-- Schema, tag vocabulary, rules → Systems · what things should look like, which clusters exist → Direction · loaders, asset import → Engine
+- Schema, tag vocabulary, rules → Systems · what things should look like, which clusters exist → Direction · loaders, asset import → Tech
 
 ## Reads first
 `AGENTS.md` → `00-steer.md` §4 (MVP IN list) → `leads/systems.md` status → `data/README.md` → `01-pillars.md` anti-goals → the Direction brief for the cluster in hand
@@ -39,7 +39,7 @@ What gets **included** in the game: data instances (abilities, characters, wound
 3. Write the lane table into `data/abilities.json` (`_lane` field) when schema v3 lands. Gate: D-number for schema v3.
 
 ## Open questions
-1. Where accepted assets live (Engine to specify).
+1. Where accepted assets live (Tech to specify).
 2. Which of handoff §5 #8 adds are in M1.
 
 ## Escalates to

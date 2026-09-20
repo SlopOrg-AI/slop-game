@@ -13,7 +13,7 @@ What's next, what's blocked, what conflicts. Keeps `STATUS.md` true, triages `in
 - Sequencing across leads; the successor handoff at the end of a multi-session block
 
 ## Does NOT own
-- Any design content (Systems) · git *tooling* / hooks / `.claude/` (Engine) · marketing calendar (Marketing)
+- Any design content (Systems) · git *tooling* / hooks / `.claude/` (Tech) · marketing calendar (Marketing)
 
 ## Reads first
 `AGENTS.md` → `design/00-steer.md` §2–§3 → `STATUS.md` → `inbox/` (untriaged) → `proposals/2026-09-20-session-6-handoff.md` §6–§6b
@@ -38,7 +38,7 @@ What's next, what's blocked, what conflicts. Keeps `STATUS.md` true, triages `in
 
 ## Open questions
 1. D-number for the leads structure — yes/no.
-2. Art binaries in git: `proposals/art/` already carries ~10 MB of smoketest PNGs. Policy proposal: contact sheets + *selected* boards only; raw gens ignored (extend `.gitignore`). Engine implements once decided.
+2. Art binaries in git: `proposals/art/` already carries ~10 MB of smoketest PNGs. Policy proposal: contact sheets + *selected* boards only; raw gens ignored (extend `.gitignore`). Tech implements once decided.
 
 ## Escalates to
 Owner, always. Production never resolves a design conflict; it records one.

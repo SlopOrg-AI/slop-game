@@ -12,7 +12,7 @@ Authoritative on **what happens**: the encounter as staged — which actors, whi
 - Comps: Blades in the Dark / PbtA fail-forward *as staging feel* (rules side is Systems'), CK3 characters-generate-history (TARGET)
 
 ## Does NOT own
-- Resolution rules, AI as an engine component's *code* → Systems / Engine · space → Level · look → Art · which abilities exist → Content (Scenario picks from them)
+- Resolution rules, AI as an engine component's *code* → Systems / Tech · space → Level · look → Art · which abilities exist → Content (Scenario picks from them)
 
 ## Reads first
 `AGENTS.md` → `00-steer.md` §3 #1, #3, §4 win conditions → `01-pillars.md` pillars 1–2 (reading beats rolling, commitment is exposure — the scenario must make these happen) → `proposals/2026-09-20-session-6-handoff.md` §3.7 (holding back, tells), §5 #8 → `data/characters.json`, `abilities.json`

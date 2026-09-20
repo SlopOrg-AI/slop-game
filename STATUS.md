@@ -4,7 +4,7 @@ Maintained by Production (`leads/production.md`). Every lead updates its own row
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
 **Next free numbers:** D-number **D5.25** (D5.24 pending log/strip) · C-ref **C21**.
-**Git:** `main`, local only, 6 commits. Lead structure + guard rails committed 2026-09-20. Claude Code commits on the owner's behalf.
+**Git:** `main`, local only, 8 commits, clean tree. Lead structure + guard rails committed. Tech (Claude Code) commits on the owner's behalf; Production owns commit *process*.
 
 ## Board
 
@@ -13,7 +13,7 @@ Maintained by Production (`leads/production.md`). Every lead updates its own row
 | Production | structure just set up | owner commit | seed `inbox/`; sequence C1–C20 walk | 2026-09-20 |
 | Systems | 5/14 docs written; 10/11/13/14/20 stubs; C1–C20 unpromoted | owner present | promote C1–C20 → D5.25+; log/strip D5.24; delete `12-reactions-insight.md` | 2026-09-20 |
 | ↳ Content | v1-schema data on disk; no accepted board | schema v3 · accepted style card | hold; then Kaede/Genzo × 2 poses | 2026-09-20 |
-| ↳ Engine | not started (gated) | 10–14 distilled + schema v3 | `validate.py` with `SCHEMA.md` | 2026-09-20 |
+| ↳ Tech | image-gen pipeline + `tools/` shipped and verified; Godot still gated | schema v3 for `validate.py` · Production for art-binary policy | propose `.claude/settings.json` + pre-commit hook | 2026-09-20 |
 | Direction / Art | table decided; 30/31 stubs | — | distill `31-ui.md` component list | 2026-09-20 |
 | Direction / Level | spatial model PROPOSED | C13 promotion · §5 #2 | `arena-m1` cluster | 2026-09-20 |
 | Direction / Scenario | nothing authored | — | playtest protocol | 2026-09-20 |
@@ -28,7 +28,7 @@ Parallel, not blocking: Art style card → Content cut-outs → M1 restyle.
 |---|---|---|---|
 | 1 | Systems ↔ 00-steer | D5.24 cited in `11`/`14`/`00` §6, not in `decisions.md` | OPEN — log or strip |
 | 2 | Systems ↔ data | `00-steer` §4 "+ reaction" slot vs D5.9 default A vs C1 (no slot question) vs `characters.json`/`rules.json` | OPEN — closes with C1 promotion |
-| 3 | Engine ↔ Production | art binaries in git (~10 MB PNGs committed) | OPEN — policy proposal in `leads/production.md` |
+| 3 | Tech ↔ Production | art binaries in git (~10 MB PNGs committed) | OPEN — policy proposal in `leads/production.md` |
 
 ## Housekeeping owed
 - `design/12-reactions-insight.md` — delete marker still on disk

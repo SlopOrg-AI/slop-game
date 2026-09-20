@@ -11,7 +11,7 @@ Authoritative on **space**: how a scene is shaped and what it affords — zones,
 - Comps as reference: Index Card RPG room design, FFG range bands, Mount & Blade relief pathing, tabletop terrain staging (their allocated rows only)
 
 ## Does NOT own
-- The spatial *model* (zones/anchors/edges datatypes, range derivation, materials/chemistry rules) → Systems · look of a diorama → Art · which actors/objects are in the fight → Scenario · terrain rendering → Engine
+- The spatial *model* (zones/anchors/edges datatypes, range derivation, materials/chemistry rules) → Systems · look of a diorama → Art · which actors/objects are in the fight → Scenario · terrain rendering → Tech
 
 ## Reads first
 `AGENTS.md` → `01-pillars.md` (pillar 4, 6; Tabletop / ICRPG / M&B rows) → `proposals/2026-09-20-session-6-handoff.md` §2 C5, C13; §3.1, §3.6 → `design/14-scenes-conditions.md`, `50-world-systems.md` §nesting → `decisions.md` D5.3, D5.12, D5.24 (pending)

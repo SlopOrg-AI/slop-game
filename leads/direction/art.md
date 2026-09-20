@@ -12,7 +12,7 @@ Authoritative on how the game **looks**: characters, costume, material (paper cu
 - Proposing influence-table rows/edits (owner decides)
 
 ## Does NOT own
-- Producing assets, running ComfyUI → Content · space layout → Level · what the fight is → Scenario · UI *behaviour*/implementation → Engine · rules → Systems
+- Producing assets, running ComfyUI → Content · space layout → Level · what the fight is → Scenario · UI *behaviour*/implementation → Tech · rules → Systems
 
 ## Reads first
 `AGENTS.md` → `01-pillars.md` (influence table, anti-goals — the whole job) → `00-steer.md` §1, §3 #2 → `decisions.md` D5.3, D5.4, D5.17–D5.19 → `proposals/art/2026-09-20-smoketest/style-card.md` → newest boards in `proposals/art/`
@@ -23,7 +23,7 @@ Authoritative on how the game **looks**: characters, costume, material (paper cu
 | — | UI should feel like paper come to life, bold flat colour | D5.17 | DECIDED |
 | — | animatic held-frame staging, not theater/puppets; Bunraku closed | D5.18 | DECIDED |
 | — | 3D base model → generated flat 2D pose/costume pieces (paper-doll pipeline) | D5.19 | DECIDED |
-| — | Ability selector: radial as starting point, targeting unsolved — resolve through image-gen + critique loop | D5.6 | OPEN → this lead + Engine |
+| — | Ability selector: radial as starting point, targeting unsolved — resolve through image-gen + critique loop | D5.6 | OPEN → this lead + Tech |
 
 ## Status
 | Item | Status | Scope | Source |
@@ -36,7 +36,7 @@ Authoritative on how the game **looks**: characters, costume, material (paper cu
 | Cluster `diorama-m2` (one tile) | to define | M2 | — |
 
 ## Next actions
-1. Distill `31-ui.md` as the component library list: initiative/momentum strip, queue row, committed-ability slot, wound sheet, log, radial stub, standee, diorama tile — each with the pillar rows it must read against. Gate: none (Engine needs it for M1).
+1. Distill `31-ui.md` as the component library list: initiative/momentum strip, queue row, committed-ability slot, wound sheet, log, radial stub, standee, diorama tile — each with the pillar rows it must read against. Gate: none (Tech needs it for M1).
 2. Accept or revise the style card; then write cluster `cutouts-m1` in handoff form. Gate: owner reacts to the card.
 3. Distill `30-art-direction.md` from D5.3/D5.4/D5.17–D5.19 + `01` table. Gate: after 1.
 

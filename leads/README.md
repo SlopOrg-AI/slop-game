@@ -8,7 +8,7 @@
 production.md          router: triage, STATUS.md, milestones, 40-production
 systems.md             the game: ontology + rules. Directs content/ and engine/.
   systems/content.md   what is included: data instances, assets, animations, effects, text
-  systems/engine.md    what runs it: Godot demo, validator, Claude Code / git integration
+  systems/tech.md      what runs it — Tech lead = Claude Code: Godot, validator, tooling, git, .claude
 direction/README.md    umbrella: shared anti-goals, cluster → Content handoff
   direction/art.md     art direction (30, influence table, board critique)
   direction/level.md   scene / zone / diorama / table design
@@ -16,11 +16,11 @@ direction/README.md    umbrella: shared anti-goals, cluster → Content handoff
 marketing.md           YouTube / devlog
 ```
 
-**Flow:** Direction defines a *cluster* (a coherent set of things the game needs) → Content produces it → Engine loads it. Systems arbitrates vocabulary and rules for all three. Production keeps the board and routes feedback.
+**Flow:** Direction defines a *cluster* (a coherent set of things the game needs) → Content produces it → Tech loads it. Systems arbitrates vocabulary and rules for all three. Production keeps the board and routes feedback.
 
 ## Routing tags
 
-`[prod] [sys] [content] [engine] [art] [level] [scenario] [mkt]` — one or more per feedback item. Unsure → `[sys]` and let Systems re-route.
+`[prod] [sys] [content] [tech] [art] [level] [scenario] [mkt]` — one or more per feedback item. Unsure → `[sys]` and let Systems re-route.
 
 ## Triage protocol (owner feedback → leads)
 

@@ -1,18 +1,18 @@
 # Systems — lead brief
 
-Reports to: owner (via Production) · Directs: `systems/content.md`, `systems/engine.md` · Updated: 2026-09-20
+Reports to: owner (via Production) · Directs: `systems/content.md`, `systems/tech.md` · Updated: 2026-09-20
 
 ## Charter
-The game itself: **what exists** (ontology — entities, actor kinds, sheets, pools, tag dictionary, materials, scenes/zones, naming) and **how it resolves** (rules — Plan→Resolve, precedence, momentum, damage→mint, information, chemistry, Push). Scale-generic by pillar 6: campaign and world systems are the same rules at scale 2–4, not a second sim. Arbitrates vocabulary for every other lead; the ontology is Engine's contract.
+The game itself: **what exists** (ontology — entities, actor kinds, sheets, pools, tag dictionary, materials, scenes/zones, naming) and **how it resolves** (rules — Plan→Resolve, precedence, momentum, damage→mint, information, chemistry, Push). Scale-generic by pillar 6: campaign and world systems are the same rules at scale 2–4, not a second sim. Arbitrates vocabulary for every other lead; the ontology is Tech's contract.
 
 ## Owns
 - `design/02-ontology.md` (to create), `data/SCHEMA.md`, `data/tags.json`, `data/materials.json`, sheets/pools definitions
 - `design/10–15` (combat/information), `20-campaign`, `50-world-systems`
 - `design/decisions.md` edits **on owner instruction only** (rule 4)
-- Schema versions (one D-number per bump); the validator's *rules* (Engine writes the script)
+- Schema versions (one D-number per bump); the validator's *rules* (Tech writes the script)
 
 ## Does NOT own
-- Instances (which 17 abilities, Kaede/Genzo, factions, lore) → Content · Godot code → Engine · look/feel, space *aesthetics*, encounter authoring → Direction · milestones → Production
+- Instances (which 17 abilities, Kaede/Genzo, factions, lore) → Content · Godot code → Tech · look/feel, space *aesthetics*, encounter authoring → Direction · milestones → Production
 
 ## Reads first
 `AGENTS.md` → `00-steer.md` → `01-pillars.md` → `proposals/2026-09-20-session-6-handoff.md` (§2 C-refs, §3 model, §4 corrections) → `…-ontology-draft.md` → `decisions.md` latest → the one doc being touched
