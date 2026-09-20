@@ -29,13 +29,15 @@ Interactions with this session's content:
 
 ## 2. Owner direction this session (candidate decisions — owner to promote or reject)
 
-These are the owner's own statements, paraphrased closely. Each is a candidate **D5.25+** entry. The agent did **not** log them (AGENTS rule 4). C-refs are for citation only.
+These are the owner's own statements, paraphrased closely. Each is a candidate **D5.25+** entry. C-refs are for citation only.
+
+**Walk status (2026-09-20, Systems + owner):** C1 → **D5.25**, C3 → **D5.26** logged. C12, C17, C19 deferred to the clusters they depend on. D5.24 is *not* being log-or-stripped — the owner chose to resolve it properly alongside **C20** and **C13** as the next exchange. Remaining: C2, C4–C11, C13–C16, C18, C20.
 
 | Ref | Owner direction | Supersedes / touches |
 |---|---|---|
-| C1 | **Reactions and passives are ordinary abilities** — chosen in Plan with actives, tapping the same resources. The only difference is *how they resolve*. There is no slot question. | Open #3 (closes as a non-question) · `00-steer` §4 "+ reaction" · `characters.json slots.reaction` · `rules.json reactions.max_armed` |
+| C1 ✅ **→ D5.25** | **Reactions and passives are ordinary abilities** — chosen in Plan with actives, tapping the same resources. The only difference is *how they resolve*. There is no slot question. | Open #3 (closes as a non-question) · `00-steer` §4 "+ reaction" · `characters.json slots.reaction` · `rules.json reactions.max_armed` |
 | C2 | **Rock-paper-scissors-like resolution rather than strict trick-taking.** OD&D lineage (different speeds for magic/ranged) is the design space. Example: a speed attack beats a strength block unless the block has a `swift` tag. | D2.13 (demotes to tiebreak at most) · Open #2, #8 |
-| C3 | **No ability "modes."** Abilities are a descriptive action or state; tags are descriptors, not categories. | Agent's mode proposal — rejected |
+| C3 ✅ **→ D5.26** | **No ability "modes."** Abilities are a descriptive action or state; tags are descriptors, not categories. | Agent's mode proposal — rejected |
 | C4 | **Tags have a dictionary** of how they combine and interact, setting player expectations. Model: **BotW systemic chemistry** — things combine and interact as expected. Infinite Craft was cited for the *scale* of combinatorics, not the shape. | D5.14, D5.15 (extends) |
 | C5 | **Environmental destruction and creation are in the rules; a material datatype is needed.** | D5.11, D5.13 (mechanism) · `30`, `50` |
 | C6 | **Damage: descriptive tags AND numeric tracking.** Minting still works — when thresholds are hit a new condition is written to the scene in light of overall scene state, following the dictionary. | `13`, D5.14 |
@@ -44,14 +46,14 @@ These are the owner's own statements, paraphrased closely. Each is a candidate *
 | C9 | **Draws are weighted across attributes** (Swift Strike ≈ Quickness-led, some Strength). "Intuitive and systemic." | D3.1 (replaced by draws) |
 | C10 | **Draw budget:** a full-scale ability's draws sum to 1. Gold can exceed 1 (second class ≈ +.5); elements ≈ +.25 baseline. **Distribution is fixed at acquisition**, within template limits (e.g. Swift Strike ≥ half swift): some fighters have SWIFT blows, others swift BLOWS. | `abilities.json`, `characters.json` |
 | C11 | **Attributes are readable on sight** (rough), become certain quickly once the foe moves; the insightful learn the ceiling; getting hit confirms — **unless the foe is holding back.** | `15` |
-| C12 | **Gold abilities** (two classes: body+mind, body+spirit, mind+spirit) are **archetype signposts**, like gold cards in MtG set drafts. | `01` (MtG allocation), loadout/progression |
+| C12 ⏸ *deferred → C10* | **Gold abilities** (two classes: body+mind, body+spirit, mind+spirit) are **archetype signposts**, like gold cards in MtG set drafts. | `01` (MtG allocation), loadout/progression |
 | C13 | **Range and initiative: drastic reconsideration — the bar-as-reach jars.** Start from tabletop assumptions: **FFG Star Wars RPG** range bands and scale; actors at *relative* range; **plus anchor points on the map** for relative positioning and sectioning space; **Index Card RPG** for room/map design; **shapes outline a scene space.** Fail-forward / success-with-consequence in the spirit of **Blades in the Dark / PbtA.** | Vision paragraph · D2.8, D2.12 (reach on bar) · Open #5 · `11`, `14`, `30`, `31` |
 | C14 | **Magic:** variety in schools and sources defined by draws — *sorcery vs wizardry*; Elder Scrolls schools; ninjutsu has a physical component. **Chakra is one reserve option among many.** Blood magic: Strength fills a Blood reserve that is spent for magic actions. | `12`, `15`, `50`; reserves become data |
 | C15 | **Reserves are flexible and instantiated** — Gaara's sand shield is a reserve not all characters have. **Sand is a magic reserve in its own right** (like Blood, magicka, devotion/favor). Gaara's sand *converts* (hardened, tagged). | pools model (§3.2) |
 | C16 | **Attributes must adjust** if the actor datatype models people *and* places. | D5.11, D5.12 → sheets (§3.2) |
-| C17 | **Devotion:** better as an *attribute to check* plus a *reserve to spend* (agent's "devotion = knowledge" rejected). | traditions table |
+| C17 ⏸ *deferred → traditions cluster (C14/C15)* | **Devotion:** better as an *attribute to check* plus a *reserve to spend* (agent's "devotion = knowledge" rejected). | traditions table |
 | C18 | **Major rework to consider: spend attributes explicitly at critical moments to empower an action** — at the point of despair, or when dominating initiative. | new mechanic ("Push", §3.9); Elric pillar |
-| C19 | **All game terms are provisional** until the owner says otherwise. Ontology, schema and hierarchy naming conventions are work to do. | `02-ontology.md` (new doc) |
+| C19 ⏸ *deferred → ontology pass* | **All game terms are provisional** until the owner says otherwise. Ontology, schema and hierarchy naming conventions are work to do. | `02-ontology.md` (new doc) |
 | C20 | **Multiple tug-of-wars, nested: individual, team, and skirmish level.** (Stated at handoff, after reading D5.23/D5.24.) Resolves §5 #1: the shared meter *spirit* (D5.23) is kept, but there is one meter per level, and levels nest. | Open #5 · D5.12 nesting · D5.24 engagements · `11` |
 
 ## 3. The model as it stands (agent synthesis — PROPOSED, provisional names)

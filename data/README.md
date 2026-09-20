@@ -20,6 +20,7 @@ These files encode the **v1** rules. Session-5 decisions changed the model; the 
 - **D5.9** ability kinds — `kind` is only `action` (14) / `reaction` (3); no `sustained` / `decaying` / `one-off`, and no `hold` / `upkeep` cost fields.
 - **D5.14** tiered states with `family:name` tags — `states.json` entries are duration + applied_by/clears/amplify, no tier.
 - **D5.12** actor `{scale, kind}` — characters have no scale/kind fields.
+- **D5.25** reactions/passives are ordinary abilities — `characters.json → slots.reaction` and `rules.json → reactions.max_armed` are now dead fields. **Not deleted yet**: schema v3 rewrites both files, and a piecemeal edit now would leave the validator with nothing to check against. Delete them in the v3 migration, not before.
 - `shot` ids on abilities point at the frozen `shots.json`; harmless, ignore until M2.
 
 Migration is a task for the 10–14 distillation pass, not a silent edit. Log a D-number for the schema bump when it happens.
