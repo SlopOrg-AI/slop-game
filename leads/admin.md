@@ -42,11 +42,12 @@ What's next, what's blocked, what conflicts — and custody of the record that s
 | `design/40-production.md` | STUB | MVP | successor-review §3B |
 | D1–D4 compression into `decisions.md` | OPEN | all | `sources/README.md` |
 | Git: local, `main`, no remote | DECIDED (owner: local only for now) | — | leads structure session |
+| Housekeeping sweep: stale `12-reactions-insight.md` deleted, `01-pillars.md` rows 7/8 ordered, mirror drift itemised | DONE 2026-09-20 | — | `STATUS.md` |
 
 ## Next actions
 1. Land C21 (response registers) in `AGENTS.md` §5 + `leads/README.md` brief template. Gate: owner's word on the wording already drafted in `inbox/2026-09-20-response-registers.md`.
 2. ~~Sequence the remaining C-refs~~ — Systems did it itself in `proposals/2026-09-20-c-coherence.md` §4; transcribed to the board. Remaining Admin job: hold the D-number sequence straight across concurrent surfaces (that file reserves D5.27, which this session took; Systems starts at D5.29). Gate: none.
-3. Distill `design/40-production.md` from `00-steer` §3 + handoff §6 (move M1/M2 definitions out of `00-steer`). Gate: after the C-ref promotions.
+3. `design/40-production.md`: the tool-split and image-gen-loop halves can be written now; M1/M2 milestone definitions wait on the C-ref promotions (they define the scope the milestones bound). Gate: owner's go on the first half.
 
 ## Open questions
 1. Project mirror: re-sync `AGENTS.md` after §6 changed — owner action, Admin only flags it.

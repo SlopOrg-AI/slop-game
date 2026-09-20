@@ -39,9 +39,7 @@ Owner: tag this `CONFIRMED (owner, date)` to settle it. Any change re-opens it a
 - C21 (response registers) — wording drafted in `inbox/2026-09-20-response-registers.md`, needs the owner's word before it lands in `AGENTS.md` §5 + `leads/README.md`
 - `decisions.md` `Acts on it` value **"Production"** now names a retired lead — Systems' call whether to rename it (`Process`?); existing rows are history and stay
 - Which of the committed `proposals/art/2026-09-20-smoketest/` PNGs are keepers; the rest can be untracked (Art/Content, then Tech)
-- `design/12-reactions-insight.md` — delete marker still on disk
-- `design/40-production.md` — empty stub (Admin owns it)
+- `design/40-production.md` — empty stub (Admin owns it). Gated: M1/M2 milestone content depends on the C-ref promotions; the tool-split and image-gen-loop halves could be written now
 - D1–D4 not compressed into `decisions.md`
 - `rules.json` `_note`s cite v1 open-question numbers; `insight.reveal_timing` references the removed Arm step
-- `01-pillars.md` row order 8 before 7 (cosmetic)
-- Project mirror: re-sync `AGENTS.md` after §6 (lead table row + single-writer sentence)
+- **Project mirror re-sync owed (owner action):** `AGENTS.md` — §6 lead-table row and the single-writer sentence; `01-pillars.md` — rows 7/8 reordered. `00-steer.md` unchanged. Re-upload those two files to the Claude.ai Project and the mirror is level again

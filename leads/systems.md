@@ -32,13 +32,13 @@ The game itself: **what exists** (ontology — entities, actor kinds, sheets, po
 | `10`, `11`, `13`, `14`, `20` | STUB | MVP (20: TARGET) | — |
 | `02-ontology.md`, `data/SCHEMA.md` | not created | MVP | handoff §6 B |
 | `data/*.json` | v1 schema; drift vs D5.9 / D5.12 / D5.14 documented | MVP | data/README |
-| `12-reactions-insight.md` | delete marker, still on disk | — | successor-review |
+| `12-reactions-insight.md` | **deleted 2026-09-20** (Admin housekeeping; the rename was D5.9) | — | successor-review |
 | `decisions.md` `Acts on it` column | added + backfilled D5.1–D5.23 (Tech / Vocabulary / Designers / Content / Art / Production) | — | D5.25 session |
 | Reach-on-bar (D2.8/D2.12), trick-taking (D2.13), `00-steer` §4 boundary | UNDER REVIEW pending C-ref promotion | MVP | handoff §1b |
 
 ## Next actions
 1. **Next session — the momentum/space exchange (owner present).** D5.24 + C20 (nested individual/team/skirmish meters) + C13 (range bands, anchors, reach off the bar) resolved together, since D5.24's "engagement" is C20's team level and C13 is what empties the bar. Output: D5.27+ and a rewritten `11-initiative.md`. Then the rest of the C-walk (C2, C4–C11, C14–C16, C18).
-1b. Done 2026-09-20: C1 → **D5.25**, C3 → **D5.26**; `decisions.md` gained an **`Acts on it`** column with a legend; `00-steer` §2/§4/§6 supersessions applied; Open #3 closed. Still owed: delete `12-reactions-insight.md`.
+1b. Done 2026-09-20: C1 → **D5.25**, C3 → **D5.26**; `decisions.md` gained an **`Acts on it`** column with a legend; `00-steer` §2/§4/§6 supersessions applied; Open #3 closed. Still owed: nothing from that session — `12-reactions-insight.md` deleted 2026-09-20 by Admin.
 2. `02-ontology.md` + `data/SCHEMA.md`, one section per exchange, PROVISIONAL/LOCKED column on every term (C19). Gate: action 1.
 3. Distill `10 → 11 → 13 → 14 → 12 → 15` against the ontology, citing D-numbers or marking PROPOSED; compress D1–D4 during `10`. Gate: action 2.
 

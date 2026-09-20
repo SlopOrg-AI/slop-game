@@ -15,8 +15,8 @@ The test every design, art, and scope question is held against. If a proposal se
 | 4 | **One table, one world** | Terrain map → diorama → cut-out; only the camera changes scale. One render style across every layer. | Separate visual languages per screen. Theater/puppets. |
 | 5 | **A living, anachronistic world** | Regions carry their own era and place markers; factions and NPCs act while you travel. | A single global tech era. Steampunk. Recognizable modern/future tech. |
 | 6 | **One systemic foundation** | Duel, infiltration, siege, city, culture — one scene runner, one actor model at every scale, one condition system. Scenes nest. | Bespoke minigames per encounter type. Separate character sim and holdings sim. |
-| 8 | **Knowledge is power** | What your character *knows* — techniques, families, creatures, cities — is progression, tradeable, inheritable, and gated by what they've witnessed. | Omniscient player. Static bestiary unlocked by menu. |
 | 7 | **Scope discipline** | 1v1 duel first; everything else is designed, tagged, and waits. | Building TARGET/FUTURE before MVP is human-played. |
+| 8 | **Knowledge is power** | What your character *knows* — techniques, families, creatures, cities — is progression, tradeable, inheritable, and gated by what they've witnessed. | Omniscient player. Static bestiary unlocked by menu. |
 
 ## Player fantasy (one line)
 Feel the opponent out, spot the tell, spring the trap — then grow from a nobody into the one the village looks to.
