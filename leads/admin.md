@@ -29,7 +29,8 @@ What's next, what's blocked, what conflicts — and custody of the record that s
 | C-ref | Owner said | From | Status |
 |---|---|---|---|
 | — | "claude code should run as the admin" · "admin lead which includes production" | chat 2026-09-20 | **DECIDED — D5.27** |
-| C21 | "consider how to better formulate agent facing and user facing responses… token management is still paramount" | `inbox/2026-09-20-response-registers.md`, Cowork chat 2026-09-20 | PROPOSED — draft wording on disk; needs owner's word to land in `AGENTS.md` §5 + `leads/README.md` |
+| C21 | "consider how to better formulate agent facing and user facing responses… token management is still paramount" | `inbox/2026-09-20-response-registers.md`, Cowork chat 2026-09-20 | **LANDED 2026-09-20** — owner said yes; `AGENTS.md` §5 + `leads/README.md` |
+| C22 | "too much jargon in response to user already M1, C23 are barely comprehensible to the user" | `inbox/2026-09-20-user-facing-jargon.md`, chat 2026-09-20 | **LANDED 2026-09-20** — folded into the C21 bullet as its plain-words clause |
 | — | Art binaries: contact sheets + selected boards only | chat 2026-09-20 | **DECIDED — D5.28**; Tech implements `.gitignore` |
 
 ## Status
@@ -45,7 +46,7 @@ What's next, what's blocked, what conflicts — and custody of the record that s
 | Housekeeping sweep: stale `12-reactions-insight.md` deleted, `01-pillars.md` rows 7/8 ordered, mirror drift itemised | DONE 2026-09-20 | — | `STATUS.md` |
 
 ## Next actions
-1. Land C21 (response registers) in `AGENTS.md` §5 + `leads/README.md` brief template. Gate: owner's word on the wording already drafted in `inbox/2026-09-20-response-registers.md`.
+1. Watch the registers in practice — C22 exists because agents wrote shorthand at the owner. Gate: ongoing; re-file as a new C-ref if it slips.
 2. ~~Sequence the remaining C-refs~~ — Systems did it itself in `proposals/2026-09-20-c-coherence.md` §4; transcribed to the board. Remaining Admin job: hold the D-number sequence straight across concurrent surfaces (that file reserves D5.27, which this session took; Systems starts at D5.29). Gate: none.
 3. `design/40-production.md`: the tool-split and image-gen-loop halves can be written now; M1/M2 milestone definitions wait on the C-ref promotions (they define the scope the milestones bound). Gate: owner's go on the first half.
 

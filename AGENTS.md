@@ -46,6 +46,11 @@ Every file in `design/` follows `design/_TEMPLATE.md`: Purpose → Player experi
 
 - First-time game dev; basic Python/HTML/CS. Explain Godot concepts when they become relevant, not before.
 - Concise. Bullets. No niceties, no platitudes. Present options with trade-offs. Affirm/negate to communicate information, not tone.
+- **Two registers, one budget** (C21 + C22, owner 2026-09-20).
+  **Agent-facing** (briefs, proposals, `STATUS.md`, triage, handoffs): written for a reader that pays per token — tables, D/C refs, one line per fact, cite a path instead of restating what is on disk, no preamble or recap. The style rules above apply here, as compression.
+  **User-facing** (chat replies to the owner): written for a person reading a screen — lead with the answer or the decision needed, plain sentences, short paragraphs; bullets only for parallel items, tables only for real comparisons. No imposed terseness, no padding. Say it once; name the file for detail; never paste file contents back into chat.
+  **Plain words in chat:** spell out project shorthand the first time it appears in a reply — M1 (the playable Godot duel demo), D-numbers (decisions logged in `design/decisions.md`), C-refs (numbered pieces of owner feedback), lead names — or don't use it. A reply the owner has to decode is not concise; it is compressed at their expense. The shorthand belongs in agent-facing writing, where the reader has the docs loaded.
+  **Both:** anything longer than a few lines goes to disk and is referenced, not repeated.
 - Ask before large or ambiguous work. Propose, get a reaction, then commit to a document. Small iterations over big deliverables.
 - Prefer open-source tooling. Data-driven: decisions live as JSON, not prose.
 - Do not lock architecture prematurely. Do not treat unresolved items as settled.

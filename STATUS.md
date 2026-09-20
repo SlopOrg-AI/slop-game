@@ -3,14 +3,14 @@
 Maintained by **Admin** (`leads/admin.md`) — sole writer (D5.27). Every lead writes its row in its own brief; Admin transcribes. Detail lives in each lead brief; this page answers only: **phase · blocked on · next · when**.
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
-**Next free numbers:** D-number **D5.29** (D5.24 still unlogged — being resolved with C20/C13) · C-ref **C22**.
+**Next free numbers:** D-number **D5.29** (D5.24 still unlogged — being resolved with C20/C13) · C-ref **C23**.
 **Git:** `main`, local only, clean tree (a commit count here rots the moment the board is committed). Admin (Claude Code) executes git on the owner's behalf, staging by path — never `git add -A`, two surfaces are live. Tech owns the tooling (hooks, `.gitignore`).
 
 ## Board
 
 | Lead | Phase | Blocked on | Next action | Updated |
 |---|---|---|---|---|
-| Admin | structure DECIDED (D5.27); Production retired into `admin.md`, 14 files re-pointed | owner's word on C21 wording | land C21 registers; sequence the 15 open C-refs | 2026-09-20 |
+| Admin | structure DECIDED (D5.27); C21 + C22 registers landed in `AGENTS.md` §5 | — | `40-production.md` first half, on the owner's go | 2026-09-20 |
 | Systems | C1→D5.25, C3→D5.26 logged; coherence pass done — the 20 C-refs distil to **9 statements**, with **7 clashes + 4 readings** open | owner present | **A first** (armed-ability economy: D5.25 removed the cap, D5.9 makes `hold` optional — live canon with a hole), then B + C20 + C13 as one exchange → `11-initiative.md` | 2026-09-20 |
 | ↳ Content | v1-schema data on disk; no accepted board | schema v3 · accepted style card | hold; then Kaede/Genzo × 2 poses | 2026-09-20 |
 | ↳ Tech | image-gen pipeline + `tools/` shipped and verified; art-binary policy landed (D5.28); Godot still gated | schema v3 for `validate.py` | propose `.claude/settings.json` + pre-commit hook | 2026-09-20 |
@@ -36,7 +36,6 @@ Owner: tag this `CONFIRMED (owner, date)` to settle it. Any change re-opens it a
 | 4 | Admin ↔ Cowork | two surfaces regenerating `STATUS.md` | **RESOLVED — D5.27.** Single-writer rules in `leads/README.md`; Cowork removing its `STATUS.md` Project mirror |
 
 ## Housekeeping owed
-- C21 (response registers) — wording drafted in `inbox/2026-09-20-response-registers.md`, needs the owner's word before it lands in `AGENTS.md` §5 + `leads/README.md`
 - `decisions.md` `Acts on it` value **"Production"** now names a retired lead — Systems' call whether to rename it (`Process`?); existing rows are history and stay
 - Which of the committed `proposals/art/2026-09-20-smoketest/` PNGs are keepers; the rest can be untracked (Art/Content, then Tech)
 - `design/40-production.md` — empty stub (Admin owns it). Gated: M1/M2 milestone content depends on the C-ref promotions; the tool-split and image-gen-loop halves could be written now

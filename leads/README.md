@@ -42,6 +42,10 @@ Prompt shape: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/
 
 At the end of every lead session the lead updates its own file (inbox, status, next actions) and writes its board row there — phase, blocked on, next action. Admin transcribes it into `STATUS.md` (single-writer rule 2). That is the whole reporting requirement.
 
+## Registers (C21 + C22, `AGENTS.md` §5)
+
+Briefs, proposals, the board, triage and handoffs are **agent-facing**: compress hard, cite paths, one line per fact. Chat replies to the owner are **user-facing**: lead with the answer, plain sentences, and spell out `M1`, D-numbers, C-refs and lead names on first use or leave them out. Same budget, different readers.
+
 ## Brief template (≤ 1 page each)
 
 ```
