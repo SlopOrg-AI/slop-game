@@ -118,11 +118,16 @@ limit `(377,627,931,870)`. Output stayed at native 1328² with no drift.
 | Run | Time | Note |
 |---|---|---|
 | t2i cold | 90 s | 21 GB off disk dominates; Ryzen 3600 is the limit |
-| t2i warm | ~36 s | 1.67 s/it × 20 steps |
-| full-image edit | 119 s | **downscaled 1328 → 1024 and cropped the figure** |
-| regional edit cold | 141 s | native 1328², no drift |
-| regional edit warm | 66 s | |
+| t2i warm, 20 steps | 36 s | 1.67 s/it |
+| **t2i warm, 8-step Lightning** | **12 s** | 3× faster, cut-paper read holds — use for exploration |
+| t2i, 8-step, first run after LoRA swap | 78 s | the LoRA forces a model reload; not the steady-state number |
+| full-image edit, 20 steps | 51–119 s | returns ~1024², see pixel drift below |
+| regional edit cold / warm | 141 s / 66 s | native 1328², zero drift |
 | style distiller | ~90 s | |
+
+Swapping between the plain and Lightning graphs forces a model reload each time,
+which costs more than the sampling does. Batch work on one graph before
+switching rather than alternating.
 
 Evidence lives in `proposals/art/2026-09-20-smoketest/`.
 `style-card.md` there is real distiller output.
@@ -143,7 +148,7 @@ explaining why it holds the value it does.
 | cfg | 4.0 | 4.0 | Qwen-Image model card `true_cfg_scale=4.0`; Segmind's band is 4–5 |
 | shift | 3.1 | 3.0 | both are shipped template defaults — the difference is upstream, leave it |
 | resolution | 1328² | native | official 1:1; edit runs at the source's own size |
-| Lightning (`-fast`) | 8 steps @ cfg 1.0 | 8 steps @ cfg 1.0 | each LoRA is distilled for its own step count; 8-step@8 > 4-step@4 |
+| Lightning (`-fast`) | 8 steps @ cfg 1.0 | 8 steps @ cfg 1.0 | each LoRA is distilled for its own step count; 8-step@8 > 4-step@4. **Verified on t2i: 12 s warm, style holds.** The edit variant is still untested. |
 
 ### Sampler/scheduler sweep — actually run
 
