@@ -59,7 +59,7 @@ a tuning gap — the brief asks one image to be flat cut paper *and* an atmosphe
 
 ### Rejections against a named row
 
-1. **Paper construction is missing in all twelve frames.** No layered sheets, no per-shape edge, no
+1. **Paper construction is missing in all fourteen round-1 frames.** No layered sheets, no per-shape edge, no
    drop shadow between layers. v2's white outline was the model giving a sticker, not a cut-out.
    Fails the **Paper Mario** row ("cut-out material, layered flat sets, paper-doll pose/costume-layer
    construction", D5.19) and pillar 4. This is the board's main failure and it did not move under
