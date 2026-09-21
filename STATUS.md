@@ -72,7 +72,7 @@ Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defe
 
 **Until a Tech session with a working shell commits:** no history operation on this tree — no `reset --hard`, `checkout -- .`, `clean` or `stash`. Guard rails cover commits; nothing covers the working tree.
 
-**Two Claude Code sessions held the Tech seat simultaneously on 2026-09-21**, against `AGENTS.md` §6. They produced `proposals/2026-09-21-cos-tech-handshake.md` and `proposals/2026-09-21-bridge.md` + `bridge/tech.md`, agreeing on protocol and differing on where it lives. **Owner routes; Chief of Staff has edited neither.**
+**Two Claude Code sessions held the Tech seat simultaneously on 2026-09-21**, against `AGENTS.md` §6. They produced `proposals/2026-09-21-cos-tech-handshake.md` and `proposals/2026-09-21-bridge.md` + `bridge/tech.md`, agreeing on protocol and differing on where it lives. **Routed 2026-09-21 (Chief of Staff, owner instruction): the handshake lives in the two briefs; `bridge/` is retired.** Directed commits push to the remote via the watcher (Tech, `818d5f0`).
 
 ## Board
 
