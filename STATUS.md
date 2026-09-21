@@ -6,9 +6,27 @@ One page, by budget. Detail lives in `status/<role>.md`; this board carries only
 
 ## For the owner — rule on these (≤ 5)
 
-**Q1 · Merge [PR #5](https://github.com/SlopOrg-AI/slop-game/pull/5) and [PR #6](https://github.com/SlopOrg-AI/slop-game/pull/6).** Both green and CLEAN. **No agent session can merge them** — Claude Code's own guard rails refuse merge-without-review, which is not a repo setting anyone here can change. *Blocks:* the Builder seat claim reaching `main`; `D260921.4-P` reaching the log. Every future pull request lands the same way.
+**Q1 · Nobody can change CI any more.** The machine account's token has no **Workflows**
+permission by design, so an agent cannot edit `.github/workflows/`; `D260921.5-P` says you
+do not commit. Between them, `guard-rails.yml` is now unwritable by anyone. *Blocks:* the
+Godot check when it comes off the back burner, and any future rail that needs a workflow
+change. **Options:** grant the token Workflows write (an agent can then rewrite the rails
+that police it) · carve out `.github/**` as the one place you do commit · a separate
+credential used only for workflow changes. **Recommendation:** the carve-out — it is rare,
+deliberate, and keeps the property that agents cannot disarm their own guard rails.
 
-**Q2 · Create the fine-grained token for `sloporgAI`** — `D260921.4-P` (a). Only the owner can; an agent cannot issue account credentials. *Blocks:* raising `required_approving_review_count` above 0, and any honest claim that independent review is a control rather than a convention. *Known trap:* the org may require two-factor auth before membership activates, and if it requires approval for fine-grained tokens the token authenticates and then 404s on the repo.
+**Q2 · Does a merge commit count as you committing?** GitHub authors merge commits as
+whoever clicks merge. Rail F excludes them, treating a merge as a review action rather than
+authorship. If you want `chris-egan` out of the history entirely, **agents must do all
+merging** — which makes the merge-classifier question load-bearing rather than curiosity.
+*Blocks:* nothing today; decides whether Q3 is optional or required.
+
+**Q3 · Raise `required_approving_review_count` to 1?** `D260921.4-P` (a) said prove the lane
+once, then decide. The lane is proven: `sloporgAI` opened #8, `rails` went green, and rail F
+was shown refusing a deliberate failure in real CI. The risk I flagged earlier — an agent
+signing off your work — **disappears** under `D260921.5-P`, because you no longer author
+pull requests. `require_code_owner_review` becomes safe for the same reason, which closes
+Trap 1. *Needs:* admin; an agent cannot set it.
 
 ## Designer — no live session
 
