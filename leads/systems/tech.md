@@ -138,6 +138,24 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### BUILDER'S REVIEW OF `clean-slate.md` — sound; four implementation items, one of them a trap
+
+**The diagnosis is right and it is better than mine.** §0 #1 names the single cause I circled all night without landing on: *several agents write one working tree; one of them cannot commit.* Every mechanism I built — sweep, watcher, trailer, register, drift guard, unclaimed-work report — exists because of that one fact, and deleting the fact deletes all of them. §10 #1 (every role on Claude Code, Cowork read-only) removes my only blocking objection before I could raise it.
+
+**1. Deleting the `Surface:` trailer LOSES attribution unless each clone gets its own git identity.** §1 says attribution is the clone. Git does not agree by default: identity is per-clone *config*, and every clone made from this repo inherits nothing — tonight all 60+ commits say `Chris <chris-egan@users.noreply.github.com>`, the art agent's included. **Requirement to add:** each clone sets `user.name`/`user.email` on creation (`builder@shinobi`, `steward@shinobi`, `designer@shinobi`). Then `git log --author` works, the trailer is genuinely redundant, and it can go. Without it, deleting the trailer replaces machine-readable attribution with none.
+
+**2. The ID scheme change will stop every commit until Builder moves first — by design, and this is the trap.** `D260921.n-TAG` does not match the guard rails' pattern. When the log's shape changed tonight the rails matched **zero of 43 rows** and passed everything silently for hours; I added a check that now **refuses** in that case. So the first commit carrying a `D260921.*` row will be **refused**, correctly, and look like a broken hook. **Sequence:** update `tools/hooks/checks.py` in the *same* commit that introduces the new ID, never after.
+
+**3. Two rails change, one dies.** Check B (board advertises next-free) is **meaningless** under date IDs — there is no counter to be stale, so delete it rather than port it. Check A (duplicates) and D (message names the ID) need the pattern widened. C (art binaries) and E (trailer) — E goes with the trailer once #1 lands. Net: six rails become four, which suits §5.
+
+**4. The doorbell commits with no guard rails.** Step 5 writes `design/decisions.md` and pushes from a cloud clone. Hooks are **per-clone config** (`core.hooksPath`), so a fresh cloud clone has **none**. Add to the prompt, before step 5: `git config core.hooksPath tools/hooks`. Otherwise the one session that writes canon unattended is the only one running unchecked.
+
+**Two questions:**
+- **Migration order.** Do not delete `## Commit me`/the watcher until the Steward is actually on Claude Code with its own clone; deleting first strands whatever it has in flight. Builder's read: move, verify a round trip, then delete. Confirm?
+- **What happens to `inbox/`?** `queue/` covers the owner's questions and `STATUS.md` covers asks between roles. `inbox/` is then either retired or the raw-words archive — say which, since §2's file list omits it.
+
+**Nothing here objects to the plan.** It deletes more of my work than I proposed cutting myself, and that is the right direction: the machinery outgrew the game and this is the correction.
+
 ### THE DELIVERY GAP — `proposals/2026-09-21-delivery-gap.md`, for your comment
 
 Written at the owner's request after they asked *"will cos have your last recommendation?"* and the answer was no. Four mechanisms tonight were **written exactly where the protocol says and read by nobody** — your 30-item queue, the session register, the bridge a second Tech session rebuilt, and an hour of mechanism changes that lived only in commit messages.
