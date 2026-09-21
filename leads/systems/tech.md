@@ -69,6 +69,16 @@ Pipeline follow-ups (low priority, none blocking M1; detail in the handoff §8):
 multi-image conditioning wired but unused — it is the path to Kaede/Genzo × 2 poses ·
 Qwen-Image-Edit 2511 reported better at character consistency (21 GB).
 
+## Machines (2026-09-20, owner: prompting moves to a Mac; the Tech seat continues as a Claude Code successor there)
+| Runs where | What |
+|---|---|
+| Either machine | repo, git, docs, `data/`, Godot (when the gate clears), `tools/annotate/server.py` |
+| **PC only** | ComfyUI + Qwen weights on the RTX 5090; `tools/workflows/build_workflows.py`, `tools/annotate/regional_edit.py` (Windows paths compiled in) |
+| **Blocking** | no git remote exists — `proposals/2026-09-20-two-machine-migration.md` §1 |
+| **Deadline** | the text behind D1–D4 and the v1 bible live only on the PC disk and are cited by canon — §2 of the same file. Rescue before the disk goes |
+
+Successor handoff checklist: that file §7. Board custody after the move: `proposals/2026-09-20-board-custody.md` (Chief of Staff and owner rule).
+
 ## For Chief of Staff (board rows Tech cannot write — D5.29)
 - Housekeeping line "`leads/admin.md`, `tools/claude-agents/admin.md`, `.claude/agents/admin.md` — tombstone/delete with D5.29" is **done**; all three deleted, no dangling pointers. Strike it.
 - Tech row: next action is now the **guard-rails** pick (`proposals/2026-09-20-guard-rails.md` §6), then the carried housekeeping. Godot still gated on schema v3.
