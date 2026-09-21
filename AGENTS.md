@@ -1,4 +1,6 @@
-# Shinobi Master v2 — agent instructions (read first, every agent, every session)
+# Shinobi Master v2 — agent instructions (the full contract)
+
+**Claude Code enters at `CLAUDE.md`, which carries the rules that gate action and does not load this file.** Read this one when the task needs the game's shape, the canon rules in full, or the per-agent notes. Platforms that read a single file natively read this one.
 
 **What this is:** turn-based card battler with a persistent campaign and world state. Solo dev · PC/Steam · Godot 4.x / GDScript · hobby cadence. "Shinobi Master" is a codename.
 Systems comps: MtG (ability kinds), Blades in the Dark (scale, crew sheet), City of Mist (tags), NITRO GEN OMEGA (camera), CK3 / Mount & Blade (campaign, travel). World/art comps: post-post-apocalypse, Meiji-style uneven industry, Ghibli ecology, Bebop, Paper Mario cut-outs on a wargame table. Full allocation with what each influence does *not* own: `design/01-pillars.md`.
