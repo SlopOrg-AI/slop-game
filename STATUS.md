@@ -37,10 +37,13 @@ Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defe
   - **D5.50-CES** `sys.5` — a multi-attribute ability earmarks every attribute it checks, in full.
   - **D5.51-CES** `sys.6` — attribute is capability, reserve is economy; supersedes D3.4. Systems' synthesis of the owner's "make the statement cohere"; percentages illustrative. Flagged for an owner glance, not held.
   - Four of the seven (D5.46/47/50/51) are **logged, not closed** — rule text still only in the proposal; `10`/`11`/`12` owed on an owner instruction. Do not archive the proposal.
+- **One ID chain — RULED 2026-09-21** (owner: *"accept one id chain"*; `inbox/2026-09-21-permissions-rulings.md` addendum): Tech assigns `D5.nn-TAG` at logging from `inbox/`; no local refs, no promotion hop, no separate ratification; Chief of Staff audits rows after the fact. Supersedes D5.44-EP and D5.42's three-step chain. Tech logs it as the rule's first use.
+- **Briefs capped — RULED 2026-09-21** (owner: *"cap the briefs"*): ≤ 8 KB including channels. Chief of Staff's done (26 → 8 KB); Tech (53 KB) and Systems (21 KB) cut theirs next session.
+- **Serial sessions — REJECTED 2026-09-21** (owner: *"multi session is essential"*). Register, watcher, `## Commit me` stay.
 - **C33 — RULED 2026-09-21** (`inbox/2026-09-21-permissions-rulings.md`): **1: A** — one path-keyed permissions table, into `PROTOCOL.md` (`cos.6`) · **2: B** — Inbox tables deleted from every brief, `inbox/` the only home for the owner's words, each lead deletes its own (`cos.7`) · **3: "reconsider new rules now"** — reading unconfirmed, nothing built. **Handover A approved** — Tech commits `proposals/2026-09-21-cos-handover-a.md` as session `a`'s.
 - **C28 — standing rule: minimize.** Manage project bloat at all times; reduce governance overhead. Every lead, every proposal. No new governance file without deleting one. Chief of Staff writes one line into `AGENTS.md` §5 with the freeze; Tech transcribes.
 
-## Pending promotion (Chief of Staff reviews every `Pending` block at session open — D5.45-P)
+## Pending promotion — **final pass** (one ID chain from 2026-09-21; this section goes once Tech has promoted the refs below)
 
 **Refs only. To read one, open the brief** — the board keeps no second copy (D5.42-EP cl.2).
 
@@ -52,7 +55,7 @@ Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defe
 
 `D5.47-AES` absorbs **`D5.24`**, which gets no number of its own; six files still assert `D5.24` as DECIDED and re-point when the rule text lands. `D5.51-CES` supersedes **D3.4**.
 
-**Recorded, awaiting promotion** — 9
+**Recorded, awaiting Tech's last promotion pass** — 9
 | Ref | Brief |
 |---|---|
 | `cos.2` `cos.3` `cos.4` `cos.5` `cos.6` `cos.7` | `leads/chief-of-staff.md` — `cos.2`/`cos.3` rewritten 2026-09-21 after being lost, see below |
@@ -75,7 +78,7 @@ Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defe
 
 | Lead | Phase | Blocked on | Next action | Updated |
 |---|---|---|---|---|
-| Chief of Staff | **D5.45–D5.51 ratified**; C23 handed to Systems; **C33 ruled 1: A, 2: B** — own Inbox table deleted, template + triage text updated; ruling 3 reading unconfirmed | owner: C33 ruling 3, one word · Tech: promote `cos.2`–`cos.7`, commit handover A · every lead: delete its own Inbox table at next session | re-present the critical path (Q4 reprompt still owed); route the two handshake proposals; refill queue from Waiting | 2026-09-21 |
+| Chief of Staff | D5.45–D5.51 ratified · C23 to Systems · C33 ruled (1 A, 2 B) · **one ID chain + brief cap ruled**; own brief capped at 8 KB | Tech: log the two rulings, last promotion pass, commit handover A · every lead: cap own brief, delete own Inbox table | re-present the critical path (Q4 reprompt still owed); route the two handshake proposals; refill queue from Waiting | 2026-09-21 |
 | Systems | C1→D5.25, C3→D5.26; coherence pass done — 20 C-refs → 9 statements, 7 clashes + 4 readings open | — (Q1, Q2 ruled) | log Q1/Q2 D-numbers (D5.24 resolves in Q2's entry); write `11-initiative.md`; correct `00-steer` §1 (C26); cite C27 in the `demo` gate | 2026-09-20 |
 | ↳ Content | v1-schema data on disk; no accepted board | schema v3 · accepted style card | hold; then Kaede/Genzo × 2 poses | 2026-09-20 |
 | ↳ Tech | **owes: promote local refs (D5.44-EP); add its own `Pending` block; D5.33-EP tag looks wrong** — guard rails + sweep live and verified (D5.39); **remote pushed and verified** (D5.40); **v1 rescued** into `sources/v1/`; retired-role residue cleared; stub redirects + required-reading stamps landed (X2, X3); Godot gated | — | **take D-numbering from D5.43** (D5.42 cl.1) + fold cl.2 into `tech.md`/`inbox/README.md`, collapse hooks A/B; **D5.41 P3+P4**; Q9 canon-clone field; tag the critical path block CONFIRMED; Mac clone, then `validate.py` with schema v3 | 2026-09-20 |

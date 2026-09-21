@@ -30,3 +30,17 @@
 | **C32** `[cos]` | "consider if tech should browse the folder, or at least one location consistently to know what cowork agents are writing to disk and what to then commit" → "push to tech to implement" | chat 2026-09-21 | `cos.5`, `proposals/2026-09-21-uncommitted-work-check.md` |
 | **C33** `[cos]` | "propose org change to simplify next iteration of interactions. i think we need clear file read and write permissions and expectations, are /inbox being used appropriately or clearly instructed in agent briefs?" | chat 2026-09-21 | `proposals/2026-09-21-permissions-and-inbox.md` → rulings above |
 | **C23** `[sys]` | see `inbox/2026-09-20-three-deck-draw.md` | chat 2026-09-20 | delivered to Systems 2026-09-21 via `leads/chief-of-staff.md` §For Systems |
+
+## Addendum — same sitting: the Chief of Staff was asked to step back
+
+Chief of Staff was asked *"think if the end state of your proposals are fit for purpose, is this efficient and controlled?"* and recommended five reductions (serial sessions · one ID chain · Chief of Staff gets git or stops writing files · cap the briefs · Systems next, on `02-ontology.md`).
+
+**Owner said (verbatim):**
+> no, multi session is essential. accept one id chain. cap the briefs
+
+| Item | Verdict | Owning lead → action |
+|---|---|---|
+| Serial sessions | **Rejected — multi-session is essential.** `sessions/` register, watcher and `## Commit me` stay | — |
+| **One ID chain** | **Accepted.** Tech assigns the canonical `D5.nn-TAG` when it logs a ruling, straight from the `inbox/` file; no local refs, no promotion hop, no separate ratification step. Chief of Staff's check that a row says what the owner ruled survives as the audit. Supersedes D5.44-EP and D5.42's three-step chain; C-refs stop being issued — an `inbox/` path + date is the reference | Tech: log this and the brief cap **as its own first use** (canonical numbers, no `cos.n`); promote `cos.2`–`cos.7` in the same pass as the last promotion ever; `PROTOCOL.md` and `decisions.md` header say one chain. Chief of Staff: `leads/README.md` §Local refs and the template — done 2026-09-21 |
+| **Cap the briefs** | **Accepted.** The template's "≤ 1 page" is enforced. Chief of Staff reads it as **≤ 8 KB including `## For` / `## From` channels**; overflow is cut or moved to a session document in `proposals/`. Each lead cuts its own at its next session | Chief of Staff: own brief 26 KB → under the cap, 2026-09-21. Tech (53 KB) and Systems (21 KB): next session |
+| Chief of Staff git-or-chat-only · Systems next on `02-ontology.md` | **Not ruled** | stays as advice in the handoff |

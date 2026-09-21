@@ -1,6 +1,6 @@
 # leads/ — discipline leads (how the project is run)
 
-**Set up:** 2026-09-20, owner-directed. Adopted D5.27; reformulated same day (Chief of Staff on Cowork, Tech takes git + housekeeping, `admin` retired — **D5.29**; board custody split **D5.38**). Owner is the sole decision-maker; leads are agent roles that track status, synthesize owner feedback, and direct next steps within their discipline. `AGENTS.md` rules 1–7 apply unchanged — a lead never logs a D-number on its own — it records a **local ref** in its own brief and Tech promotes it (**D5.44-EP**, §Local refs).
+**Set up:** 2026-09-20, owner-directed. Adopted D5.27; reformulated same day (Chief of Staff on Cowork, Tech takes git + housekeeping, `admin` retired — **D5.29**; board custody split **D5.38**). Owner is the sole decision-maker; leads are agent roles that track status, synthesize owner feedback, and direct next steps within their discipline. `AGENTS.md` rules 1–7 apply unchanged — a lead never logs a D-number on its own; Tech assigns the canonical number when it logs the ruling from `inbox/` (**one ID chain**, owner 2026-09-21, §Decision IDs).
 
 ## Tree
 
@@ -36,21 +36,17 @@ marketing.md           YouTube / devlog
 
 `[cos] [sys] [content] [tech] [art] [level] [scenario] [mkt]` — one or more per feedback item. Unsure → `[sys]`.
 
-## Local refs (D5.44-EP)
+## Decision IDs — one chain (owner, 2026-09-21; supersedes D5.44-EP local refs and D5.42's three-step chain)
 
-A lead records an owner ruling **the session it is given**, in its own brief's `## Pending` block, under a ref in **its own namespace**: the routing tag above plus a number it issues itself — `sys.12`, `art.3`, `cos.7`. One sequence per issuer, so nothing is coordinated and nothing is advertised.
+An owner ruling is filed verbatim in `inbox/` the session it is given. **Tech assigns the canonical `D5.nn-TAG` when it logs the row** in `decisions.md`, from that file. No local refs, no promotion, no separate ratification step: Chief of Staff **audits** each new row against its `inbox/` source after the fact. Tags as before (D5.43-P: **S**ystems · **A**rt · **C**ontent · **E**ngine · **P**rocess). Until Tech's next session, a doc cites the `inbox/` file and date.
 
-**Tech promotes.** At its next session Tech assigns the canonical `D5.nn-TAG`, writes the row into `decisions.md`, records the local ref there as a permanent **alias**, and the entry leaves the `Pending` block. Nothing is renumbered: both forms resolve to the same row forever, so a doc may cite `sys.12` before promotion and stay correct after it.
-
-**`Pending` is a queue, not an archive** — same rule as `inbox/` (D5.42-EP cl.2). Everything upstream of the log is a buffer; the log is the record; nothing is copied.
-
-**Two different things:** the local ref names *who recorded it*; the canonical suffix names *who must read it* (D5.43-P: **S**ystems · **A**rt · **C**ontent · **E**ngine · **P**rocess). They need not agree.
+*Transition:* refs already recorded (`cos.2`–`cos.7`, `sys.7`, `sys.8`, `tech.1`) are promoted in Tech's last promotion pass and stay valid as aliases; `Pending` blocks then disappear from every brief.
 
 ## Triage protocol (owner feedback → leads)
 
 1. Owner writes feedback verbatim to `inbox/YYYY-MM-DD-<topic>.md` (or says it in chat; the agent in session files it there).
 2. Chief of Staff (or the agent in session, on owner instruction): split into **C<n>** items (scan `STATUS.md` and `inbox/` for the last used — no counter is advertised, D5.42 cl.1), tag, stamp the file `TRIAGED YYYY-MM-DD` with a one-line tag index at the top. **Triage hands over; it never writes into another lead's brief** (D5.27 cl.1, tightened by the owner 2026-09-21: no agent edits another lead's brief for any reason). **Briefs carry no Inbox table (C33 ruling 2, owner 2026-09-21, `cos.7`): `inbox/` is the only home for the owner's words.** A lead's session-open read is *"`inbox/` files carrying my tag since I last looked."* Where triage wants to point a lead at an item explicitly (a cluster reading, a cross-lead flag), the pointer goes in the triaging agent's **own** brief under `## For <lead>`. *(Text corrected 2026-09-21 on the owner's instruction. The old step said "append to the target lead's Inbox table", which canon forbade; `inbox/2026-09-20-three-deck-draw.md` records a session rightly declining to do it, and its item, C23, went undelivered for two days as a result.)*
-3. Lead session: read `inbox/` for its tag → synthesis → `proposals/<date>-<topic>.md` → Chief of Staff queues it (§Adjudication) → owner rules → lead records a **local ref** in its `Pending` block, edits the doc, updates its status table. Tech promotes the ref to a D-number (§Local refs).
+3. Lead session: read `inbox/` for its tag → synthesis → `proposals/<date>-<topic>.md` → Chief of Staff queues it (§Adjudication) → owner rules (filed verbatim in `inbox/`) → Tech logs the D-number → lead edits the doc and updates its status table.
 4. Cross-lead conflict → same queue; the two positions are options A and B.
 
 ## Adjudication — how decisions reach the owner
@@ -65,7 +61,7 @@ Q<n> · <question in plain words> · blocks: <what waits>
 
 - **In:** a proposal is reduced to this form by Chief of Staff; the proposing lead's recommendation is marked (Chief of Staff may add its own, marked). Not-yet-queued items sit one-line under **Waiting**.
 - **Ruling:** owner answers in chat or in the file — `Q3: A` · `Q3: A, but …` · `Q3: reject` · `Q3: defer to <gate>`. That verdict *is* the instruction rule 4 requires.
-- **Out:** Chief of Staff moves it to **Ruled** (dated); the owning lead records a local ref and edits the doc in its next session, then clears the line. Tech promotes the ref (§Local refs).
+- **Out:** Chief of Staff moves it to **Ruled** (dated) and files the verdict in `inbox/`; Tech logs the D-number; the owning lead edits the doc in its next session, then clears the line.
 - **Ladder:** (1) lead decides inside its "may decide" column — no queue; (2) two leads settle by umbrella rule or Systems' vocabulary — no queue; (3) Chief of Staff frames it → queue → owner. Nothing reaches the owner as a raw proposal.
 
 ### Framework freeze (Q7, owner 2026-09-20)
@@ -100,13 +96,12 @@ End of every lead session: update own brief (inbox, status, next actions) and wr
 
 Briefs, proposals, the board, triage, handoffs: **agent-facing** — compress, cite paths, one line per fact. Chat to the owner: **user-facing** — answer first, plain sentences, spell out `M1`, D-numbers, C-refs, lead names on first use or omit.
 
-## Brief template (≤ 1 page)
+## Brief template — **≤ 8 KB including `## For` / `## From` channels** (owner, 2026-09-21: "cap the briefs"). Overflow is cut or moved to a session document in `proposals/`; channels carry dispositions, not logs.
 
 ```
 # <Lead> — lead brief
 Reports to: owner | Directs: … | Updated: YYYY-MM-DD
 ## Charter · ## Owns · ## Does NOT own · ## Reads first
-## Pending   | Local ref | Decision, one line | Ruled | Promoted |   ← D5.44-EP; cleared as Tech promotes
 ## Status    | Item | Status | Scope | Source |
 ## Next actions (≤3, each gated) · ## Open questions · ## Escalates to
 ```
