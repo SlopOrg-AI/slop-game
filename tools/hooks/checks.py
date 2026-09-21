@@ -5,9 +5,10 @@ Run by git through core.hooksPath -> tools/hooks/{pre-commit,commit-msg}.
 Four checks, all string scans over two files. No dependencies.
 
   A  no duplicate D#.# row in design/decisions.md
-  B  STATUS.md's advertised next-free D-number is not already used
-     (only when the commit touches decisions.md or STATUS.md, so a stale
-      board never blocks unrelated work)
+  B  RETIRED 2026-09-21 - date-based IDs (D260921.n) have no next-free
+     counter to go stale, and a board still advertising a D5.x number reads
+     as LOWER than any date ID, so the check would have refused every commit
+     from the day the new scheme started. Deleted rather than ported.
   C  no .png under proposals/art/ except _contact-sheet.png and accepted/
   D  a commit that adds a D#.# row must name that number in its message
   E  every commit names the surface that wrote it: "Surface: <tag>"
@@ -26,9 +27,9 @@ BOARD = "STATUS.md"
 # The three-column deferred table must not be mistaken for one - D5.24 lives
 # there precisely because it is NOT logged.
 #
-# The ID may carry an interested-party suffix (D5.41-EP). Only the number is
-# captured: under "the log stays single", D5.41-EP and D5.41-P are the same
-# number twice and check A should say so.
+# The ID may carry a tag suffix (D5.41-EP, D260921.1-P) and may be either
+# scheme: D5.41 or the date form D260921.1 from the clean-slate plan. Only the
+# number is captured, so two rows sharing one number read as a duplicate.
 DECISION_ROW = re.compile(r"^\|\s*\*{0,2}(D\d+\.\d+)(?:-[A-Za-z]+)?\*{0,2}\s*\|")
 # Anything that merely looks like a decision row. If this finds rows and
 # DECISION_ROW finds none, the parser has gone blind and must say so rather
@@ -159,28 +160,6 @@ def check_a(staged):
     return 0
 
 
-def check_b(staged):
-    if DECISIONS not in staged and BOARD not in staged:
-        return 0
-    board = content(BOARD, BOARD in staged)
-    m = NEXT_FREE.search(board)
-    if not m:
-        return 0  # board says nothing about numbers; not this hook's business
-    advertised = m.group(1)
-    ids = decision_ids(content(DECISIONS, DECISIONS in staged))
-    if not ids:
-        return 0
-    highest = max(ids, key=as_tuple)
-    if as_tuple(advertised) <= as_tuple(highest):
-        return fail(
-            "B - board advertises a used number",
-            "%s says next free is %s, but %s is already logged in %s."
-            % (BOARD, advertised, highest, DECISIONS),
-            "set the next-free line past %s. A stale board is how two sessions "
-            "claim one number." % highest,
-        )
-    return 0
-
 
 def check_c(staged):
     bad = [
@@ -263,7 +242,7 @@ def main():
         with open(path, encoding="utf-8") as fh:
             message = fh.read()
         return check_d(staged, message) or check_e(message)
-    return check_blind(staged) or check_a(staged) or check_b(staged) or check_c(staged)
+    return check_blind(staged) or check_a(staged) or check_c(staged)
 
 
 if __name__ == "__main__":
