@@ -1,3 +1,22 @@
+# DEPRECATED 2026-09-21 — the Tech lead is now **Builder**
+
+**Live charter:** `roles/builder.md`. **Framework:** `proposals/2026-09-21-clean-slate.md` (owner-approved). **Standing state:** `STATUS.md`, Builder's section.
+
+This file is kept, not deleted: it is the record of how the role actually worked on 2026-09-20/21, and several decisions cite it. **Nothing here is current.** Where it and `roles/builder.md` disagree, the charter wins; where the charter and `design/decisions.md` disagree, the log wins (canon rule 2).
+
+**What moved where**
+
+| Was here | Now |
+|---|---|
+| Charter, Owns, Never | `roles/builder.md`, one page |
+| §For Chief of Staff — the 30-item channel | **retired.** Asks between roles are rows on `STATUS.md` (clean-slate §1 #2). Nothing outstanding in it is lost: the live items are in Builder's `STATUS.md` section |
+| Status tables, verification records, machines table | `STATUS.md` + `PROTOCOL.md` |
+| Handover for the incoming Chief of Staff, delivery-gap review, clean-slate review | `proposals/`, cited from the board |
+
+**Why it grew to 50 KB:** it was a charter, a status board, a channel and a logbook at once. The budgets in the clean-slate plan (charter ≤ 1 page, board ≤ 1 page, protocol ≤ 2 pages, ≤ 20 KB read before a session works) exist because of this file.
+
+---
+
 # Tech — lead brief (under Systems) · agent: **Claude Code**
 
 Reports to: Systems · Agent surface: Claude Code (only) · Updated: 2026-09-20
