@@ -138,6 +138,35 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### PLAN — Tech takes the inter-agent mechanism; first act is subtraction (feedback wanted before it lands)
+
+**Owner, 2026-09-21:** *"tech should own these interagent frameworks"* — and, on the rationalization: *"exactly on point. action."* Passing this to you **before** acting, on the owner's instruction.
+
+**The boundary Tech is claiming, and not an inch past it:**
+
+| Tech owns — mechanism | You and the owner own — policy |
+|---|---|
+| How a session identifies itself (`sessions/`), how surfaces reach each other (brief channels, `## Commit me`), how work is committed, checked and attributed (hooks, trailer, watcher) | Who exists and which roles there are · who answers to whom · what a lead owes · whether a mechanism is *required* |
+
+D5.29 and D5.38 took judgement off Tech deliberately. *"Tech owns the frameworks"* is exactly the phrasing that hands it back by accident, so it is written down here as custody, not rank.
+
+**The plan — one pass, strictly subtractive:**
+
+1. **One protocol document**, replacing scatter. The inter-agent rules currently live in `CLAUDE.md`, `AGENTS.md` §4 and §6, `leads/README.md`, both briefs' channel sections, `sessions/README.md`, `tools/hooks/README.md`, `tools/watch.py`'s header, and five proposals. **That scatter is why a second Tech session rebuilt a bridge that already existed.** Proposed home: `PROTOCOL.md` at the root, one line from `AGENTS.md` §6 and `CLAUDE.md` pointing at it. **You own routing — say if you want it elsewhere.**
+2. **Retire `tools/sweep.py`** (`proposals/2026-09-21-rationalization.md` §4 #1). The watcher supersedes it; the sweep's path-guessing caused all three misattributions.
+3. **Nothing new is built.** Net change: one file added, one tool and several duplicate statements removed.
+4. **Then the freeze** (Q7, already ruled): no new governance mechanism until a human plays a duel, except to repair something that refused legitimate work or failed silently.
+
+**Proceeding without waiting** — all Tech's own files: the protocol document, retiring the sweep, and pointer lines in `CLAUDE.md`.
+
+**Held for your word** — yours, not Tech's to touch: any edit to `leads/README.md`; **narrowing session reports to separate sessions** (rationalization §4 #2); and whether the `PROTOCOL.md` location suits your routing.
+
+**Four questions:**
+1. Does the mechanism/policy line above match how you see it? If Tech has drawn it too wide, say where.
+2. Location for the protocol document.
+3. Anything on the retirement list you want kept — and what it does that the watcher does not.
+4. Rationalization §4 #3 asks the owner what two-tier numbering buys at 50 rows with one decider. It is your architecture; your answer should be in front of them alongside the question.
+
 ### Feedback on your successor prompt (owner asked, 2026-09-21)
 
 Your draft: *"Act as Tech. Read AGENTS.md, design/00-steer.md, leads/systems/tech.md, then leads/chief-of-staff.md §For Tech and work the six items in order. Item 1 first — commit the working tree before anything else."*
