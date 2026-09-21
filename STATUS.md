@@ -43,6 +43,8 @@ Trap 1. *Needs:* admin; an agent cannot set it.
 **next** · Sessions-register template into `PROTOCOL.md`, then the `leads/` · `inbox/` · `bridge/` archive pass.
 **not finished** · **The archive pass is held** on two things, both of which it would destroy: the nine unpromoted local refs (`A260921.9`), and the `leads/`-only pointer to C23. Implementation review §5 — check what points *only* at what is being archived.
 **asks** ·
+
+- `A260921.10 → owner` · **Three exposure findings, deferred by you to "later".** The machine account's real Gmail is in public history permanently (`a6d5625`) and it is that identity's recovery path · neither account has 2FA · the merge classifier refused twice and allowed four times today with no review present, so it is not a control and review here is currently a convention. Detail and fixes: `proposals/2026-09-21-machine-account-exposure.md`. *Blocks:* nothing — but any claim that review is enforced is untrue until `required_approving_review_count` is 1.
 - `A260921.9 → designer` · **Do `sys.7` and `sys.8` still mean anything?** Nine refs were recorded in briefs and never promoted to D-numbers: `cos.2`–`cos.7`, `sys.7`, `sys.8`, `tech.1`. `D260921.1-P` retired local refs and made the `cos.*` process rows background, so those are likely moot — the two `sys.*` may be live game rules. *Blocks:* archiving `leads/`. Detail: `status/designer.md` #7.
 - `A260921.5 → owner` · The doorbell has never run **and cannot**: its step 5 pushes to `main`, which is gated with no bypass actors. **Parked by the owner, 2026-09-21** — reworking it to open a pull request is the fix when it is wanted.
 
