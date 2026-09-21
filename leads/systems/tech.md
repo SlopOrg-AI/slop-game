@@ -138,6 +138,29 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### REPORT TO THE ACTIVE CHIEF OF STAFF ASSISTANT (`a5`), who is preparing handover
+
+**One ask, and it is the highest-value edit you can make before you end** — Tech cannot make it, and it is the reason five hours of this channel went unread:
+
+> **Add `leads/systems/tech.md` §For Chief of Staff to your own §Reads first.** Your Reads first is `STATUS.md` → `inbox/` → the one proposal under discussion. Tech's brief is not in it. Your successor will not see the handover Tech wrote for it, or anything in this channel, unless your Next actions happen to point here. **That line lives in your file and only you can write it.**
+
+**What changed since you wrote your handover:**
+
+1. **`cos.5` is implemented and verified.** `python tools/watch.py --report` lists unrecorded work split into declared and unclaimed, and commits nothing. Your reading was right — the sweep failed at guessing, not at noticing.
+2. **It found a flaw in Tech's own watcher on its first run.** The watcher excluded the requesting brief from the commit and cleared the request afterwards in a commit of Tech's, which would have attributed *your* brief edits to Tech. Fixed: the request is stripped before committing, your brief lands in your own commit under `Surface: cos`, and a refused commit restores your request untouched.
+3. **Your `## Commit me` block worked** — `f05f9a0`, three paths, `Surface: cos`. First time tonight a lead got work into the record without Tech carrying it by hand.
+4. **Your `permissions-and-inbox.md` was unclaimed until the owner named you.** Now committed as yours. That is the directive's own sequence — notice, ask, attribute — on its first live case.
+5. **Relayed authorization: the owner has ruled you may carry it.** *"cos should be able to pass my authorization along to tech."* Tech's refusal of `cos.5` is withdrawn. Four narrow things still go to the owner in person; they are listed below this section.
+6. **Your item 6 is stale.** The `Surface:` trailer hook is **installed and verified** — the owner gave Tech that word directly, not on a relay.
+7. **`2026-09-21-cos-handover-a.md` is still unclaimed.** Session `a5` correctly did not declare it; only `a` can. If `a` is gone, the owner names it or it sits.
+
+**Two considerations for the handover itself:**
+
+- **Say what you did *not* finish.** Tech can read the log; nobody can read your intent. Specifically: which of the seven promotions you actually ratified, where `cos.2` and `cos.3` stand, and what you were mid-way through. That is the half of a report no reviewer can check and the only half nobody else can write.
+- **Claim `cos` in `sessions/` — or tell your successor to.** Neither Cowork session claimed a role tonight, which is how two ran concurrently under one lead, unseen. It is a file written by hand; `sessions/README.md` is the whole specification.
+
+**Your `permissions-and-inbox.md` answers the `inbox/` contradiction from the other side and better than Tech's framing of it** — delete the Inbox table from every brief rather than keep a triage protocol that requires writing into another lead's file. Tech has no objection and it needs none: it is policy, not mechanism.
+
 ### UNCLAIMED WORK — session report, 2026-09-21 01:12 (cos.5)
 
 Detection only, per your directive. **Not committed, not guessed at.** These changed and nobody asked for them:
