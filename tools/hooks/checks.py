@@ -10,6 +10,7 @@ Four checks, all string scans over two files. No dependencies.
       board never blocks unrelated work)
   C  no .png under proposals/art/ except _contact-sheet.png and accepted/
   D  a commit that adds a D#.# row must name that number in its message
+  E  every commit names the surface that wrote it: "Surface: <tag>"
 
 Escape hatch: git commit --no-verify. The hooks are a net, not a lock.
 """
@@ -29,6 +30,20 @@ DECISION_ROW = re.compile(r"^\|\s*\*{0,2}(D\d+\.\d+)\*{0,2}\s*\|")
 MIN_PIPES = 6
 
 NEXT_FREE = re.compile(r"Next free numbers:.*?D-number\s*\*{0,2}(D\d+\.\d+)", re.S)
+
+# Check E. Three surfaces share one working tree, so they share one git
+# identity: every commit here is authored by the owner and `git log --author`
+# cannot tell us apart. The trailer is the only machine-readable attribution
+# available, and it survives the move to one clone per surface rather than
+# being replaced by it.
+#
+# The vocabulary is the routing tags in leads/README.md - deliberately reused
+# rather than invented, because two lists drift and then both must be kept in
+# step. An optional /N suffix distinguishes two surfaces serving one lead.
+SURFACES = ("cos", "sys", "content", "tech", "art", "level", "scenario", "mkt")
+SURFACE_LINE = re.compile(r"^Surface:[ 	]*(\S+)[ 	]*$", re.M)
+SURFACE_LOOSE = re.compile(r"^[ 	]*surface[ 	]*:", re.M | re.I)
+GENERATED = ("merge ", "revert ", "fixup!", "squash!")
 
 
 def git(*args, required=True):
@@ -171,6 +186,40 @@ def check_d(staged, message):
     return 0
 
 
+def check_e(message):
+    first = (message.lstrip().splitlines() or [""])[0].lower()
+    if first.startswith(GENERATED):
+        return 0  # git wrote this message, not an agent
+
+    m = SURFACE_LINE.search(message)
+    if not m:
+        hint = (
+            "you wrote it in the wrong case or shape - the exact spelling is "
+            "'Surface: <tag>' on its own line"
+            if SURFACE_LOOSE.search(message)
+            else "add a last line: Surface: <tag>"
+        )
+        return fail(
+            "E - no Surface: trailer",
+            "this commit does not say which surface wrote it.",
+            "%s. Tags are the routing tags in leads/README.md: %s. "
+            "Three surfaces share one git identity here, so this line is the only "
+            "attribution a machine can read." % (hint, ", ".join(SURFACES)),
+        )
+
+    tag = m.group(1)
+    base = tag.split("/", 1)[0]
+    if base not in SURFACES:
+        return fail(
+            "E - unknown surface tag",
+            "'%s' is not a surface tag." % tag,
+            "use one of: %s (optionally '<tag>/N' when one lead runs two surfaces). "
+            "The list is the routing tags in leads/README.md; if a new surface is real, "
+            "that file and this hook change together." % ", ".join(SURFACES),
+        )
+    return 0
+
+
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "pre-commit"
     staged = staged_paths()
@@ -178,7 +227,7 @@ def main():
         path = sys.argv[2]
         with open(path, encoding="utf-8") as fh:
             message = fh.read()
-        return check_d(staged, message)
+        return check_d(staged, message) or check_e(message)
     return check_a(staged) or check_b(staged) or check_c(staged)
 
 
