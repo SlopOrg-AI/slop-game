@@ -1,9 +1,9 @@
 # STATUS — one board
 
-Maintained by **Chief of Staff** (`leads/chief-of-staff.md`, Cowork) — sole writer (owner 2026-09-20; D5.27 rule, D5.29 reassignment pending log). Leads write their row in their own brief; Chief of Staff transcribes. This page answers only: **phase · blocked on · next · what the owner must decide**.
+**Authored by Chief of Staff** (`leads/chief-of-staff.md`, Cowork) — it decides what every row says. **Kept by Tech** (Claude Code): types and commits it, transcribing without paraphrase, never re-sequencing (D5.27 → D5.29 → **D5.38**). Leads write their row in their own brief first. This page answers only: **phase · blocked on · next · what the owner must decide**.
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
-**Next free numbers:** D-number **D5.29** (reserved: leads reformulation — Tech logs) → **D5.30** · C-ref **C23**. D5.24 still unlogged — resolves with Q2.
+**Next free numbers:** D-number **D5.39** · C-ref **C25**. (D5.29 logged; D5.30–D5.37 logged by the combat session; D5.38 = board custody. C23 = three decks, C24 = the Mac move.) D5.24 still unlogged — resolves with Q2.
 **Git:** `main`, local only. Tech (Claude Code) executes git, staging by path — never `git add -A`.
 
 ## Decisions — for the owner

@@ -1,6 +1,6 @@
 # Proposal — who writes the board once there are two machines
 
-**Produced by:** Tech (Claude Code), 2026-09-20 · **Targets:** D5.29 (amend), `leads/README.md` §Single-writer rules, `leads/chief-of-staff.md`, `leads/systems/tech.md` · **Proposes:** separate *authorship* of `STATUS.md` from *custody* of it · **Status:** `PROPOSED` — needs a D-number (next free **D5.38**). Chief of Staff and the owner rule; Tech states the constraint only.
+**Produced by:** Tech (Claude Code), 2026-09-20 · **Targets:** D5.29 (amend), `leads/README.md` §Single-writer rules, `leads/chief-of-staff.md`, `leads/systems/tech.md` · **Proposes:** separate *authorship* of `STATUS.md` from *custody* of it · **Status:** **PROMOTED D5.38** (2026-09-20) — owner: "custody is with tech - agreed". §6 #1 applied.
 
 ---
 

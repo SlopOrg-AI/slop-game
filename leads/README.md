@@ -58,10 +58,12 @@ Q<n> · <question in plain words> · blocks: <what waits>
 - **Out:** Chief of Staff moves it to **Ruled** (dated); the owning lead logs the D-number and edits the doc in its next session, then clears the line.
 - **Ladder:** (1) lead decides inside its "may decide" column — no queue; (2) two leads settle by umbrella rule or Systems' vocabulary — no queue; (3) Chief of Staff frames it → queue → owner. Nothing reaches the owner as a raw proposal.
 
-## Single-writer rules (D5.27, reassigned D5.29)
+## Single-writer rules (D5.27 → D5.29 → D5.38)
 
 1. **A lead's own brief** has one writer: that lead, on whichever surface runs it. Chief of Staff asks and transcribes; never edits.
-2. **`STATUS.md`** has one writer: **Chief of Staff** (Cowork). Drift guard: read from disk in-session before writing; never force-write. Tech commits the file, never edits it. No second copy anywhere (Project mirror included).
+2. **`STATUS.md`** has one **author** — Chief of Staff, which decides what every row says, what is blocked, and the queue order — and one **keeper**, Tech, which types the file and commits it (D5.38). Tech transcribes without paraphrase that changes meaning and never re-sequences; where it disagrees, it writes a note in its own brief. Where Chief of Staff can reach a clone it may type its own rows; where it cannot, it hands them to Tech. Drift guard: read from disk in-session before any write; never force-write. No second copy anywhere (Project mirror included).
+
+   *Why the wording changed:* the rule has to survive prompting moving to a Mac, where the surface that authors the board may not be the surface that can reach git. One head decides, one hand types.
 
 ## Running a lead session
 

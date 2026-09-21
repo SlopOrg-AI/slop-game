@@ -62,9 +62,9 @@ Owner decides; **leads** are agent roles that track status and direct next steps
 
 | Lead | Owns the question |
 |---|---|
-| `leads/chief-of-staff.md` | is the project organized? — `STATUS.md` (**sole writer**), decisions queue, triage, milestones, conflicts. **Run by Cowork** (owner 2026-09-20; D5.29) |
+| `leads/chief-of-staff.md` | is the project organized? — `STATUS.md` (**author**; Tech keeps and commits it, D5.38), decisions queue, triage, milestones, conflicts. **Run by Cowork** (owner 2026-09-20; D5.29) |
 | `leads/systems.md` | the game: ontology + rules. Directs `systems/content.md` (what's included) and `systems/tech.md` (what runs it + repo custody — the **Tech lead, run by Claude Code**: Godot, validator, tooling, **git execution**, `.claude/`, housekeeping) |
 | `leads/direction/` | authoritative art · level · scenario direction; defines clusters Content produces |
 | `leads/marketing.md` | YouTube / devlog |
 
-Rules 1–7 above are unchanged: a lead writes to `proposals/` unless the owner is in the session; a lead never logs a D-number on its own. **Single-writer (D5.27, reassigned D5.29):** a lead's own brief is written only by that lead; `STATUS.md` is written only by Chief of Staff, which transcribes each lead's row from that brief. **Decisions reach the owner only through the queue in `STATUS.md`** (`leads/README.md` §Adjudication). Session prompt: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/<lead>.md`, then only the docs the task touches."*
+Rules 1–7 above are unchanged: a lead writes to `proposals/` unless the owner is in the session; a lead never logs a D-number on its own. **Single-writer (D5.27, reassigned D5.29, split D5.38):** a lead's own brief is written only by that lead; `STATUS.md` is **authored** by Chief of Staff (what every row says) and **written and committed** by Tech, which transcribes without paraphrase that changes meaning and never re-sequences. **Decisions reach the owner only through the queue in `STATUS.md`** (`leads/README.md` §Adjudication). Session prompt: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/<lead>.md`, then only the docs the task touches."*

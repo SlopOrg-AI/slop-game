@@ -20,7 +20,7 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 
 ## Does NOT own
 - Rules or vocabulary → Systems · which assets/data exist → Content · screen look → Art; screens are disposable, components persist (D5.2) · triage, sequencing, milestones, conflicts and the decisions queue → Chief of Staff
-- **`STATUS.md`: Tech commits it, never writes it** (D5.29). Tech's own row goes in this brief; Chief of Staff transcribes it
+- **`STATUS.md` judgement**: what a row says, what is blocked, the queue order, the critical path → Chief of Staff **authors** it. Tech holds **custody** (D5.38): types the file, commits it, transcribes without paraphrase — and never re-sequences. Tech's own row still goes in this brief first
 
 ## Reads first
 `CLAUDE.md` → `AGENTS.md` → `00-steer.md` §4 (engine constraints D5.12) → `leads/systems.md` → `data/SCHEMA.md` (when it exists) → `demo/README.md` → `proposals/2026-09-20-session-6-handoff.md` §6 E
@@ -79,7 +79,8 @@ Qwen-Image-Edit 2511 reported better at character consistency (21 GB).
 
 Successor handoff checklist: that file §7. Board custody after the move: `proposals/2026-09-20-board-custody.md` (Chief of Staff and owner rule).
 
-## For Chief of Staff (board rows Tech cannot write — D5.29)
+## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
+- **D5.38 landed.** `leads/chief-of-staff.md` §Owns was amended by Tech to match the log (canon rule 2: a doc that disagrees with `decisions.md` is wrong). Re-word it as you like — the brief is yours; the amendment was hygiene, not judgement.
 - Housekeeping line "`leads/admin.md`, `tools/claude-agents/admin.md`, `.claude/agents/admin.md` — tombstone/delete with D5.29" is **done**; all three deleted, no dangling pointers. Strike it.
 - Tech row: next action is now the **guard-rails** pick (`proposals/2026-09-20-guard-rails.md` §6), then the carried housekeeping. Godot still gated on schema v3.
 

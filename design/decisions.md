@@ -97,5 +97,11 @@ The attribute economy, the terminology change that makes abilities cards, and th
 
 **Open, raised by this session and not decided:** hand persistence between rounds · where a gold (two-class) card lives · deck exhaustion / reshuffle · hand size and what sets it · the mind class's second attribute · whether Grit and Will earn two separate guards.
 
+## Session 6f — 2026-09-20 (board custody, Claude Code · owner present)
+
+| ID | Acts on it | Decision | Rationale | Supersedes | Doc |
+|---|---|---|---|---|---|
+| D5.38 | Production | **`STATUS.md`: authorship and custody split.** **Chief of Staff authors** it — decides what every row says, what is blocked, what enters the decisions queue and in what order. **Tech holds custody** — types the file and commits it, transcribing Chief of Staff's rows without paraphrase that changes meaning, and may not reorder the queue, restate a blocker or re-sequence the critical path. One head decides, one hand types. D5.27's single-writer principle is unchanged: still exactly one writer, now named by function rather than by surface. | Owner: *"does tech own board since you can push commits and coworks can read?"* → *"custody is with tech - agreed"*. D5.27 and D5.29 both assumed one disk and two surfaces writing one working tree, which is why "Chief of Staff writes it, Tech commits it" was executable. With prompting moving to a Mac and a Claude Code Tech successor holding the clone and git, that may be physically impossible, and a custody rule that depends on an unknown gets broken silently. This wording holds whether Cowork ends up with write access, read access or chat only. Tech gains **no** judgement, so the conflict of interest D5.29 named is untouched; Tech's disagreement goes in its own brief under "For Chief of Staff". | D5.29's "Chief of Staff is **sole writer** of `STATUS.md`; Tech commits it, never writes it" · `leads/chief-of-staff.md` Owns · `AGENTS.md` §6 · `CLAUDE.md` | AGENTS §6, CLAUDE, `leads/`, `STATUS.md` |
+
 ## Open (carried, see `00-steer.md` §6)
 Variance mechanism · D2.13 interleave · ~~slots for passives (A/B/C)~~ (closed by D5.25) · wound regions · N-vs-M initiative · selector/targeting · title · UI numbers · Mind attribute · stack vs trick-taking for reactions · minion group as roster vs abstract · cultures as knowers vs modifiers · opponent team sheet under info system.

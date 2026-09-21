@@ -6,7 +6,7 @@ Reports to: owner · Directs: nothing (organizes every lead) · Updated: 2026-09
 Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **decisions queue** so the owner rules on framed options rather than raw proposals, sequences milestones, records conflicts, reviews across leads, assembles handoffs. Proposes; never decides. Replaces Admin's judgement half and Production whole (D5.29, pending log). Most expensive surface in the project: reads the board, the untriaged inbox and one proposal per session — not the folder.
 
 ## Owns
-- `STATUS.md` — **sole writer** (owner, chat 2026-09-20). Rows come from leads' briefs; Chief of Staff transcribes. **Drift guard:** read the file from disk in the same session before every write; never force-write.
+- `STATUS.md` — **author** (D5.38; was sole writer, D5.29). Decides what every row says, what is blocked, what enters the queue and in what order. Rows come from leads' briefs. **Custody — typing the file and committing it — is Tech's** (D5.38): where Chief of Staff cannot reach a clone, it hands rows over and Tech transcribes them verbatim. **Drift guard:** read the file from disk in the same session before any write; never force-write. *(Amended by Tech under D5.38 mechanical housekeeping — flagged in `leads/systems/tech.md` §For Chief of Staff.)*
 - **Decisions queue** (`STATUS.md` §Decisions): ≤5 items, four-line form, ranked by what they unblock; `Waiting` and `Ruled` lists. Reduces proposals to options + recommendation.
 - `inbox/` triage: verbatim → C-refs → tags → lead inbox tables → `TRIAGED` stamp
 - `leads/README.md`; cross-reference hygiene in briefs (paths, renames, D-number stamps) — never a lead's judgement
