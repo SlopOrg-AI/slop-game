@@ -15,7 +15,7 @@
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
 **No next-free number is advertised here (D5.42).** IDs carry a routing tag (D5.43-P): **S**ystems · **A**rt · **C**ontent · **E**ngine · **P**rocess. Tech assigns at the moment of logging; derive by scanning `decisions.md`. Recent: D5.38 board custody · D5.39 guard rails + sweep (done) · D5.40 private remote (done) · D5.41 context economics P1–P4 · **D5.42 numbering authority + hop count**. C-refs: C25 earmark mechanic · C26 vision-as-test · C27 "distilled" · C28 minimize · C29 standing brief. D5.24 still unlogged — folds into Q2's entry.
-**Git:** `main` + private remote `chris-egan/slop-game`, **pushed and verified 2026-09-20** (D5.40). Tech (Claude Code) executes git, staging by path — never `git add -A`. **Three** surfaces write this repo: Claude Code (Tech) · Cowork (Chief of Staff) · the **art execution agent** under Art, which commits its own work.
+**Git:** `main` + **public** remote `SlopOrg-AI/slop-game` under a free org, moved 2026-09-21 (**D260921.3-P**); was private `chris-egan/slop-game` (D5.40). `main` carries an active ruleset with **no bypass actors**: pull request required, `rails` status check required and strict, no force-push, no deletion. Direct pushes to `main` are refused — for every account, including the owner's. Tech (Claude Code) executes git, staging by path — never `git add -A`. **Three** surfaces write this repo: Claude Code (Tech) · Cowork (Chief of Staff) · the **art execution agent** under Art, which commits its own work.
 
 ## Decisions — for the owner
 
