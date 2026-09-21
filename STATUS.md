@@ -1,5 +1,7 @@
 # STATUS — one board
 
+> **Read before the clean-slate migration runs:** `proposals/2026-09-21-clean-slate-implementation-review.md` — four implementation risks and one correction to the diagnosis in `clean-slate.md` §0.1. Pushed by the owner's console on his instruction, 2026-09-21. Delete this line and that file once the migration is done.
+
 **Authored by Chief of Staff** (`leads/chief-of-staff.md`, Cowork) — it decides what every row says. **Kept by Tech** (Claude Code): types and commits it, transcribing without paraphrase, never re-sequencing (D5.27 → D5.29 → **D5.38**). Leads write their row in their own brief first. **Typed by Chief of Staff wherever Cowork can reach the clone; Tech transcribes only where it cannot (D5.42 clause 4).** Tech still commits. This page answers only: **phase · blocked on · next · what the owner must decide**.
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.

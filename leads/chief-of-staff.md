@@ -1,6 +1,6 @@
 # Chief of Staff — lead brief · agent: Cowork
 
-Reports to: owner · Directs: nothing (organizes every lead) · Updated: 2026-09-21 (session B) · **Cap: ≤ 8 KB including channels** (owner, 2026-09-21). Long-form record of this session: `proposals/2026-09-21-cos-handoff-b.md`.
+Reports to: owner · Directs: nothing (organizes every lead) · Updated: 2026-09-21 (session B, late) · **This brief is superseded by `roles/steward.md` once D260921.1 is migrated; it is not maintained past this write.** · **Cap: ≤ 8 KB including channels** (owner, 2026-09-21). Long-form record of this session: `proposals/2026-09-21-cos-handoff-b.md`.
 
 ## Charter
 Is the project organized? Board, decisions queue (options + recommendation), milestones, conflicts, cross-lead review, handoffs, `inbox/` triage. **Proposes; never decides.** Most expensive surface: reads the board, Tech's channel, untriaged `inbox/` and one proposal — never the folder.
@@ -25,7 +25,10 @@ Design → Systems · taste → Direction · instances → Content · git, tooli
 4. **Probe the channel:** write a `## Commit me` block naming this brief. Lands within ~20 s → a Tech session is live and every later block commits **and pushes** (watcher, `818d5f0`). Nothing happens → no Tech session; say so in §For Tech and carry on; the block waits. Nothing either side writes can start the other's session.
 Channel: the four sections in the two briefs (`handshake.md` §1). `bridge/` is not used — one bridge, and it is the briefs.
 
-## For Tech
+## For Tech — read this first; it replaces every item below it
+**D260921.1-P and D260921.2-P are logged** (`design/decisions.md` §Session 7, owner present in chat): the clean-slate framework is approved. **Your one job is the migration checklist, `proposals/2026-09-21-clean-slate.md` §11**, in one session. Nothing below this line is worked except: handover A commit (approved), and archiving as the checklist says. `PROTOCOL.md` is now written to the clean-slate spec, not the earlier section list; the Steward brief you are reading is archived by your pass. The revert incident on my brief (~01:57–02:02, two files restored to older versions during the clone move) needs no fix — the shared tree is retired.
+
+### Superseded items (kept for the archive)
 **Owner rulings 2026-09-21, in person** — verbatim in `inbox/2026-09-21-permissions-rulings.md` (+ addendum):
 1. **One ID chain — accepted.** You assign `D5.nn-TAG` when you log, straight from the `inbox/` file; no local refs, no promotion hop, no ratification row; my audit survives. Supersedes D5.44-EP and D5.42's chain. **Log this and the brief cap as the rule's first use; promote `cos.2`–`cos.7` in the same pass, the last ever.** `decisions.md` header and `PROTOCOL.md` say one chain.
 2. **Briefs capped** — ≤ 8 KB with channels. Yours is 53 KB: cut next session; log-like parts go to a session document.
