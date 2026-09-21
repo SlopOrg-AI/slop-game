@@ -1,7 +1,7 @@
 # 12 — Reactions & passives
 
 **Scope:** MVP · **Status:** DECIDED D5.8, D5.9; slots OPEN · **Updated:** 2026-09-20
-**STUB — rules below are the v2 direction; v1 grading/cost detail still to be distilled from `C:\Claude\docs\01-design-bible.md` §7, D3.2–D3.4.** Insight moved to `15-information.md`.
+**STUB — rules below are the v2 direction; v1 grading/cost detail still to be distilled from `sources/v1/docs/01-design-bible.md (rescued 2026-09-20, D5.40)` §7, D3.2–D3.4.** Insight moved to `15-information.md`.
 
 > **Current rule:** D5.8, D5.9, D5.25, D5.26, D5.30, D5.31, D5.32, D5.34, D5.35, D5.36 (`design/decisions.md` — the arbiter; this doc is a stub and does not restate them) · **draft model:** `proposals/2026-09-20-session-6-handoff.md` §3.3 · **open clashes:** `proposals/2026-09-20-c-coherence.md` §2
 
