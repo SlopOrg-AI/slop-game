@@ -1,44 +1,68 @@
 # STATUS — one board
 
-Maintained by **Admin** (`leads/admin.md`) — sole writer (D5.27). Every lead writes its row in its own brief; Admin transcribes. Detail lives in each lead brief; this page answers only: **phase · blocked on · next · when**.
+Maintained by **Chief of Staff** (`leads/chief-of-staff.md`, Cowork) — sole writer (owner 2026-09-20; D5.27 rule, D5.29 reassignment pending log). Leads write their row in their own brief; Chief of Staff transcribes. This page answers only: **phase · blocked on · next · what the owner must decide**.
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
-**Next free numbers:** D-number **D5.29** (D5.24 still unlogged — being resolved with C20/C13) · C-ref **C23**.
-**Git:** `main`, local only, clean tree (a commit count here rots the moment the board is committed). Admin (Claude Code) executes git on the owner's behalf, staging by path — never `git add -A`, two surfaces are live. Tech owns the tooling (hooks, `.gitignore`).
+**Next free numbers:** D-number **D5.29** (reserved: leads reformulation — Tech logs) → **D5.30** · C-ref **C23**. D5.24 still unlogged — resolves with Q2.
+**Git:** `main`, local only. Tech (Claude Code) executes git, staging by path — never `git add -A`.
+
+## Decisions — for the owner
+
+Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defer to <gate>`.
+
+```
+Q1 · Armed abilities: holding a reaction is free, so arming everything every round is the best play · blocks: 10, 12, schema v3
+  A: `hold` cost mandatory for reactions/sustained — existing vocabulary, no new mechanic   ← Systems
+  B: pay on arm, spent whether or not it fires — arming becomes a bet
+Q2 · Initiative: one bar, or nested bars (pair · team · fight) with distance moved off the bar onto the map · blocks: 11, 14, D5.24
+  A: nested bars, distance on the map (C13 + C20 as stated)   ← Systems
+  B: keep one bar as-is until the demo is played; C13/C20 wait
+Q3 · Vision paragraph (00-steer §1): the pitch, or the test everything is held against? · blocks: vision-coherence findings
+  A: pitch — pillars are the test; §1 stops being cited as canon   ← Chief of Staff
+  B: test — §1 must carry pillars 3 and 6 and be corrected now
+Q4 · Confirm the critical path below as written · blocks: nothing; settles sequence
+  A: confirm   ← Chief of Staff
+  B: amend (say what)
+Q5 · Marketing: record from now, or from the first playable demo · blocks: marketing scope
+  A: from M1 — nothing showable yet   ← Chief of Staff
+  B: from now — design-process devlog
+```
+
+**Waiting** (queued as slots free): coherence clashes C–F + four readings (`c-coherence` §2–§3) · pillar strains P2a, P3a (`vision-coherence` §3) · Godot version pin · which smoketest PNGs are keepers.
+**Ruled:** —
 
 ## Board
 
 | Lead | Phase | Blocked on | Next action | Updated |
 |---|---|---|---|---|
-| Admin | structure DECIDED (D5.27); registers landed (C21/C22); `40-production.md` written — process DECIDED, milestones PENDING on combat | — | hold the D-number line across surfaces; transcribe the Systems walk as it lands | 2026-09-20 |
-| Systems | C1→D5.25, C3→D5.26 logged; coherence pass done — the 20 C-refs distil to **9 statements**, with **7 clashes + 4 readings** open | owner present | **A first** (armed-ability economy: D5.25 removed the cap, D5.9 makes `hold` optional — live canon with a hole), then B + C20 + C13 as one exchange → `11-initiative.md` | 2026-09-20 |
+| Chief of Staff | reformulation owner-confirmed; queue live | owner verdicts Q1–Q5 | transcribe verdicts; queue next batch | 2026-09-20 |
+| Systems | C1→D5.25, C3→D5.26; coherence pass done — 20 C-refs → 9 statements, 7 clashes + 4 readings open | Q1, Q2 | on Q1/Q2 rulings: log D-numbers, write `11-initiative.md` | 2026-09-20 |
 | ↳ Content | v1-schema data on disk; no accepted board | schema v3 · accepted style card | hold; then Kaede/Genzo × 2 poses | 2026-09-20 |
-| ↳ Tech | image-gen pipeline + `tools/` shipped and verified; art-binary policy landed (D5.28); Godot still gated | schema v3 for `validate.py` | propose `.claude/settings.json` + pre-commit hook | 2026-09-20 |
+| ↳ Tech | image-gen pipeline + `tools/` shipped; art-binary policy landed (D5.28); Godot gated | schema v3 for `validate.py` | **log D5.29, apply `lead-reformulation` §6 renames, take housekeeping list below into own brief**; then `.claude/settings.json` + pre-commit hook proposal | 2026-09-20 |
 | Direction / Art | table decided; 30/31 stubs | — | distill `31-ui.md` component list | 2026-09-20 |
-| Direction / Level | spatial model PROPOSED | C13 promotion · §5 #2 | `arena-m1` cluster | 2026-09-20 |
+| Direction / Level | spatial model PROPOSED | Q2 · §5 #2 | `arena-m1` cluster | 2026-09-20 |
 | Direction / Scenario | nothing authored | — | playtest protocol | 2026-09-20 |
-| Marketing | scope undefined | owner | define scope in `inbox/` | 2026-09-20 |
+| Marketing | scope undefined | Q5 | define scope | 2026-09-20 |
 
-Systems' input document for the walk: `proposals/2026-09-20-c-coherence.md` (§2 the clashes, §4 its own suggested order).
+Systems' input for the walk: `proposals/2026-09-20-c-coherence.md` (§2 clashes, §4 order).
 
-## Critical path to M1 — `PROPOSED (Admin, 2026-09-20)`
-Systems promotions → `02-ontology` + `SCHEMA.md` → distill 10→11→13→14→12→15 (+ D1–D4 compression) → schema v3 + validator → Godot headless engine → screens (needs `31` component list) → owner plays 10 duels (needs Scenario's `duels-m1`).
+## Critical path to M1 — `PROPOSED (Chief of Staff, 2026-09-20)` → Q4
+Q1 + Q2 rulings → `02-ontology` + `SCHEMA.md` → distill 10→11→13→14→12→15 (+ D1–D4 compression) → schema v3 + validator → Godot headless engine → screens (needs `31` component list) → owner plays 10 duels (needs Scenario's `duels-m1`).
 Parallel, not blocking: Art style card → Content cut-outs → M1 restyle.
 
-Owner: tag this `CONFIRMED (owner, date)` to settle it. Any change re-opens it as PROPOSED (D5.27).
-
-## Conflicts (cross-lead, owner resolves)
+## Conflicts (cross-lead)
 | # | Between | Issue | Status |
 |---|---|---|---|
-| 1 | Systems ↔ 00-steer | D5.24 cited in `11`/`14`/`00` §6, not in `decisions.md` | OPEN — owner: resolve with C20/C13 next session, not log-or-strip |
-| 2 | Systems ↔ data | `00-steer` §4 "+ reaction" slot vs D5.9 default A vs C1 | **RESOLVED — D5.25.** Docs updated; `characters.json → slots.reaction` and `rules.json → reactions.max_armed` are dead fields, deleted in the schema-v3 migration (logged in `data/README.md`) |
-| 3 | Tech ↔ Admin | art binaries in git (~10 MB PNGs committed) | **RESOLVED — D5.28.** `.gitignore` now keeps contact sheets + `accepted/` only; history untouched. Residue: which committed smoketest PNGs are keepers (Art/Content) |
-| 4 | Admin ↔ Cowork | two surfaces regenerating `STATUS.md` | **RESOLVED — D5.27.** Single-writer rules in `leads/README.md`; Cowork removing its `STATUS.md` Project mirror |
+| 1 | Systems ↔ 00-steer | D5.24 cited in `11`/`14`/`00` §6, not in `decisions.md` | OPEN — folds into Q2 |
+| 2 | Systems ↔ data | "+ reaction" slot | RESOLVED — D5.25; dead fields go in schema-v3 migration |
+| 3 | Tech ↔ Chief of Staff | art binaries in git | RESOLVED — D5.28; residue in Waiting |
+| 4 | Cowork ↔ Claude Code | two writers of `STATUS.md` | RESOLVED — D5.27/D5.29; Chief of Staff sole writer, Tech commits |
 
-## Housekeeping owed
-- `decisions.md` `Acts on it` value **"Production"** now names a retired lead — Systems' call whether to rename it (`Process`?); existing rows are history and stay
-- Which of the committed `proposals/art/2026-09-20-smoketest/` PNGs are keepers; the rest can be untracked (Art/Content, then Tech)
-- `design/40-production.md` — process half written; M1/M2 definitions stay in `00-steer` §3 and move here once the combat docs are distilled (§5 of that doc says what each needs)
+## Housekeeping (Tech owns; listed here until Tech's brief carries it)
+- `decisions.md` `Acts on it` value "Production" names a retired lead — Systems' call (`Process`?); rows are history
+- `leads/admin.md`, `tools/claude-agents/admin.md`, `.claude/agents/admin.md` — tombstone/delete with D5.29
+- `leads/systems/tech.md` — add git execution + housekeeping to Owns; `CLAUDE.md` hat line; `AGENTS.md` §6 already updated
+- `design/40-production.md` §5 M1/M2 definitions — after Q1/Q2
 - D1–D4 not compressed into `decisions.md`
-- `rules.json` `_note`s cite v1 open-question numbers; `insight.reveal_timing` references the removed Arm step
-- **Project mirror re-sync owed (owner action):** `AGENTS.md` — §6 lead-table row and the single-writer sentence; `01-pillars.md` — rows 7/8 reordered. `00-steer.md` unchanged. Re-upload those two files to the Claude.ai Project and the mirror is level again
+- `rules.json` `_note`s cite v1 open numbers; `insight.reveal_timing` references the removed Arm step
+- Project mirror: level as of this write (Chief of Staff re-syncs)

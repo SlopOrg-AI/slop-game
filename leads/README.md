@@ -1,14 +1,14 @@
 # leads/ — discipline leads (how the project is run)
 
-**Set up:** 2026-09-20, owner-directed (Cowork session); adopted with the `admin` lead by **D5.27**. Owner is the sole decision-maker; leads are agent roles that track status, synthesize owner feedback, and direct next steps within their discipline. `AGENTS.md` rules 1–7 apply unchanged — a lead never logs a D-number on its own.
+**Set up:** 2026-09-20, owner-directed. Adopted D5.27; reformulated same day (Chief of Staff on Cowork, Tech takes git + housekeeping, Admin retired — D5.29 pending log). Owner is the sole decision-maker; leads are agent roles that track status, synthesize owner feedback, and direct next steps within their discipline. `AGENTS.md` rules 1–7 apply unchanged — a lead never logs a D-number on its own.
 
 ## Tree
 
 ```
-admin.md               router: triage, STATUS.md (sole writer), milestones, 40-production, git
+chief-of-staff.md      Cowork. Organizes: triage, STATUS.md (sole writer), decisions queue, milestones, conflicts, handoffs
 systems.md             the game: ontology + rules. Directs content/ and tech/.
   systems/content.md   what is included: data instances, assets, animations, effects, text
-  systems/tech.md      what runs it — Tech lead = Claude Code: Godot, validator, tooling, git, .claude
+  systems/tech.md      Claude Code. What runs it + repo custody: Godot, validator, tooling, git execution, .claude, housekeeping
 direction/README.md    umbrella: shared anti-goals, cluster → Content handoff
   direction/art.md     art direction (30, influence table, board critique)
   direction/level.md   scene / zone / diorama / table design
@@ -16,48 +16,79 @@ direction/README.md    umbrella: shared anti-goals, cluster → Content handoff
 marketing.md           YouTube / devlog
 ```
 
-**Flow:** Direction defines a *cluster* (a coherent set of things the game needs) → Content produces it → Tech loads it. Systems arbitrates vocabulary and rules for all three. Admin keeps the board, routes feedback and runs git.
+**Flow:** Direction defines a *cluster* → Content produces it → Tech builds and loads it. Systems arbitrates vocabulary and rules for all three. Chief of Staff keeps the board, routes feedback, frames decisions. Tech runs git.
+
+## Roles — what each may decide vs must propose
+
+| Role | Surface | Owns the question | May decide (acts, records in brief) | Must propose (→ `proposals/`, owner rules) |
+|---|---|---|---|---|
+| Owner | chat | everything | D-numbers, scope, conflicts, sequence | — |
+| Chief of Staff | Cowork | is the project organized? | triage routing; queue order; conflict framing | sequence, milestones |
+| Systems | any | what is the game? | wording inside a decided D-number; vocabulary | any rule change; schema bumps |
+| ↳ Content | any | what's in it? | instance values inside the schema; which board to hand up | instances beyond the MVP list |
+| ↳ Tech | Claude Code | what runs it; is the repo sound? | code structure; tooling; git mechanics; housekeeping | anything changing a rule, a doc, or gitignore policy |
+| Art | any | how it reads visually | accept/return a board against the style card | influence-table changes; the style card |
+| Level | any | what a scene affords | layout inside Systems' spatial model | anything needing a new spatial term |
+| Scenario | any | what happens in a fight | opponent scripts, loadouts, playtest protocol | M1 content adds; win-condition changes |
+| Marketing | any | how it's shown | episode drafts | scope, cadence, what's showable |
 
 ## Routing tags
 
-`[admin] [sys] [content] [tech] [art] [level] [scenario] [mkt]` — one or more per feedback item. Unsure → `[sys]` and let Systems re-route.
+`[cos] [sys] [content] [tech] [art] [level] [scenario] [mkt]` — one or more per feedback item. Unsure → `[sys]`.
 
 ## Triage protocol (owner feedback → leads)
 
 1. Owner writes feedback verbatim to `inbox/YYYY-MM-DD-<topic>.md` (or says it in chat; the agent in session files it there).
-2. Triage — Admin, or whichever agent is in session, on owner instruction: split into numbered items **C<n>** (continuing the C-ref sequence; next free is noted in `STATUS.md`), tag each, append to the target lead's **Inbox** table with the C-ref and the owner's words. No paraphrase that changes meaning. Mark the inbox file `TRIAGED YYYY-MM-DD` at the top.
-3. Lead session: work the inbox → synthesis → `proposals/<date>-<topic>.md` → owner promotes (D-number in `decisions.md`, doc edited) → lead moves the item to its status table as DECIDED / REJECTED / DEFERRED.
-4. Cross-lead conflict → `STATUS.md` **Conflicts** table. Owner resolves; Admin records the outcome.
+2. Chief of Staff (or the agent in session, on owner instruction): split into **C<n>** items (next free in `STATUS.md`), tag, append to the target lead's **Inbox** table with the owner's words. No paraphrase that changes meaning. Stamp the file `TRIAGED YYYY-MM-DD`.
+3. Lead session: work the inbox → synthesis → `proposals/<date>-<topic>.md` → Chief of Staff queues it (§Adjudication) → owner rules → lead logs the D-number, edits the doc, updates its status table.
+4. Cross-lead conflict → same queue; the two positions are options A and B.
 
-## Single-writer rules (D5.27)
+## Adjudication — how decisions reach the owner
 
-Two writers, two scopes — the fix for `STATUS.md` being overwritten twice in one day:
+**One queue, on the board** (`STATUS.md` §Decisions). Chief of Staff keeps it. **≤5 items**, ranked by what they unblock. Each item:
 
-1. **A lead's own brief** (`leads/<lead>.md`) has one writer: that lead, on whichever surface is running it (Claude Code, Cowork, Codex). No other lead edits it; Admin included — Admin asks the lead or the owner and transcribes.
-2. **`STATUS.md`** has one writer: **Admin** (Claude Code). It transcribes each lead's row from that lead's brief. A row edited anywhere else is a draft, not the board. A second copy of the board anywhere (Project mirror included) is drift by construction.
+```
+Q<n> · <question in plain words> · blocks: <what waits>
+  A: <option> — <one-line trade-off>     ← recommended by <lead>
+  B: <option> — <one-line trade-off>
+```
+
+- **In:** a proposal is reduced to this form by Chief of Staff; the proposing lead's recommendation is marked (Chief of Staff may add its own, marked). Not-yet-queued items sit one-line under **Waiting**.
+- **Ruling:** owner answers in chat or in the file — `Q3: A` · `Q3: A, but …` · `Q3: reject` · `Q3: defer to <gate>`. That verdict *is* the instruction rule 4 requires.
+- **Out:** Chief of Staff moves it to **Ruled** (dated); the owning lead logs the D-number and edits the doc in its next session, then clears the line.
+- **Ladder:** (1) lead decides inside its "may decide" column — no queue; (2) two leads settle by umbrella rule or Systems' vocabulary — no queue; (3) Chief of Staff frames it → queue → owner. Nothing reaches the owner as a raw proposal.
+
+## Single-writer rules (D5.27, reassigned D5.29)
+
+1. **A lead's own brief** has one writer: that lead, on whichever surface runs it. Chief of Staff asks and transcribes; never edits.
+2. **`STATUS.md`** has one writer: **Chief of Staff** (Cowork). Drift guard: read from disk in-session before writing; never force-write. Tech commits the file, never edits it. No second copy anywhere (Project mirror included).
 
 ## Running a lead session
 
-Prompt shape: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/<lead>.md`, then only the docs the task touches."* Claude Code: `.claude/agents/<lead>.md` points at the same brief. Codex / ChatGPT / local: same reading order, output to `proposals/`.
+Prompt shape: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/<lead>.md`, then only the docs the task touches."* Claude Code defaults to Tech; `.claude/agents/<lead>.md` points at each brief. Codex / ChatGPT / local: same reading order, output to `proposals/`.
 
-At the end of every lead session the lead updates its own file (inbox, status, next actions) and writes its board row there — phase, blocked on, next action. Admin transcribes it into `STATUS.md` (single-writer rule 2). That is the whole reporting requirement.
+End of every lead session: update own brief (inbox, status, next actions) and write the board row there. Chief of Staff transcribes. That is the whole reporting requirement.
+
+## Cost tiers
+
+| Surface | Cost | Use for | Not for |
+|---|---|---|---|
+| Cowork (Chief of Staff) | highest | organizing, judgement, cross-lead review, owner conversation | reading whole docs, distillation, bulk edits |
+| Claude Code (Tech; any lead on request) | mid | building, repo work, doc distillation with owner present | owner-facing sequencing |
+| Codex / ChatGPT | mid | proposals, research, second opinions | anything outside `proposals/` |
+| Local LLM (5090) | lowest | batch text, image pipeline | design decisions |
 
 ## Registers (C21 + C22, `AGENTS.md` §5)
 
-Briefs, proposals, the board, triage and handoffs are **agent-facing**: compress hard, cite paths, one line per fact. Chat replies to the owner are **user-facing**: lead with the answer, plain sentences, and spell out `M1`, D-numbers, C-refs and lead names on first use or leave them out. Same budget, different readers.
+Briefs, proposals, the board, triage, handoffs: **agent-facing** — compress, cite paths, one line per fact. Chat to the owner: **user-facing** — answer first, plain sentences, spell out `M1`, D-numbers, C-refs, lead names on first use or omit.
 
-## Brief template (≤ 1 page each)
+## Brief template (≤ 1 page)
 
 ```
 # <Lead> — lead brief
 Reports to: owner | Directs: … | Updated: YYYY-MM-DD
-## Charter        one paragraph: the question this lead owns
-## Owns           docs / data / dirs
-## Does NOT own   explicit exclusions (mirrors the influence-table discipline)
-## Reads first    ordered list
-## Inbox          | C-ref | Owner said | From | Status |
-## Status         | Item | Status | Scope | Source |   (DECIDED/PROPOSED/OPEN · MVP/TARGET/FUTURE)
-## Next actions   ≤ 3, each with a gate
-## Open questions
-## Escalates to   who decides what this lead can't
+## Charter · ## Owns · ## Does NOT own · ## Reads first
+## Inbox     | C-ref | Owner said | From | Status |
+## Status    | Item | Status | Scope | Source |
+## Next actions (≤3, each gated) · ## Open questions · ## Escalates to
 ```
