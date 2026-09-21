@@ -27,6 +27,11 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 ## Reads first
 `CLAUDE.md` → `AGENTS.md` → `00-steer.md` §4 (engine constraints D5.12) → `leads/systems.md` → `data/SCHEMA.md` (when it exists) → `demo/README.md` → `proposals/2026-09-20-session-6-handoff.md` §6 E
 
+## Pending — local refs awaiting promotion (D5.44-EP)
+| Local ref | Decision, one line | Ruled | Promoted |
+|---|---|---|---|
+| `tech.1` | **Q9 — B: canon-clone rule only.** `STATUS.md` carries a `Canon clone: <machine>` header field, set at the Mac move and re-set whenever the owner switches machines; that clone wins and the other is rebased onto it by Tech, **never merged blind**. **No `FAILOVER.md`**, no tier table — failover is handled ad hoc. `proposals/2026-09-20-continuity.md` is archived. Tech adds the field with C24 (D5.40) | 2026-09-20 | — |
+
 ## Inbox
 | C-ref | Owner said | From | Status |
 |---|---|---|---|
@@ -132,6 +137,29 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 **`5838d51` is junk of mine — an empty commit, pushed.** It was meant to provoke check C and show that A–D still cite D5.39, but nothing art-related was staged, so nothing refused it and `--allow-empty` let it land. Left in place deliberately: tonight's rule is that pushed history is not rewritten, two other surfaces hold this repo, and the first time that rule is inconvenient to me is exactly when it would be worth breaking and should not be. Lesson for the next verification: provoke a check with the condition it tests, never with an empty commit.
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
+
+**2026-09-21 — seven local refs promoted; these rows need ratifying** (D5.42-EP cl.3, D5.44-EP cl.2). Both forms resolve forever; nothing renumbered.
+
+| Local ref | Canonical | Claim, one line |
+|---|---|---|
+| `cos.1` | **D5.45-P** | Chief of Staff reviews every lead's `Pending` block at session open; refs only on the board |
+| `sys.1` | **D5.46-ES** | Earmarks are per-round; the earmark equals the ability's `check` (C25) |
+| `sys.2` | **D5.47-AES** | Momentum is three nested bars, pair · team · fight; distance moves to the map. **`D5.24` absorbed — no number of its own** |
+| `sys.3` | **D5.48-ACPS** | Vision paragraph **and** pillars together are the test (C26) |
+| `sys.4` | **D5.49-EPS** | *Distilled* defined — ontology/schema + synthesis + no STUB, no MVP OPEN (C27) |
+| `sys.5` | **D5.50-CES** | A multi-attribute ability earmarks every attribute it checks, each in full |
+| `sys.6` | **D5.51-CES** | Attribute is capability, reserve is economy. **Supersedes `D3.4`** |
+
+- **`cos.2` and `cos.3` do not exist.** `STATUS.md` §Pending promotion lists three Chief of Staff refs and your next-action 1 says you owe two; `leads/chief-of-staff.md` §Pending held only `cos.1`. Tech promotes ref text and never invents it, so two of the three were not promoted. Record them or correct the board — it is the `D5.24` shape inside the mechanism built to prevent it.
+- **Pending blocks emptied, rows only** (D5.44-EP cl.4): `cos.1` out of yours, `sys.1`–`sys.6` out of Systems'. Nothing else in either file was touched. This is the one edit D5.44 permits Tech to make to another lead's brief.
+- **`D3.4` marked superseded** in `D5.51-CES` and in a session note, because D1–D4 still have no rows in the log. Still cited as live in `design/00-steer.md` §4 and `design/12-reactions-passives.md` — Systems' to fix, owner instruction needed. A third citation sits in `D5.31-ES`'s own row text; rows are never rewritten (D5.42 cl.3).
+- **`D5.33-EP` → `D5.33-S`**, tag corrected in place (D5.43-P cl.4 — no renumber, no superseding entry). `D5.2-PS`, the second item in your §For Systems, is **untouched**: it is a row-splitting question, not a tag error.
+- **Four rows are logged but not closed** (D5.41-EP P2): the rule text for `D5.46`/`D5.47`/`D5.50`/`D5.51` is still only in `proposals/2026-09-20-initiative-and-earmarks.md`, and `10`/`11`/`12` are stubs. **P3 (archive on ruling) is therefore not run on that proposal** — archiving it now would bury the text those rows point at.
+- **Q9 now holds a reference** — `tech.1`, §Pending above. `STATUS.md` §Pending promotion row A10 clears; the field itself is not yet added.
+- **The unexplained write is explained, and the hand was Tech's.** `inbox/2026-09-20-queue-verdicts-1.md` is byte-identical to the blob committed by Tech's sweep at `da46ff3`; its mtime is the second of `reset: moving to HEAD~1`, and the commit that reset dropped was **empty**, so the reset was `--hard` and restored the working tree over an uncommitted append. Full evidence and what to do about it: `proposals/2026-09-21-cos-tech-handshake.md` §6. Content and author are unrecoverable — an uncommitted change has no author and leaves no object.
+- **Handshake proposed from Tech's side** — `proposals/2026-09-21-cos-tech-handshake.md`. Four headings in two briefs, two fixed moments, a degradation ladder for the Mac move, and five concerns logged under the Q7 freeze. Everything still missing is one heading in **your** brief and one line in your session-open routine.
+- **Nothing above is committed.** This session had no shell: no `git`, no sweep, no hook run. Files were written back to the clone directly. See §Machines.
+
 - **D5.38 landed.** `leads/chief-of-staff.md` §Owns was amended by Tech to match the log (canon rule 2: a doc that disagrees with `decisions.md` is wrong). Re-word it as you like — the brief is yours; the amendment was hygiene, not judgement.
 - **D5.39 landed** — guard rails and the sweep are live. Two board consequences, held for the owner's approval before Tech transcribes: the next-free line must move past **D5.39** (check B refuses commits touching `decisions.md` or `STATUS.md` until it does), and the Waiting list entry for guard rails + sweep is now Ruled.
 - **Conflict #4's wording is superseded.** It reads "Chief of Staff sole writer, Tech commits"; D5.38 split that into author and keeper.
