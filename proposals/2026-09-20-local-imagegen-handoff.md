@@ -235,7 +235,15 @@ called a palette "monochromatic" when there was a clear tan note, and claimed
 1. **4-seed A/B of `euler` vs `euler_ancestral`** to settle whether ancestral is
    genuinely better or was one good sample.
 2. **Prose vs keyword-list prompt A/B**, and cfg 2.5 vs 4.0. Four cells, ~5 min.
-3. **Multi-image conditioning is wired but unused.**
+3. ~~**Multi-image conditioning is wired but unused.**~~ **DONE 2026-09-20** — implemented as
+   `tools/gen_styled.py` and run; a style reference produces the layered cut-paper construction that
+   three prompt rewrites could not, and 20 steps at cfg 4.0 beats the 8-step Lightning LoRA outright
+   for it. Feeding a second image as a *content* reference works but wraps everything in a sticker
+   outline and downscales the output to the shared 1.0 MP budget — prefer one reference and a fresh
+   latent. Evidence and the axis-by-axis result:
+   `proposals/art/2026-09-20-river-nomads/board.md` §Round 2. Original note kept below.
+
+   **Multi-image conditioning is wired but unused.**
    `TextEncodeQwenImageEditPlus` takes `image1`/`image2`/`image3`; official
    guidance is 1–3 inputs optimal. Community tip: run each reference through
    `ImageScaleToTotalPixels` so they share a pixel budget — this reportedly

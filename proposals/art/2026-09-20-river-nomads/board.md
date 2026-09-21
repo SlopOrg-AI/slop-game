@@ -103,3 +103,88 @@ attempt at cut-paper should not be another prompt rewrite.
 2. If cut-paper is wanted from this pipeline, test the style-reference path (handoff §8 #3) before
    spending more prompt iterations.
 3. Nothing in `design/` changes off this board.
+
+---
+
+# Round 2 — style reference instead of style adjectives
+
+**Implements** the proposed change from the Next actions above and closes handoff open thread #3
+(`proposals/2026-09-20-local-imagegen-handoff.md` §8): `TextEncodeQwenImageEditPlus` takes
+image1/image2/image3 and nothing in this repo had ever passed more than one. Run by
+`tools/gen_styled.py` on Qwen-Image-Edit-2509. Every reference goes through
+`ImageScaleToTotalPixels` at 1.0 MP so the inputs share a pixel budget, per the documented tip.
+
+**Style reference:** `2026-09-20-smoketest/qwen-smoketest_00001_.png` — the project's own cut-paper
+figure, the image the style card was distilled from. Nothing new was downloaded or trained.
+
+| Mode | Inputs | Prompt | Frames |
+|---|---|---|---|
+| `styleref` | style ref only, fresh latent at 1664×928 | `v4.txt` | `v4-styleref-fast-s2026092[01]`, `v4-styleref-full-s2026092[01]` |
+| `restyle` | style ref + the best round-1 frame as image2 | `v5.txt` | `v5-restyle-fast-s2026092[01]` |
+
+## Result: the style reference moved what three prompt rewrites could not
+
+| Axis | round 1, prompt only | round 2, `styleref` | |
+|---|---|---|---|
+| composition | one-point perspective in 14/14 frames | **flat parallel layers, side on, no vanishing point** | fixed |
+| line | no cut edge, or a sticker halo | **a true white cut edge on the boat and dock** | mostly fixed |
+| silhouette | held in v3 | holds — standees with one accent each | held |
+| palette | muted indigo/ochre | **drifts warm** — the reference's off-white ground bleeds into the sky | regressed |
+| shading | flat | flat | held |
+| paper layering | absent | **partial at 8 steps** — foreground gets a cut edge, water and sky stay flat vector | see below |
+
+### At 20 steps / cfg 4.0 it stops being partial
+
+`v4-styleref-full-s20260920` and `-s20260921` are **actual layered cut paper**: paper grain in every
+shape, real drop shadows between layers, cut edges throughout, and in s20260920 the paper board the
+whole scene is mounted on, casting its own shadow. Figures are paper standees. Hills are flat paper
+bands. This is the **Paper Mario** row (cut-out material, layered flat sets, D5.19) and pillar 4's
+terrain-table → diorama → cut-out grammar, produced rather than described — and s20260920 lands on
+`AGENTS.md`'s own comp, "Paper Mario cut-outs on a wargame table", without being asked for it.
+
+The 8-step Lightning LoRA is the wrong tool for this one. Round 1 found the two step counts split
+the brief between them; with a style reference they do not — 20 steps wins outright, and cheaply
+(57–75 s a frame, warm).
+
+Still wrong in both 20-step frames: the palette is warm tan, not muted indigo/ochre, and the
+one-saturated-accent-per-figure rule is gone — every standee is the same dark grey. Both are
+palette, and both are what the style reference overrode.
+
+Round 1's conclusion was that cut-paper "did not move under prompting". It moves under a reference
+image. That is the finding: the construction half of the art direction is carried by an image input,
+not by adjectives — which is what `01-pillars.md` implies anyway, since the Paper Mario row names a
+*material*, and materials are shown, not described.
+
+## `restyle` mode is not the one to use
+
+Feeding the round-1 frame as image2 preserved its composition exactly and then wrapped every element
+in the same **sticker halo** the v2 prompt produced — an outline around a cluster, not a cut edge on
+a shape. It also came back at **1368×760 instead of 1664×928**: the 1.0 MP budget on the content
+reference sets the output size. Same failure the handoff records for full-image edits, reached by a
+different route. Both seeds are near-identical, so the content reference also flattens seed variety.
+
+Use `styleref` (one reference, fresh latent) for new work. `restyle` earns its place only when an
+existing composition must be kept, and then the output is smaller than the input.
+
+## Carried over unfixed from round 1
+
+- The cassette deck still renders as a recognizable 1980s object — now a bare cassette tape lying in
+  the boat. Anachronism ceiling (Naruto row) and pillar 5 both still say "vaguely recognizable", and
+  four negative-prompt terms have not shifted it. Next lever is an image reference for the prop, not
+  more words.
+- Palette control got *worse* with a style reference, because the reference carries a palette as
+  well as a construction. Separating them — construction from image, palette from prompt — is the
+  next experiment, and the obvious version is a second reference that is a palette swatch.
+
+## Next actions (round 2)
+1. Art lead: this is the first board on disk that answers the Paper Mario row. Accept
+   `v4-styleref-full-s20260920` as the **construction** reference for the cut-paper register even if
+   the palette is returned — the two are now separable levers.
+2. Palette is the open lever. Next experiment is a second reference carrying palette only
+   (a swatch or a round-1 frame), construction from the smoketest figure, palette from image2.
+   One run, four frames.
+3. The cluster this unblocks is `cutouts-m1` (Kaede, Genzo × 2 poses each,
+   `leads/direction/art.md`), which is MVP and has been waiting on exactly this. A character
+   reference plus the style reference is the same two-image call, now known to work.
+4. Do not use 8-step Lightning for a cut-paper board. 20 steps at cfg 4.0, ~60 s a frame.
+5. Nothing in `design/` changes off this board. River Nomads still has no faction doc.
