@@ -36,3 +36,37 @@ Not yet ruled: **D5.39** (guard rails + sweep), **C24** (git remote before Mac m
 > 3's distill means more like importing the system's ontology and data schema into the combat docs right? my earlier definition should be contemplated by agents though
 
 **C27 (final):** *Distilled* = the doc is **written against `02-ontology.md` and `data/SCHEMA.md`** — rules in the ontology's vocabulary, numbers pointing at schema fields — **produced by synthesis** across sources (v1 bible, `decisions.md`, session-6 model, coherence passes: compare, keep the valuable), and carrying **no STUB marker and no OPEN row at MVP scope**. Q6 ruled. Systems logs; `demo/README.md` gate and `40-production.md` open #3 cite it.
+
+## Addendum 2 — remaining verdicts (owner, same session)
+
+> confirm, install, yes
+
+| Item | Verdict | Owning lead → action |
+|---|---|---|
+| Q4 | **CONFIRMED (owner, 2026-09-20)** — critical path as written on the board | Tech: tag the block `CONFIRMED (owner, 2026-09-20)` |
+| D5.39 | **Install** — guard rails + hooks + commit sweep as proposed (`guard-rails.md` §6, `commit-sweep.md` §C), incl. committing `.claude/settings.json` and `.claude/agents/` (review R3, response X5) | Tech: log D5.39, implement, verify each hook by provoking it, one commit per step |
+| C24 | **Yes** — private git remote before the Mac move; rescue PC-only text cited by D1–D4 in the same session (review R8) | Tech: log D-number (next free after D5.39); create remote; push; migration doc §1–§2 |
+
+Queue is empty. Chief of Staff refills from Waiting next session: coherence clashes C–F first.
+
+## Addendum 3 — Q8, Q9 and a standing rule (owner, same session)
+
+> handle failover ad hoc - let's commit to minimizing and manage project bloat at all times right, seek to reduce governance overhead
+
+| Item | Verdict | Owning lead → action |
+|---|---|---|
+| Q9 | **B** — canon-clone rule only (`Canon clone: <machine>` header field, set at the Mac move). No `FAILOVER.md`; failover handled ad hoc. Tiers 1–2 of `continuity.md` are reference, not rules | Tech: add the header field with C24; archive `continuity.md` |
+| Q8 | **Read with the standing rule below** — the owner's direction is to reduce; P1–P4 each delete something. Chief of Staff recommends A stands; owner has not said A or B explicitly | Chief of Staff: confirm at next session open, one word |
+| **C28** `[cos] [tech] [sys]` | **Standing rule: minimize. Manage project bloat at all times; seek to reduce governance overhead.** Applies to every lead and every proposal. Concretely: no new governance file without deleting one; proposals archived on ruling (P3); measurement line on the board (context-economics §5) is the check | Chief of Staff: one line in `AGENTS.md` §5 when the freeze lands (a rule *about* reducing must itself cost one line); Tech: transcribe |
+
+Next free C-ref: **C29**.
+
+## Addendum 4 — Q8 (owner, same session)
+
+> confirmed
+
+| Item | Verdict | Owning lead → action |
+|---|---|---|
+| Q8 | **A** — adopt context-economics P1–P4 as amended in `…-context-economics-response.md` §2, plus the session measurement line, inside the D5.39 window | Tech: log as D5.40 after D5.39; P3 + P4 mechanical first; P1 split with Systems; P2 as the rule for every new D-number. Then the freeze (Q7) is in force |
+
+Queue empty. Round 1 closed 2026-09-20.
