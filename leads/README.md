@@ -1,6 +1,6 @@
 # leads/ — discipline leads (how the project is run)
 
-**Set up:** 2026-09-20, owner-directed. Adopted D5.27; reformulated same day (Chief of Staff on Cowork, Tech takes git + housekeeping, `admin` retired — **D5.29**; board custody split **D5.38**). Owner is the sole decision-maker; leads are agent roles that track status, synthesize owner feedback, and direct next steps within their discipline. `AGENTS.md` rules 1–7 apply unchanged — a lead never logs a D-number on its own.
+**Set up:** 2026-09-20, owner-directed. Adopted D5.27; reformulated same day (Chief of Staff on Cowork, Tech takes git + housekeeping, `admin` retired — **D5.29**; board custody split **D5.38**). Owner is the sole decision-maker; leads are agent roles that track status, synthesize owner feedback, and direct next steps within their discipline. `AGENTS.md` rules 1–7 apply unchanged — a lead never logs a D-number on its own — it records a **local ref** in its own brief and Tech promotes it (**D5.44-EP**, §Local refs).
 
 ## Tree
 
@@ -36,11 +36,21 @@ marketing.md           YouTube / devlog
 
 `[cos] [sys] [content] [tech] [art] [level] [scenario] [mkt]` — one or more per feedback item. Unsure → `[sys]`.
 
+## Local refs (D5.44-EP)
+
+A lead records an owner ruling **the session it is given**, in its own brief's `## Pending` block, under a ref in **its own namespace**: the routing tag above plus a number it issues itself — `sys.12`, `art.3`, `cos.7`. One sequence per issuer, so nothing is coordinated and nothing is advertised.
+
+**Tech promotes.** At its next session Tech assigns the canonical `D5.nn-TAG`, writes the row into `decisions.md`, records the local ref there as a permanent **alias**, and the entry leaves the `Pending` block. Nothing is renumbered: both forms resolve to the same row forever, so a doc may cite `sys.12` before promotion and stay correct after it.
+
+**`Pending` is a queue, not an archive** — same rule as `inbox/` (D5.42-EP cl.2). Everything upstream of the log is a buffer; the log is the record; nothing is copied.
+
+**Two different things:** the local ref names *who recorded it*; the canonical suffix names *who must read it* (D5.43-P: **S**ystems · **A**rt · **C**ontent · **E**ngine · **P**rocess). They need not agree.
+
 ## Triage protocol (owner feedback → leads)
 
 1. Owner writes feedback verbatim to `inbox/YYYY-MM-DD-<topic>.md` (or says it in chat; the agent in session files it there).
 2. Chief of Staff (or the agent in session, on owner instruction): split into **C<n>** items (next free in `STATUS.md`), tag, append to the target lead's **Inbox** table with the owner's words. No paraphrase that changes meaning. Stamp the file `TRIAGED YYYY-MM-DD`.
-3. Lead session: work the inbox → synthesis → `proposals/<date>-<topic>.md` → Chief of Staff queues it (§Adjudication) → owner rules → lead logs the D-number, edits the doc, updates its status table.
+3. Lead session: work the inbox → synthesis → `proposals/<date>-<topic>.md` → Chief of Staff queues it (§Adjudication) → owner rules → lead records a **local ref** in its `Pending` block, edits the doc, updates its status table. Tech promotes the ref to a D-number (§Local refs).
 4. Cross-lead conflict → same queue; the two positions are options A and B.
 
 ## Adjudication — how decisions reach the owner
@@ -55,8 +65,14 @@ Q<n> · <question in plain words> · blocks: <what waits>
 
 - **In:** a proposal is reduced to this form by Chief of Staff; the proposing lead's recommendation is marked (Chief of Staff may add its own, marked). Not-yet-queued items sit one-line under **Waiting**.
 - **Ruling:** owner answers in chat or in the file — `Q3: A` · `Q3: A, but …` · `Q3: reject` · `Q3: defer to <gate>`. That verdict *is* the instruction rule 4 requires.
-- **Out:** Chief of Staff moves it to **Ruled** (dated); the owning lead logs the D-number and edits the doc in its next session, then clears the line.
+- **Out:** Chief of Staff moves it to **Ruled** (dated); the owning lead records a local ref and edits the doc in its next session, then clears the line. Tech promotes the ref (§Local refs).
 - **Ladder:** (1) lead decides inside its "may decide" column — no queue; (2) two leads settle by umbrella rule or Systems' vocabulary — no queue; (3) Chief of Staff frames it → queue → owner. Nothing reaches the owner as a raw proposal.
+
+### Framework freeze (Q7, owner 2026-09-20)
+
+The way the project is run is **frozen**. A lead or agent that thinks a rule is wrong **logs the concern** — one line in its own brief, under `Open questions` — and carries on working under the rule. It does not propose a replacement, open a queue item, or write a review. **The owner decides whether anything changes**, and only the owner reopens it.
+
+Scope: everything in this file, `AGENTS.md` §§1–6, and the process decisions in the log (`-P` and `-EP` tags). The game itself is not frozen.
 
 ## Single-writer rules (D5.27 → D5.29 → D5.38)
 
@@ -91,6 +107,7 @@ Briefs, proposals, the board, triage, handoffs: **agent-facing** — compress, c
 Reports to: owner | Directs: … | Updated: YYYY-MM-DD
 ## Charter · ## Owns · ## Does NOT own · ## Reads first
 ## Inbox     | C-ref | Owner said | From | Status |
+## Pending   | Local ref | Decision, one line | Ruled | Promoted |   ← D5.44-EP; cleared as Tech promotes
 ## Status    | Item | Status | Scope | Source |
 ## Next actions (≤3, each gated) · ## Open questions · ## Escalates to
 ```

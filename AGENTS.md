@@ -24,16 +24,20 @@ Systems comps: MtG (ability kinds), Blades in the Dark (scale, crew sheet), City
 | Need | Read |
 |---|---|
 | Any task | this file → `design/00-steer.md` |
-| Design work | + `design/01-pillars.md` + the one system doc you're touching + `design/decisions.md` (skim latest entries) |
+| Design work | + `design/01-pillars.md` + the one system doc you're touching |
 | Art / lore | + `design/30-art-direction.md`, `design/21-world-factions.md` |
 | Demo / engine work | + `design/10-combat-loop.md` … `15-information.md`, `50-world-systems.md` §6 (engine constraints), `data/`, `demo/README.md` |
 | History | `sources/` (only when a doc cites it) |
 
 Do not load every doc. Each is written to stand alone with its `Dependencies` line.
 
+**Recording a ruling (D5.44-EP):** you do not log a D-number and you do not need Tech in session. Write the ruling into your own brief's `## Pending` block under a ref in your own namespace — `sys.12`, `art.3`, `cos.7`. Tech promotes it to a canonical `D5.nn-TAG` and keeps your ref as a permanent alias, so a doc may cite the local ref immediately and stay correct after promotion.
+
+**`design/decisions.md` is not on this table, by decision (D5.43-P cl.6).** It is the arbiter, not reference: **matched, never read.** Every D-number carries an interested-party tag — **S** Systems · **A** Art/Direction · **C** Content · **E** Engine/tooling · **P** Process — so an agent pulls its own rows (`grep -E '^\| D[0-9.]+-[A-Z]*S' design/decisions.md`) instead of the file. Open it on three triggers only: two docs disagree · you are about to change something a D-number settled · you are ratifying one. Match on the **numeric part** — `D5.30` and `D5.30-ES` are the same row.
+
 ## 3. Doc template
 
-Every file in `design/` follows `design/_TEMPLATE.md`: Purpose → Player experience goal → Rules / Data → Dependencies → Open questions → Status & scope table. Short. Tables over prose. Numbers live in `data/*.json`, not in prose to be re-typed.
+Every file in `design/` follows `design/_TEMPLATE.md`: Purpose → Player experience goal → Rules / Data → Dependencies → Open questions → Status & scope table. Short. Tables over prose. Numbers live in `data/*.json`, not in prose to be re-typed. Cite a decision in its tagged form (`D5.35-AES`) so a reader sees whose it is without a lookup; a bare number still resolves.
 
 ## 4. Per-agent notes
 
@@ -53,6 +57,7 @@ Every file in `design/` follows `design/_TEMPLATE.md`: Purpose → Player experi
   **Plain words in chat:** spell out project shorthand the first time it appears in a reply — M1 (the playable Godot duel demo), D-numbers (decisions logged in `design/decisions.md`), C-refs (numbered pieces of owner feedback), lead names — or don't use it. A reply the owner has to decode is not concise; it is compressed at their expense. The shorthand belongs in agent-facing writing, where the reader has the docs loaded.
   **Both:** anything longer than a few lines goes to disk and is referenced, not repeated.
 - Ask before large or ambiguous work. Propose, get a reaction, then commit to a document. Small iterations over big deliverables.
+- **Minimize (C28).** Manage project bloat at all times; reduce governance overhead. No new governance file without deleting one.
 - Prefer open-source tooling. Data-driven: decisions live as JSON, not prose.
 - Do not lock architecture prematurely. Do not treat unresolved items as settled.
 - Bold, multitudinous design thinking is welcome; scope discipline is mandatory.

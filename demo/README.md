@@ -4,4 +4,6 @@ Target: Godot 4.x, GDScript. Fresh project; the archived port at `C:\Claude\Godo
 
 Scope = `design/00-steer.md` §MVP boundary. Data comes from `../data/*.json`. Milestones live in `design/40-production.md`.
 
-Not started. Do not create the Godot project until `00-steer.md` and the 10–14 system docs are marked distilled.
+Not started. Do not create the Godot project until `00-steer.md` and the 10–14 system docs are marked **distilled**.
+
+**Distilled (C27, `sys.4`; owner 2026-09-20)** = the doc is written against `../design/02-ontology.md` and `../data/SCHEMA.md` — rules in the ontology's vocabulary, numbers pointing at schema fields — **produced by synthesis** across sources (v1 bible, `decisions.md`, session-6 model, coherence passes: compare, keep the valuable), and carrying **no STUB marker and no OPEN row at MVP scope**. All three tests, not any one.

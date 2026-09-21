@@ -52,7 +52,7 @@ Steps 1–5 run in parallel with engine work and block nothing. Steps 6–7 wait
 
 ### 4. Demo gate
 
-The Godot project is not created until `00-steer.md` and the 10–15 system docs are marked distilled (`demo/README.md`). "Distilled" is not yet defined — open #3.
+The Godot project is not created until `00-steer.md` and the 10–15 system docs are marked distilled (`demo/README.md`). **"Distilled" is defined by C27 (`sys.4`) — see open #3, now closed.**
 
 ### 5. Milestones — PENDING
 
@@ -72,7 +72,7 @@ Writing them sooner would be Production deciding design by the back door. The bo
 ## Open questions
 1. **Godot version pin** — 4.7 (archived port's version) or latest 4.x. Tech open #1.
 2. **Where accepted assets live.** `.gitignore` currently keeps anything under `proposals/art/**/accepted/`; the long-term home is likely `demo/assets/`. Tech open #2, Content open #1.
-3. **What "distilled" means** as the demo gate — a doc with no STUB marker, or a doc with no OPEN rows at MVP scope? The two give very different start dates. Systems' call; Production only records it.
+3. ~~What "distilled" means as the demo gate.~~ **CLOSED — C27 (`sys.4`), owner 2026-09-20:** written against `02-ontology.md` and `data/SCHEMA.md` (rules in the ontology's vocabulary, numbers pointing at schema fields), **produced by synthesis** across sources, and carrying **no STUB marker and no OPEN row at MVP scope** — all three, not either/or. Production only records it; the gate text lives in `demo/README.md`.
 4. Which already-committed smoke-test boards are keepers (D5.28 residue) — Art/Content, then Tech untracks the rest.
 
 ## Status table
@@ -81,6 +81,6 @@ Writing them sooner would be Production deciding design by the back door. The bo
 | Tool split (§1) | DECIDED | MVP | this doc, local pipeline handoff |
 | Art loop (§2) | DECIDED | MVP | `00-steer` §3 #2, D5.2, D5.28 |
 | Record discipline (§3) | DECIDED | all | D5.27, C21/C22 |
-| Demo gate (§4) | DECIDED, term undefined | MVP | `demo/README.md` |
+| Demo gate (§4) | DECIDED; term defined by C27 | MVP | `demo/README.md`, C27 (`sys.4`) |
 | M1 / M2 definitions (§5) | PENDING — stay in `00-steer` §3 until combat settles | MVP | `00-steer` §3 |
 | Milestone git tags | PROPOSED | MVP | this doc |
