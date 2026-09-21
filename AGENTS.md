@@ -38,6 +38,7 @@ Every file in `design/` follows `design/_TEMPLATE.md`: Purpose → Player experi
 ## 4. Per-agent notes
 
 - **Claude Code / Cowork:** `CLAUDE.md` points here. Cowork can write this folder directly. Commit small, message = what changed + D-number if any.
+- **More than one Claude Code session runs at a time.** Exactly one holds the **Tech** seat (and, later, its successor); the others are **execution agents** belonging to the lead that launched them — they read that lead's brief, write in its paths, commit their own work under their own name, and hand a lead's brief a line rather than typing into it (D5.27). Owner direction, 2026-09-20; rides with the ruling on `proposals/2026-09-20-execution-agents.md`.
 - **Codex / ChatGPT agents:** read this file natively. Work against the git repo. Output → `proposals/<date>-<topic>.md` unless the task says otherwise. Image-gen and art-board output → `proposals/art/`.
 - **Claude.ai Project (chat):** the Project mirrors only `AGENTS.md`, `00-steer.md`, `01-pillars.md`. If a mirror and this folder disagree, this folder wins; re-sync the mirror.
 - **Local LLM (RTX 5090):** batch/text/art-pipeline tasks only. Never the source of a design decision.
