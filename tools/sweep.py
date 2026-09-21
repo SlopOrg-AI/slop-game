@@ -52,7 +52,12 @@ def classify(path):
 
 
 def git(*args, check=True):
-    return subprocess.run(["git"] + list(args), capture_output=True, text=True, check=check)
+    # UTF-8 explicitly; the locale default is cp1252 on Windows and raises on
+    # the em-dashes in these documents.
+    return subprocess.run(
+        ["git"] + list(args), capture_output=True, check=check,
+        encoding="utf-8", errors="replace",
+    )
 
 
 def changed():

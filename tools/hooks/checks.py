@@ -31,14 +31,27 @@ MIN_PIPES = 6
 NEXT_FREE = re.compile(r"Next free numbers:.*?D-number\s*\*{0,2}(D\d+\.\d+)", re.S)
 
 
-def git(*args):
-    """Run git, return stdout, or None when the command fails."""
+def git(*args, required=True):
+    """Run git and return stdout.
+
+    UTF-8 explicitly: the default is the locale encoding, which is cp1252 on
+    Windows and raises on the em-dashes in these documents. That bug made the
+    first version of this hook fail OPEN - it crashed in a reader thread, the
+    checks saw empty content, and the commit went through. A guard rail that
+    cannot read its input must refuse, never shrug.
+    """
     try:
         out = subprocess.run(
-            ["git"] + list(args), capture_output=True, text=True, check=True
+            ["git"] + list(args),
+            capture_output=True,
+            check=True,
+            encoding="utf-8",
+            errors="replace",
         )
         return out.stdout
-    except (subprocess.CalledProcessError, FileNotFoundError):
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError) as exc:
+        if required:
+            raise RuntimeError("git %s failed: %s" % (" ".join(args), exc))
         return None
 
 
@@ -48,10 +61,14 @@ def staged_paths():
 
 
 def content(path, staged):
-    """Staged version of a file if it is staged, else the HEAD version."""
+    """Staged version of a file if it is staged, else the HEAD version.
+
+    A file absent from HEAD (new, unstaged) is genuinely empty here, so that
+    lookup is optional; a staged file must be readable or we refuse.
+    """
     if staged:
-        return git("show", ":" + path) or ""
-    return git("show", "HEAD:" + path) or ""
+        return git("show", ":" + path)
+    return git("show", "HEAD:" + path, required=False) or ""
 
 
 def decision_ids(text):
@@ -139,7 +156,7 @@ def check_c(staged):
 def check_d(staged, message):
     if DECISIONS not in staged:
         return 0
-    before = set(decision_ids(git("show", "HEAD:" + DECISIONS) or ""))
+    before = set(decision_ids(git("show", "HEAD:" + DECISIONS, required=False) or ""))
     after = decision_ids(content(DECISIONS, True))
     added = [d for d in after if d not in before]
     missing = [d for d in added if d not in message]
@@ -166,4 +183,12 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except Exception as exc:  # fail closed: a broken check refuses the commit
+        print("", file=sys.stderr)
+        print("  guard rails (D5.39) could not run: %s" % exc, file=sys.stderr)
+        print("  refusing the commit. Fix tools/hooks/checks.py, or use", file=sys.stderr)
+        print("  --no-verify deliberately if you know why it broke.", file=sys.stderr)
+        print("", file=sys.stderr)
+        sys.exit(1)
