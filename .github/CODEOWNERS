@@ -15,3 +15,18 @@
 # which is a worse failure than no rule at all: it looks like enforcement and
 # is actually a wall.
 * @chris-egan @sloporgAI
+
+# The rails and the CI that runs them belong to the owner alone (D260921.5-P).
+#
+# Withholding the Workflows permission was supposed to stop an agent disarming
+# its own guard rails. It never did: the rail LOGIC is tools/hooks/checks.py,
+# an ordinary repo file any agent can write, and a pull request is checked by
+# its own version of it -- demonstrated by PR #9, whose rail F existed only on
+# that branch and still fired. Permissions protected the four-line invoker and
+# left the part that matters open, while blocking CI changes entirely.
+#
+# So the boundary moves to where it was really being held: review. Last match
+# wins in CODEOWNERS, so these two override the line above and only the owner
+# can approve a change to the rails or to the workflows that run them.
+/.github/ @chris-egan
+/tools/hooks/ @chris-egan

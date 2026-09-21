@@ -28,6 +28,19 @@ import sys
 DECISIONS = "design/decisions.md"
 BOARD = "STATUS.md"
 
+# Rail F. Attribution is the control now (owner, 2026-09-21: "audit / review
+# should flag unexpected chris-egan commits which should not be the norm if
+# everything is working"). Agents authenticate and commit as the machine
+# account, so an owner-authored commit inside an agent's pull request means
+# either the owner worked in an agent clone or an agent switched auth back to
+# his credential. Both are worth seeing; neither should be routine.
+OWNER_EMAILS = (
+    "chris-egan@users.noreply.github.com",
+    "51842005+chris-egan@users.noreply.github.com",
+)
+OWNER_LOGIN = "chris-egan"
+F_ORIGIN = "D260921.5-P"
+
 # A logged decision row starts with its ID and has at least five columns.
 # The three-column deferred table must not be mistaken for one - D5.24 lives
 # there precisely because it is NOT logged.
@@ -225,6 +238,40 @@ def check_d(staged, message):
     return 0
 
 
+def check_f(base, head):
+    """Refuse commits authored by the owner. He does not commit (D260921.5-P).
+
+    The first version of this rail only refused them in pull requests opened by
+    someone else, because it assumed the owner sometimes commits himself. He
+    ruled that he does not, which removes the carve-out and with it the hole:
+    an agent could have opened nothing and simply committed as him. Now there
+    is no condition -- an owner-authored commit is wrong wherever it appears.
+
+    That also drops the dependency on the Actions event payload and on branch
+    naming, so there is less to be wrong about and nothing to evade.
+
+    Merge commits are excluded: GitHub authors those as whoever clicks merge,
+    which is a review action rather than authorship. If the owner is to stop
+    appearing in the history entirely, agents have to do the merging -- that is
+    a ruling, not something this rail should quietly decide.
+    """
+    out = git("log", "--no-merges", "--format=%h %ae", "%s..%s" % (base, head))
+    bad = [
+        ln for ln in (out or "").splitlines()
+        if ln.strip() and ln.split(" ", 1)[-1].strip().lower() in OWNER_EMAILS
+    ]
+    if bad:
+        return fail(
+            "F - owner-authored commit",
+            "the owner does not commit, but these are authored by him: %s"
+            % "; ".join(bad),
+            "agents commit as the machine account. Check `git config user.email` "
+            "in this clone; it should be the machine account no-reply address.",
+            origin=F_ORIGIN,
+        )
+    return 0
+
+
 def check_blind_or_a_or_c(paths):
     """The tree-level rails, shared by the commit hook and CI."""
     return check_blind(paths) or check_a(paths) or check_c(paths)
@@ -240,7 +287,7 @@ def main():
         global SOURCE
         base, head = sys.argv[2], sys.argv[3]
         SOURCE = head
-        return check_blind_or_a_or_c(range_paths(base, head))
+        return check_blind_or_a_or_c(range_paths(base, head)) or check_f(base, head)
     staged = staged_paths()
     if mode == "commit-msg":
         path = sys.argv[2]
