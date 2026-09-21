@@ -15,6 +15,8 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 - `tools/` code (`annotate/` — Content owns its *use*), `tools/hooks/` (proposed)
 - **Git execution** (D5.29): staging by path — never `git add -A` — commit messages (what changed + D-numbers), milestone tags (`m1-playable`), and committing another surface's work with a message that says whose it is
 - **Mechanical housekeeping** (D5.29): stale files, broken cross-references, renames, D-number stamps on items the owner decided. Never a lead's judgement — that goes back to the lead or to Chief of Staff
+- **The commit sweep** (D5.39): run `python tools/sweep.py` at session open and close; `--commit --surface <name>` sweeps. Classifies by **path, never content** (`proposals/2026-09-20-commit-sweep.md` §A.1); flags go to §For Chief of Staff below; a hook refusal stops the sweep and nothing is retried
+- **Guard rails** (D5.39): `tools/hooks/` + `.claude/settings.json`. Enable per clone with `git config core.hooksPath tools/hooks` — **including the Mac successor's**
 - Asset/data loading contract: where accepted assets live, how JSON is loaded
 - Explaining Godot concepts to the owner when they become relevant, not before (AGENTS §5)
 
@@ -47,15 +49,17 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 | Style distiller (Qwen3-VL 8B) | **DONE** — one card produced, Art has not accepted it | — | handoff §4 |
 | Git | `main`, local only, clean tree. **Tech executes git** (D5.29), staging by path; two surfaces write this repo | — | D5.29 |
 | Roles: Chief of Staff (Cowork) + Tech (Claude Code); `admin` retired after eleven commits | DECIDED — **D5.29** | all | this session |
-| Repo guard rails — versioned hooks (`core.hooksPath tools/hooks`) + `.claude/settings.json` | **PROPOSED — written, nothing installed** | — | `proposals/2026-09-20-guard-rails.md` |
+| Repo guard rails — 4 hook checks + `.claude/settings.json` | **DECIDED D5.39 — installed and verified** (each check refused a real attempt, 2026-09-20) | — | `proposals/2026-09-20-guard-rails.md` |
+| Commit sweep — `tools/sweep.py` | **DECIDED D5.39 — installed; first run swept 5 files (Cowork)** | — | `proposals/2026-09-20-commit-sweep.md` |
+| Hook bug: first version failed **open** on Windows cp1252 | FIXED same session — UTF-8 read, and a check that cannot run now refuses | — | commit `b75c9c4` |
+| `.claude/settings.json` reach | **PARTIAL by construction** — binds Claude Code's Write/Edit tools; a shell edit (`python`, `sed`) is not covered. The hooks are what actually hold | — | this session |
 | `.gitattributes` / `.gitignore` | present; art-binary policy **DECIDED D5.28** — contact sheets + selected boards only, raw gens ignored. `.gitignore` updated 2026-09-20; existing history left alone | — | D5.28 |
 | Godot version | OPEN — pin 4.7 (archive) or latest 4.x | MVP | successor-review §4 #5 |
 
 ## Next actions
-1. **Guard rails** — proposal written (`proposals/2026-09-20-guard-rails.md` §6 is the
-   four-line ask). On the owner's pick: write `tools/hooks/{pre-commit,commit-msg}`,
-   `.claude/settings.json`, and run `git config core.hooksPath tools/hooks` here and in
-   the Cowork clone. Gate: owner picks.
+1. ~~Guard rails~~ **done, D5.39** — installed, verified check by check, one
+   fail-open bug found and fixed. Remaining: enable on every other clone
+   (`git config core.hooksPath tools/hooks`) as they appear. Gate: a clone existing.
 2. **Housekeeping carried from the board** (D5.29): `rules.json` `_note`s cite v1 open
    numbers and the removed Arm step → needs Systems' word on the replacements;
    `decisions.md` `Acts on it` value "Production" → Systems' call; which committed
@@ -79,8 +83,21 @@ Qwen-Image-Edit 2511 reported better at character consistency (21 GB).
 
 Successor handoff checklist: that file §7. Board custody after the move: `proposals/2026-09-20-board-custody.md` (Chief of Staff and owner rule).
 
+## Verification record (D5.39, 2026-09-20)
+| Check | Attempt made | Result |
+|---|---|---|
+| A | duplicated the `D5.38` row and committed | refused, named the duplicate |
+| B | committed the board while it advertised `D5.39`, already logged | refused, named both numbers |
+| C | `git add -f` a raw `.png` under `proposals/art/` | refused, named the file |
+| D | added a `D5.40` row, message omitting the number | refused at `commit-msg` |
+Every attempt was made against the real repo and reverted; the tree was byte-identical afterwards. The first attempt exposed the fail-open bug above — the reason to verify by attempting rather than by reading the code.
+
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 - **D5.38 landed.** `leads/chief-of-staff.md` §Owns was amended by Tech to match the log (canon rule 2: a doc that disagrees with `decisions.md` is wrong). Re-word it as you like — the brief is yours; the amendment was hygiene, not judgement.
+- **D5.39 landed** — guard rails and the sweep are live. Two board consequences, held for the owner's approval before Tech transcribes: the next-free line must move past **D5.39** (check B refuses commits touching `decisions.md` or `STATUS.md` until it does), and the Waiting list entry for guard rails + sweep is now Ruled.
+- **Conflict #4's wording is superseded.** It reads "Chief of Staff sole writer, Tech commits"; D5.38 split that into author and keeper.
+- **Sweep flags, 2026-09-20:** none. `STATUS.md` was classified as custody, not swept — it carries your pending edit and the owner is approving the rows first.
+- **Add to your own brief when you next write it** (Tech does not edit it): *"Audit — read `git log` since the last Chief of Staff session and flag anything that should not have landed. After the fact, never a gate: Chief of Staff cannot run git, and a commit is reversible (D5.39)."*
 - Housekeeping line "`leads/admin.md`, `tools/claude-agents/admin.md`, `.claude/agents/admin.md` — tombstone/delete with D5.29" is **done**; all three deleted, no dangling pointers. Strike it.
 - Tech row: next action is now the **guard-rails** pick (`proposals/2026-09-20-guard-rails.md` §6), then the carried housekeeping. Godot still gated on schema v3.
 
