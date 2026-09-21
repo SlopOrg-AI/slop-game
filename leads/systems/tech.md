@@ -51,9 +51,11 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 | Roles: Chief of Staff (Cowork) + Tech (Claude Code); `admin` retired after eleven commits | DECIDED — **D5.29** | all | this session |
 | Repo guard rails — 4 hook checks + `.claude/settings.json` | **DECIDED D5.39 — installed and verified** (each check refused a real attempt, 2026-09-20) | — | `proposals/2026-09-20-guard-rails.md` |
 | Commit sweep — `tools/sweep.py` | **DECIDED D5.39 — installed; first run swept 5 files (Cowork)** | — | `proposals/2026-09-20-commit-sweep.md` |
-| Hook bug: first version failed **open** on Windows cp1252 | FIXED same session — UTF-8 read, and a check that cannot run now refuses | — | commit `b75c9c4` |
-| Guard rail B caught **real work**, not a test — refused the D5.40 commit while the board still advertised D5.40 | WORKING as designed, 2026-09-20 | — | commit `5a2eba4` |
-| Git remote (C24) | **DECIDED D5.40 — execution BLOCKED on the owner**: no `gh` on this machine, no credential helper, no global identity. Tech does not create accounts or handle credentials | — | `proposals/2026-09-20-two-machine-migration.md` |
+| Hook bug: first version failed **open** on Windows cp1252 | FIXED same session — UTF-8 read, and a check that cannot run now refuses | — | commit `85263f2` |
+| Guard rail B caught **real work**, not a test — refused the D5.40 commit while the board still advertised D5.40 | WORKING as designed, 2026-09-20 | — | commit `06fd397` |
+| Git remote (C24) | **DECIDED D5.40** — `origin` = the owner's **private** `chris-egan/slop-game`, added 2026-09-20. Push pending the owner's GitHub sign-in; Tech does not handle credentials | — | `proposals/2026-09-20-two-machine-migration.md` |
+| **History rewritten once, before any push** (2026-09-20) | all 39 commits re-authored to the owner's GitHub no-reply address; every hash changed. Safe only because nothing was pushed and no second clone existed. Backup of the pre-rewrite `.git` kept in the session scratchpad until the push verifies | — | owner, chat |
+| GitHub CLI | installed 2026-09-20 (`winget`, v2.101.0). Sign-in is the owner's | — | owner, chat |
 | Retired-role residue (`admin`) | CLEARED 2026-09-20 across eight live docs; history left alone | — | X-list / board |
 | Stub redirects (X2) + required-reading stamps (X3) | DONE — nine stubs, two proposals; redirects regenerate idempotently | — | `proposals/2026-09-20-agent-experience-response.md` |
 | `.claude/settings.json` reach | **PARTIAL by construction** — binds Claude Code's Write/Edit tools; a shell edit (`python`, `sed`) is not covered. The hooks are what actually hold | — | this session |
