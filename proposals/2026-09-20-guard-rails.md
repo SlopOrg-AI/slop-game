@@ -1,6 +1,6 @@
 # Proposal — repo guard rails: versioned git hooks + `.claude/settings.json`
 
-**Produced by:** Tech (Claude Code), 2026-09-20 · **Targets:** `tools/hooks/` (new), `.claude/settings.json` (new), `leads/systems/tech.md` · **Proposes:** three mechanical checks and two permission rules · **Supersedes:** nothing. **Status:** `PROPOSED` — nothing installed; the owner runs one command to enable, one to disable.
+**Produced by:** Tech (Claude Code), 2026-09-20 · **Targets:** `tools/hooks/` (new), `.claude/settings.json` (new), `leads/systems/tech.md` · **Proposes:** three mechanical checks and two permission rules · **Supersedes:** nothing. **Status:** **PROMOTED D5.39** (2026-09-20) — owner ruled A: all four checks, both permission rules. Installed this session.
 
 ---
 
