@@ -15,6 +15,10 @@ reads a file to decide whether it counts - that judgement is not Tech's
 Flags are never committed and never dropped: they print, and the Tech session
 files them under "For Chief of Staff" in leads/systems/tech.md (A.2).
 Run at session open (other surfaces' leftovers) and close (its own).
+
+--surface is required for a reason: this script cannot tell who wrote a file.
+On 2026-09-20 two tools written by the owner's art execution agent were swept
+as Cowork's on that assumption, and the log had to be corrected by hand.
 """
 
 import argparse
@@ -26,7 +30,10 @@ CUSTODY = "custody"  # Tech's hand already, under D5.38 - not a sweep
 OWN = "tech-own"    # Tech's own files; commits as its own work, not a sweep
 FLAG = "flag"       # never swept
 
-# Cowork is the only other writing surface today. If that changes, add a row.
+# Surfaces writing this repo as of 2026-09-20: Claude Code (Tech), Cowork (Chief
+# of Staff), and a second Claude Code instance the owner runs as an art execution
+# agent against the local Qwen stack. A third surface breaks the assumption this
+# table was written under - see classify() on tools/.
 OTHER_SURFACE_BRIEF = "leads/chief-of-staff.md"
 TECH_BRIEF = "leads/systems/tech.md"
 
@@ -47,7 +54,7 @@ def classify(path):
     if path.startswith(("design/", "data/", "demo/")):
         return FLAG, "changes only on an owner instruction in the session doing the edit (rule 5)"
     if path.startswith("tools/") or path in (".gitignore", ".gitattributes") or path.startswith(".claude/"):
-        return OWN, "Tech owns it; commits as its own work"
+        return OWN, "Tech's area - commit as Tech's own ONLY if Tech wrote it; else attribute to whoever did (A.3 beats A.1)"
     return FLAG, "not in the sweep table"
 
 
