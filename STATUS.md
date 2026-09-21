@@ -17,9 +17,9 @@ block naming another role; the asker deletes it when it is met.
 The email setting is worth doing first; every merge republishes the address. Issue **#12** is
 a stray probe of mine that needs closing — I lack the permission.
 
-**Q3 · What next?** **A** Godot check, blocked on Q1(c) · **B** the governance split (owner
-rules `S`/`A`/`C`, roles decide `P`/`E`, no role widens its own remit) · **C** archive pass,
-held on `A260921.9`. *Recommendation: B, then A.*
+**Q3 · ANSWERED 2026-09-21 — `D260921.7-P`.** Roles decide their own mechanism; game
+decisions stay the owner's. Program management should now stop reaching him. Next for
+Builder is the Godot check, blocked on Q1(c).
 
 ## Designer — no live session
 
@@ -30,7 +30,7 @@ since 2026-09-20. **asks** · none.
 
 **state** · Host config, identity model and rails done and demonstrated. Onboarding trimmed.
 Full state: `status/builder.md`.
-**next** · Q3, on the owner's answer.
+**next** · The Godot check — **blocked on Q1(c)**, the token's Workflows grant. Idle until then.
 **not finished** · Archive pass held on `A260921.9`. Scheduler unbuilt — spec owed.
 **asks** ·
 - `A260921.9 → designer` · **Do `sys.7` and `sys.8` still mean anything?** Nine refs recorded
