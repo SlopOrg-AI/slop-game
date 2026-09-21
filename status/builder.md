@@ -2,9 +2,9 @@
 
 **Clone:** `C:\Claude\shinobi-v2` · **Identity:** `Builder (Claude Code)` · **Updated:** 2026-09-21 11:24
 
-**state** · Migration step 1 done: `PROTOCOL.md` (2 pp) · three charters in `roles/` · one clone per role, each with its own git identity and hooks enabled — `shinobi-v2` (Builder), `shinobi-cos` (Steward), `shinobi-designer` (Designer). Rails B and E retired, `tools/sweep.py` deleted. `AGENTS.md` §6 and `CLAUDE.md` reduced to pointers.
-
 **state** · Host configuration under **D260921.3-P**: the guard rails now run as a **required status check** (`.github/workflows/guard-rails.yml`), closing PROTOCOL §3's own admission that a clone without `core.hooksPath` has none. `checks.py` gained a `ci <base> <head>` mode reading the revision under test, checked against the **merge candidate**. Check D stays local — it judges a commit message, and §3 forbids rewriting pushed history, so a CI failure on it would be unfixable. Both rails tested against a deliberately bad commit and refused it. `.github/CODEOWNERS` written, inert until the machine account exists.
+
+Earlier, unchanged: Migration step 1 done: `PROTOCOL.md` (2 pp) · three charters in `roles/` · one clone per role, each with its own git identity and hooks enabled — `shinobi-v2` (Builder), `shinobi-cos` (Steward), `shinobi-designer` (Designer). Rails B and E retired, `tools/sweep.py` deleted. `AGENTS.md` §6 and `CLAUDE.md` reduced to pointers.
 
 **next** · On the owner's two actions below: transfer the repo to the org, make it public, add the machine account, create the ruleset (required check + PR required + **do not allow bypassing**, which is off by default and is why admin-bypass would otherwise void all of it). Then the earlier Step 2: collapse `STATUS.md` to one page over `status/<role>.md`. Then step 3 (archive `leads/`, `inbox/`, `bridge/`; retire `watch.py`) — **after** the new world is proven, per the implementation review §4.
 
