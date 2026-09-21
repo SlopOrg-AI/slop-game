@@ -10,7 +10,7 @@ YouTube / devlog support for the project (Project description: "supporting marke
 - Which repo artefacts are *showable* (with owner) — selected boards, contact sheets, play sessions
 
 ## Does NOT own
-- Anything in `design/`, `data/`, `demo/` · art direction (Art) · what gets built next (Admin)
+- Anything in `design/`, `data/`, `demo/` · art direction (Art) · what gets built next (Chief of Staff)
 
 ## Reads first
 `AGENTS.md` → `00-steer.md` §1 (vision paragraph is the pitch), §2 → `01-pillars.md` (player fantasy line) → `STATUS.md` (what is real enough to show)

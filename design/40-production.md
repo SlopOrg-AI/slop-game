@@ -22,7 +22,8 @@ None. Production has no player-facing surface; the template row is kept so the d
 | Board critique | `tools/annotate/server.py` → `<image>.annotations.json` | `proposals/art/` | Art |
 | Region re-roll | `tools/annotate/regional_edit.py` | same | Tech |
 | Workflow build | `tools/workflows/build_workflows.py` | `tools/` | Tech |
-| Record, board, git | `STATUS.md`, `leads/`, commits | repo root | Admin |
+| The record and the board | `STATUS.md` (**authored** by Chief of Staff, **kept and committed** by Tech — D5.38), `leads/`, triage | repo root | Chief of Staff · Tech |
+| Git, hooks, the commit sweep | commits, `tools/hooks/`, `tools/sweep.py`, `.claude/` | repo root | Tech (D5.29, D5.39) |
 
 Agent surfaces and what each may write: `AGENTS.md` §4. Settings, weights and the two install traps: `proposals/2026-09-20-local-imagegen-handoff.md` — not restated here.
 
@@ -43,7 +44,8 @@ Steps 1–5 run in parallel with engine work and block nothing. Steps 6–7 wait
 | Rule | Where | Source |
 |---|---|---|
 | A design point is decided only with a D-number | `design/decisions.md` | `AGENTS.md` §1.2 |
-| A lead's brief has one writer: that lead. `STATUS.md` has one writer: Admin | `leads/`, `STATUS.md` | D5.27 |
+| A lead's brief has one writer: that lead. `STATUS.md` has one **author** (Chief of Staff) and one **keeper** (Tech) | `leads/`, `STATUS.md` | D5.27 → D5.29 → D5.38 |
+| Guard rails refuse a malformed commit; the sweep commits other surfaces' work by path, never by content | `tools/hooks/`, `tools/sweep.py` | D5.39 |
 | One commit per doc/decision batch; message = what changed + D-numbers; staged by path, never `git add -A` | git | D5.27 |
 | Milestone tags on the commit that closes a milestone (`m1-playable`) | git | this doc |
 | Two registers: compress for agents, plain words for the owner | everywhere | C21, C22 (`AGENTS.md` §5) |

@@ -33,7 +33,7 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 | — | Godot from the start; basic screens are part of prototyping; every screen change reacts to a play session or a selected board | D5.2 | DECIDED |
 | — | schema v3 before M1, with refinement | handoff §1 (owner answer) | DECIDED (not D-logged) |
 | — | "we need a tech lead, that should be claude code" | Cowork 2026-09-20 | DECIDED (this brief) |
-| — | "claude code agents can make these commits on my behalf" | chat 2026-09-20 | DECIDED — Claude Code commits, as **Admin** (D5.27); Tech owns the tooling |
+| — | "claude code agents can make these commits on my behalf" | chat 2026-09-20 | DECIDED — Claude Code commits **as Tech** (D5.29); it keeps the board but does not author it (D5.38) |
 | — | local image-gen as part of the design-iteration pipeline; get Qwen running locally | chat 2026-09-20 | DONE — see handoff |
 | — | "admin and tech and production seem to run together… I think of you as chief of staff" · "status.md is owned by chief of staff. housekeeping may make sense for tech" | Cowork chat 2026-09-20 | **DECIDED — D5.29**; logged here on "log it" |
 

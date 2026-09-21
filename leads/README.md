@@ -1,6 +1,6 @@
 # leads/ — discipline leads (how the project is run)
 
-**Set up:** 2026-09-20, owner-directed. Adopted D5.27; reformulated same day (Chief of Staff on Cowork, Tech takes git + housekeeping, Admin retired — D5.29 pending log). Owner is the sole decision-maker; leads are agent roles that track status, synthesize owner feedback, and direct next steps within their discipline. `AGENTS.md` rules 1–7 apply unchanged — a lead never logs a D-number on its own.
+**Set up:** 2026-09-20, owner-directed. Adopted D5.27; reformulated same day (Chief of Staff on Cowork, Tech takes git + housekeeping, `admin` retired — **D5.29**; board custody split **D5.38**). Owner is the sole decision-maker; leads are agent roles that track status, synthesize owner feedback, and direct next steps within their discipline. `AGENTS.md` rules 1–7 apply unchanged — a lead never logs a D-number on its own.
 
 ## Tree
 

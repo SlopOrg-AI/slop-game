@@ -12,7 +12,7 @@ The game itself: **what exists** (ontology — entities, actor kinds, sheets, po
 - Schema versions (one D-number per bump); the validator's *rules* (Tech writes the script)
 
 ## Does NOT own
-- Instances (which 17 abilities, Kaede/Genzo, factions, lore) → Content · Godot code → Tech · look/feel, space *aesthetics*, encounter authoring → Direction · milestones → Admin
+- Instances (which 17 abilities, Kaede/Genzo, factions, lore) → Content · Godot code → Tech · look/feel, space *aesthetics*, encounter authoring → Direction · milestones → Chief of Staff
 
 ## Reads first
 `AGENTS.md` → `00-steer.md` → `01-pillars.md` → `proposals/2026-09-20-session-6-handoff.md` (§2 C-refs, §3 model, §4 corrections) → `…-ontology-draft.md` → `decisions.md` latest → the one doc being touched
@@ -35,7 +35,7 @@ The game itself: **what exists** (ontology — entities, actor kinds, sheets, po
 | `10`, `11`, `13`, `14`, `20` | STUB | MVP (20: TARGET) | — |
 | `02-ontology.md`, `data/SCHEMA.md` | not created | MVP | handoff §6 B |
 | `data/*.json` | v1 schema; drift vs D5.9 / D5.12 / D5.14 documented | MVP | data/README |
-| `12-reactions-insight.md` | **deleted 2026-09-20** (Admin housekeeping; the rename was D5.9) | — | successor-review |
+| `12-reactions-insight.md` | **deleted 2026-09-20** (mechanical housekeeping, Claude Code; the rename was D5.9) | — | successor-review |
 | `decisions.md` `Acts on it` column | added + backfilled D5.1–D5.23 (Tech / Vocabulary / Designers / Content / Art / Production) | — | D5.25 session |
 | Reach-on-bar (D2.8/D2.12), trick-taking (D2.13), `00-steer` §4 boundary | UNDER REVIEW pending C-ref promotion | MVP | handoff §1b |
 | Attribute economy: `check` at resolution, commit-for-round, toggle-off, lockout | DECIDED | MVP | D5.30–D5.32 |

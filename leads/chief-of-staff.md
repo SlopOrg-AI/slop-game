@@ -3,7 +3,7 @@
 Reports to: owner · Directs: nothing (organizes every lead) · Updated: 2026-09-20
 
 ## Charter
-Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **decisions queue** so the owner rules on framed options rather than raw proposals, sequences milestones, records conflicts, reviews across leads, assembles handoffs. Proposes; never decides. Replaces Admin's judgement half and Production whole (D5.29, pending log). Most expensive surface in the project: reads the board, the untriaged inbox and one proposal per session — not the folder.
+Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **decisions queue** so the owner rules on framed options rather than raw proposals, sequences milestones, records conflicts, reviews across leads, assembles handoffs. Proposes; never decides. Replaces the retired `admin` role's judgement half and Production whole (**D5.29**; `STATUS.md` authored here, kept by Tech — **D5.38**). Most expensive surface in the project: reads the board, the untriaged inbox and one proposal per session — not the folder.
 
 ## Owns
 - `STATUS.md` — **author** (D5.38; was sole writer, D5.29). Decides what every row says, what is blocked, what enters the queue and in what order. Rows come from leads' briefs. **Custody — typing the file and committing it — is Tech's** (D5.38): where Chief of Staff cannot reach a clone, it hands rows over and Tech transcribes them verbatim. **Drift guard:** read the file from disk in the same session before any write; never force-write. *(Amended by Tech under D5.38 mechanical housekeeping — flagged in `leads/systems/tech.md` §For Chief of Staff.)*
@@ -32,7 +32,7 @@ Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **d
 ## Status
 | Item | Status | Scope | Source |
 |---|---|---|---|
-| Role reformulation (CoS on Cowork; Tech takes git + housekeeping; Admin retired) | owner-confirmed, D5.29 pending | all | `proposals/2026-09-20-lead-reformulation.md` |
+| Role reformulation (CoS on Cowork; Tech takes git + housekeeping; `admin` retired) | **DECIDED — D5.29** | all | `proposals/2026-09-20-lead-reformulation.md` |
 | Decisions queue live, 5 items seeded | ACTIVE | all | `proposals/2026-09-20-roles-and-adjudication.md` |
 | Critical path | PROPOSED (CoS) — queue Q4 | M1 | `STATUS.md` |
 | `40-production.md` §5 M1/M2 definitions | PENDING on Q1, Q2 | MVP | `00-steer` §3 |
