@@ -51,6 +51,21 @@ import sys
 import time
 from pathlib import Path
 
+# Windows consoles default to cp1252 and these documents are full of arrows and
+# dashes. The first run of this watcher died printing one. Third encoding bug of
+# the same family tonight: read UTF-8, write UTF-8, never inherit the locale.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except AttributeError:
+        pass
+
+# A fenced block is documentation, not a request. The first run matched the
+# EXAMPLE in leads/systems/tech.md that shows a lead how to write one, and
+# treated the rest of the brief as paths. Documentation that fires the
+# mechanism it documents is a bug in the mechanism, not in the documentation.
+FENCE = re.compile(r"^```.*?^```", re.M | re.S)
+
 ROOT = Path(__file__).resolve().parents[1]
 HEADING = re.compile(r"^##\s+Commit me\s*$", re.M)
 # The brief's path is the attribution. No surface declares itself here.
@@ -74,13 +89,23 @@ def git(*args, check=True):
 
 
 def find_block(text):
-    """-> (message, [paths], start, end) for the first '## Commit me' section."""
-    m = HEADING.search(text)
+    """-> (message, [paths], start, end) for the first real '## Commit me' section.
+
+    Fenced examples are blanked first, with their length preserved so the
+    offsets still point into the original text.
+    """
+    nl = chr(10)
+    blank = lambda m: nl.join(" " * len(l) for l in m.group(0).split(nl))
+    scannable = FENCE.sub(blank, text)
+    m = HEADING.search(scannable)
     if not m:
         return None
-    rest = text[m.end():]
+    rest = scannable[m.end():]
     nxt = re.search(r"^##\s", rest, re.M)
     body = rest[: nxt.start()] if nxt else rest
+    # A request is short. Anything longer is a false match on prose.
+    if len([l for l in body.splitlines() if l.strip()]) > 25:
+        return None
     end = m.end() + (nxt.start() if nxt else len(rest))
     message, paths = None, []
     for raw in body.splitlines():
