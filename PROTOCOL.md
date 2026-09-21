@@ -30,7 +30,7 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 2. **Read §Changes below**, from your last session's date down. Then your own charter (`roles/<role>.md`) and `STATUS.md`.
 3. **`git pull`.** Work only in your own clone.
 4. **Commit as you go. Push before you stop.** Work that never left your machine is not in the record.
-5. **Leave your `STATUS.md` section true**: state · next · asks.
+5. **Write `status/<role>.md` for your successor, not as a record of yourself** (D260921.10-P). They arrive with none of your context. Lead with what would waste or damage their session — wrong credential, a file that is not theirs, the thing that is actually blocked — then state · next · asks. Keep your `STATUS.md` block to one line each; detail lives in your status file.
 6. **Release the claim** at close — delete the file.
 
 ## 3. Git is the channel
@@ -71,6 +71,7 @@ Required reading is `CLAUDE.md` + this file + your charter + `STATUS.md` — 13 
 
 ## Changes
 
+- **2026-09-21** §2.5 becomes write-for-your-successor (D260921.10-P): “true” produced an accurate log that still sent a fresh session to finished work
 - **2026-09-21** Budgets measure context loaded, not file size (D260921.9-P): per-file page caps retire, the ≤ 20 KB a session reads before it works stands, and anything auto-loaded must justify itself
 - **2026-09-21** Approvals stay at 0 (D260921.8-P): review here is a convention and §3 says so, because an approval requirement and D260921.7-P cannot both hold — GitHub has no per-path approval count
 - **2026-09-21** Roles decide their own mechanism (D260921.7-P): game decisions S/A/C stay the owner's, P/E become the owning role's, and no role may widen its own remit
@@ -80,6 +81,5 @@ Required reading is `CLAUDE.md` + this file + your charter + `STATUS.md` — 13 
 - **2026-09-21** `sessions/README.md` retired into §2.1 (D260921.1-P); `inbox/` struck from §5 (D260921.2-P) — owner's words live in the decision row and the queue file
 - **2026-09-21** Tech lead becomes **Builder**; `leads/systems/tech.md` deprecated, charter is `roles/builder.md`
 - **2026-09-21** One clone per role; identity set per clone. `Surface:` trailer retired — `git log --author` does that job now
-- **2026-09-21** Guard rail B retired: date IDs have no next-free counter, and it would have refused every commit under the new scheme
 - **2026-09-21** Decision IDs become `D<yymmdd>.<n>-<TAG>`; local refs, promotion, ratification and next-free counters all go
 - **2026-09-21** Asks between roles move to `STATUS.md` sections; `## For`/`## From` channels, `bridge/` and the handshake retire

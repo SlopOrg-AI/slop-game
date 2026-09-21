@@ -1,31 +1,68 @@
 # Builder — state · next · asks
 
-**Clone:** `C:\Claude\shinobi-v2` · **Identity:** `Builder (Claude Code)` · **Updated:** 2026-09-21 11:45 · **seat released**
+**Clone:** `C:\Claude\shinobi-v2` · **Identity:** `Builder (Claude Code)` <`…+sloporgAI@…`> ·
+**Updated:** 2026-09-21, by `builder-260921-c` at session close · **seat released**
 
-**state** · Host configuration under **D260921.3-P**: the guard rails now run as a **required status check** (`.github/workflows/guard-rails.yml`), closing PROTOCOL §3's own admission that a clone without `core.hooksPath` has none. `checks.py` gained a `ci <base> <head>` mode reading the revision under test, checked against the **merge candidate**. Check D stays local — it judges a commit message, and §3 forbids rewriting pushed history, so a CI failure on it would be unfixable. Both rails tested against a deliberately bad commit and refused it. `.github/CODEOWNERS` written, inert until the machine account exists.
+## Start here if you are the next Builder
 
-**Host configuration is done and demonstrated, not asserted.** Repo transferred to the free org **`SlopOrg-AI`** and made **public**; the plan gate lifted on the spot (`403 Upgrade to GitHub Pro` → `[]` / `404 Branch not protected`). Ruleset `main` (id 23775959) is **active with zero bypass actors**: pull request required, `rails` required **and strict** (branches must be up to date), no force-push, no deletion. Proven both directions — a deliberately bad PR (#1) went **red in 8s** on guard rail A against the merge candidate (`MERGE_SHA` ≠ branch head), and a direct push to `main` **by the org owner** was refused with `GH013`. PR #2 then went green and merged. Enforcement here is now literally host-enforced rather than a convention.
+**Auth is already right. Do not change it.** `gh` is authenticated as **`sloporgAI`**;
+`chris-egan` is also in the keyring and **switching to it is the anomaly rail F exists to
+catch** (`D260921.5-P`). Check with `gh api user --jq .login` before your first push.
 
-**Error to know about, mine:** after merging #2 I ran `git reset --hard origin/main` and destroyed two uncommitted files left in this clone by an earlier session — `queue/_DOORBELL.md` and `sessions/cos.md` — having just said I would leave them alone. Both restored byte-for-byte from the diff read beforehand (blob hashes `64d29e3`, `b75ace6` match). They remain **uncommitted**, as they were. Not mine to commit.
+**Two files in this clone are uncommitted and are not yours** — `queue/_DOORBELL.md` and
+`sessions/cos.md`, blob hashes `64d29e3` / `b75ace6`, left by a session two ahead of you.
+`A260921.8` is unruled. **Never `git reset --hard` in this clone** — it destroyed them once;
+use `git pull --ff-only`.
 
-Earlier, unchanged: Migration step 1 done: `PROTOCOL.md` (2 pp) · three charters in `roles/` · one clone per role, each with its own git identity and hooks enabled — `shinobi-v2` (Builder), `shinobi-cos` (Steward), `shinobi-designer` (Designer). Rails B and E retired, `tools/sweep.py` deleted. `AGENTS.md` §6 and `CLAUDE.md` reduced to pointers.
+**One thing blocks the next piece of work**, and it is the owner's: the machine-account token
+needs **Workflows: Read and write**. Without it `.github/workflows/` is unwritable by anyone,
+because the owner does not commit either. That blocks the Godot check.
 
-**next** · On the owner's two actions below: transfer the repo to the org, make it public, add the machine account, create the ruleset (required check + PR required + **do not allow bypassing**, which is off by default and is why admin-bypass would otherwise void all of it). Then the earlier Step 2: collapse `STATUS.md` to one page over `status/<role>.md`. Then step 3 (archive `leads/`, `inbox/`, `bridge/`; retire `watch.py`) — **after** the new world is proven, per the implementation review §4.
+## state
 
-**Seat released 2026-09-21.** Host configuration is done and proven; what is
-left is in the asks below, and two of them need the owner, not an agent. A
-cold-start handover covering observed state, what is proven versus merely
-asserted, and six known traps was written for the next session
-(`HANDOVER-github-framework-state.md`, owner's Downloads — **not in this repo,
-which is itself trap 4 in it**).
+**Host configuration, the identity model, and the rails are done and demonstrated.**
 
-**asks** ·
+- Ruleset `23775959` active, **zero bypass actors**: pull request required, `rails` required
+  and strict, no force-push, no deletion — binding on every account.
+- **Agents act as the machine account** (`D260921.5-P`). Its token has Contents and Pull
+  requests write, **no admin**, so the ruleset genuinely binds an agent rather than being a
+  convention it chooses to respect. Agents also merge; the owner only approves
+  (`D260921.6-P`).
+- **Rail F** refuses any non-merge commit authored by the owner. Proven by deliberate
+  failure in real CI, not just by a passing run — PR #9 was built to go red and did, citing
+  the offending SHA. It was then closed and its branch deleted.
+- **Roles decide their own mechanism** (`D260921.7-P`). Game decisions — tags S, A, C — are
+  the owner's. P and E are yours, attributed to the role and revocable by him. You may not
+  amend `PROTOCOL.md` §1 or §4, or widen what you are allowed to decide.
+- **Review is a convention, not a control** (`D260921.8-P`) — approvals are 0 by decision,
+  and `PROTOCOL.md` §3 says what binds and what does not. `CODEOWNERS` is inert while
+  code-owner review is off. Nothing mechanically stops an agent weakening the rails;
+  `checks.py` is an ordinary repo file and a pull request is checked by its own copy of it.
+- **Onboarding halved** — 22.5 KB → 14.6 KB, by stopping `CLAUDE.md` auto-loading
+  `AGENTS.md`. Budgets now measure context loaded, not file size (`D260921.9-P`).
 
-- `A260921.2 → steward` · **Worktrees cannot work; use clones.** The review §3 says make worktrees by hand. Git refuses: a branch may be checked out in **one** worktree only — `fatal: 'main' is already used by worktree at C:/Claude/shinobi-v2`. Three roles on `main` is impossible by worktree. Either each role gets its own **branch** (a merge model nobody has designed, and more machinery, not less) or each gets a **full clone** — which is proven: the Steward's clone pushed, my push was rejected, I rebased, both landed. That rejection *is* the design working. **Done as clones; say if you want branches instead.**
-- `A260921.3 → steward` · **The 20 KB reading budget fails at 24.6 KB, and the cause is the board.** `PROTOCOL.md` 5.1 KB + `roles/builder.md` 2.1 KB + `STATUS.md` **17.5 KB**. The budget passes at ~9 KB the moment step 2 lands, so this is a measurement, not an objection — but the board is the thing over budget, not the protocol.
-- `A260921.4 → steward` · **I deleted `tools/sweep.py` before step 3.** Your review says delete nothing until the new world is proven and you are right; it was approved earlier and I did it in the same pass as the charters. Revertible in one command, and its detection half survives as `watch.py --report`. Flagging rather than quietly leaving it.
-- `A260921.5 → owner` · **The doorbell has never run and I have not created it.** A task that pushes to the repo and notifies every two hours is outward-facing and recurring, so it waits for the owner's word even though the plan is approved. The prompt is ready and now enables the rails before it commits.
+**Decisions logged today:** `D260921.4-P` … `D260921.9-P`. Next free is `D260921.10`.
 
-- `A260921.6 → owner` · **CLOSED 2026-09-21.** Org `SlopOrg-AI` created by the owner; transfer, visibility and ruleset all done.
-- `A260921.8 → steward` · **The doorbell WIP in this clone deletes the guard-rail step, and I think that is a regression.** Uncommitted in `queue/_DOORBELL.md`: it removes step 0 (`git config core.hooksPath tools/hooks`) and the ownership note. A cloud clone without that line writes `design/decisions.md` unchecked — which is the one place the rails matter most. I have not committed it either way; it is not Builder's wording to rule on. Also: `shinobi-cos` and `shinobi-designer` still point at `chris-egan/slop-game`. GitHub redirects, so they work, but each clone should run `git remote set-url origin https://github.com/SlopOrg-AI/slop-game.git` — their own clones, so their own sessions do it.
-- `A260921.7 → owner` · **OPEN — the one thing still outstanding. Create the machine account.** `SlopOrg-AI` has exactly one member (`chris-egan`, admin) and no pending invitations, so required-approval is currently set to **0**: with one identity, setting it to 1 would deadlock rather than weaken to a convention. I am not able to create accounts. GitHub refuses to let an author approve its own PR, so under one identity a required-approval rule does not weaken to a convention, it **deadlocks**: nobody can ever approve. ToS allows one machine account per person, automation only. Tell me the handle and I wire CODEOWNERS and the ruleset to it.
+## next
+
+**The Godot check** — the original objective of both handovers, and still the only thing in
+this repo that would fail when the *game* is wrong. Blocked on the Workflows grant above.
+`proposals/2026-09-21-scheduler.md` is the other specced-but-unbuilt piece.
+
+## not finished
+
+- **Archive pass** on `leads/`, `inbox/`, `bridge/` — held on `A260921.9`, deliberately. The
+  implementation review §5 says check what points *only* at what is being archived, and
+  `leads/` holds the sole live pointer to **C23**.
+- **Scheduler** — specced, not built, by the owner's halt.
+
+## asks
+
+- `A260921.9 → designer` · **Do `sys.7` and `sys.8` still mean anything?** Nine refs recorded
+  in briefs and never promoted; `D260921.1-P` retired local refs so nothing will promote them.
+  *Blocks:* archiving `leads/`. Detail: `status/designer.md` #7.
+- `A260921.11 → designer` · **`AGENTS.md` §2 and §4 cite retired machinery** — `D5.44-EP`
+  local refs, the Tech seat, the Project mirror. Harmless to Claude Code, which no longer
+  loads that file; a platform reading it whole would act on stale rules.
+- `A260921.10 → owner` · Three exposure findings, deferred by him. Issue **#12** is a stray
+  probe of mine needing closure. `proposals/2026-09-21-machine-account-exposure.md`.
