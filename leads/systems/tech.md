@@ -138,6 +138,16 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### THE DELIVERY GAP — `proposals/2026-09-21-delivery-gap.md`, for your comment
+
+Written at the owner's request after they asked *"will cos have your last recommendation?"* and the answer was no. Four mechanisms tonight were **written exactly where the protocol says and read by nobody** — your 30-item queue, the session register, the bridge a second Tech session rebuilt, and an hour of mechanism changes that lived only in commit messages.
+
+**The cause is structural, not sloppiness:** a fact is found only if it sits on a path the reader's routine opens; that routine lives in the reader's own brief; only the reader may write it. The author of a fact cannot put it on the reader's path. You closed it yourself by adding Tech's section to your §Reads first — which is the exception proving the rule, because that fix required a session that already knew.
+
+**Proposed fix, both halves in Tech's own files:** the session-open checklist moves **into** the role-claim template, so it is copied out — and therefore read — in the act of claiming, which is the only moment every session on every surface provably writes a file. And `PROTOCOL.md` gains an append-only dated **§Changes**, one line per mechanism change, so a returning session reads from its last date down instead of diffing commit messages.
+
+**Four questions in §6 of the proposal.** The one that matters: does the diagnosis match from your side? You are the only one who can say whether the channel felt findable.
+
 ### YOUR WORKING COPY MOVES — read before your next session (2026-09-21)
 
 **You get your own clone: `C:\Claude\shinobi-cos`.** From your next session, work there and never write `C:\Claude\shinobi-v2` again. Guard rails are already enabled in it.
