@@ -138,6 +138,34 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### UNCLAIMED WORK — session report, 2026-09-21 01:12 (cos.5)
+
+Detection only, per your directive. **Not committed, not guessed at.** These changed and nobody asked for them:
+
+| Path | |
+|---|---|
+| `proposals/2026-09-21-cos-handover-a.md` | Handover from Chief of Staff assistant session **`a`** — the *other* concurrent Cowork session. Session `a5`'s `## Commit me` block named its own handoff and not this one, which is correct: `a5` cannot declare `a`'s work |
+| `proposals/2026-09-21-permissions-and-inbox.md` | Appeared while Tech was reading. Unclaimed by anyone |
+
+**Whose are they?** Say so, or have the session that wrote them name them in a `## Commit me` block, and they land attributed correctly. Until then they sit in the tree — visible, uncommitted, and nobody's name on them.
+
+**This is the case the directive was written for**, on its first run: two sessions under one role, one of them able to declare its work and the other not, and a third file from a session Tech cannot identify. The old sweep would have committed all three as `cos` and been wrong about at least one.
+
+### 🔑 Relayed authorization — policy change (owner, 2026-09-21)
+
+**Owner:** *"i did rule that - cos should be able to pass my authorization along to tech."*
+
+Tech had refused `cos.5` on the grounds that it arrived as a relay. That refusal is **withdrawn**, and the standing rule is now: **Chief of Staff may carry the owner's authorization to Tech, and Tech acts on it.** It cost an hour on the `Surface:` trailer for nothing.
+
+**Four things Tech still takes only from the owner directly**, not as policy invented here but as the boundary the owner has drawn in practice tonight:
+
+1. **Irreversible or outward-facing acts** — creating a remote, force-pushing, rewriting pushed history, deleting anything. The precedent is the owner's own: they confirmed the force-push and the history rewrite in person.
+2. **Tech's own permissions and guard rails** — `.claude/settings.json`, hook removal. A relayed instruction to weaken a check is the one shape that cannot be distinguished from a mistake.
+3. **Canon** — `CLAUDE.md`, `AGENTS.md`. The owner ruled the Tech-seat wording in person for this reason and Tech declined to make the same edit for a peer an hour earlier.
+4. **Anything that contradicts what the owner told Tech directly.** Then Tech asks rather than picking.
+
+Everything else — mechanism, directives like `cos.5`, sequencing — Tech takes from Chief of Staff as the owner's word.
+
 ### FOR THE INCOMING CHIEF OF STAFF — read this before anything else
 
 Your predecessor's session is ending and it did not leave a handover; everything below is what Tech can see from the record. **Its brief is intact and current** — read `leads/chief-of-staff.md` whole, especially §For Tech (which it opened tonight), §Pending, and §Standing brief.

@@ -131,43 +131,91 @@ def handle(brief, surface):
         print("  left in place to be corrected - Tech does not rewrite another lead's brief.")
         return False
 
-    changed = {p[3:].strip().strip('"') for p in git("status", "--porcelain").stdout.splitlines() if p}
+    changed = {p[3:].strip().strip('"') for p in git("status", "--porcelain", "--untracked-files=all").stdout.splitlines() if p}
     live = [p for p in paths if p in changed or any(c.startswith(p) for c in changed)]
     for p in paths:
         if p not in live:
             print("SKIPPED %-44s not modified in the tree" % p)
-    # The brief itself carries the request; committing it would commit the block.
-    live = [p for p in live if p != brief]
     if not live:
         print("nothing to commit.")
         return False
 
+    # Strip the consumed request BEFORE committing, so the requesting lead's own
+    # brief edits land in ITS commit under ITS name. The first version excluded
+    # the brief and cleared it afterwards in a separate commit of Tech's, which
+    # would have attributed a lead's own writing to Tech - the exact error this
+    # mechanism exists to prevent, built into the mechanism.
+    stripped = (text[:start] + text[end:]).rstrip() + chr(10)
+    (ROOT / brief).write_text(stripped, encoding="utf-8", newline=chr(10))
+    if brief not in live:
+        live.append(brief)
+
     git("add", "--", *live)
-    body = ["", "Committed by Tech on request: the '## Commit me' block in %s." % brief,
-            "Not authored by Tech. The brief's path is the attribution - nobody",
-            "declared a surface and nobody guessed.", ""] + ["  " + p for p in live]
+    body = ["", "Committed by Tech on request: the '## Commit me' block in %s," % brief,
+            "which this commit also consumes. Not authored by Tech - the brief's",
+            "path is the attribution, so nobody declared a surface and nobody",
+            "guessed.", ""] + ["  " + p for p in live]
     body += ["", "Surface: %s" % surface, "Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"]
+    # A lead that prefixes its own Message with its tag should not get "cos: cos:".
+    if message.lower().startswith(surface.lower() + ":"):
+        message = message.split(":", 1)[1].strip()
     done = git("commit", "-m", "%s: %s (committed by Tech on request)" % (surface, message),
-               "-m", "\n".join(body), check=False)
+               "-m", chr(10).join(body), check=False)
     print(done.stdout or "", done.stderr or "")
     if done.returncode != 0:
-        print("REFUSED by a guard rail. Nothing retried; the request stays for a fix.")
+        # Put the request back exactly as it was: a refused commit must leave the
+        # tree as it found it, or the lead loses its request to a failed attempt.
+        (ROOT / brief).write_text(text, encoding="utf-8", newline=chr(10))
+        git("reset", "-q", check=False)
+        print("REFUSED by a guard rail. Request restored; nothing retried.")
         return False
 
-    # Remove the consumed request, and commit that removal separately so the
-    # requesting lead sees exactly one edit of its brief, explained.
-    after = (text[:start] + text[end:]).rstrip() + "\n"
-    (ROOT / brief).write_text(after, encoding="utf-8", newline="\n")
-    git("add", "--", brief)
-    git("commit", "-m", "Clear the consumed 'Commit me' request from %s" % brief,
-        "-m", "\n".join([
-            "", "The only edit Tech makes to another lead's brief, and only this:",
-            "removing a request it has just carried out. Leaving it would fire the",
-            "request again on the next poll.", "",
-            "Surface: tech", "Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"]),
-        check=False)
-    print("committed and request cleared: %s" % git("log", "-1", "--format=%h %s").stdout.strip())
+    print("committed, request consumed: %s" % git("log", "-1", "--format=%h %s").stdout.strip())
     return True
+
+
+def report():
+    """List what git sees as unrecorded, split by whether anyone claimed it.
+
+    Run as the first and last act of a session (cos.5, owner 2026-09-21).
+    Detection only. tools/sweep.py was retired for guessing WHO wrote a path
+    from a path table - that guess caused three misattributions - and this does
+    not bring the guessing back. It notices; a person names.
+    """
+    out = git("status", "--porcelain", "--untracked-files=all").stdout.splitlines()
+    paths = [l[3:].strip().strip('"') for l in out if l.strip()]
+    if not paths:
+        print("nothing unrecorded. Tree is clean.")
+        return 0
+
+    declared = {}
+    for brief, surface in BRIEFS.items():
+        f = ROOT / brief
+        if not f.exists():
+            continue
+        found = find_block(f.read_text(encoding="utf-8", errors="replace"))
+        if found and found[1]:
+            for d in found[1]:
+                declared[d] = (surface, brief)
+
+    claimed, unclaimed = [], []
+    for p in paths:
+        hit = next((d for d in declared if p == d or p.startswith(d)), None)
+        (claimed if hit else unclaimed).append((p, declared.get(hit)))
+
+    for p, who in claimed:
+        print("DECLARED   %-52s by %s (%s)" % (p, who[0], who[1]))
+    for p, _ in unclaimed:
+        print("UNCLAIMED  %-52s nobody has asked for this" % p)
+
+    if unclaimed:
+        print("")
+        print("%d unclaimed path(s). DO NOT COMMIT THEM. Put the list in" % len(unclaimed))
+        print("leads/systems/tech.md section For Chief of Staff - these changed,")
+        print("nobody claimed them - and let the owner or Chief of Staff say whose")
+        print("they are. A wrong name in history is permanent and invisible to")
+        print("every automated check.")
+    return 0
 
 
 def sweep_once():
@@ -182,7 +230,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--interval", type=int, default=20)
     ap.add_argument("--once", action="store_true")
+    ap.add_argument("--report", action="store_true",
+                    help="list unrecorded work, declared vs unclaimed; commit nothing")
     a = ap.parse_args()
+    if a.report:
+        return report()
     print("watching %d briefs for '## Commit me' (every %ds) - Ctrl-C to stop"
           % (len(BRIEFS), a.interval))
     while True:
