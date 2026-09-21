@@ -8,7 +8,7 @@ The game is not in here. `design/` and `data/` are the game; `design/decisions.m
 
 | Role | Owns the question | Runs on |
 |---|---|---|
-| **Owner** | everything. Decides, approves and merges — **never commits** (D260921.5-P) | chat |
+| **Owner** | everything. Decides and approves — **never commits, never merges** (D260921.5-P, D260921.6-P) | chat |
 | **Designer** | what the game *is* — rules, ontology, direction, content | Claude Code, own clone |
 | **Builder** | what runs it — engine, data schema, tools, git, this file | Claude Code, own clone |
 | **Steward** | is the project organised — the board, the owner's queue, triage, digests | Claude Code, own clone |
@@ -69,6 +69,7 @@ The Tech lead brief reached 50 KB by being a charter, a board, a channel and a l
 
 ## Changes
 
+- **2026-09-21** Agents merge, too (D260921.6-P): a merge commit carries the clicker's name, so the owner approves and an agent merges — his name then means "he approved this", nothing else
 - **2026-09-21** Agents commit as the machine account and the owner does not commit at all (D260921.5-P); §1 and the §3 identity line inverted, rail F added. The `Surface:` sentence goes — §Changes already records it
 - **2026-09-21** `sessions/README.md` retired into §2.1 (D260921.1-P); `inbox/` struck from §5 (D260921.2-P) — owner's words live in the decision row and the queue file
 - **2026-09-21** Tech lead becomes **Builder**; `leads/systems/tech.md` deprecated, charter is `roles/builder.md`
