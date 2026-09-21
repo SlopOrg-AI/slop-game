@@ -1,6 +1,6 @@
 # Lead reformulation — Chief of Staff, Systems, Direction, Marketing
 
-**Produced by:** Cowork, 2026-09-20, owner in session · **Status:** PROPOSED — would supersede D5.27's role split (not its single-writer principle) · next free D-number **D5.29**
+**Produced by:** Cowork, 2026-09-20, owner in session · **Status:** **PROMOTED D5.29** (2026-09-20) — logged on the owner's "log it"; §6 applied by Tech
 **Owner said (verbatim):** *"admin and tech and production seem to run together, systems is good i think … I think of you as chief of staff - organizing the project"* · *"you are most expensive agent with largest context. brief responses in chat are essential. write what will be most helpful to other agents."*
 
 ## 1. Clarification: what "Production retired" meant

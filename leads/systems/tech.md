@@ -12,12 +12,15 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 - `data/validate.py` (to write) — enforces Systems' validator rules against `SCHEMA.md`
 - Golden tests; the archived v1 engine at `C:\Claude\Godot\shinobi-master` as *reference only* (ideas, not code, unless a D-number says otherwise)
 - `.claude/` (agent pointers, settings, hooks), `.gitattributes`, `.gitignore`, git hooks; git remote when the owner wants one; `tools/claude-agents/` seed
-- `tools/` code (`annotate/` — Content owns its *use*)
+- `tools/` code (`annotate/` — Content owns its *use*), `tools/hooks/` (proposed)
+- **Git execution** (D5.29): staging by path — never `git add -A` — commit messages (what changed + D-numbers), milestone tags (`m1-playable`), and committing another surface's work with a message that says whose it is
+- **Mechanical housekeeping** (D5.29): stale files, broken cross-references, renames, D-number stamps on items the owner decided. Never a lead's judgement — that goes back to the lead or to Chief of Staff
 - Asset/data loading contract: where accepted assets live, how JSON is loaded
 - Explaining Godot concepts to the owner when they become relevant, not before (AGENTS §5)
 
 ## Does NOT own
-- Rules or vocabulary → Systems · which assets/data exist → Content · screen look → Art; screens are disposable, components persist (D5.2) · milestones/sequence → Admin · git *execution* (staging, commit messages, tags) → Admin; Tech owns the *tooling* (hooks, `.gitignore`, `.claude/`)
+- Rules or vocabulary → Systems · which assets/data exist → Content · screen look → Art; screens are disposable, components persist (D5.2) · triage, sequencing, milestones, conflicts and the decisions queue → Chief of Staff
+- **`STATUS.md`: Tech commits it, never writes it** (D5.29). Tech's own row goes in this brief; Chief of Staff transcribes it
 
 ## Reads first
 `CLAUDE.md` → `AGENTS.md` → `00-steer.md` §4 (engine constraints D5.12) → `leads/systems.md` → `data/SCHEMA.md` (when it exists) → `demo/README.md` → `proposals/2026-09-20-session-6-handoff.md` §6 E
@@ -30,6 +33,7 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 | — | "we need a tech lead, that should be claude code" | Cowork 2026-09-20 | DECIDED (this brief) |
 | — | "claude code agents can make these commits on my behalf" | chat 2026-09-20 | DECIDED — Claude Code commits, as **Admin** (D5.27); Tech owns the tooling |
 | — | local image-gen as part of the design-iteration pipeline; get Qwen running locally | chat 2026-09-20 | DONE — see handoff |
+| — | "admin and tech and production seem to run together… I think of you as chief of staff" · "status.md is owned by chief of staff. housekeeping may make sense for tech" | Cowork chat 2026-09-20 | **DECIDED — D5.29**; logged here on "log it" |
 
 ## Status
 | Item | Status | Scope | Source |
@@ -41,19 +45,22 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 | `tools/workflows/build_workflows.py` | **DONE** — generates all 4 Qwen graphs; edit this, not the JSON | — | this session |
 | `tools/annotate/` (server, UI, `regional_edit.py`) | **DONE, verified** — Content owns its use | — | `tools/annotate/README.md` |
 | Style distiller (Qwen3-VL 8B) | **DONE** — one card produced, Art has not accepted it | — | handoff §4 |
-| Git | 7 commits on `main`, local only, clean tree. Tech commits on the owner's behalf. | — | chat 2026-09-20 |
-| `.claude/settings.json` guard rails (deny edits to `sources/**`, `design/decisions.md` without approval) | PROPOSED — not written | — | this session |
-| Pre-commit hook: `decisions.md` diff requires a D-number in the message | PROPOSED — not written | — | this session |
+| Git | `main`, local only, clean tree. **Tech executes git** (D5.29), staging by path; two surfaces write this repo | — | D5.29 |
+| Roles: Chief of Staff (Cowork) + Tech (Claude Code); `admin` retired after eleven commits | DECIDED — **D5.29** | all | this session |
+| Repo guard rails — versioned hooks (`core.hooksPath tools/hooks`) + `.claude/settings.json` | **PROPOSED — written, nothing installed** | — | `proposals/2026-09-20-guard-rails.md` |
 | `.gitattributes` / `.gitignore` | present; art-binary policy **DECIDED D5.28** — contact sheets + selected boards only, raw gens ignored. `.gitignore` updated 2026-09-20; existing history left alone | — | D5.28 |
 | Godot version | OPEN — pin 4.7 (archive) or latest 4.x | MVP | successor-review §4 #5 |
 
 ## Next actions
-1. ~~Copy `tools/claude-agents/*` → `.claude/agents/`~~ **done**. Remaining: propose
-   `.claude/settings.json` + pre-commit hook in `proposals/`. Gate cleared (structure committed `9ea9650`).
-2. ~~Resolve open #3 — art binaries~~ **decided D5.28**; `.gitignore` now ignores raw
-   generations under `proposals/art/**` and keeps `_contact-sheet.png` plus anything under
-   an `accepted/` folder. Remaining: tell Content where accepted assets live (open #2).
-   Gate: none.
+1. **Guard rails** — proposal written (`proposals/2026-09-20-guard-rails.md` §6 is the
+   four-line ask). On the owner's pick: write `tools/hooks/{pre-commit,commit-msg}`,
+   `.claude/settings.json`, and run `git config core.hooksPath tools/hooks` here and in
+   the Cowork clone. Gate: owner picks.
+2. **Housekeeping carried from the board** (D5.29): `rules.json` `_note`s cite v1 open
+   numbers and the removed Arm step → needs Systems' word on the replacements;
+   `decisions.md` `Acts on it` value "Production" → Systems' call; which committed
+   smoketest PNGs are keepers → Art/Content, then Tech untracks the rest; D1–D4
+   compression → Systems. Tech executes, each named lead decides. Gate: per item.
 3. Write `data/validate.py` alongside `SCHEMA.md` (same commit as schema v3). Gate: `SCHEMA.md` drafted.
 4. Headless engine first, data-driven sheets/pools/tags/materials from commit 1; golden test rewritten for v2 rules; then loadout → duel → table-view stub, one commit per screen, owner plays before the next. Gate: action 3 + Systems action 3.
 
@@ -61,6 +68,10 @@ Pipeline follow-ups (low priority, none blocking M1; detail in the handoff §8):
 8-step Lightning untested on the *edit* graph · `euler` vs `euler_ancestral` A/B unresolved (n=1) ·
 multi-image conditioning wired but unused — it is the path to Kaede/Genzo × 2 poses ·
 Qwen-Image-Edit 2511 reported better at character consistency (21 GB).
+
+## For Chief of Staff (board rows Tech cannot write — D5.29)
+- Housekeeping line "`leads/admin.md`, `tools/claude-agents/admin.md`, `.claude/agents/admin.md` — tombstone/delete with D5.29" is **done**; all three deleted, no dangling pointers. Strike it.
+- Tech row: next action is now the **guard-rails** pick (`proposals/2026-09-20-guard-rails.md` §6), then the carried housekeeping. Godot still gated on schema v3.
 
 ## Open questions
 1. Godot version pin.

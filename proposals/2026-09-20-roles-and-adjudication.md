@@ -1,6 +1,6 @@
 # Roles and adjudication — 2026-09-20
 
-**Produced by:** Chief of Staff (Cowork), owner in session · **Status:** PROPOSED · rides with `2026-09-20-lead-reformulation.md` (D5.29); §2 here becomes `leads/README.md` §"Adjudication" if accepted.
+**Produced by:** Chief of Staff (Cowork), owner in session · **Status:** **PROMOTED D5.29** (2026-09-20) · rides with `2026-09-20-lead-reformulation.md` (D5.29); §2 here becomes `leads/README.md` §"Adjudication" if accepted.
 
 ## 1. Roles — one line each
 

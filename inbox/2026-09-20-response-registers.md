@@ -1,4 +1,4 @@
-**TRIAGED 2026-09-20** — one item, `C21`, tagged `[admin]`; in `leads/admin.md` Inbox. Wording not yet applied: needs the owner's word.
+**TRIAGED 2026-09-20** — one item, `C21`, tagged `[cos]` (filed as `[admin]`, a role retired the same day by D5.29). **LANDED 2026-09-20**: the owner said yes; the wording is in `AGENTS.md` §5 with C22's plain-words clause folded in.
 
 # Owner feedback — response registers (2026-09-20, Cowork chat)
 
