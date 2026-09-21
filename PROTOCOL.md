@@ -8,7 +8,7 @@ The game is not in here. `design/` and `data/` are the game; `design/decisions.m
 
 | Role | Owns the question | Runs on |
 |---|---|---|
-| **Owner** | everything. Decides | chat |
+| **Owner** | everything. Decides, approves and merges — **never commits** (D260921.5-P) | chat |
 | **Designer** | what the game *is* — rules, ontology, direction, content | Claude Code, own clone |
 | **Builder** | what runs it — engine, data schema, tools, git, this file | Claude Code, own clone |
 | **Steward** | is the project organised — the board, the owner's queue, triage, digests | Claude Code, own clone |
@@ -41,7 +41,7 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 - **Stage by path. Never `git add -A`.** A wrong name in history is permanent and invisible to every check.
 - **Never rewrite pushed history.** Fix a bad commit with another commit.
 
-**What the rails refuse** (`tools/hooks/`): a duplicate decision ID · a raw `.png` under `proposals/art/` that is not a contact sheet or under `accepted/` · a commit adding a decision row whose message does not name that ID · a log whose rows no longer parse, so a blind checker refuses rather than passing everything · an owner-authored commit inside an agent's pull request.
+**What the rails refuse** (`tools/hooks/`): a duplicate decision ID · a raw `.png` under `proposals/art/` that is not a contact sheet or under `accepted/` · a commit adding a decision row whose message does not name that ID · a log whose rows no longer parse, so a blind checker refuses rather than passing everything · a commit authored by the owner, who does not commit.
 
 ## 4. Decisions
 
@@ -69,7 +69,7 @@ The Tech lead brief reached 50 KB by being a charter, a board, a channel and a l
 
 ## Changes
 
-- **2026-09-21** Agents commit as the machine account, not the owner (D260921.5-P); §3 identity line inverted and rail F added. The `Surface:` sentence goes — §Changes already records it
+- **2026-09-21** Agents commit as the machine account and the owner does not commit at all (D260921.5-P); §1 and the §3 identity line inverted, rail F added. The `Surface:` sentence goes — §Changes already records it
 - **2026-09-21** `sessions/README.md` retired into §2.1 (D260921.1-P); `inbox/` struck from §5 (D260921.2-P) — owner's words live in the decision row and the queue file
 - **2026-09-21** Tech lead becomes **Builder**; `leads/systems/tech.md` deprecated, charter is `roles/builder.md`
 - **2026-09-21** One clone per role; identity set per clone. `Surface:` trailer retired — `git log --author` does that job now
