@@ -4,7 +4,7 @@
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
 **Next free numbers:** D-number **D5.41** · C-ref **C28**. (D5.38 = board custody; **D5.39 = guard rails + sweep**; **D5.40 = private remote, C24 — execution blocked on the owner**. C25 = Q1's earmark mechanic, C26 = vision-as-test, C27 = "distilled".) D5.24 still unlogged — folds into Q2's entry.
-**Git:** `main`, local only. Tech (Claude Code) executes git, staging by path — never `git add -A`.
+**Git:** `main` + private remote `chris-egan/slop-game`, **pushed and verified 2026-09-20** (D5.40). Tech (Claude Code) executes git, staging by path — never `git add -A`. **Three** surfaces write this repo: Claude Code (Tech) · Cowork (Chief of Staff) · the **art execution agent** under Art, which commits its own work.
 
 ## Decisions — for the owner
 
@@ -35,7 +35,7 @@ Q4 · Confirm the critical path below · blocks: nothing; settles sequence
 | Chief of Staff | reformulation owner-confirmed; queue live | owner verdicts Q1–Q5 | transcribe verdicts; queue next batch | 2026-09-20 |
 | Systems | C1→D5.25, C3→D5.26; coherence pass done — 20 C-refs → 9 statements, 7 clashes + 4 readings open | Q1, Q2 | on Q1/Q2 rulings: log D-numbers, write `11-initiative.md` | 2026-09-20 |
 | ↳ Content | v1-schema data on disk; no accepted board | schema v3 · accepted style card | hold; then Kaede/Genzo × 2 poses | 2026-09-20 |
-| ↳ Tech | guard rails + sweep live and verified (D5.39); retired-role residue cleared; stub redirects + required-reading stamps landed (X2, X3); image-gen pipeline shipped; Godot gated | **owner, for the remote** (D5.40 — no `gh`, no credentials here) · schema v3 for `validate.py` | push and verify once the repo exists; then the **v1 rescue** — D1–D4's text is on the PC disk only | 2026-09-20 |
+| ↳ Tech | guard rails + sweep live and verified (D5.39); **remote pushed and verified** (D5.40); **v1 rescued** into `sources/v1/`; retired-role residue cleared; stub redirects + required-reading stamps landed (X2, X3); Godot gated | — | the Mac clone (migration §6 step 5), then `validate.py` with schema v3 | 2026-09-20 |
 | Direction / Art | table decided; 30/31 stubs | — | distill `31-ui.md` component list | 2026-09-20 |
 | Direction / Level | spatial model PROPOSED | Q2 · §5 #2 | `arena-m1` cluster | 2026-09-20 |
 | Direction / Scenario | nothing authored | — | playtest protocol | 2026-09-20 |
@@ -59,6 +59,7 @@ Parallel, not blocking: Art style card → Content cut-outs → M1 restyle.
 - `decisions.md` `Acts on it` value "Production" names a retired lead — Systems' call (`Process`?); rows are history
 - **`D5.24` cited as canon in six files** and absent from `decisions.md` — `00-steer` §6, `11-initiative.md` (status table asserts DECIDED), `14-scenes-conditions.md`, `STATUS.md`, `leads/systems.md`, `leads/direction/level.md`. Folds into Q2
 - `design/40-production.md` §5 M1/M2 definitions — after Q1/Q2
-- D1–D4 not compressed into `decisions.md`
+- D1–D4 not compressed into `decisions.md` — **no longer a deadline**: the text is in the repo at `sources/v1/docs/combat-scene-decisions.md`. Compressing it is Systems' judgement; Tech executes
+- Sweep table A.1 has **no row for a third writing surface**, and classifies `tools/**` as Tech's own work — wrong in both directions now that the art execution agent writes there. Chief of Staff owns the table
 - `rules.json` `_note`s cite v1 open numbers; `insight.reveal_timing` references the removed Arm step
 - Project mirror: level as of this write (Chief of Staff re-syncs)
