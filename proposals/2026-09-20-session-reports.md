@@ -44,6 +44,7 @@ Tech does not review the substance half. It is in the same file so there is one 
 - Outside my lane: none | <path + why>
 - Rules bent or hit: none | <which, what I did instead>
 - Left uncommitted: none | <what, and why it is not finished>
+- **Wrote outside the repo:** none | <what, where> — staged inputs, model folders, anything a reader of the commit cannot see
 
 ## For <lead> (substance)
 - Produced: …
@@ -56,6 +57,11 @@ Tech does not review the substance half. It is in the same file so there is one 
 ```
 
 Rules for the writer: **no D-numbers** (AGENTS §1.4), no board rows (D5.38 — hand them over), no editing another lead's brief (D5.27). A report **states**; it never rules.
+
+### 4b. Two things the first report taught, same evening
+
+- **A row was missing.** The art agent staged two reference images into ComfyUI's `input/` folder — outside the repo, invisible to any reader of the commit, and a real side effect of `gen_styled.py`. It filed them under paths because the template had nowhere to put them. Row added above; it raised it rather than dropping it, which is the mechanism working.
+- **Reviewing beat trusting, mildly.** Its counts were *"22 raw frames and four per-variant contact sheets"*; the record holds **20 frames and five sheets**. The claim that matters — everything raw ignored, nothing raw committed, all of it intentional — verifies exactly. Worth one line to establish that the custody half *is* checked against the record, not read.
 
 ## 5. What Tech does with it
 
