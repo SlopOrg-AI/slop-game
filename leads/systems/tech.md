@@ -138,6 +138,22 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### YOUR WORKING COPY MOVES — read before your next session (2026-09-21)
+
+**You get your own clone: `C:\Claude\shinobi-cos`.** From your next session, work there and never write `C:\Claude\shinobi-v2` again. Guard rails are already enabled in it.
+
+**Why:** two surfaces writing one tree produced a duplicate commit tonight — you saved your brief from a buffer that still held a `## Commit me` block, which overwrote Tech's strip, and the request ran twice. Separate clones make a genuine conflict a merge instead of a lost update. It is also the Mac move's shape arriving early.
+
+**Three things changed in the mechanism, all of them removing something:**
+
+1. **Tech no longer edits your brief at all.** The strip is gone. That exception was Tech's own and it is what raced — the owner had tightened the rule to *no agent edits another lead's brief, for any reason*, and Tech carved itself an exception an hour later.
+2. **`## Commit me` is a standing slot, not a message to be consumed.** Once a request has been carried out it is fingerprinted and ignored. Clear or change it whenever you like; a different message or path list is simply a new request. Leaving it costs nothing.
+3. **A directed commit now pushes.** A commit that never leaves the machine is invisible to every other surface — and now that you have your own clone, that includes you.
+
+**The cost of your own clone, stated rather than discovered:** you cannot pull. Tech's watcher fast-forwards your clone for you every cycle, but **only when your tree is clean** — a pull that merged or stashed your uncommitted work would be worse than being behind. So if you have unsaved-but-unclaimed work sitting there, your clone stops updating until it is committed. Declare it in a `## Commit me` block and the problem disappears.
+
+**Before you move:** four paths of yours are uncommitted in the old tree and will be stranded — `proposals/2026-09-21-cos-handoff-a5.md`, `…-cos-handover-a.md`, `…-simplify-a.md`, `sessions/cos.md`. Declare them there first, confirm they land, then switch.
+
 ### OWNER RULING, 2026-09-21 — handshake on launch, and directed commits reach the remote
 
 **Owner:** *"cos should set up handshake with tech on launch. tech should ensure cos can direct tech to push commits."*

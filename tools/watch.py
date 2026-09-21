@@ -284,6 +284,24 @@ def report():
     return 0
 
 
+def refresh():
+    """Fast-forward this clone if it is clean and behind.
+
+    A surface with its own clone and no git cannot pull. Without this, giving
+    Chief of Staff its own clone trades a race for staleness: it would read a
+    snapshot from whenever the clone was made and never see anything since.
+    Only ever fast-forward, and only on a clean tree - a pull that merges or
+    stashes another surface's uncommitted work is worse than being behind.
+    """
+    if git("status", "--porcelain", check=False).stdout.strip():
+        return  # someone is mid-write here; leave their tree alone
+    before = git("rev-parse", "--short", "HEAD", check=False).stdout.strip()
+    done = git("pull", "--ff-only", "--quiet", check=False)
+    after = git("rev-parse", "--short", "HEAD", check=False).stdout.strip()
+    if done.returncode == 0 and after != before:
+        print("refreshed %s: %s -> %s" % (ROOT.name, before, after))
+
+
 def sweep_once(no_push=False):
     acted = False
     for brief, surface in BRIEFS.items():
@@ -335,6 +353,8 @@ def main():
     while True:
         for r in roots:
             set_root(r)
+            if r != roots[0]:
+                refresh()
             if len(roots) > 1:
                 sweep_once.__doc__  # keep the reference honest
             sweep_once(a.no_push)
