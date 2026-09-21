@@ -21,12 +21,27 @@ bind a clone that never ran `git config core.hooksPath`.
 Escape hatch: git commit --no-verify. The hooks are a net, not a lock.
 """
 
+import json
+import os
 import re
 import subprocess
 import sys
 
 DECISIONS = "design/decisions.md"
 BOARD = "STATUS.md"
+
+# Rail F. Attribution is the control now (owner, 2026-09-21: "audit / review
+# should flag unexpected chris-egan commits which should not be the norm if
+# everything is working"). Agents authenticate and commit as the machine
+# account, so an owner-authored commit inside an agent's pull request means
+# either the owner worked in an agent clone or an agent switched auth back to
+# his credential. Both are worth seeing; neither should be routine.
+OWNER_EMAILS = (
+    "chris-egan@users.noreply.github.com",
+    "51842005+chris-egan@users.noreply.github.com",
+)
+OWNER_LOGIN = "chris-egan"
+F_ORIGIN = "D260921.5-P"
 
 # A logged decision row starts with its ID and has at least five columns.
 # The three-column deferred table must not be mistaken for one - D5.24 lives
@@ -225,6 +240,55 @@ def check_d(staged, message):
     return 0
 
 
+def pr_author():
+    """Who opened this pull request, read from the Actions event payload.
+
+    Read from GITHUB_EVENT_PATH rather than passed in as a workflow input:
+    the machine account's token has no Workflows permission, by design, so an
+    agent cannot edit guard-rails.yml. A rail that needed a YAML change in
+    order to arrive could not be added by the lane it polices.
+    """
+    path = os.environ.get("GITHUB_EVENT_PATH")
+    if not path or not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as fh:
+        event = json.load(fh)
+    return ((event.get("pull_request") or {}).get("user") or {}).get("login")
+
+
+def check_f(base, head):
+    """Refuse owner-authored commits inside an agent's pull request.
+
+    Keyed on who OPENED the pull request, not on the branch name -- a naming
+    convention is evaded by picking another name, and this rail is worth
+    nothing if stepping around it is a rename.
+
+    Merge commits are excluded: GitHub authors those as whoever clicks merge,
+    which is legitimately the owner and would otherwise cry wolf every time.
+    """
+    author = pr_author()
+    if author is None or author == OWNER_LOGIN:
+        # Not a pull request event, or it is the owner's own. His commits are
+        # his to make; the rail exists to catch them turning up in ours.
+        return 0
+    out = git("log", "--no-merges", "--format=%h %ae", "%s..%s" % (base, head))
+    bad = [
+        ln for ln in (out or "").splitlines()
+        if ln.strip() and ln.split(" ", 1)[-1].strip().lower() in OWNER_EMAILS
+    ]
+    if bad:
+        return fail(
+            "F - owner-authored commit in an agent pull request",
+            "opened by @%s, but these commits are authored by the owner: %s"
+            % (author, "; ".join(bad)),
+            "agents commit as the machine account. Check `git config user.email` "
+            "in this clone; it should be the machine account no-reply address. "
+            "If the owner really did write these, he opens the pull request.",
+            origin=F_ORIGIN,
+        )
+    return 0
+
+
 def check_blind_or_a_or_c(paths):
     """The tree-level rails, shared by the commit hook and CI."""
     return check_blind(paths) or check_a(paths) or check_c(paths)
@@ -240,7 +304,7 @@ def main():
         global SOURCE
         base, head = sys.argv[2], sys.argv[3]
         SOURCE = head
-        return check_blind_or_a_or_c(range_paths(base, head))
+        return check_blind_or_a_or_c(range_paths(base, head)) or check_f(base, head)
     staged = staged_paths()
     if mode == "commit-msg":
         path = sys.argv[2]
