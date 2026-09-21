@@ -67,6 +67,17 @@ The version that holds:
 
 `tools/claude-agents/` was written for the first. What is actually running is the second — same position in the hierarchy, different obligations on the record. **D5.27, D5.38 and D5.39 were all written for two surfaces**; there are now three, and this model implies up to eight.
 
+### 3b. Owner direction: a subagent instantiated in session **is** the session that spawned it
+
+*Owner, in chat:* **"the subagents as you've described, what you instantiate in session are considered you"** — settled, and it removes the whole attribution question for that half of §3. Consequences, all of which bind Tech:
+
+1. **Its output is Tech's output.** Committed as Tech's own work, in Tech's name, with Tech answerable for it. No separate name, no routing tag, no sweep row, nothing to guess.
+2. **No laundering.** *"A subagent did it"* is not a defence and not an explanation. If work Tech may not do — authoring a board row (D5.38), logging a D-number (AGENTS §1.4), resolving a rule in code, editing another lead's brief, judging another lead's output (§2) — comes out of a subagent Tech spawned, **Tech did it**. Delegation cannot reach past the delegator's own permissions.
+3. **Symmetrically, a lead's subagents are that lead's.** Work a Systems session delegates is Systems' work and is committed as Systems', not as Tech's. Tech's custodial interest in it is unchanged and no greater.
+4. **Only a separate session needs governing** — the second column of §3's table. That is where a name, a tag, a sweep row and its own git belong, and it is the only kind that can misattribute.
+
+Not logged: this is owner direction in session, recorded here pending the ruling on this proposal (**D5.41**). Tech does not log D-numbers on its own (AGENTS §1.4).
+
 ## 4. What it costs, mechanically
 
 1. **Attribution stops being guessable.** Today the sweep asks Tech to name the author and Tech guessed from a stale assumption — `--surface Cowork` on two files an art agent wrote. With N surfaces that is not an occasional slip, it is the default outcome. **Fix: each separate session commits its own work.** If it has git, it does not need Tech to carry it.
