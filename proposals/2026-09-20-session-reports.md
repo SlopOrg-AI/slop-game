@@ -43,7 +43,7 @@ Tech does not review the substance half. It is in the same file so there is one 
 - Paths written: …
 - Outside my lane: none | <path + why>
 - Rules bent or hit: none | <which, what I did instead>
-- Left uncommitted: none | <what, and why it is not finished>
+- Left uncommitted: none | <kind of file + the folder, not a count> — **testimony**: gitignored work never leaves your machine, so no reviewer can ever check this line
 - **Wrote outside the repo:** none | <what, where> — staged inputs, model folders, anything a reader of the commit cannot see
 
 ## For <lead> (substance)
@@ -89,6 +89,28 @@ Consequences:
 - **Per-session identity is not available on a shared tree.** `git config user.email` writes to `.git/config`, which all three surfaces share — one session setting it changes it underneath the others mid-commit. This is a third, sharper argument for one clone per surface (`2026-09-20-execution-agents.md` §4.2).
 
 **Cheap fix available today, on the shared tree:** a required trailer, `Surface: <name>`, on every commit — machine-readable via `git log --format='%(trailers:key=Surface)'`, checkable by a fifth hook, and it survives the move to separate clones rather than being replaced by it. Tech recommends it; **the owner and Chief of Staff rule**, because it binds every surface's commit message and Tech does not impose conventions on other agents.
+
+### 6c. Split the custody half by what a reviewer can check — raised by the art agent
+
+Its point, and it is right: the correction above only happened **because Tech could read the same disk**. An agent reporting from a machine the reviewer cannot see — the Mac clone, or any one-clone-per-surface future — has its counts checked by nobody.
+
+Its proposed remedy (cite the folder, let the reviewer count) does not survive the separation either: **gitignored work never leaves the machine that made it**, so once trees are separate there is no folder for the reviewer to count. The line splits instead:
+
+| Custody line | Verifiable from the record, by anyone, from any machine | |
+|---|---|---|
+| Commits made | **Yes** — they are in the log | check every time |
+| Paths committed, out-of-lane writes that landed | **Yes** | check every time |
+| Rules bent that produced a commit | **Yes** | check every time |
+| Left uncommitted / gitignored | **Never** — it is on one disk | **testimony** |
+| Wrote outside the repo | **Never** | **testimony** |
+| What it chose not to do, deferred, worked around | **Never** | **testimony**, and the reason the report exists at all |
+
+Two consequences, both now in the template:
+
+1. **Stop asking for numbers nobody can check.** The art agent's error was a from-memory count of ignored files at the end of a session. A precise figure in an unverifiable line buys false assurance and invites exactly that mistake. Kind of file plus folder carries the same custodial meaning and cannot be wrong by two.
+2. **Mark testimony as testimony.** Tech verifies the record half and *records* the testimony half. Pretending to review both is the failure mode the whole mechanism exists to avoid.
+
+This is Chief of Staff's to rule on; Tech has applied it to the template as current-best, since the template is unruled anyway.
 
 ## 7. For the owner and Chief of Staff
 

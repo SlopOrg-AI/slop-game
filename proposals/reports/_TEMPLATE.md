@@ -7,7 +7,7 @@
 - Paths written:
 - Outside my lane: none | <path + why>
 - Rules bent or hit: none | <which, and what I did instead>
-- Left uncommitted: none | <what, and why it is not finished>
+- Left uncommitted: none | <kind of file + the folder, not a count> — **testimony**: gitignored work never leaves your machine, so no reviewer can ever check this line
 - **Wrote outside the repo:** none | <what, where> — staged inputs, model folders, anything a reader of the commit cannot see
 
 ## For <lead> (substance)
