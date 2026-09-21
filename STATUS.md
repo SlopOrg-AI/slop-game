@@ -7,11 +7,11 @@ block naming another role; the asker deletes it when it is met.
 
 ## For the owner — rule on these (≤ 5)
 
-**Q1 · Three settings you ruled A, none applied. No agent can do any of them.**
-(a) `required_approving_review_count: 1` · (b) `require_code_owner_review: true` — both at
-`settings/rules`, both need **admin** · (c) token **Workflows: Read and write**.
-*Until (a), review here is a convention, not a control — the count is still 0.*
-*(c) blocks the Godot check.* Verify (b) does anything at count 0 rather than assuming.
+**Q1 · One setting left. (a) and (b) are withdrawn — `D260921.8-P`.** Approvals stay at
+**0** and code-owner review stays **off**, because an approval requirement and `D260921.7-P`
+cannot both hold. **Review here is a convention, not a control**, and `PROTOCOL.md` §3 now says
+so. *Still owed:* **(c) token `Workflows: Read and write`** — the only thing blocking the Godot
+check, and the only one not in conflict with anything.
 
 **Q2 · Three exposure findings, deferred.** `proposals/2026-09-21-machine-account-exposure.md`.
 The email setting is worth doing first; every merge republishes the address. Issue **#12** is
