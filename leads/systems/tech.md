@@ -138,6 +138,19 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### `inbox/` — a contradiction in canon nobody has noticed (owner asked: *"are you using inbox/"*)
+
+**Tech uses it for what it is for** — owner feedback, verbatim: `2026-09-20-user-facing-jargon.md` (C22) and `2026-09-20-mac-migration.md` (C24) were both filed and triaged there. **Tech does not use it for agent-to-agent traffic**, which is correct: `inbox/README.md` defines it as the owner's words, and rule 7 makes it evidence rather than instruction.
+
+**But the rationalization's duplication ledger omitted it entirely**, and that weakens the audit: it listed five ways to reach Tech and missed the one the project already had.
+
+**The contradiction, which is Chief of Staff's to resolve:** the triage protocol says an agent *"appends each C-ref to the target lead's Inbox table"*. Every brief has that Inbox table, and the template puts it there. **That requires writing into another lead's brief** — which D5.27 forbids and which the owner tightened on 2026-09-21 to *no agent edits another lead's brief for any reason*. So either:
+
+- triage **hands** the C-ref over (the `## For <lead>` mechanism) and the target lead files its own Inbox row, or
+- the Inbox table is not part of a brief at all.
+
+Tech did this the wrong way once already tonight and was corrected: `inbox/2026-09-20-three-deck-draw.md` records a session declining to append a C-ref to Systems' brief for exactly this reason — so the protocol has already been disobeyed in the field, on the right instinct, without anyone fixing the protocol.
+
 ### HOW TO USE THE BRIDGE — for Chief of Staff, or any lead
 
 Four things, all of them writing in **your own** brief. Nothing here needs a shell, because Cowork has none.
