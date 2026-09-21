@@ -1,0 +1,120 @@
+{
+  "_doc": "Mock mid-duel state for the wireframe. NOT design data — this is what the engine would hand the UI. Field names are the contract the Godot UI layer will consume.",
+  "scene": "courtyard_rain",
+  "round": 3,
+  "phase": "declare",
+  "initiative": -14,
+  "conditions": {
+    "footing": -1,
+    "light": 0,
+    "weather": 3,
+    "noise": 0,
+    "alert": 0
+  },
+  "last_shot": {
+    "type": "wide_stance",
+    "caption": "Genzo — Crushing Blow → Kaede legs"
+  },
+  "player": {
+    "id": "kaede",
+    "reserves_cur": {
+      "stamina": 71,
+      "focus": 100,
+      "chakra": 64
+    },
+    "wounds": [
+      "torn_calf",
+      "shaken"
+    ],
+    "states": {
+      "wet": 2
+    },
+    "insight": 38,
+    "queue": [
+      "read_the_field",
+      "water_lash"
+    ],
+    "armed": "counter_throw",
+    "armed_since_round": 2,
+    "pose": "guard_low · wounded_leg"
+  },
+  "opponent": {
+    "id": "genzo",
+    "states": {
+      "wet": 2
+    },
+    "wounds_visible": [
+      "cut_brow"
+    ],
+    "reserve_chips": {
+      "stamina": "Winded",
+      "focus": null,
+      "chakra": null
+    },
+    "revealed_attributes": [
+      "strength",
+      "quickness",
+      "courage"
+    ],
+    "declared": [
+      {
+        "id": "crushing_blow",
+        "cost_revealed": true
+      },
+      {
+        "id": "pressure",
+        "cost_revealed": false
+      }
+    ],
+    "reaction_armed": true,
+    "reaction_since_round": 2,
+    "known_abilities": [
+      "crushing_blow",
+      "palm_strike",
+      "pressure"
+    ],
+    "intel_slots": {
+      "body": 4,
+      "mind": 1,
+      "spirit": 2
+    },
+    "pose": "advance · brow_cut"
+  },
+  "log": [
+    {
+      "r": true,
+      "t": "— ROUND 2 · RESOLVE · init +6 (Genzo first)"
+    },
+    {
+      "t": "Genzo · Crushing Blow → Kaede legs · 34 phys − 14 tough = 20 → Torn calf (moderate)",
+      "hit": true
+    },
+    {
+      "t": "Kaede · Flicker Step · +13 init · focused",
+      "you": true
+    },
+    {
+      "t": "Genzo · Pressure → Kaede spirit · 28 − 12 will = 16 → Shaken · Courage −20",
+      "hit": true
+    },
+    {
+      "t": "Kaede · Water Lash → Genzo arms · 26 − 26 tough = 0 · wet applied",
+      "you": true
+    },
+    {
+      "t": "Kaede · Insight +9 (Read) +6 (absorbed heavy) → 38",
+      "ins": true
+    },
+    {
+      "t": "Genzo · Insight ?"
+    },
+    {
+      "r": true,
+      "t": "— init −14 · Kaede on the back foot · refill: STA +44 FOC +100% CHA +30"
+    },
+    {
+      "r": true,
+      "t": "— ROUND 3 · DECLARE"
+    }
+  ]
+}

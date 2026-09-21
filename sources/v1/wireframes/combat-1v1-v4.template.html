@@ -1,0 +1,332 @@
+<title>Duel Prototype v4</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!--CSS3-->
+<style>
+.ab.pick{cursor:pointer} .ab.pick:hover{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.ab.locked,.ab.unaff{cursor:not-allowed}
+.card.facedown.declaring{opacity:.7}
+.order{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font:400 10.5px var(--mono);color:var(--ink2)}
+.order .o{padding:3px 7px;border:1px solid var(--rule);border-radius:2px;background:var(--paper)} .order .o.you{border-color:var(--ink)} .order .o.opp{border-color:var(--opp);background:#E6DED4} .order .o.done{opacity:.4;text-decoration:line-through} .order .o.now{background:var(--ink);color:var(--paper)}
+.interrupt{border:2px solid var(--gold);background:var(--gold-w);border-radius:4px;padding:10px 14px;display:none;gap:10px;align-items:center;flex-wrap:wrap}
+.interrupt.on{display:flex}
+.interrupt .t{font-family:var(--display);font-weight:700;font-size:14px}
+.interrupt input[type=range]{width:180px;accent-color:var(--gold)}
+.banner{display:none;border:2px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:4px;padding:14px 18px;font-family:var(--display);font-size:20px;font-weight:700;text-align:center}
+.banner.on{display:block}
+.banner small{display:block;font:400 12px var(--sans);opacity:.8;margin-top:4px}
+.ctrl{display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+.ctrl .primary{background:var(--ink);color:var(--paper);font-weight:600}
+.ctrl .hint{font:400 11px var(--mono);color:var(--ink3);margin-right:auto}
+.lines{max-height:260px}
+.lines .step{color:var(--ink);font-weight:500} .lines .react{color:var(--mind)} .lines .roll{color:#7d6220}
+.who .ins{font:500 10.5px var(--mono);color:#7d6220;margin-top:4px}
+.cine .fig .lbl .act{font:500 11px var(--mono);color:var(--alarm);min-height:14px}
+</style>
+
+<!--DATA-->
+
+<div class="app">
+  <div class="toolbar">
+    <div><h1>Shinobi Master — Duel Prototype</h1><div class="meta">v4 · playable · engine in JS (to be ported to GDScript) · reads <span class="mono">design-data/*.json</span></div></div>
+    <div class="rel"><div class="phases" id="phases"></div></div>
+    <div class="right"><button class="btn" id="btnStats" type="button">Stats: hidden</button><button class="btn" id="btnAuto" type="button">AI insight: on</button><button class="btn" id="btnRestart" type="button">Restart</button></div>
+  </div>
+
+  <div class="banner" id="banner"></div>
+  <div class="cine rel" id="cine"></div>
+  <div class="interrupt" id="interrupt"></div>
+
+  <div class="table rel">
+    <div class="side opp rel" id="oppSide"></div>
+    <div class="center rel" id="center"></div>
+    <div class="side you rel" id="youSide"></div>
+  </div>
+
+  <div class="rel"><div class="budget rel" id="budget"></div><div class="hand rel" id="hand"></div></div>
+  <div class="drawer rel" id="drawer"></div>
+  <div class="logwrap rel" id="log"></div>
+  <div class="foot"><span class="tag open">OPEN</span><span>order rule = trick-taking by requirement sum (D2.13, interpretation) · insight usable at any impact (D2.14) · variance per ability</span></div>
+</div>
+
+<script>
+(function(){
+// ================= DATA =================
+const J=id=>{const d=(window.__DD||{})[id];if(!d)throw new Error('missing '+id);return d;};
+const R=J('dd-rules'),CH_=J('dd-characters').characters,AB=J('dd-abilities').abilities,WD=J('dd-wounds'),ST=J('dd-states').states,CD=J('dd-conditions');
+const A=Object.fromEntries(AB.map(a=>[a.id,a])),W=Object.fromEntries(WD.wounds.map(w=>[w.id,w])),C=Object.fromEntries(CH_.map(c=>[c.id,c]));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const band=v=>R.scale.bands.find(b=>v<=b.max).label;
+const ABBR={strength:'Str',quickness:'Qck',wits:'Wits',courage:'Cour',heart:'Heart'},GROUP={strength:'body',quickness:'body',wits:'mind',courage:'spirit',heart:'spirit'};
+const RG={stamina:'body',focus:'mind',chakra:'spirit'},RA={stamina:'STA',focus:'FOC',chakra:'CHA'},RC={stamina:'s',focus:'f',chakra:'c'};
+const CH=['physical','mental','spiritual'],EL=['fire','water','lightning','wind','earth','metal'],FX=['stagger','expose','bleed','burn','chill','daze','dread'];
+const REGION_ICON={head:'◓ head',torso:'▣ torso',arms:'⌐ arms',legs:'⌊ legs',mind:'◌ mind',spirit:'✦ spirit'};
+const SEV=['minor','moderate','severe','crippling'];
+const reach=R.initiative.reach_threshold,[IMIN,IMAX]=R.initiative.range;
+const pipPct=v=>((v-IMIN)/(IMAX-IMIN)*100);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+let rngSeed=7;const rnd=()=>{rngSeed=(rngSeed*1103515245+12345)&0x7fffffff;return rngSeed/0x7fffffff;};
+
+// ================= STATE =================
+let G;
+function newActor(id){const c=C[id];return{id,c,cur:{...c.reserves},wounds:[],states:{},insight:0,queue:[],armed:null,armedSince:0,rev:{attrs:new Set(),costs:false,abil:new Set(),wounds:false,reserves:false},lastAct:''};}
+function reset(){const sc=CD.scenes[0];G={round:1,phase:'declare',init:sc.initiative_start,cond:{...Object.fromEntries(Object.keys(CD.scene_conditions).map(k=>[k,CD.scene_conditions[k].baseline])),...sc.start},scene:sc,log:[],you:newActor('kaede'),opp:newActor('genzo'),order:[],step:0,over:null,pendingCommit:0,interrupt:null,shot:{type:'wide_stance',caption:'the duel begins'}};
+  // rain → wet on both
+  for(const c of CD.cascades)if(c.apply_state&&cmp(G.cond[c.from],c.when,c.value))for(const s of['you','opp'])G[s].states[c.apply_state]=ST[c.apply_state].duration;
+  G.opp.rev.attrs=new Set(['strength']);G.opp.rev.abil=new Set(['crushing_blow']);
+  log(`— ROUND 1 · ${sc.name.toUpperCase()} · ${sc.objective}`,'r');render();}
+const cmp=(v,op,x)=>op==='>='?v>=x:v<=x;
+function log(t,cls){G.log.push({t,cls:cls||''});}
+const side=a=>a===G.you?'you':'opp';
+const other=a=>a===G.you?G.opp:G.you;
+const initFor=a=>a===G.you?G.init:-G.init;             // initiative from an actor's perspective
+const zoneOf=a=>{const i=initFor(a);return i>=R.initiative.dominant_at?'dominant':i<=R.initiative.desperate_at?'desperate':'neutral';};
+
+// ================= DERIVE =================
+function derive(a){const c=a.c;const attr={...c.attributes},delta={},resMax={...c.reserves},refill={},locks=new Set(),lockBy={},guardAdd=0,gm=1;
+  for(const k in R.reserves)refill[k]=R.reserves[k].refill;
+  for(const wid of a.wounds){const w=W[wid];for(const e of w.effects){
+    if(e.attribute)for(const k in e.attribute){attr[k]+=e.attribute[k];delta[k]=(delta[k]||0)+e.attribute[k];}
+    if(e.reserve_max)for(const k in e.reserve_max)resMax[k]+=e.reserve_max[k];
+    if(e.refill)for(const k in e.refill)refill[k]+=e.refill[k];
+    if(e.lock_tag){locks.add(e.lock_tag);lockBy[e.lock_tag]=w.name;}}}
+  let gAdd=0,gMult=1,refillMod={};
+  for(const s in a.states){const sd=ST[s];if(!sd||!sd.effect)continue;const e=sd.effect;
+    if(e.attribute)for(const k in e.attribute){attr[k]+=e.attribute[k];delta[k]=(delta[k]||0)+e.attribute[k];}
+    if(e.refill)for(const k in e.refill)refill[k]+=e.refill[k];
+    if(e.guard_add)gAdd+=e.guard_add;if(e.guard_mult)gMult*=e.guard_mult;}
+  for(const k in refill)refill[k]=clamp(refill[k],0,1);
+  return{attr,delta,resMax,refill,locks,lockBy,gAdd,gMult,breakAt:Math.round(c.attributes.courage*R.courage_break_fraction)};}
+const reqSum=a=>Object.values(a.requires||{}).reduce((x,y)=>x+y,0);
+
+// affordability for an actor given current queue + armed
+function budget(a){const held={stamina:0,focus:0,chakra:0},q={stamina:0,focus:0,chakra:0};
+  if(a.armed)for(const k in A[a.armed].costs)held[k]+=A[a.armed].costs[k];
+  for(const id of a.queue)for(const k in A[id].costs)q[k]+=A[id].costs[k];
+  const left={};for(const k in a.cur)left[k]=a.cur[k]-held[k]-q[k];return{held,q,left};}
+function status(a,ab,forArm){const d=derive(a),b=budget(a);
+  if(ab.kind==='reaction'){if(!forArm)return{cls:'react'};if(a.armed===ab.id)return{cls:'armed'};
+    for(const k in ab.requires)if(d.attr[k]<ab.requires[k])return{cls:'locked',why:`${ABBR[k]} ${ab.requires[k]} ✗`};
+    for(const k in ab.costs)if(b.left[k]<ab.costs[k])return{cls:'unaff',why:`short ${ab.costs[k]-b.left[k]} ${RA[k]}`};
+    if(a.states.staggered)return{cls:'locked',why:'staggered — cannot arm'};return{cls:'pick'};}
+  if(forArm)return{cls:'react'};
+  for(const k in ab.requires)if(d.attr[k]<ab.requires[k])return{cls:'locked',why:`${ABBR[k]} ${ab.requires[k]} ✗`};
+  for(const t of ab.tags||[])if(d.locks.has(t))return{cls:'locked',why:`${t} ✗ ${d.lockBy[t].toLowerCase()}`};
+  for(const g of ab.gates||[])if(!cmp(G.cond[g.condition],g.op,g.value))return{cls:'locked',why:`${g.condition} ${g.op} ${g.value} ✗`};
+  if(a.queue.includes(ab.id))return{cls:'queued'};
+  if(ab.reach==='melee'&&initFor(a)<reach)return{cls:'unaff',why:'out of reach (commit insight?)'};
+  for(const k in ab.costs)if(b.left[k]<ab.costs[k])return{cls:'unaff',why:`short ${ab.costs[k]-b.left[k]} ${RA[k]}`};
+  return{cls:'pick'};}
+
+// ================= AI =================
+function aiDeclare(a){const pref=['crushing_blow','shoulder_charge','grapple','palm_strike','flicker_step','pressure','killing_intent','read_the_field'];
+  a.queue=[];let guard=0;
+  while(guard++<8){let picked=null;for(const id of pref){if(!a.c.loadout.includes(id))continue;const ab=A[id];if(ab.kind!=='action')continue;if(a.queue.includes(id))continue;
+      // brute prefers heavy melee; if out of reach and can afford insight, commit
+      if(status(a,ab).cls==='pick'){picked=id;break;}}
+    if(!picked)break;a.queue.push(picked);}
+  if(!a.queue.length)a.queue.push('read_the_field');}
+function aiInsightCommit(a,ctx){ // ctx: 'declare' | 'impact'
+  if(!autoAI)return 0;const need=reach-initFor(a);
+  if(ctx==='declare'&&need>0&&a.insight>=need*R.insight.per_initiative_unit)return need*R.insight.per_initiative_unit;
+  if(ctx==='impact'&&zoneOf(a)==='desperate'&&a.insight>=10)return Math.min(a.insight,20);
+  return 0;}
+function aiArm(a){const opp=other(a);const physIncoming=opp.queue.some(id=>(A[id].damage||[]).some(d=>d.tags.includes('physical')));
+  for(const id of['iron_guard','counter_throw'])if(a.c.loadout.includes(id)&&physIncoming&&status(a,A[id],true).cls==='pick'){a.armed=id;a.armedSince=G.round;return;}}
+
+// ================= ENGINE =================
+function commitInsight(a,n){n=Math.min(n,a.insight);if(n<=0)return;a.insight-=n;const shift=n/R.insight.per_initiative_unit;
+  G.init=clamp(G.init+(a===G.you?shift:-shift),IMIN,IMAX);log(`${a.c.name} · reveals ${n} insight → initiative ${fmtI(G.init)}`,'ins');}
+const fmtI=v=>(v>0?'+':'')+Math.round(v*10)/10;
+function buildOrder(){const rank=a=>a.queue.map(id=>({actor:a,id,sum:reqSum(A[id])})).sort((x,y)=>y.sum-x.sum);
+  const y=rank(G.you),o=rank(G.opp);const ly=y[0]?y[0].sum:-1,lo=o[0]?o[0].sum:-1;
+  let leader;if(ly!==lo)leader=ly>lo?'you':'opp';else leader=G.init>0?'you':G.init<0?'opp':(derive(G.you).attr.quickness>=derive(G.opp).attr.quickness?'you':'opp');
+  const first=leader==='you'?y:o,second=leader==='you'?o:y;const out=[];for(let i=0;i<Math.max(first.length,second.length);i++){if(first[i])out.push(first[i]);if(second[i])out.push(second[i]);}
+  log(`— RESOLVE · leads: ${G.you.c.name} ${ly} vs ${G.opp.c.name} ${lo} → ${leader==='you'?G.you.c.name:G.opp.c.name} leads`,'r');return out;}
+function startResolve(){G.phase='resolve';G.order=buildOrder();G.step=0;
+  // pay for queued actions now
+  for(const a of[G.you,G.opp])for(const id of a.queue)for(const k in A[id].costs)a.cur[k]-=A[id].costs[k];
+  render();}
+function tagsOf(ab){const t=new Set(ab.tags||[]);t.add(ab.reach);for(const d of ab.damage||[])for(const x of d.tags)t.add(x);return t;}
+function matchTrigger(rx,tags){return rx.trigger.predicates.every(p=>tags.has(p));}
+function severity(net){let s=null;for(const k of SEV)if(net>=WD.severity_bands[k])s=k;return s;}
+function pickWound(region,sev,form){const c=WD.wounds.filter(w=>w.region===region&&w.severity===sev);return c.find(w=>w.form===form)||c.find(w=>w.form==='*')||c[0]||null;}
+function applyState(t,name,src){const sd=ST[name];if(!sd)return;for(const c of sd.clears||[])delete t.states[c];t.states[name]=sd.duration;
+  if(sd.effect&&sd.effect.reserve_cur)for(const k in sd.effect.reserve_cur)t.cur[k]=Math.max(0,t.cur[k]+sd.effect.reserve_cur[k]);
+  log(`   ${t.c.name} is ${name} (${sd.duration}r)${src?' · '+src:''}`);}
+function applyWound(t,w){t.wounds.push(w.id);const fx=[];for(const e of w.effects){
+  if(e.reserve_cur)for(const k in e.reserve_cur){t.cur[k]=Math.max(0,t.cur[k]+e.reserve_cur[k]);fx.push(`${RA[k]} ${e.reserve_cur[k]}`);}
+  if(e.attribute)fx.push(Object.entries(e.attribute).map(([k,v])=>`${ABBR[k]} ${v}`).join(' '));
+  if(e.refill)fx.push(Object.entries(e.refill).map(([k,v])=>`${RA[k]} refill ${Math.round(v*100)}%`).join(' '));
+  if(e.lock_tag)fx.push(`${e.lock_tag} locked`);if(e.state)applyState(t,e.state,'wound');}
+  log(`   → ${w.name.toUpperCase()} (${w.severity}) · ${fx.join(' · ')}`,'hit');}
+
+function stepResolve(){if(G.over)return;const it=G.order[G.step];if(!it){endRound();return;}
+  const att=it.actor,def=other(att),ab=A[it.id];
+  // insight interrupt for the defender before impact (player: prompt; AI: policy)
+  if((ab.damage||[]).length&&!G.interrupt){
+    if(def===G.you&&G.you.insight>0&&!G.skipInterrupt){G.interrupt={step:G.step};render();return;}
+    if(def===G.opp){const n=aiInsightCommit(G.opp,'impact');if(n)commitInsight(G.opp,n);}}
+  G.interrupt=null;G.skipInterrupt=false;
+  const vr=ab.variance?(ab.variance.low+rnd()*(ab.variance.high-ab.variance.low)):1;
+  log(`${att.c.name} · ${ab.name}${ab.variance?` · roll ×${vr.toFixed(2)}`:''}`,'step');att.lastAct=ab.name;G.shot={type:ab.shot,caption:`${att.c.name} — ${ab.name}`};
+  if(ab.reach==='melee'&&initFor(att)<reach){log(`   out of reach (${fmtI(initFor(att))} < ${reach}) — wasted`,'hit');G.step++;render();return;}
+  if(att.states.staggered&&(ab.tags||[]).includes('heavy')){log('   staggered — heavy technique falters, half effect');}
+  // reaction check
+  const tags=tagsOf(ab);let grade=null;
+  if(def.armed&&matchTrigger(A[def.armed],tags)){const rx=A[def.armed];let g=rx.trigger.predicates.length>=R.reactions.perfect_min_predicates?2:1;
+    if(def.insight>att.insight)g+=R.insight.reaction_grade_shift_if_higher;if(def.states.focused)g++;if(zoneOf(def)==='desperate')g++;grade=g>=2?'perfect':'partial';
+    log(`   ⚡ ${def.c.name}'s ${rx.name} fires (${rx.trigger.predicates.join('+')}) → ${grade.toUpperCase()}`,'react');
+    def.armed=null;for(const k in rx.costs)def.cur[k]=Math.max(0,def.cur[k]-rx.costs[k]);if(rx.insight)def.insight+=rx.insight;
+    if(grade==='perfect'){const swing=(ab.initiative||0)*vr+10;G.init=clamp(G.init+(def===G.you?swing:-swing),IMIN,IMAX);log(`   negated · initiative reverses ${fmtI(swing)} → ${fmtI(G.init)}`,'react');
+      if(rx.on_fire&&rx.on_fire.damage)for(const d of rx.on_fire.damage)dealDamage(def,att,d,1,null);
+      G.step++;render();return;}}
+  // damage
+  for(const d of ab.damage||[])dealDamage(att,def,d,vr*(att.states.staggered&&(ab.tags||[]).includes('heavy')?0.5:1),grade);
+  // initiative + insight + self states
+  if(ab.initiative){const sh=Math.round(ab.initiative*vr);G.init=clamp(G.init+(att===G.you?sh:-sh),IMIN,IMAX);log(`   initiative ${sh>0?'+':''}${sh} → ${fmtI(G.init)}`);}
+  if(ab.insight){att.insight+=ab.insight;log(`   ${att.c.name} insight +${ab.insight} → ${att.insight}`,'ins');}
+  for(const s of ab.self_applies||[])applyState(att,s,'self');
+  checkEnd();G.step++;render();}
+
+function dealDamage(att,def,d,mult,grade){const dd=derive(def),da=derive(att);const chan=d.tags.find(t=>CH.includes(t))||'physical';const form=d.tags.find(t=>['blunt','piercing','slashing','crushing','grappling'].includes(t));
+  let amt=d.amount*mult;const notes=[];
+  if(zoneOf(att)==='dominant'){amt*=R.initiative.dominant_damage_mult;notes.push('dominant ×1.25');}
+  for(const t of d.tags)for(const s in def.states){const sd=ST[s];if(sd.amplify_in&&sd.amplify_in[t]){amt*=sd.amplify_in[t];notes.push(`${t} vs ${s} ×${sd.amplify_in[t]}`);}}
+  if(grade==='partial'){amt*=R.reactions.partial_damage_mult;notes.push('partial counter ×0.5');}
+  let guard=def.c.guards[R.damage.channel_guard[chan]]*dd.gMult+dd.gAdd;if(form&&R.damage.form_guard_bypass[form])guard*=1-R.damage.form_guard_bypass[form];
+  const net=Math.round(amt-guard);
+  log(`   ${d.tags.filter(t=>!CH.includes(t)).join('/')||chan} ${Math.round(amt)} → ${def.c.name} ${d.region} − ${Math.round(guard)} ${R.damage.channel_guard[chan]} = ${net}${notes.length?' · '+notes.join(', '):''}`,net>0?'hit':'');
+  if(net>0){const sev=severity(net);if(sev){const w=pickWound(d.region,sev,form);if(w)applyWound(def,w);}
+    if(d.region==='spirit'){/* courage erosion is via wounds */}
+    if((tagsOf(A[att.queue.find(id=>A[id].damage&&A[id].damage.includes(d))]||{tags:[]})).has('heavy')){def.insight+=6;log(`   ${def.c.name} reads the heavy commit · insight +6 → ${def.insight}`,'ins');}}
+  for(const t of d.tags){for(const s in ST)if((ST[s].applied_by||[]).includes(t)&&(net>0||EL.includes(t)))applyState(def,s,t);}
+  if(d.amount===0)for(const t of d.tags)for(const s in ST)if((ST[s].applied_by||[]).includes(t))applyState(def,s,t);}
+
+function checkEnd(){for(const a of[G.you,G.opp]){const d=derive(a);
+  if(d.attr.courage<=d.breakAt){G.over={loser:a,how:'courage break'};}
+  else if(a.cur.stamina<=0){G.over={loser:a,how:'incapacitated (stamina 0)'};}}
+  if(G.over)log(`— ${G.over.loser.c.name} falls · ${G.over.how}`,'r');}
+function endRound(){if(G.over){render();return;}
+  // states tick, bleeding etc
+  for(const a of[G.you,G.opp]){for(const s in a.states){const sd=ST[s];if(sd.tick){if(sd.tick.reserve_cur)for(const k in sd.tick.reserve_cur)a.cur[k]=Math.max(0,a.cur[k]+sd.tick.reserve_cur[k]);if(sd.tick.damage)dealDamage(other(a),a,sd.tick,1,null);}
+      a.states[s]--;if(a.states[s]<=0)delete a.states[s];}
+    const d=derive(a);for(const k in a.cur){const add=Math.round(d.resMax[k]*d.refill[k]);a.cur[k]=Math.min(d.resMax[k],a.cur[k]+add);}
+    a.queue=[];}
+  // cascades
+  for(const c of CD.cascades)if(cmp(G.cond[c.from],c.when,c.value)){if(c.to){const t=CD.scene_conditions[c.to];G.cond[c.to]=clamp(G.cond[c.to]+c.delta,t.min,t.max);}if(c.apply_state)for(const a of[G.you,G.opp])a.states[c.apply_state]=ST[c.apply_state].duration;}
+  for(const k in G.cond){const t=CD.scene_conditions[k];if(t.tick&&G.cond[k]!==t.baseline)G.cond[k]=clamp(G.cond[k]+Math.sign(t.baseline-G.cond[k])*Math.abs(t.tick),t.min,t.max);}
+  checkEnd();G.round++;G.phase='declare';G.order=[];G.step=0;
+  log(`— end of round · refill · initiative ${fmtI(G.init)}`,'r');log(`— ROUND ${G.round} · DECLARE`,'r');
+  if(G.round>R.max_rounds&&!G.over)G.over={loser:null,how:'stalemate'};render();}
+
+// ================= UI ACTIONS =================
+let autoAI=true;
+function onCardClick(id){const ab=A[id];if(G.over)return;
+  if(G.phase==='declare'&&ab.kind==='action'){const i=G.you.queue.indexOf(id);if(i>=0)G.you.queue.splice(i,1);else if(status(G.you,ab).cls==='pick')G.you.queue.push(id);render();}
+  if(G.phase==='arm'&&ab.kind==='reaction'){if(G.you.armed===id&&G.you.armedSince===G.round)G.you.armed=null;else if(status(G.you,ab,true).cls==='pick'){G.you.armed=id;G.you.armedSince=G.round;}render();}}
+function commitDeclare(){if(!G.you.queue.length){log(`${G.you.c.name} declares nothing — waits`);}
+  aiDeclare(G.opp);const n=aiInsightCommit(G.opp,'declare');if(n){commitInsight(G.opp,n);aiDeclare(G.opp);}
+  log(`${G.you.c.name} declares: ${G.you.queue.map(id=>A[id].name).join(', ')||'—'}`,'you');log(`${G.opp.c.name} declares: ${G.opp.queue.map(id=>A[id].name).join(', ')}`);
+  G.phase='arm';aiArm(G.opp);render();}
+function commitArm(){startResolve();}
+function reveal(kind){const cost=R.insight.reveal_costs[kind];if(G.you.insight<cost)return;G.you.insight-=cost;const o=G.opp;
+  if(kind==='cost')o.rev.costs=true;if(kind==='wounds')o.rev.wounds=true;if(kind==='reserves')o.rev.reserves=true;
+  if(kind==='ability'){const unk=o.c.loadout.filter(id=>!o.rev.abil.has(id));if(unk.length)o.rev.abil.add(unk[0]);const at=Object.keys(o.c.attributes).find(k=>!o.rev.attrs.has(k));if(at)o.rev.attrs.add(at);}
+  log(`${G.you.c.name} spends ${cost} insight · reveals ${kind}`,'ins');render();}
+
+// ================= RENDER =================
+const intent=a=>{const d=(a.damage||[])[0];if(!d)return a.initiative?`<span class="ic">+${a.initiative} init</span>`:(a.insight?`<span class="ic">+${a.insight} insight</span>`:'');
+  return d.tags.map(t=>`<span class="ic ${CH.includes(t)?'chan':EL.includes(t)?'el':FX.includes(t)?'fx':''}">${t}</span>`).join('')+`<span class="ic reg">${REGION_ICON[d.region]}</span>`+(d.amount?`<span class="ic">${d.amount}</span>`:'');};
+const costChips=c=>Object.entries(c||{}).map(([k,v])=>`<span class="cost ${RC[k]}">${v} ${RA[k]}</span>`).join('');
+const costStr=c=>Object.entries(c||{}).map(([k,v])=>`${v} ${RA[k]}`).join(' · ');
+function gatesHtml(a,ab){const d=derive(a),out=[];for(const k in ab.requires||{}){const ok=d.attr[k]>=ab.requires[k];out.push(`<span class="g ${ok?'ok':'no'}">${ABBR[k]} ${ab.requires[k]}${ok?'':' ✗'}</span>`);}
+  for(const t of ab.tags||[])if(d.locks.has(t))out.push(`<span class="g no">${t} ✗</span>`);
+  if(ab.kind==='action'&&ab.reach==='melee'){const ok=initFor(a)>=reach;out.push(`<span class="g ${ok?'ok':'no'}">reach${ok?'':' ✗'}</span>`);}
+  out.push(`<span class="g">Σreq ${reqSum(ab)}</span>`);return out.join('');}
+function abCard(a,ab){const st=status(a,ab,G.phase==='arm');const d=(ab.damage||[])[0];const fx=[];
+  if(ab.initiative)fx.push(`+${ab.initiative} init`);if(ab.insight)fx.push(`+${ab.insight} insight`);if(ab.self_applies)fx.push(ab.self_applies.join(', '));if(ab.amplify)fx.push(ab.amplify.map(m=>`×${m.mult} vs ${m.state}`).join(', '));
+  const v=ab.variance?`<div class="var">swing ${Math.round(d.amount*ab.variance.low)}–${Math.round(d.amount*ab.variance.high)}</div>`:'';
+  const trig=ab.trigger?`<div class="fx">on ${ab.trigger.predicates.join(' + ')} → <b>${ab.grade}</b></div>`:'';
+  return`<div class="ab ${st.cls}" data-id="${ab.id}"><div class="t"><span class="n">${esc(ab.name)}</span><span class="rc">${ab.kind==='reaction'?'REACT':ab.reach.toUpperCase()}</span></div><div class="costs">${costChips(ab.costs)}</div>${d?`<div class="intent">${intent(ab)}</div>`:''}${trig}<div class="gate">${gatesHtml(a,ab)}</div>${fx.length?`<div class="fx">${fx.join(' · ')}</div>`:''}${v}${st.why?`<div class="why">${st.why}</div>`:''}</div>`;}
+const stateChips=a=>Object.entries(a.states).map(([k,v])=>`<span class="chip on">${k} ${v}</span>`).join('');
+const woundChips=(a,known)=>a.wounds.map(id=>W[id]).map(w=>`<span class="chip w ${w.severity!=='minor'?'mod':''}">${esc(w.name)}${known?'':' ?'}</span>`).join('');
+const resChip=(a,k)=>{const d=derive(a),f=a.cur[k]/d.resMax[k];return f<.25?{stamina:'Exhausted',focus:'Scattered',chakra:'Drained'}[k]:f<.5?{stamina:'Winded',focus:'Strained',chakra:'Waning'}[k]:null;};
+
+function render(){const y=G.you,o=G.opp,dy=derive(y),doo=derive(o);const body=document.body;
+  body.classList.remove('ph-declare','ph-arm','ph-resolve');body.classList.add('ph-'+G.phase);
+  document.getElementById('phases').innerHTML=['declare','arm','resolve'].map(p=>`<button class="phase ${G.phase===p?'on':''}" type="button" disabled>${cap(p)}<small>${{declare:'queue on the table',arm:'set a hidden reaction',resolve:'trick by trick'}[p]}</small></button>`).join('');
+  // banner
+  const bn=document.getElementById('banner');if(G.over){bn.className='banner on';bn.innerHTML=G.over.loser?`${G.over.loser===y?o.c.name:y.c.name} wins — ${G.over.loser.c.name} ${G.over.how}<small>round ${G.round} · Restart to play again</small>`:`Stalemate<small>${G.over.how}</small>`;}else bn.className='banner';
+  // cine
+  document.getElementById('cine').innerHTML=`<div class="shotcap"><span class="tag">SHOT · ${esc(G.shot.type)}</span><span class="eyebrow">${esc(G.shot.caption)}</span></div>
+    <div class="fig"><div class="sil"></div><div class="lbl"><div class="nm">${esc(y.c.name).toUpperCase()}</div><div class="act">${esc(y.lastAct)}</div></div></div>
+    <div class="mid"><div class="eyebrow">${esc(G.scene.name)} · round ${G.round} · ${G.phase}</div><div class="obj">${esc(G.scene.objective)}</div>
+      <div class="conds">${Object.keys(CD.scene_conditions).filter(k=>k!=='time_of_day').map(k=>{const v=G.cond[k];const on=CD.mvp_active.includes(k)||v!==0;return`<div class="cond ${Math.abs(v)>=3?'tip':''} ${on?'':'ghost'}"><span class="v">${v>0?'+':''}${v}</span><span class="k">${k}</span></div>`}).join('')}</div></div>
+    <div class="fig opp"><div class="sil"></div><div class="lbl"><div class="nm">${esc(o.c.name).toUpperCase()}</div><div class="act">${esc(o.lastAct)}</div></div></div><div class="ground"></div>`;
+  // interrupt
+  const ir=document.getElementById('interrupt');if(G.interrupt){const it=G.order[G.interrupt.step];ir.className='interrupt on';ir.innerHTML=`<span class="t">${esc(it.actor.c.name)} is about to land ${esc(A[it.id].name)}.</span><span>Commit insight now? (shifts initiative before reach / zone / counter grade)</span>
+      <input type="range" id="irSl" min="0" max="${y.insight}" value="0"><span class="mono" id="irV">0 → init ${fmtI(G.init)}</span><button class="btn sm primary" id="irGo" type="button">Commit</button><button class="btn sm" id="irSkip" type="button">Let it come</button>`;
+    const sl=ir.querySelector('#irSl');sl.oninput=()=>{ir.querySelector('#irV').textContent=`${sl.value} → init ${fmtI(G.init+sl.value/R.insight.per_initiative_unit)}`;};
+    ir.querySelector('#irGo').onclick=()=>{commitInsight(y,+sl.value);G.skipInterrupt=true;G.interrupt=null;stepResolve();};
+    ir.querySelector('#irSkip').onclick=()=>{G.skipInterrupt=true;G.interrupt=null;stepResolve();};}else{ir.className='interrupt';ir.innerHTML='';}
+  // opponent side
+  const declaredVisible=G.phase!=='declare';
+  document.getElementById('oppSide').innerHTML=`<div class="who"><div class="nm">${esc(o.c.name)}</div><div class="ep">${esc(o.c.epithet)}</div>
+      <div class="chips">${['stamina','focus','chakra'].map(k=>o.rev.reserves?`<span class="chip on">${RA[k]} ${o.cur[k]}/${doo.resMax[k]}</span>`:(resChip(o,k)?`<span class="chip on">${resChip(o,k)}</span>`:`<span class="chip unk">${k} ?</span>`)).join('')}${stateChips(o)}${woundChips(o,o.rev.wounds)}</div>
+      <div class="intel"><span>${Object.keys(o.c.attributes).map(k=>`${ABBR[k]} ${o.rev.attrs.has(k)?band(doo.attr[k]):'?'}`).join(' · ')}</span><span>known: ${[...o.rev.abil].map(id=>A[id].name).join(', ')} · ${o.c.loadout.length-o.rev.abil.size} unknown</span></div></div>
+    <div><div class="eyebrow" style="margin-bottom:6px">Their table · ${declaredVisible?'declared, face-up':'declaring…'}</div>
+      <div class="cards">${declaredVisible?o.queue.map(id=>{const a=A[id];const done=G.phase==='resolve'&&G.order.findIndex(x=>x.actor===o&&x.id===id)<G.step;return`<div class="card ${a.group}" style="${done?'opacity:.45':''}"><div class="n">${esc(a.name)}<span class="rc">${a.reach.toUpperCase()}</span></div><div class="intent">${intent(a)}</div><div class="c">${o.rev.costs?costStr(a.costs):'cost hidden'} · Σreq ${reqSum(a)}</div></div>`}).join('')||'<div class="card slot">waits</div>':`<div class="card facedown declaring"><div class="q">…</div><div>choosing<br>simultaneously</div></div>`}
+        ${o.armed?`<div class="card facedown"><div class="q">?</div><div>reaction armed<br>since r${o.armedSince}</div></div>`:''}</div></div>
+    <div class="reveal"><div class="lbl">spend insight to see</div>${Object.entries(R.insight.reveal_costs).map(([k,v])=>`<button class="btn sm" type="button" data-reveal="${k}" ${y.insight<v||G.phase==='resolve'?'disabled':''}>${k} · ${v}</button>`).join('')}</div>`;
+  // center
+  const zone=zoneOf(y);const ghostOn=G.pendingCommit>0;
+  document.getElementById('center').innerHTML=`<div class="lbl"><span class="eyebrow">Initiative · persists all fight</span><span class="val ${G.init<0?'neg':''}">${fmtI(G.init)}</span><span class="note">${G.init<reach?`<b>Back foot</b> — melee out of reach`:`in reach · ${zone}`}</span></div>
+    <div><div class="itrack"><div class="zone desp" style="width:${pipPct(R.initiative.desperate_at)}%"></div><div class="zone dom" style="width:${100-pipPct(R.initiative.dominant_at)}%"></div><div class="midl"></div><div class="reachl" style="left:${pipPct(reach)}%"></div>
+        <div class="pip o" style="left:${pipPct(-G.init)}%"></div><div class="pip" style="left:${pipPct(G.init)}%"></div><div class="pip ghost" id="ghost" style="left:${pipPct(G.init+G.pendingCommit/R.insight.per_initiative_unit)}%;display:${ghostOn?'':'none'}"></div></div>
+      <div class="ilab"><span>${IMIN} DESPERATE · partial → perfect</span><span>0</span><span>DOMINANT +${IMAX} · dmg ×${R.initiative.dominant_damage_mult}</span></div>
+      ${G.phase==='resolve'?`<div class="order" style="margin-top:8px">order:${G.order.map((it,i)=>`<span class="o ${side(it.actor)} ${i<G.step?'done':i===G.step?'now':''}">${esc(A[it.id].name)} ${it.sum}</span>`).join('')}</div>`:''}</div>
+    <div class="inswrap"><div class="row"><span class="eyebrow" style="color:#7d6220">Insight · hidden</span><span class="big">${y.insight}</span></div>
+      <input type="range" id="ins" min="0" max="${y.insight}" value="${G.pendingCommit}" ${G.phase==='resolve'?'disabled':''}><div class="hint">commit <b id="insS">${G.pendingCommit}</b> → init <b id="insE">${fmtI(G.init+G.pendingCommit/R.insight.per_initiative_unit)}</b> <button class="btn sm" id="insGo" type="button" ${G.pendingCommit>0?'':'disabled'}>reveal</button></div></div>`;
+  // your side
+  const fits=y.c.loadout.map(id=>A[id]).filter(a=>a.kind==='action'&&status(y,a).cls==='pick');
+  const ctrl=G.over?`<button class="btn primary" id="btnRestart2" type="button">Restart</button>`:G.phase==='declare'?`<span class="hint">click cards below to queue · budget is your reserves</span><button class="btn" id="btnClear" type="button">Clear</button><button class="btn primary" id="btnGo" type="button">Commit declare →</button>`:G.phase==='arm'?`<span class="hint">their queue is face-up · click a reaction to arm (or none)</span><button class="btn primary" id="btnGo" type="button">Lock in → resolve</button>`:`<span class="hint">${G.step<G.order.length?`trick ${Math.floor(G.step/2)+1} · ${G.order.length-G.step} actions left`:'round complete'}</span><button class="btn" id="btnStep" type="button" ${G.interrupt?'disabled':''}>${G.step<G.order.length?'Step ▸':'End round ▸'}</button><button class="btn primary" id="btnAll" type="button" ${G.interrupt?'disabled':''}>Play all ▸▸</button>`;
+  document.getElementById('youSide').innerHTML=`<div class="who"><div class="nm">${esc(y.c.name)}</div><div class="ep">you · ${esc(y.c.epithet)}</div><div class="chips">${stateChips(y)}${woundChips(y,true)}<span class="chip ${dy.attr.courage<=dy.breakAt+15?'w':''}">courage ${dy.attr.courage} / break ${dy.breakAt}</span></div></div>
+    <div><div class="eyebrow" style="margin-bottom:6px">Your table · ${G.phase==='declare'?'queued (hidden until both commit)':'declared, face-up'}</div>
+      <div class="cards">${y.queue.map((id,i)=>{const a=A[id];const done=G.phase==='resolve'&&G.order.findIndex(x=>x.actor===y&&x.id===id)<G.step;return`<div class="card ${a.group}" data-unq="${id}" style="${done?'opacity:.45':''};cursor:${G.phase==='declare'?'pointer':'default'}"><span class="ribbon q">${i+1}</span><div class="n">${esc(a.name)}<span class="rc">${a.reach.toUpperCase()}</span></div><div class="intent">${intent(a)}</div><div class="c">${costStr(a.costs)} · Σreq ${reqSum(a)}</div></div>`}).join('')}
+        ${G.phase==='declare'?`<div class="card slot ${fits.length?'hot':''}">${fits.length?`+ ${fits.map(a=>a.name).join(' / ')} fit`:'nothing else affordable'}</div>`:''}
+        ${y.armed?`<div class="card armed ${A[y.armed].group}"><span class="ribbon">ARMED · hidden</span><div class="n">${esc(A[y.armed].name)}</div><div class="c">on ${A[y.armed].trigger.predicates.join(' + ')} → ${A[y.armed].grade}</div><div class="c">${costStr(A[y.armed].costs)} held · r${y.armedSince}</div></div>`:`<div class="card slot">no reaction armed</div>`}</div></div>
+    <div class="commit ctrl">${ctrl}</div>`;
+  // budget + hand
+  const b=budget(y);
+  document.getElementById('budget').innerHTML=Object.keys(y.c.reserves).map(k=>{const mx=dy.resMax[k],c=y.cur[k],p=v=>clamp(v/mx*100,0,100);const ref=Math.round(mx*dy.refill[k]);
+    return`<div class="bar"><span class="k ${RG[k]}">${k}</span><div class="track"><div class="fill ${RG[k]}" style="width:${p(c)}%"></div>${b.q[k]?`<div class="queued" style="left:${p(c-b.held[k]-b.q[k])}%;width:${p(b.q[k])}%"></div>`:''}${b.held[k]?`<div class="held" style="left:${p(c-b.held[k])}%;width:${p(b.held[k])}%"></div>`:''}</div><span class="n"><b>${b.left[k]}</b> left · ${c}/${mx} · +${k==='focus'?Math.round(dy.refill[k]*100)+'%':ref}</span></div>`}).join('')+`<div class="stats"><span class="eyebrow">hatched = on table · grey = held by reaction</span></div>`;
+  const load=y.c.loadout.map(id=>A[id]);
+  const col=(t,cls,ids,slots,two)=>`<div class="col"><div class="ch"><span class="eyebrow ${cls}">${t}</span><span class="slots">${ids.length}/${slots}</span></div><div style="display:${two?'grid':'flex'};grid-template-columns:1fr 1fr;flex-direction:column;gap:7px">${ids.map(a=>abCard(y,a)).join('')}</div></div>`;
+  document.getElementById('hand').innerHTML=col('Body','body',load.filter(a=>a.group==='body'&&a.kind==='action'),y.c.slots.body,true)+col('Mind','mind',load.filter(a=>a.group==='mind'&&a.kind==='action'),y.c.slots.mind)+col('Spirit','spirit',load.filter(a=>a.group==='spirit'&&a.kind==='action'),y.c.slots.spirit)+col('Reaction','',load.filter(a=>a.kind==='reaction'),y.c.slots.reaction);
+  // drawer
+  document.getElementById('drawer').innerHTML=[y,o].map(a=>{const d=derive(a);return`<div><div class="eyebrow" style="margin-bottom:6px">${esc(a.c.name)} · attributes (effective) · insight ${a.insight}</div><div class="attrs">${Object.keys(a.c.attributes).map(k=>`<div class="attr ${GROUP[k]}"><span class="v">${d.attr[k]}</span><span class="k">${ABBR[k]}</span><span class="d">${d.delta[k]||'&nbsp;'}</span></div>`).join('')}</div>
+    <div class="guards">${Object.entries(a.c.guards).map(([k,v])=>`<div class="guard"><span>${cap(k)}</span><b>${v}</b></div>`).join('')}</div>
+    <div class="wl" style="margin-top:8px">${a.wounds.map(id=>W[id]).map(w=>`<div class="w"><span class="sev">${w.severity}</span><div><div class="nm">${esc(w.name)}</div></div></div>`).join('')||'<span class="chip">unhurt</span>'}</div></div>`}).join('');
+  // log
+  document.getElementById('log').innerHTML=`<header><h3>Resolution</h3><span class="eyebrow">round ${G.round}</span></header><div class="lines" id="lines">${G.log.map(l=>`<div class="${l.cls}">${esc(l.t)}</div>`).join('')}</div>`;
+  const ln=document.getElementById('lines');ln.scrollTop=ln.scrollHeight;
+  wire();}
+
+function wire(){
+  document.querySelectorAll('.hand .ab').forEach(el=>el.addEventListener('click',()=>onCardClick(el.dataset.id)));
+  document.querySelectorAll('[data-unq]').forEach(el=>el.addEventListener('click',()=>{if(G.phase==='declare')onCardClick(el.dataset.unq);}));
+  document.querySelectorAll('[data-reveal]').forEach(el=>el.addEventListener('click',()=>reveal(el.dataset.reveal)));
+  const q=id=>document.getElementById(id);
+  if(q('btnGo'))q('btnGo').onclick=()=>G.phase==='declare'?commitDeclare():commitArm();
+  if(q('btnClear'))q('btnClear').onclick=()=>{G.you.queue=[];render();};
+  if(q('btnStep'))q('btnStep').onclick=()=>stepResolve();
+  if(q('btnAll'))q('btnAll').onclick=()=>{let n=0;while(G.phase==='resolve'&&!G.interrupt&&!G.over&&n++<40)stepResolve();};
+  if(q('btnRestart2'))q('btnRestart2').onclick=reset;
+  const sl=q('ins');if(sl){sl.oninput=()=>{G.pendingCommit=+sl.value;q('insS').textContent=sl.value;q('insE').textContent=fmtI(G.init+sl.value/R.insight.per_initiative_unit);const g=q('ghost');g.style.display=sl.value>0?'':'none';g.style.left=pipPct(G.init+sl.value/R.insight.per_initiative_unit)+'%';q('insGo').disabled=!(+sl.value>0);};}
+  if(q('insGo'))q('insGo').onclick=()=>{commitInsight(G.you,G.pendingCommit);G.pendingCommit=0;render();};}
+document.getElementById('btnRestart').onclick=reset;
+document.getElementById('btnStats').onclick=e=>{const on=document.body.classList.toggle('stats');e.target.textContent='Stats: '+(on?'shown':'hidden');e.target.classList.toggle('on',on);};
+document.getElementById('btnAuto').onclick=e=>{autoAI=!autoAI;e.target.textContent='AI insight: '+(autoAI?'on':'off');};
+reset();
+})();
+</script>

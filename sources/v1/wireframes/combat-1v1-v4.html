@@ -1,0 +1,496 @@
+<title>Duel Prototype v4</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#E8E3D5; --paper2:#DED8C7; --paper3:#D2CBB7; --ink:#1B1916; --ink2:#4A4640; --ink3:#7A756C; --rule:#B9B2A0;
+  --body:#9C5B1B; --mind:#2F4160; --spirit:#6E2F5C; --alarm:#B9321F; --gold:#B08A2E; --ok:#4E6B3A;
+  --body-w:#E9D6BF; --mind-w:#CDD3DF; --spirit-w:#E1CBDB; --gold-w:#EBDDB5; --opp:#3a2a20;
+  --display:"Shippori Mincho",Georgia,serif; --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.4 var(--sans);padding-block:0;padding-inline:16px}
+.app{max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:10px;padding-block:12px 32px}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:700;text-wrap:balance}
+.eyebrow{font:500 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font:500 10px/1 var(--mono);letter-spacing:.08em;padding:3px 6px;border:1px solid var(--rule);border-radius:2px;color:var(--ink2);background:var(--paper2)}
+.tag.mvp{border-color:var(--ok);color:var(--ok)} .tag.target{border-color:var(--gold);color:#7d6220} .tag.future{border-color:var(--ink3);color:var(--ink3);border-style:dashed} .tag.open{border-color:var(--alarm);color:var(--alarm)}
+.btn{font:500 12px var(--sans);padding:7px 12px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:3px;cursor:pointer}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--paper);outline:none} .btn.on{background:var(--ink);color:var(--paper)}
+.btn.sm{font-size:11px;padding:4px 8px}
+
+/* toolbar + phases */
+.toolbar{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;border-bottom:1.5px solid var(--ink);padding-bottom:8px}
+.toolbar h1{font-size:19px} .toolbar .meta{font-size:11.5px;color:var(--ink3)}
+.toolbar .right{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.phases{display:flex;border:1.5px solid var(--ink);border-radius:3px;overflow:hidden}
+.phase{padding:7px 16px;font:600 11.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);border-right:1.5px solid var(--ink);cursor:pointer;background:transparent}
+.phase:last-child{border-right:0} .phase.on{background:var(--ink);color:var(--paper)}
+.phase small{display:block;font:400 10px var(--sans);letter-spacing:.04em;text-transform:none;margin-top:2px;opacity:.75}
+
+/* cinematic strip — grows in resolve */
+.cine{position:relative;border:1.5px solid var(--ink);border-radius:4px;background:linear-gradient(180deg,#D9D3C1,#C6BFA9);height:132px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 18px;gap:18px;overflow:hidden;transition:height .3s ease}
+body.ph-resolve .cine{height:420px}
+.cine .fig{display:flex;align-items:flex-end;gap:12px;align-self:end;padding-bottom:0}
+.cine .fig .sil{width:64px;height:104px;border-radius:32px 32px 10px 10px;background:var(--ink);opacity:.85;transition:all .3s ease}
+.cine .fig.opp .sil{background:var(--opp);width:76px;height:112px}
+body.ph-resolve .cine .fig .sil{width:130px;height:260px;border-radius:65px 65px 20px 20px}
+body.ph-resolve .cine .fig.opp .sil{width:150px;height:280px}
+.cine .fig .lbl{padding-bottom:10px} .cine .fig .lbl .nm{font-family:var(--display);font-weight:700;font-size:15px} .cine .fig .lbl .pz{font:400 10.5px var(--mono);color:var(--ink2)}
+.cine .fig.opp{flex-direction:row-reverse;text-align:right}
+.cine .mid{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.cine .mid .obj{font-family:var(--display);font-size:15px;font-weight:700}
+.conds{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.cond{display:flex;flex-direction:column;align-items:center;padding:4px 8px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);min-width:58px}
+.cond .v{font:500 13px var(--mono)} .cond .k{font:500 9px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.cond.tip{border-color:var(--alarm)} .cond.tip .v{color:var(--alarm)} .cond.ghost{opacity:.4;border-style:dashed}
+.cine .shotcap{position:absolute;left:12px;top:10px;display:none;gap:8px;align-items:center}
+body.ph-resolve .cine .shotcap{display:flex}
+.cine .shotcap .tag{background:var(--paper)}
+.cine .ground{position:absolute;left:0;right:0;bottom:0;height:12px;background:var(--ink);opacity:.08}
+
+/* the table */
+.table{border:1.5px solid var(--ink);border-radius:4px;background:var(--paper);display:grid;grid-template-rows:auto auto auto}
+.side{display:grid;grid-template-columns:230px 1fr 200px;gap:12px;padding:10px 14px;align-items:start}
+.side.opp{border-bottom:1px solid var(--rule)} .side.you{border-top:1px solid var(--rule)}
+.who .nm{font-family:var(--display);font-weight:700;font-size:16px} .who .ep{font-size:11px;color:var(--ink3)}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.chip{padding:3px 7px;border:1px solid var(--rule);border-radius:12px;font:500 10px var(--sans);letter-spacing:.04em;color:var(--ink3);background:var(--paper2)}
+.chip.on{border-color:var(--ink);color:var(--ink);background:var(--paper)} .chip.unk{border-style:dashed} .chip.w{border-color:var(--alarm);color:var(--alarm)}
+.chip.w.mod{background:#F0E3DC}
+.cards{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch;min-height:74px}
+.card{width:168px;border:1.5px solid var(--ink);border-radius:3px;background:var(--paper);padding:7px 9px;display:flex;flex-direction:column;gap:4px;position:relative}
+.card .n{font-weight:600;font-size:12.5px;display:flex;justify-content:space-between;gap:6px}
+.card .n .rc{font:500 9px var(--mono);color:var(--ink3);letter-spacing:.06em}
+.card .c{font:400 10.5px var(--mono);color:var(--ink2)}
+.card.body{border-left:4px solid var(--body)} .card.mind{border-left:4px solid var(--mind)} .card.spirit{border-left:4px solid var(--spirit)}
+.card.slot{border-style:dashed;border-color:var(--rule);background:transparent;color:var(--ink3);justify-content:center;align-items:center;font-size:11px;text-align:center}
+.card.slot.hot{border-color:var(--ink);color:var(--ink)}
+.card.facedown{border-style:dashed;background:repeating-linear-gradient(45deg,var(--paper2) 0 3px,var(--paper) 3px 6px);justify-content:center;align-items:center;text-align:center;font-size:11px;color:var(--ink2)}
+.card.facedown .q{font:700 22px var(--display);line-height:1}
+.card.armed{border-style:dashed;background:var(--paper2)}
+.card .ribbon{position:absolute;right:6px;top:-8px;font:600 8.5px var(--mono);letter-spacing:.08em;color:var(--paper);background:var(--ink);padding:2px 5px;border-radius:2px}
+.card .ribbon.q{background:var(--alarm)}
+.intent{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.ic{display:inline-flex;align-items:center;gap:3px;font:500 9.5px var(--mono);padding:2px 5px;border-radius:2px;background:var(--paper2);color:var(--ink2)}
+.ic.chan{background:var(--ink);color:var(--paper)} .ic.el{background:var(--gold-w);color:#7d6220} .ic.fx{background:#E4D2CC;color:var(--alarm)} .ic.reg{border:1px solid var(--rule);background:transparent}
+.reveal{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.reveal .btn{border-color:var(--gold);color:#6d5a2a}
+.reveal .lbl{font:400 10px var(--mono);color:var(--ink3);text-align:right}
+.intel{font:400 10.5px var(--mono);color:var(--ink2);margin-top:6px;display:flex;flex-direction:column;gap:2px}
+.intel .dots{display:inline-flex;gap:2px;margin:0 4px;vertical-align:middle} .intel .dots i{width:8px;height:12px;border:1px solid var(--ink3);border-radius:2px;display:inline-block} .intel .dots i.rev{background:var(--gold);border-color:var(--gold)}
+
+/* centerline: initiative */
+.center{padding:14px 14px 10px;background:var(--paper2);display:grid;grid-template-columns:230px 1fr 200px;gap:12px;align-items:center}
+.center .lbl{display:flex;flex-direction:column;gap:2px} .center .lbl .val{font:500 22px/1 var(--mono)} .center .lbl .val.neg{color:var(--alarm)}
+.itrack{position:relative;height:34px;border:1.5px solid var(--ink);border-radius:3px;background:var(--paper)}
+.zone{position:absolute;top:0;bottom:0} .zone.desp{left:0;background:repeating-linear-gradient(90deg,var(--alarm) 0 1px,transparent 1px 6px);opacity:.35} .zone.dom{right:0;background:repeating-linear-gradient(90deg,var(--ok) 0 1px,transparent 1px 6px);opacity:.4}
+.midl{position:absolute;top:0;bottom:0;width:1.5px;background:var(--ink);left:50%}
+.reachl{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--body)} .reachl::after{content:"REACH";position:absolute;top:-14px;left:-16px;font:500 9px var(--mono);letter-spacing:.06em;color:var(--body)}
+.pip{position:absolute;top:50%;width:20px;height:20px;border-radius:50%;background:var(--ink);border:2px solid var(--paper);transform:translate(-50%,-50%);box-shadow:0 0 0 1.5px var(--ink)}
+.pip.o{background:var(--opp);box-shadow:0 0 0 1.5px var(--opp)}
+.pip.ghost{background:var(--gold);box-shadow:0 0 0 1.5px var(--gold)}
+.pip.ghost::after{content:"after reveal";position:absolute;top:-20px;left:50%;transform:translateX(-50%);font:500 9px var(--mono);color:#7d6220;white-space:nowrap}
+.ilab{display:flex;justify-content:space-between;font:500 9.5px var(--mono);letter-spacing:.08em;color:var(--ink3);margin-top:5px}
+.inswrap{display:flex;flex-direction:column;gap:4px;border:1px dashed var(--gold);border-radius:3px;padding:7px 9px;background:var(--gold-w)}
+.inswrap .row{display:flex;justify-content:space-between;align-items:baseline} .inswrap .big{font:500 20px/1 var(--mono);color:#7d6220}
+.inswrap input[type=range]{width:100%;accent-color:var(--gold);margin:2px 0} .inswrap .hint{font:400 10px var(--mono);color:#6d5a2a}
+.center .note{font-size:10.5px;color:var(--ink2)} .center .note b{color:var(--alarm)}
+
+/* budget strip + hand */
+.budget{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 18px;align-items:center;border:1.5px solid var(--ink);border-bottom:0;border-radius:4px 4px 0 0;padding:9px 14px;background:var(--paper2)}
+.bar{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}
+.bar .k{font:500 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;width:52px} .bar .k.body{color:var(--body)} .bar .k.mind{color:var(--mind)} .bar .k.spirit{color:var(--spirit)}
+.track{position:relative;height:14px;background:var(--paper3);border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.fill{position:absolute;inset:0 auto 0 0} .fill.body{background:var(--body)} .fill.mind{background:var(--mind)} .fill.spirit{background:var(--spirit)}
+.queued{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(135deg,var(--alarm) 0 3px,transparent 3px 6px)}
+.held{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,var(--ink3) 0 2px,transparent 2px 5px)}
+.refl{position:absolute;top:0;bottom:0;border-right:2px dashed var(--ink2);opacity:.7}
+.bar .n{font:400 11px var(--mono);white-space:nowrap;color:var(--ink2)} .bar .n b{font:500 14px var(--mono);color:var(--ink)}
+.budget .stats{grid-column:1/-1;display:flex;gap:6px;align-items:center;margin-top:-2px}
+.hand{border:1.5px solid var(--ink);border-radius:0 0 4px 4px;background:var(--paper);display:grid;grid-template-columns:4fr 3fr 3fr 3fr}
+.col{padding:10px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:7px} .col:last-child{border-right:0}
+.col .ch{display:flex;justify-content:space-between;align-items:baseline} .col .ch .eyebrow.body{color:var(--body)} .col .ch .eyebrow.mind{color:var(--mind)} .col .ch .eyebrow.spirit{color:var(--spirit)}
+.col .slots{font:400 10px var(--mono);color:var(--ink3)}
+.col .grid2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.ab{border:1.5px solid var(--rule);border-radius:3px;padding:7px 8px;background:var(--paper);display:flex;flex-direction:column;gap:4px;cursor:pointer;position:relative}
+.ab:hover{border-color:var(--ink)}
+.ab .t{display:flex;justify-content:space-between;align-items:baseline;gap:6px} .ab .n{font-weight:600;font-size:12.5px} .ab .rc{font:500 9px var(--mono);color:var(--ink3);letter-spacing:.06em}
+.ab .costs{display:flex;gap:4px;flex-wrap:wrap}
+.cost{font:500 10px var(--mono);padding:2px 5px;border-radius:2px;background:var(--paper2);color:var(--ink2)}
+.cost.f{background:var(--mind-w);color:var(--mind)} .cost.s{background:var(--body-w);color:var(--body)} .cost.c{background:var(--spirit-w);color:var(--spirit)}
+.ab .gate{display:flex;gap:4px;flex-wrap:wrap}
+.g{font:500 9.5px var(--mono);padding:1px 5px;border-radius:2px;border:1px solid var(--rule);color:var(--ink3)} .g.ok{border-color:var(--ok);color:var(--ok)} .g.no{border-color:var(--alarm);color:var(--alarm);background:#F0E3DC}
+.ab .fx{font:400 10px var(--mono);color:var(--ink2)}
+.ab .var{font:500 10px var(--mono);color:#7d6220}
+.ab.queued{border-color:var(--alarm);background:#F0E3DC} .ab.queued::before{content:"ON TABLE";position:absolute;right:6px;top:-8px;font:600 8.5px var(--mono);letter-spacing:.08em;color:var(--paper);background:var(--alarm);padding:2px 5px;border-radius:2px}
+.ab.armed{border-style:dashed;border-color:var(--ink)} .ab.armed::before{content:"ARMED";position:absolute;right:6px;top:-8px;font:600 8.5px var(--mono);letter-spacing:.08em;color:var(--paper);background:var(--ink);padding:2px 5px;border-radius:2px}
+.ab.locked{opacity:.5;cursor:not-allowed} .ab.unaff{opacity:.62} .ab.react{background:var(--paper2)}
+.ab .why{font:500 10px var(--mono);color:var(--alarm)} .ab.unaff .why{color:var(--ink3)}
+
+/* stats drawer + log */
+.drawer{display:none;border:1.5px solid var(--ink);border-radius:4px;background:var(--paper);padding:10px 14px;grid-template-columns:1fr 1fr;gap:14px}
+body.stats .drawer{display:grid}
+.attrs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.attr{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-top:3px solid var(--rule)} .attr.body{border-top-color:var(--body)} .attr.mind{border-top-color:var(--mind)} .attr.spirit{border-top-color:var(--spirit)}
+.attr .v{font:500 18px/1 var(--mono)} .attr .k{font:500 9px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)} .attr .d{font:400 10px var(--mono);color:var(--alarm)}
+.guards{display:flex;gap:6px;margin-top:8px} .guard{flex:1;display:flex;justify-content:space-between;gap:6px;padding:5px 8px;border:1px solid var(--rule);border-radius:3px;background:var(--paper2);font-size:11px} .guard b{font:500 13px var(--mono)}
+.wl{display:flex;flex-direction:column;gap:5px} .wl .w{display:grid;grid-template-columns:auto 1fr;gap:8px;padding:5px 8px;border-left:3px solid var(--alarm);background:var(--paper2)} .wl .sev{font:500 9px var(--mono);text-transform:uppercase;color:var(--alarm)} .wl .nm{font-weight:600;font-size:12px} .wl .fx{font:400 10.5px var(--mono);color:var(--ink2)}
+.logwrap{border:1.5px solid var(--ink);border-radius:4px;background:var(--paper)}
+.logwrap header{padding:8px 12px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center} .logwrap h3{font-size:14px}
+.lines{padding:8px 12px;display:flex;flex-direction:column;gap:4px;font:400 11px/1.45 var(--mono);color:var(--ink2);max-height:150px;overflow:auto}
+body.ph-resolve .lines{max-height:none}
+.lines .r{color:var(--ink3);letter-spacing:.08em;margin-top:3px} .lines .hit{color:var(--alarm)} .lines .you{color:var(--ink)} .lines .ins{color:#7d6220}
+body.ph-resolve .hand,body.ph-resolve .budget{display:none}
+body.ph-resolve .side.you .cards .card.slot{display:none}
+.commit{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+.commit .primary{background:var(--ink);color:var(--paper);font-weight:600}
+.foot{font-size:11px;color:var(--ink3);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* annotations */
+.ann{display:none;position:absolute;z-index:5;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--ink);font:700 11px/20px var(--mono);text-align:center;box-shadow:0 0 0 2px var(--paper)}
+body.annot .ann{display:block} .rel{position:relative}
+.annkey{display:none;border:1.5px solid var(--gold);border-radius:4px;background:var(--gold-w);padding:10px 14px} body.annot .annkey{display:block}
+.annkey table{width:100%;border-collapse:collapse;font-size:11.5px} .annkey th{text-align:left;font:500 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:4px 6px;border-bottom:1px solid var(--gold)} .annkey td{padding:4px 6px;border-bottom:1px solid rgba(0,0,0,.08);vertical-align:top} .annkey td.n{font:700 11px var(--mono)} .annkey td.f{font:400 11px var(--mono);color:var(--ink2)}
+
+@media (max-width:1000px){.side,.center{grid-template-columns:1fr}.hand{grid-template-columns:1fr 1fr}.budget{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.drawer{grid-template-columns:1fr}.reveal{align-items:flex-start}}
+@media (max-width:640px){.hand{grid-template-columns:1fr}.col{border-right:0;border-bottom:1px solid var(--rule)}.col .grid2{grid-template-columns:1fr}.attrs{grid-template-columns:repeat(3,1fr)}.cine{height:auto;grid-template-columns:1fr;padding:12px}.cine .fig{display:none}}
+@media (prefers-reduced-motion:reduce){.cine,.cine .fig .sil{transition:none}}
+</style>
+<style>
+.ab.pick{cursor:pointer} .ab.pick:hover{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.ab.locked,.ab.unaff{cursor:not-allowed}
+.card.facedown.declaring{opacity:.7}
+.order{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font:400 10.5px var(--mono);color:var(--ink2)}
+.order .o{padding:3px 7px;border:1px solid var(--rule);border-radius:2px;background:var(--paper)} .order .o.you{border-color:var(--ink)} .order .o.opp{border-color:var(--opp);background:#E6DED4} .order .o.done{opacity:.4;text-decoration:line-through} .order .o.now{background:var(--ink);color:var(--paper)}
+.interrupt{border:2px solid var(--gold);background:var(--gold-w);border-radius:4px;padding:10px 14px;display:none;gap:10px;align-items:center;flex-wrap:wrap}
+.interrupt.on{display:flex}
+.interrupt .t{font-family:var(--display);font-weight:700;font-size:14px}
+.interrupt input[type=range]{width:180px;accent-color:var(--gold)}
+.banner{display:none;border:2px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:4px;padding:14px 18px;font-family:var(--display);font-size:20px;font-weight:700;text-align:center}
+.banner.on{display:block}
+.banner small{display:block;font:400 12px var(--sans);opacity:.8;margin-top:4px}
+.ctrl{display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+.ctrl .primary{background:var(--ink);color:var(--paper);font-weight:600}
+.ctrl .hint{font:400 11px var(--mono);color:var(--ink3);margin-right:auto}
+.lines{max-height:260px}
+.lines .step{color:var(--ink);font-weight:500} .lines .react{color:var(--mind)} .lines .roll{color:#7d6220}
+.who .ins{font:500 10.5px var(--mono);color:#7d6220;margin-top:4px}
+.cine .fig .lbl .act{font:500 11px var(--mono);color:var(--alarm);min-height:14px}
+</style>
+
+<script>window.__DD=window.__DD||{};
+window.__DD["dd-rules"]={"_doc":"Global tuning knobs. Bible \u00a73\u2013\u00a78. Godot and the wireframe read this file; change numbers here, not in code.","schema_version":2,"scale":{"_note":"Attributes and reserve maxes live on 0\u2013300+. ~100 competent, ~150 elite, 200+ legendary.","bands":[{"max":39,"label":"Frail"},{"max":69,"label":"Weak"},{"max":89,"label":"Fair"},{"max":119,"label":"Sound"},{"max":149,"label":"Strong"},{"max":199,"label":"Formidable"},{"max":999,"label":"Legendary"}]},"reserves":{"_note":"Refill is a fraction of MAX per round, applied at end of RESOLVE. Wounds/states modify these.","stamina":{"refill":0.4,"band":[0.3,0.5]},"focus":{"refill":1.0,"band":[1.0,1.0],"_note":"100% unless hindered \u2014 the per-round attention budget"},"chakra":{"refill":0.3,"band":[0.25,0.33]}},"courage_break_fraction":0.25,"initiative":{"range":[-50,50],"reach_threshold":-10,"dominant_at":25,"desperate_at":-25,"dominant_damage_mult":1.25,"tie_rule":"quickness_then_insight","_tie_note":"OPEN #4 \u2014 proposal only","_scale_note":"D2.12 \u2014 100-pt bar centred on 0. Ability deltas are irregular, roughly normal around \u00b18; big swings \u00b115\u201320; reveals/perfect counters can move 20+."},"insight":{"per_initiative_unit":2,"_note":"2 insight committed = +1 effective initiative on the 100-pt bar. Partial spend allowed.","reveal_costs":{"cost":5,"ability":12,"wounds":8,"reserves":8},"reaction_grade_shift_if_higher":1,"reveal_timing":"OPEN #1 \u2014 arm_declared | resolve_interrupt"},"action_budget":{"_note":"D2.7 \u2014 no action count. Queue until any required reserve is unaffordable.","max_queue_display":6},"reactions":{"max_armed":1,"persist_until_fired":true,"perfect_min_predicates":2,"partial_damage_mult":0.5,"grade_up_states":["focused"],"grade_up_zone":"desperate"},"damage":{"channels":["physical","mental","spiritual"],"channel_guard":{"physical":"toughness","mental":"grit","spiritual":"will"},"form_guard_bypass":{"piercing":0.5,"crushing":0.0,"blunt":0.0,"slashing":0.25,"grappling":0.0},"_bypass_note":"fraction of the guard the form ignores"},"variance":{"_note":"OPEN #0 \u2014 bible \u00a71a. Default band 1.0\u20131.0 = deterministic. Applies to damage amount and initiative delta only.","enabled":true,"roll_at":"resolve"},"stamina_conversion":{"chakra":2,"brace_strength":3,"brace_quickness":3,"_note":"stamina points per 1 point of the target; brace lasts one round"},"max_rounds":30};
+window.__DD["dd-characters"]={"_doc":"Characters on the v2 stat model (bible \u00a73). attributes = tested, reserves = spent, guards = absorb. library = full ability pool; loadout = chosen pre-scene into typed slots.","schema_version":2,"characters":[{"id":"kaede","name":"Kaede","epithet":"generalist","attributes":{"strength":104,"quickness":97,"wits":92,"courage":94,"heart":88},"reserves":{"stamina":110,"focus":100,"chakra":101},"guards":{"toughness":14,"grit":9,"will":12},"slots":{"body":4,"mind":3,"spirit":3,"reaction":1},"library":["palm_strike","crushing_blow","lunge_kick","flicker_step","grapple","read_the_field","feint","anticipate","hear_the_wind","water_lash","lightning_palm","killing_intent","steel_nerve","counter_throw","iron_guard"],"loadout":["palm_strike","crushing_blow","lunge_kick","flicker_step","read_the_field","feint","anticipate","water_lash","lightning_palm","killing_intent","counter_throw"],"poses":{"idle":"guard_low","wounded":"guard_low_wounded"}},{"id":"genzo","name":"Genzo the Ox","epithet":"brute \u00b7 many slots, low craft","attributes":{"strength":141,"quickness":71,"wits":58,"courage":117,"heart":126},"reserves":{"stamina":138,"focus":80,"chakra":66},"guards":{"toughness":26,"grit":11,"will":6},"slots":{"body":5,"mind":1,"spirit":2,"reaction":1},"library":["palm_strike","crushing_blow","grapple","shoulder_charge","flicker_step","read_the_field","pressure","killing_intent","iron_guard","counter_throw"],"loadout":["palm_strike","crushing_blow","grapple","shoulder_charge","flicker_step","read_the_field","pressure","killing_intent","iron_guard"],"poses":{"idle":"advance","wounded":"advance_cut"},"ai_policy":"aggressive"}]};
+window.__DD["dd-abilities"]={"_doc":"Ability schema \u2014 bible \u00a79.2 + \u00a73.2a tag stacks + \u00a71a variance. Costs draw on reserves; requires test attributes; reach tests initiative. damage[].tags = [channel, form?, element*, effect*, intent*]. initiative deltas are on the 100-pt bar (D2.12), irregular values.","schema_version":2,"abilities":[{"id":"palm_strike","name":"Palm Strike","group":"body","kind":"action","reach":"melee","requires":{"strength":60},"costs":{"stamina":12,"focus":22},"damage":[{"amount":22,"region":"torso","tags":["physical","blunt","stagger"]}],"initiative":4,"insight":0,"tags":["strike"],"cost_mods":[{"condition":"footing","reserve":"stamina","per_point":-1}],"shot":"strike_close"},{"id":"crushing_blow","name":"Crushing Blow","group":"body","kind":"action","reach":"melee","requires":{"strength":120},"costs":{"stamina":28,"focus":40},"damage":[{"amount":34,"region":"torso","tags":["physical","crushing","stagger","finisher"]}],"initiative":9,"tags":["strike","heavy"],"gates":[{"condition":"footing","op":">=","value":-2}],"amplify":[{"state":"exposed","on":"target","mult":1.5}],"shot":"finisher"},{"id":"lunge_kick","name":"Lunge Kick","group":"body","kind":"action","reach":"melee","requires":{"quickness":80},"costs":{"stamina":16,"focus":28},"damage":[{"amount":24,"region":"legs","tags":["physical","blunt"]}],"initiative":11,"tags":["strike","lunge"],"shot":"lunge"},{"id":"grapple","name":"Grapple","group":"body","kind":"action","reach":"melee","requires":{"strength":80},"costs":{"stamina":18,"focus":26},"damage":[{"amount":14,"region":"arms","tags":["physical","grappling","expose"]}],"initiative":8,"tags":["control","grapple"],"shot":"brace"},{"id":"shoulder_charge","name":"Shoulder Charge","group":"body","kind":"action","reach":"any","requires":{"strength":110},"costs":{"stamina":22,"focus":30},"damage":[{"amount":26,"region":"torso","tags":["physical","blunt","stagger"]}],"initiative":14,"tags":["strike","heavy","movement"],"variance":{"low":0.8,"high":1.3},"shot":"approach"},{"id":"flicker_step","name":"Flicker Step","group":"body","kind":"action","reach":"any","requires":{"quickness":60},"costs":{"stamina":14,"focus":20},"damage":[],"initiative":13,"self_applies":["focused"],"tags":["movement"],"cost_mods":[{"condition":"footing","reserve":"stamina","per_point":-2}],"shot":"approach"},{"id":"read_the_field","name":"Read the Field","group":"mind","kind":"action","reach":"any","requires":{"wits":50},"costs":{"focus":25},"damage":[],"initiative":3,"insight":9,"tags":["read"],"shot":"observe"},{"id":"feint","name":"Feint","group":"mind","kind":"action","reach":"any","requires":{"wits":70},"costs":{"stamina":6,"focus":18},"damage":[{"amount":0,"region":"mind","tags":["mental","expose","feint"]}],"initiative":0,"insight":6,"tags":["feint"],"shot":"feint"},{"id":"hear_the_wind","name":"Hear the Wind","group":"mind","kind":"action","reach":"any","requires":{"wits":90},"costs":{"focus":35},"damage":[],"initiative":0,"insight":14,"tags":["read"],"shot":"observe"},{"id":"pressure","name":"Pressure","group":"spirit","kind":"action","reach":"any","requires":{"heart":90},"costs":{"chakra":16,"focus":26},"damage":[{"amount":28,"region":"spirit","tags":["spiritual","dread","pressure"]}],"initiative":6,"tags":["intimidate"],"shot":"glare"},{"id":"killing_intent","name":"Killing Intent","group":"spirit","kind":"action","reach":"any","requires":{"heart":70},"costs":{"chakra":22,"focus":32},"damage":[{"amount":30,"region":"spirit","tags":["spiritual","dread"]}],"initiative":5,"tags":["intimidate"],"shot":"glare"},{"id":"water_lash","name":"Water Lash","group":"spirit","kind":"action","reach":"ranged","requires":{"wits":60},"costs":{"chakra":24,"focus":30},"damage":[{"amount":26,"region":"arms","tags":["physical","slashing","water"]}],"initiative":4,"tags":["ninjutsu","water"],"shot":"cast_ranged"},{"id":"lightning_palm","name":"Lightning Palm","group":"spirit","kind":"action","reach":"melee","requires":{"wits":75,"quickness":70},"costs":{"chakra":30,"focus":38},"damage":[{"amount":34,"region":"torso","tags":["physical","piercing","lightning","daze"]}],"initiative":9,"tags":["ninjutsu","lightning","swing"],"amplify":[{"state":"wet","on":"target","mult":2.0}],"variance":{"low":0.8,"high":1.4},"shot":"strike_close"},{"id":"steel_nerve","name":"Steel Nerve","group":"spirit","kind":"action","reach":"any","requires":{"courage":80},"costs":{"chakra":12,"focus":20},"damage":[],"initiative":0,"self_applies":["braced"],"tags":["resolve"],"shot":"brace"},{"id":"anticipate","name":"Anticipate","group":"mind","kind":"reaction","requires":{"wits":70},"costs":{"focus":20},"trigger":{"predicates":["heavy"]},"grade":"partial","insight":8,"tags":["read"],"shot":"sidestep"},{"id":"counter_throw","name":"Counter Throw","group":"body","kind":"reaction","requires":{"quickness":75,"strength":70},"costs":{"stamina":14,"focus":20},"trigger":{"predicates":["melee","heavy"]},"grade":"perfect","on_fire":{"initiative":"reverse","attacker_loses_spend":true,"damage":[{"amount":18,"region":"torso","tags":["physical","grappling","stagger"]}]},"tags":["counter"],"shot":"throw"},{"id":"iron_guard","name":"Iron Guard","group":"body","kind":"reaction","requires":{"strength":60},"costs":{"stamina":10,"focus":15},"trigger":{"predicates":["physical"]},"grade":"partial","tags":["guard"],"shot":"block"}]};
+window.__DD["dd-wounds"]={"_doc":"Anatomical wound tables \u2014 bible \u00a78. Net damage (after guard/form/amplify) maps to a severity band per region; the band picks a wound by matching form tag (first match wins, '*' = any). Effects apply immediately and persist for the scene. No HP anywhere.","schema_version":2,"regions":["head","torso","arms","legs","mind","spirit"],"_regions_note":"OPEN #2 \u2014 confirm","severity_bands":{"_note":"net damage thresholds; same for every region in MVP, per-region later","minor":8,"moderate":18,"severe":30,"crippling":45},"wounds":[{"id":"bruised_ribs","name":"Bruised ribs","region":"torso","severity":"minor","form":"*","effects":[{"reserve_cur":{"stamina":-10}}]},{"id":"cracked_ribs","name":"Cracked ribs","region":"torso","severity":"moderate","form":"blunt","effects":[{"reserve_max":{"stamina":-15}},{"refill":{"stamina":-0.1}}]},{"id":"punctured_lung","name":"Punctured lung","region":"torso","severity":"moderate","form":"piercing","effects":[{"refill":{"stamina":-0.2}},{"state":"bleeding"}]},{"id":"crushed_sternum","name":"Crushed sternum","region":"torso","severity":"severe","form":"*","effects":[{"attribute":{"strength":-30}},{"reserve_max":{"stamina":-30}},{"refill":{"focus":-0.2}}]},{"id":"cut_brow","name":"Cut brow","region":"head","severity":"minor","form":"*","effects":[{"attribute":{"wits":-6}}]},{"id":"concussed","name":"Concussed","region":"head","severity":"moderate","form":"*","effects":[{"refill":{"focus":-0.4}},{"attribute":{"wits":-15}}]},{"id":"fractured_skull","name":"Fractured skull","region":"head","severity":"severe","form":"*","effects":[{"refill":{"focus":-0.6}},{"attribute":{"wits":-30,"quickness":-20}},{"state":"dazed"}]},{"id":"bruised_forearm","name":"Bruised forearm","region":"arms","severity":"minor","form":"*","effects":[{"attribute":{"strength":-8}}]},{"id":"wrenched_shoulder","name":"Wrenched shoulder","region":"arms","severity":"moderate","form":"grappling","effects":[{"attribute":{"strength":-20}},{"lock_tag":"grapple"}]},{"id":"gashed_arm","name":"Gashed arm","region":"arms","severity":"moderate","form":"slashing","effects":[{"attribute":{"strength":-14}},{"state":"bleeding"}]},{"id":"broken_forearm","name":"Broken forearm","region":"arms","severity":"severe","form":"*","effects":[{"attribute":{"strength":-35}},{"lock_tag":"grapple"},{"lock_tag":"heavy"}]},{"id":"bruised_thigh","name":"Bruised thigh","region":"legs","severity":"minor","form":"*","effects":[{"attribute":{"quickness":-8}}]},{"id":"torn_calf","name":"Torn calf","region":"legs","severity":"moderate","form":"*","effects":[{"attribute":{"quickness":-22}},{"refill":{"stamina":-0.1}},{"lock_tag":"lunge"}]},{"id":"shattered_knee","name":"Shattered knee","region":"legs","severity":"severe","form":"*","effects":[{"attribute":{"quickness":-45}},{"lock_tag":"lunge"},{"lock_tag":"movement"},{"refill":{"stamina":-0.2}}]},{"id":"rattled","name":"Rattled","region":"mind","severity":"minor","form":"*","effects":[{"reserve_cur":{"focus":-30}}]},{"id":"confounded","name":"Confounded","region":"mind","severity":"moderate","form":"*","effects":[{"refill":{"focus":-0.3}},{"attribute":{"wits":-12}}]},{"id":"unnerved","name":"Unnerved","region":"spirit","severity":"minor","form":"*","effects":[{"attribute":{"courage":-8}}]},{"id":"shaken","name":"Shaken","region":"spirit","severity":"moderate","form":"*","effects":[{"attribute":{"courage":-20,"heart":-10}}]},{"id":"broken_will","name":"Will broken","region":"spirit","severity":"severe","form":"*","effects":[{"attribute":{"courage":-40,"heart":-25}},{"state":"dreading"}]}]};
+window.__DD["dd-states"]={"_doc":"Actor states \u2014 bible \u00a710.2. Boolean + round count. Applied by effect and element tags (\u00a73.2a). `clears` = states removed when this one is applied. `amplify_in` = incoming damage tags multiplied.","schema_version":2,"states":{"wet":{"duration":3,"applied_by":["water"],"clears":["burning"],"amplify_in":{"lightning":2.0}},"burning":{"duration":2,"applied_by":["fire"],"clears":["wet","chilled"],"tick":{"damage":6,"region":"torso","tags":["physical","fire"]}},"charged":{"duration":1,"applied_by":["lightning"],"effect":{"attribute":{"quickness":-10}}},"chilled":{"duration":2,"applied_by":["wind"],"clears":["burning"],"effect":{"refill":{"stamina":-0.15}}},"staggered":{"duration":1,"applied_by":["stagger"],"effect":{"reserve_cur":{"focus":-35}},"blocks":["arm_reaction"],"amplify_in":{"physical":1.3}},"exposed":{"duration":2,"applied_by":["expose"],"effect":{"guard_mult":0.5}},"bleeding":{"duration":3,"applied_by":["bleed"],"tick":{"reserve_cur":{"stamina":-8}}},"dazed":{"duration":1,"applied_by":["daze"],"effect":{"refill":{"focus":-0.3}}},"dreading":{"duration":2,"applied_by":["dread"],"effect":{"attribute":{"courage":-10}}},"focused":{"duration":2,"applied_by":["self"],"effect":{"reaction_grade":1}},"braced":{"duration":1,"applied_by":["self"],"effect":{"guard_add":8}}}};
+window.__DD["dd-conditions"]={"_doc":"Scene condition tracks \u2014 bible \u00a710.1. Baseline + increments; \u00b11 normal; +4 tipping. Each declares its own tick. Cascades push each other; depth \u2264 2 per round. MVP authors footing and light only.","schema_version":2,"scene_conditions":{"light":{"baseline":0,"min":-5,"max":5,"tick":0},"noise":{"baseline":0,"min":-5,"max":5,"tick":-1},"alert":{"baseline":0,"min":0,"max":5,"tick":0},"footing":{"baseline":0,"min":-5,"max":5,"tick":0},"weather":{"baseline":0,"min":-5,"max":5,"tick":0},"time_of_day":{"baseline":0,"min":-5,"max":5,"tick":0}},"tipping_threshold":4,"cascades":[{"from":"weather","when":">=","value":3,"to":"footing","delta":-1},{"from":"weather","when":">=","value":3,"to":"light","delta":-1},{"from":"weather","when":">=","value":3,"apply_state":"wet","to_all":true},{"from":"noise","when":">=","value":4,"to":"alert","delta":1}],"cascade_depth_limit":2,"mvp_active":["footing","light"],"scenes":[{"id":"courtyard_rain","name":"Courtyard in rain","objective":"Force surrender \u2014 or break Courage","lethal":false,"win":["surrender","courage_break"],"fail":["courage_break_self","incapacitated_self"],"start":{"footing":-1,"light":0,"weather":3},"initiative_start":0}]};
+window.__DD["dd-snapshot"]={"_doc":"Mock mid-duel state for the wireframe. NOT design data \u2014 this is what the engine would hand the UI. Field names are the contract the Godot UI layer will consume.","scene":"courtyard_rain","round":3,"phase":"declare","initiative":-14,"conditions":{"footing":-1,"light":0,"weather":3,"noise":0,"alert":0},"last_shot":{"type":"wide_stance","caption":"Genzo \u2014 Crushing Blow \u2192 Kaede legs"},"player":{"id":"kaede","reserves_cur":{"stamina":71,"focus":100,"chakra":64},"wounds":["torn_calf","shaken"],"states":{"wet":2},"insight":38,"queue":["read_the_field","water_lash"],"armed":"counter_throw","armed_since_round":2,"pose":"guard_low \u00b7 wounded_leg"},"opponent":{"id":"genzo","states":{"wet":2},"wounds_visible":["cut_brow"],"reserve_chips":{"stamina":"Winded","focus":null,"chakra":null},"revealed_attributes":["strength","quickness","courage"],"declared":[{"id":"crushing_blow","cost_revealed":true},{"id":"pressure","cost_revealed":false}],"reaction_armed":true,"reaction_since_round":2,"known_abilities":["crushing_blow","palm_strike","pressure"],"intel_slots":{"body":4,"mind":1,"spirit":2},"pose":"advance \u00b7 brow_cut"},"log":[{"r":true,"t":"\u2014 ROUND 2 \u00b7 RESOLVE \u00b7 init +6 (Genzo first)"},{"t":"Genzo \u00b7 Crushing Blow \u2192 Kaede legs \u00b7 34 phys \u2212 14 tough = 20 \u2192 Torn calf (moderate)","hit":true},{"t":"Kaede \u00b7 Flicker Step \u00b7 +13 init \u00b7 focused","you":true},{"t":"Genzo \u00b7 Pressure \u2192 Kaede spirit \u00b7 28 \u2212 12 will = 16 \u2192 Shaken \u00b7 Courage \u221220","hit":true},{"t":"Kaede \u00b7 Water Lash \u2192 Genzo arms \u00b7 26 \u2212 26 tough = 0 \u00b7 wet applied","you":true},{"t":"Kaede \u00b7 Insight +9 (Read) +6 (absorbed heavy) \u2192 38","ins":true},{"t":"Genzo \u00b7 Insight ?"},{"r":true,"t":"\u2014 init \u221214 \u00b7 Kaede on the back foot \u00b7 refill: STA +44 FOC +100% CHA +30"},{"r":true,"t":"\u2014 ROUND 3 \u00b7 DECLARE"}]};
+</script>
+
+<div class="app">
+  <div class="toolbar">
+    <div><h1>Shinobi Master — Duel Prototype</h1><div class="meta">v4 · playable · engine in JS (to be ported to GDScript) · reads <span class="mono">design-data/*.json</span></div></div>
+    <div class="rel"><div class="phases" id="phases"></div></div>
+    <div class="right"><button class="btn" id="btnStats" type="button">Stats: hidden</button><button class="btn" id="btnAuto" type="button">AI insight: on</button><button class="btn" id="btnRestart" type="button">Restart</button></div>
+  </div>
+
+  <div class="banner" id="banner"></div>
+  <div class="cine rel" id="cine"></div>
+  <div class="interrupt" id="interrupt"></div>
+
+  <div class="table rel">
+    <div class="side opp rel" id="oppSide"></div>
+    <div class="center rel" id="center"></div>
+    <div class="side you rel" id="youSide"></div>
+  </div>
+
+  <div class="rel"><div class="budget rel" id="budget"></div><div class="hand rel" id="hand"></div></div>
+  <div class="drawer rel" id="drawer"></div>
+  <div class="logwrap rel" id="log"></div>
+  <div class="foot"><span class="tag open">OPEN</span><span>order rule = trick-taking by requirement sum (D2.13, interpretation) · insight usable at any impact (D2.14) · variance per ability</span></div>
+</div>
+
+<script>
+(function(){
+// ================= DATA =================
+const J=id=>{const d=(window.__DD||{})[id];if(!d)throw new Error('missing '+id);return d;};
+const R=J('dd-rules'),CH_=J('dd-characters').characters,AB=J('dd-abilities').abilities,WD=J('dd-wounds'),ST=J('dd-states').states,CD=J('dd-conditions');
+const A=Object.fromEntries(AB.map(a=>[a.id,a])),W=Object.fromEntries(WD.wounds.map(w=>[w.id,w])),C=Object.fromEntries(CH_.map(c=>[c.id,c]));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const band=v=>R.scale.bands.find(b=>v<=b.max).label;
+const ABBR={strength:'Str',quickness:'Qck',wits:'Wits',courage:'Cour',heart:'Heart'},GROUP={strength:'body',quickness:'body',wits:'mind',courage:'spirit',heart:'spirit'};
+const RG={stamina:'body',focus:'mind',chakra:'spirit'},RA={stamina:'STA',focus:'FOC',chakra:'CHA'},RC={stamina:'s',focus:'f',chakra:'c'};
+const CH=['physical','mental','spiritual'],EL=['fire','water','lightning','wind','earth','metal'],FX=['stagger','expose','bleed','burn','chill','daze','dread'];
+const REGION_ICON={head:'◓ head',torso:'▣ torso',arms:'⌐ arms',legs:'⌊ legs',mind:'◌ mind',spirit:'✦ spirit'};
+const SEV=['minor','moderate','severe','crippling'];
+const reach=R.initiative.reach_threshold,[IMIN,IMAX]=R.initiative.range;
+const pipPct=v=>((v-IMIN)/(IMAX-IMIN)*100);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+let rngSeed=7;const rnd=()=>{rngSeed=(rngSeed*1103515245+12345)&0x7fffffff;return rngSeed/0x7fffffff;};
+
+// ================= STATE =================
+let G;
+function newActor(id){const c=C[id];return{id,c,cur:{...c.reserves},wounds:[],states:{},insight:0,queue:[],armed:null,armedSince:0,rev:{attrs:new Set(),costs:false,abil:new Set(),wounds:false,reserves:false},lastAct:''};}
+function reset(){const sc=CD.scenes[0];G={round:1,phase:'declare',init:sc.initiative_start,cond:{...Object.fromEntries(Object.keys(CD.scene_conditions).map(k=>[k,CD.scene_conditions[k].baseline])),...sc.start},scene:sc,log:[],you:newActor('kaede'),opp:newActor('genzo'),order:[],step:0,over:null,pendingCommit:0,interrupt:null,shot:{type:'wide_stance',caption:'the duel begins'}};
+  // rain → wet on both
+  for(const c of CD.cascades)if(c.apply_state&&cmp(G.cond[c.from],c.when,c.value))for(const s of['you','opp'])G[s].states[c.apply_state]=ST[c.apply_state].duration;
+  G.opp.rev.attrs=new Set(['strength']);G.opp.rev.abil=new Set(['crushing_blow']);
+  log(`— ROUND 1 · ${sc.name.toUpperCase()} · ${sc.objective}`,'r');render();}
+const cmp=(v,op,x)=>op==='>='?v>=x:v<=x;
+function log(t,cls){G.log.push({t,cls:cls||''});}
+const side=a=>a===G.you?'you':'opp';
+const other=a=>a===G.you?G.opp:G.you;
+const initFor=a=>a===G.you?G.init:-G.init;             // initiative from an actor's perspective
+const zoneOf=a=>{const i=initFor(a);return i>=R.initiative.dominant_at?'dominant':i<=R.initiative.desperate_at?'desperate':'neutral';};
+
+// ================= DERIVE =================
+function derive(a){const c=a.c;const attr={...c.attributes},delta={},resMax={...c.reserves},refill={},locks=new Set(),lockBy={},guardAdd=0,gm=1;
+  for(const k in R.reserves)refill[k]=R.reserves[k].refill;
+  for(const wid of a.wounds){const w=W[wid];for(const e of w.effects){
+    if(e.attribute)for(const k in e.attribute){attr[k]+=e.attribute[k];delta[k]=(delta[k]||0)+e.attribute[k];}
+    if(e.reserve_max)for(const k in e.reserve_max)resMax[k]+=e.reserve_max[k];
+    if(e.refill)for(const k in e.refill)refill[k]+=e.refill[k];
+    if(e.lock_tag){locks.add(e.lock_tag);lockBy[e.lock_tag]=w.name;}}}
+  let gAdd=0,gMult=1,refillMod={};
+  for(const s in a.states){const sd=ST[s];if(!sd||!sd.effect)continue;const e=sd.effect;
+    if(e.attribute)for(const k in e.attribute){attr[k]+=e.attribute[k];delta[k]=(delta[k]||0)+e.attribute[k];}
+    if(e.refill)for(const k in e.refill)refill[k]+=e.refill[k];
+    if(e.guard_add)gAdd+=e.guard_add;if(e.guard_mult)gMult*=e.guard_mult;}
+  for(const k in refill)refill[k]=clamp(refill[k],0,1);
+  return{attr,delta,resMax,refill,locks,lockBy,gAdd,gMult,breakAt:Math.round(c.attributes.courage*R.courage_break_fraction)};}
+const reqSum=a=>Object.values(a.requires||{}).reduce((x,y)=>x+y,0);
+
+// affordability for an actor given current queue + armed
+function budget(a){const held={stamina:0,focus:0,chakra:0},q={stamina:0,focus:0,chakra:0};
+  if(a.armed)for(const k in A[a.armed].costs)held[k]+=A[a.armed].costs[k];
+  for(const id of a.queue)for(const k in A[id].costs)q[k]+=A[id].costs[k];
+  const left={};for(const k in a.cur)left[k]=a.cur[k]-held[k]-q[k];return{held,q,left};}
+function status(a,ab,forArm){const d=derive(a),b=budget(a);
+  if(ab.kind==='reaction'){if(!forArm)return{cls:'react'};if(a.armed===ab.id)return{cls:'armed'};
+    for(const k in ab.requires)if(d.attr[k]<ab.requires[k])return{cls:'locked',why:`${ABBR[k]} ${ab.requires[k]} ✗`};
+    for(const k in ab.costs)if(b.left[k]<ab.costs[k])return{cls:'unaff',why:`short ${ab.costs[k]-b.left[k]} ${RA[k]}`};
+    if(a.states.staggered)return{cls:'locked',why:'staggered — cannot arm'};return{cls:'pick'};}
+  if(forArm)return{cls:'react'};
+  for(const k in ab.requires)if(d.attr[k]<ab.requires[k])return{cls:'locked',why:`${ABBR[k]} ${ab.requires[k]} ✗`};
+  for(const t of ab.tags||[])if(d.locks.has(t))return{cls:'locked',why:`${t} ✗ ${d.lockBy[t].toLowerCase()}`};
+  for(const g of ab.gates||[])if(!cmp(G.cond[g.condition],g.op,g.value))return{cls:'locked',why:`${g.condition} ${g.op} ${g.value} ✗`};
+  if(a.queue.includes(ab.id))return{cls:'queued'};
+  if(ab.reach==='melee'&&initFor(a)<reach)return{cls:'unaff',why:'out of reach (commit insight?)'};
+  for(const k in ab.costs)if(b.left[k]<ab.costs[k])return{cls:'unaff',why:`short ${ab.costs[k]-b.left[k]} ${RA[k]}`};
+  return{cls:'pick'};}
+
+// ================= AI =================
+function aiDeclare(a){const pref=['crushing_blow','shoulder_charge','grapple','palm_strike','flicker_step','pressure','killing_intent','read_the_field'];
+  a.queue=[];let guard=0;
+  while(guard++<8){let picked=null;for(const id of pref){if(!a.c.loadout.includes(id))continue;const ab=A[id];if(ab.kind!=='action')continue;if(a.queue.includes(id))continue;
+      // brute prefers heavy melee; if out of reach and can afford insight, commit
+      if(status(a,ab).cls==='pick'){picked=id;break;}}
+    if(!picked)break;a.queue.push(picked);}
+  if(!a.queue.length)a.queue.push('read_the_field');}
+function aiInsightCommit(a,ctx){ // ctx: 'declare' | 'impact'
+  if(!autoAI)return 0;const need=reach-initFor(a);
+  if(ctx==='declare'&&need>0&&a.insight>=need*R.insight.per_initiative_unit)return need*R.insight.per_initiative_unit;
+  if(ctx==='impact'&&zoneOf(a)==='desperate'&&a.insight>=10)return Math.min(a.insight,20);
+  return 0;}
+function aiArm(a){const opp=other(a);const physIncoming=opp.queue.some(id=>(A[id].damage||[]).some(d=>d.tags.includes('physical')));
+  for(const id of['iron_guard','counter_throw'])if(a.c.loadout.includes(id)&&physIncoming&&status(a,A[id],true).cls==='pick'){a.armed=id;a.armedSince=G.round;return;}}
+
+// ================= ENGINE =================
+function commitInsight(a,n){n=Math.min(n,a.insight);if(n<=0)return;a.insight-=n;const shift=n/R.insight.per_initiative_unit;
+  G.init=clamp(G.init+(a===G.you?shift:-shift),IMIN,IMAX);log(`${a.c.name} · reveals ${n} insight → initiative ${fmtI(G.init)}`,'ins');}
+const fmtI=v=>(v>0?'+':'')+Math.round(v*10)/10;
+function buildOrder(){const rank=a=>a.queue.map(id=>({actor:a,id,sum:reqSum(A[id])})).sort((x,y)=>y.sum-x.sum);
+  const y=rank(G.you),o=rank(G.opp);const ly=y[0]?y[0].sum:-1,lo=o[0]?o[0].sum:-1;
+  let leader;if(ly!==lo)leader=ly>lo?'you':'opp';else leader=G.init>0?'you':G.init<0?'opp':(derive(G.you).attr.quickness>=derive(G.opp).attr.quickness?'you':'opp');
+  const first=leader==='you'?y:o,second=leader==='you'?o:y;const out=[];for(let i=0;i<Math.max(first.length,second.length);i++){if(first[i])out.push(first[i]);if(second[i])out.push(second[i]);}
+  log(`— RESOLVE · leads: ${G.you.c.name} ${ly} vs ${G.opp.c.name} ${lo} → ${leader==='you'?G.you.c.name:G.opp.c.name} leads`,'r');return out;}
+function startResolve(){G.phase='resolve';G.order=buildOrder();G.step=0;
+  // pay for queued actions now
+  for(const a of[G.you,G.opp])for(const id of a.queue)for(const k in A[id].costs)a.cur[k]-=A[id].costs[k];
+  render();}
+function tagsOf(ab){const t=new Set(ab.tags||[]);t.add(ab.reach);for(const d of ab.damage||[])for(const x of d.tags)t.add(x);return t;}
+function matchTrigger(rx,tags){return rx.trigger.predicates.every(p=>tags.has(p));}
+function severity(net){let s=null;for(const k of SEV)if(net>=WD.severity_bands[k])s=k;return s;}
+function pickWound(region,sev,form){const c=WD.wounds.filter(w=>w.region===region&&w.severity===sev);return c.find(w=>w.form===form)||c.find(w=>w.form==='*')||c[0]||null;}
+function applyState(t,name,src){const sd=ST[name];if(!sd)return;for(const c of sd.clears||[])delete t.states[c];t.states[name]=sd.duration;
+  if(sd.effect&&sd.effect.reserve_cur)for(const k in sd.effect.reserve_cur)t.cur[k]=Math.max(0,t.cur[k]+sd.effect.reserve_cur[k]);
+  log(`   ${t.c.name} is ${name} (${sd.duration}r)${src?' · '+src:''}`);}
+function applyWound(t,w){t.wounds.push(w.id);const fx=[];for(const e of w.effects){
+  if(e.reserve_cur)for(const k in e.reserve_cur){t.cur[k]=Math.max(0,t.cur[k]+e.reserve_cur[k]);fx.push(`${RA[k]} ${e.reserve_cur[k]}`);}
+  if(e.attribute)fx.push(Object.entries(e.attribute).map(([k,v])=>`${ABBR[k]} ${v}`).join(' '));
+  if(e.refill)fx.push(Object.entries(e.refill).map(([k,v])=>`${RA[k]} refill ${Math.round(v*100)}%`).join(' '));
+  if(e.lock_tag)fx.push(`${e.lock_tag} locked`);if(e.state)applyState(t,e.state,'wound');}
+  log(`   → ${w.name.toUpperCase()} (${w.severity}) · ${fx.join(' · ')}`,'hit');}
+
+function stepResolve(){if(G.over)return;const it=G.order[G.step];if(!it){endRound();return;}
+  const att=it.actor,def=other(att),ab=A[it.id];
+  // insight interrupt for the defender before impact (player: prompt; AI: policy)
+  if((ab.damage||[]).length&&!G.interrupt){
+    if(def===G.you&&G.you.insight>0&&!G.skipInterrupt){G.interrupt={step:G.step};render();return;}
+    if(def===G.opp){const n=aiInsightCommit(G.opp,'impact');if(n)commitInsight(G.opp,n);}}
+  G.interrupt=null;G.skipInterrupt=false;
+  const vr=ab.variance?(ab.variance.low+rnd()*(ab.variance.high-ab.variance.low)):1;
+  log(`${att.c.name} · ${ab.name}${ab.variance?` · roll ×${vr.toFixed(2)}`:''}`,'step');att.lastAct=ab.name;G.shot={type:ab.shot,caption:`${att.c.name} — ${ab.name}`};
+  if(ab.reach==='melee'&&initFor(att)<reach){log(`   out of reach (${fmtI(initFor(att))} < ${reach}) — wasted`,'hit');G.step++;render();return;}
+  if(att.states.staggered&&(ab.tags||[]).includes('heavy')){log('   staggered — heavy technique falters, half effect');}
+  // reaction check
+  const tags=tagsOf(ab);let grade=null;
+  if(def.armed&&matchTrigger(A[def.armed],tags)){const rx=A[def.armed];let g=rx.trigger.predicates.length>=R.reactions.perfect_min_predicates?2:1;
+    if(def.insight>att.insight)g+=R.insight.reaction_grade_shift_if_higher;if(def.states.focused)g++;if(zoneOf(def)==='desperate')g++;grade=g>=2?'perfect':'partial';
+    log(`   ⚡ ${def.c.name}'s ${rx.name} fires (${rx.trigger.predicates.join('+')}) → ${grade.toUpperCase()}`,'react');
+    def.armed=null;for(const k in rx.costs)def.cur[k]=Math.max(0,def.cur[k]-rx.costs[k]);if(rx.insight)def.insight+=rx.insight;
+    if(grade==='perfect'){const swing=(ab.initiative||0)*vr+10;G.init=clamp(G.init+(def===G.you?swing:-swing),IMIN,IMAX);log(`   negated · initiative reverses ${fmtI(swing)} → ${fmtI(G.init)}`,'react');
+      if(rx.on_fire&&rx.on_fire.damage)for(const d of rx.on_fire.damage)dealDamage(def,att,d,1,null);
+      G.step++;render();return;}}
+  // damage
+  for(const d of ab.damage||[])dealDamage(att,def,d,vr*(att.states.staggered&&(ab.tags||[]).includes('heavy')?0.5:1),grade);
+  // initiative + insight + self states
+  if(ab.initiative){const sh=Math.round(ab.initiative*vr);G.init=clamp(G.init+(att===G.you?sh:-sh),IMIN,IMAX);log(`   initiative ${sh>0?'+':''}${sh} → ${fmtI(G.init)}`);}
+  if(ab.insight){att.insight+=ab.insight;log(`   ${att.c.name} insight +${ab.insight} → ${att.insight}`,'ins');}
+  for(const s of ab.self_applies||[])applyState(att,s,'self');
+  checkEnd();G.step++;render();}
+
+function dealDamage(att,def,d,mult,grade){const dd=derive(def),da=derive(att);const chan=d.tags.find(t=>CH.includes(t))||'physical';const form=d.tags.find(t=>['blunt','piercing','slashing','crushing','grappling'].includes(t));
+  let amt=d.amount*mult;const notes=[];
+  if(zoneOf(att)==='dominant'){amt*=R.initiative.dominant_damage_mult;notes.push('dominant ×1.25');}
+  for(const t of d.tags)for(const s in def.states){const sd=ST[s];if(sd.amplify_in&&sd.amplify_in[t]){amt*=sd.amplify_in[t];notes.push(`${t} vs ${s} ×${sd.amplify_in[t]}`);}}
+  if(grade==='partial'){amt*=R.reactions.partial_damage_mult;notes.push('partial counter ×0.5');}
+  let guard=def.c.guards[R.damage.channel_guard[chan]]*dd.gMult+dd.gAdd;if(form&&R.damage.form_guard_bypass[form])guard*=1-R.damage.form_guard_bypass[form];
+  const net=Math.round(amt-guard);
+  log(`   ${d.tags.filter(t=>!CH.includes(t)).join('/')||chan} ${Math.round(amt)} → ${def.c.name} ${d.region} − ${Math.round(guard)} ${R.damage.channel_guard[chan]} = ${net}${notes.length?' · '+notes.join(', '):''}`,net>0?'hit':'');
+  if(net>0){const sev=severity(net);if(sev){const w=pickWound(d.region,sev,form);if(w)applyWound(def,w);}
+    if(d.region==='spirit'){/* courage erosion is via wounds */}
+    if((tagsOf(A[att.queue.find(id=>A[id].damage&&A[id].damage.includes(d))]||{tags:[]})).has('heavy')){def.insight+=6;log(`   ${def.c.name} reads the heavy commit · insight +6 → ${def.insight}`,'ins');}}
+  for(const t of d.tags){for(const s in ST)if((ST[s].applied_by||[]).includes(t)&&(net>0||EL.includes(t)))applyState(def,s,t);}
+  if(d.amount===0)for(const t of d.tags)for(const s in ST)if((ST[s].applied_by||[]).includes(t))applyState(def,s,t);}
+
+function checkEnd(){for(const a of[G.you,G.opp]){const d=derive(a);
+  if(d.attr.courage<=d.breakAt){G.over={loser:a,how:'courage break'};}
+  else if(a.cur.stamina<=0){G.over={loser:a,how:'incapacitated (stamina 0)'};}}
+  if(G.over)log(`— ${G.over.loser.c.name} falls · ${G.over.how}`,'r');}
+function endRound(){if(G.over){render();return;}
+  // states tick, bleeding etc
+  for(const a of[G.you,G.opp]){for(const s in a.states){const sd=ST[s];if(sd.tick){if(sd.tick.reserve_cur)for(const k in sd.tick.reserve_cur)a.cur[k]=Math.max(0,a.cur[k]+sd.tick.reserve_cur[k]);if(sd.tick.damage)dealDamage(other(a),a,sd.tick,1,null);}
+      a.states[s]--;if(a.states[s]<=0)delete a.states[s];}
+    const d=derive(a);for(const k in a.cur){const add=Math.round(d.resMax[k]*d.refill[k]);a.cur[k]=Math.min(d.resMax[k],a.cur[k]+add);}
+    a.queue=[];}
+  // cascades
+  for(const c of CD.cascades)if(cmp(G.cond[c.from],c.when,c.value)){if(c.to){const t=CD.scene_conditions[c.to];G.cond[c.to]=clamp(G.cond[c.to]+c.delta,t.min,t.max);}if(c.apply_state)for(const a of[G.you,G.opp])a.states[c.apply_state]=ST[c.apply_state].duration;}
+  for(const k in G.cond){const t=CD.scene_conditions[k];if(t.tick&&G.cond[k]!==t.baseline)G.cond[k]=clamp(G.cond[k]+Math.sign(t.baseline-G.cond[k])*Math.abs(t.tick),t.min,t.max);}
+  checkEnd();G.round++;G.phase='declare';G.order=[];G.step=0;
+  log(`— end of round · refill · initiative ${fmtI(G.init)}`,'r');log(`— ROUND ${G.round} · DECLARE`,'r');
+  if(G.round>R.max_rounds&&!G.over)G.over={loser:null,how:'stalemate'};render();}
+
+// ================= UI ACTIONS =================
+let autoAI=true;
+function onCardClick(id){const ab=A[id];if(G.over)return;
+  if(G.phase==='declare'&&ab.kind==='action'){const i=G.you.queue.indexOf(id);if(i>=0)G.you.queue.splice(i,1);else if(status(G.you,ab).cls==='pick')G.you.queue.push(id);render();}
+  if(G.phase==='arm'&&ab.kind==='reaction'){if(G.you.armed===id&&G.you.armedSince===G.round)G.you.armed=null;else if(status(G.you,ab,true).cls==='pick'){G.you.armed=id;G.you.armedSince=G.round;}render();}}
+function commitDeclare(){if(!G.you.queue.length){log(`${G.you.c.name} declares nothing — waits`);}
+  aiDeclare(G.opp);const n=aiInsightCommit(G.opp,'declare');if(n){commitInsight(G.opp,n);aiDeclare(G.opp);}
+  log(`${G.you.c.name} declares: ${G.you.queue.map(id=>A[id].name).join(', ')||'—'}`,'you');log(`${G.opp.c.name} declares: ${G.opp.queue.map(id=>A[id].name).join(', ')}`);
+  G.phase='arm';aiArm(G.opp);render();}
+function commitArm(){startResolve();}
+function reveal(kind){const cost=R.insight.reveal_costs[kind];if(G.you.insight<cost)return;G.you.insight-=cost;const o=G.opp;
+  if(kind==='cost')o.rev.costs=true;if(kind==='wounds')o.rev.wounds=true;if(kind==='reserves')o.rev.reserves=true;
+  if(kind==='ability'){const unk=o.c.loadout.filter(id=>!o.rev.abil.has(id));if(unk.length)o.rev.abil.add(unk[0]);const at=Object.keys(o.c.attributes).find(k=>!o.rev.attrs.has(k));if(at)o.rev.attrs.add(at);}
+  log(`${G.you.c.name} spends ${cost} insight · reveals ${kind}`,'ins');render();}
+
+// ================= RENDER =================
+const intent=a=>{const d=(a.damage||[])[0];if(!d)return a.initiative?`<span class="ic">+${a.initiative} init</span>`:(a.insight?`<span class="ic">+${a.insight} insight</span>`:'');
+  return d.tags.map(t=>`<span class="ic ${CH.includes(t)?'chan':EL.includes(t)?'el':FX.includes(t)?'fx':''}">${t}</span>`).join('')+`<span class="ic reg">${REGION_ICON[d.region]}</span>`+(d.amount?`<span class="ic">${d.amount}</span>`:'');};
+const costChips=c=>Object.entries(c||{}).map(([k,v])=>`<span class="cost ${RC[k]}">${v} ${RA[k]}</span>`).join('');
+const costStr=c=>Object.entries(c||{}).map(([k,v])=>`${v} ${RA[k]}`).join(' · ');
+function gatesHtml(a,ab){const d=derive(a),out=[];for(const k in ab.requires||{}){const ok=d.attr[k]>=ab.requires[k];out.push(`<span class="g ${ok?'ok':'no'}">${ABBR[k]} ${ab.requires[k]}${ok?'':' ✗'}</span>`);}
+  for(const t of ab.tags||[])if(d.locks.has(t))out.push(`<span class="g no">${t} ✗</span>`);
+  if(ab.kind==='action'&&ab.reach==='melee'){const ok=initFor(a)>=reach;out.push(`<span class="g ${ok?'ok':'no'}">reach${ok?'':' ✗'}</span>`);}
+  out.push(`<span class="g">Σreq ${reqSum(ab)}</span>`);return out.join('');}
+function abCard(a,ab){const st=status(a,ab,G.phase==='arm');const d=(ab.damage||[])[0];const fx=[];
+  if(ab.initiative)fx.push(`+${ab.initiative} init`);if(ab.insight)fx.push(`+${ab.insight} insight`);if(ab.self_applies)fx.push(ab.self_applies.join(', '));if(ab.amplify)fx.push(ab.amplify.map(m=>`×${m.mult} vs ${m.state}`).join(', '));
+  const v=ab.variance?`<div class="var">swing ${Math.round(d.amount*ab.variance.low)}–${Math.round(d.amount*ab.variance.high)}</div>`:'';
+  const trig=ab.trigger?`<div class="fx">on ${ab.trigger.predicates.join(' + ')} → <b>${ab.grade}</b></div>`:'';
+  return`<div class="ab ${st.cls}" data-id="${ab.id}"><div class="t"><span class="n">${esc(ab.name)}</span><span class="rc">${ab.kind==='reaction'?'REACT':ab.reach.toUpperCase()}</span></div><div class="costs">${costChips(ab.costs)}</div>${d?`<div class="intent">${intent(ab)}</div>`:''}${trig}<div class="gate">${gatesHtml(a,ab)}</div>${fx.length?`<div class="fx">${fx.join(' · ')}</div>`:''}${v}${st.why?`<div class="why">${st.why}</div>`:''}</div>`;}
+const stateChips=a=>Object.entries(a.states).map(([k,v])=>`<span class="chip on">${k} ${v}</span>`).join('');
+const woundChips=(a,known)=>a.wounds.map(id=>W[id]).map(w=>`<span class="chip w ${w.severity!=='minor'?'mod':''}">${esc(w.name)}${known?'':' ?'}</span>`).join('');
+const resChip=(a,k)=>{const d=derive(a),f=a.cur[k]/d.resMax[k];return f<.25?{stamina:'Exhausted',focus:'Scattered',chakra:'Drained'}[k]:f<.5?{stamina:'Winded',focus:'Strained',chakra:'Waning'}[k]:null;};
+
+function render(){const y=G.you,o=G.opp,dy=derive(y),doo=derive(o);const body=document.body;
+  body.classList.remove('ph-declare','ph-arm','ph-resolve');body.classList.add('ph-'+G.phase);
+  document.getElementById('phases').innerHTML=['declare','arm','resolve'].map(p=>`<button class="phase ${G.phase===p?'on':''}" type="button" disabled>${cap(p)}<small>${{declare:'queue on the table',arm:'set a hidden reaction',resolve:'trick by trick'}[p]}</small></button>`).join('');
+  // banner
+  const bn=document.getElementById('banner');if(G.over){bn.className='banner on';bn.innerHTML=G.over.loser?`${G.over.loser===y?o.c.name:y.c.name} wins — ${G.over.loser.c.name} ${G.over.how}<small>round ${G.round} · Restart to play again</small>`:`Stalemate<small>${G.over.how}</small>`;}else bn.className='banner';
+  // cine
+  document.getElementById('cine').innerHTML=`<div class="shotcap"><span class="tag">SHOT · ${esc(G.shot.type)}</span><span class="eyebrow">${esc(G.shot.caption)}</span></div>
+    <div class="fig"><div class="sil"></div><div class="lbl"><div class="nm">${esc(y.c.name).toUpperCase()}</div><div class="act">${esc(y.lastAct)}</div></div></div>
+    <div class="mid"><div class="eyebrow">${esc(G.scene.name)} · round ${G.round} · ${G.phase}</div><div class="obj">${esc(G.scene.objective)}</div>
+      <div class="conds">${Object.keys(CD.scene_conditions).filter(k=>k!=='time_of_day').map(k=>{const v=G.cond[k];const on=CD.mvp_active.includes(k)||v!==0;return`<div class="cond ${Math.abs(v)>=3?'tip':''} ${on?'':'ghost'}"><span class="v">${v>0?'+':''}${v}</span><span class="k">${k}</span></div>`}).join('')}</div></div>
+    <div class="fig opp"><div class="sil"></div><div class="lbl"><div class="nm">${esc(o.c.name).toUpperCase()}</div><div class="act">${esc(o.lastAct)}</div></div></div><div class="ground"></div>`;
+  // interrupt
+  const ir=document.getElementById('interrupt');if(G.interrupt){const it=G.order[G.interrupt.step];ir.className='interrupt on';ir.innerHTML=`<span class="t">${esc(it.actor.c.name)} is about to land ${esc(A[it.id].name)}.</span><span>Commit insight now? (shifts initiative before reach / zone / counter grade)</span>
+      <input type="range" id="irSl" min="0" max="${y.insight}" value="0"><span class="mono" id="irV">0 → init ${fmtI(G.init)}</span><button class="btn sm primary" id="irGo" type="button">Commit</button><button class="btn sm" id="irSkip" type="button">Let it come</button>`;
+    const sl=ir.querySelector('#irSl');sl.oninput=()=>{ir.querySelector('#irV').textContent=`${sl.value} → init ${fmtI(G.init+sl.value/R.insight.per_initiative_unit)}`;};
+    ir.querySelector('#irGo').onclick=()=>{commitInsight(y,+sl.value);G.skipInterrupt=true;G.interrupt=null;stepResolve();};
+    ir.querySelector('#irSkip').onclick=()=>{G.skipInterrupt=true;G.interrupt=null;stepResolve();};}else{ir.className='interrupt';ir.innerHTML='';}
+  // opponent side
+  const declaredVisible=G.phase!=='declare';
+  document.getElementById('oppSide').innerHTML=`<div class="who"><div class="nm">${esc(o.c.name)}</div><div class="ep">${esc(o.c.epithet)}</div>
+      <div class="chips">${['stamina','focus','chakra'].map(k=>o.rev.reserves?`<span class="chip on">${RA[k]} ${o.cur[k]}/${doo.resMax[k]}</span>`:(resChip(o,k)?`<span class="chip on">${resChip(o,k)}</span>`:`<span class="chip unk">${k} ?</span>`)).join('')}${stateChips(o)}${woundChips(o,o.rev.wounds)}</div>
+      <div class="intel"><span>${Object.keys(o.c.attributes).map(k=>`${ABBR[k]} ${o.rev.attrs.has(k)?band(doo.attr[k]):'?'}`).join(' · ')}</span><span>known: ${[...o.rev.abil].map(id=>A[id].name).join(', ')} · ${o.c.loadout.length-o.rev.abil.size} unknown</span></div></div>
+    <div><div class="eyebrow" style="margin-bottom:6px">Their table · ${declaredVisible?'declared, face-up':'declaring…'}</div>
+      <div class="cards">${declaredVisible?o.queue.map(id=>{const a=A[id];const done=G.phase==='resolve'&&G.order.findIndex(x=>x.actor===o&&x.id===id)<G.step;return`<div class="card ${a.group}" style="${done?'opacity:.45':''}"><div class="n">${esc(a.name)}<span class="rc">${a.reach.toUpperCase()}</span></div><div class="intent">${intent(a)}</div><div class="c">${o.rev.costs?costStr(a.costs):'cost hidden'} · Σreq ${reqSum(a)}</div></div>`}).join('')||'<div class="card slot">waits</div>':`<div class="card facedown declaring"><div class="q">…</div><div>choosing<br>simultaneously</div></div>`}
+        ${o.armed?`<div class="card facedown"><div class="q">?</div><div>reaction armed<br>since r${o.armedSince}</div></div>`:''}</div></div>
+    <div class="reveal"><div class="lbl">spend insight to see</div>${Object.entries(R.insight.reveal_costs).map(([k,v])=>`<button class="btn sm" type="button" data-reveal="${k}" ${y.insight<v||G.phase==='resolve'?'disabled':''}>${k} · ${v}</button>`).join('')}</div>`;
+  // center
+  const zone=zoneOf(y);const ghostOn=G.pendingCommit>0;
+  document.getElementById('center').innerHTML=`<div class="lbl"><span class="eyebrow">Initiative · persists all fight</span><span class="val ${G.init<0?'neg':''}">${fmtI(G.init)}</span><span class="note">${G.init<reach?`<b>Back foot</b> — melee out of reach`:`in reach · ${zone}`}</span></div>
+    <div><div class="itrack"><div class="zone desp" style="width:${pipPct(R.initiative.desperate_at)}%"></div><div class="zone dom" style="width:${100-pipPct(R.initiative.dominant_at)}%"></div><div class="midl"></div><div class="reachl" style="left:${pipPct(reach)}%"></div>
+        <div class="pip o" style="left:${pipPct(-G.init)}%"></div><div class="pip" style="left:${pipPct(G.init)}%"></div><div class="pip ghost" id="ghost" style="left:${pipPct(G.init+G.pendingCommit/R.insight.per_initiative_unit)}%;display:${ghostOn?'':'none'}"></div></div>
+      <div class="ilab"><span>${IMIN} DESPERATE · partial → perfect</span><span>0</span><span>DOMINANT +${IMAX} · dmg ×${R.initiative.dominant_damage_mult}</span></div>
+      ${G.phase==='resolve'?`<div class="order" style="margin-top:8px">order:${G.order.map((it,i)=>`<span class="o ${side(it.actor)} ${i<G.step?'done':i===G.step?'now':''}">${esc(A[it.id].name)} ${it.sum}</span>`).join('')}</div>`:''}</div>
+    <div class="inswrap"><div class="row"><span class="eyebrow" style="color:#7d6220">Insight · hidden</span><span class="big">${y.insight}</span></div>
+      <input type="range" id="ins" min="0" max="${y.insight}" value="${G.pendingCommit}" ${G.phase==='resolve'?'disabled':''}><div class="hint">commit <b id="insS">${G.pendingCommit}</b> → init <b id="insE">${fmtI(G.init+G.pendingCommit/R.insight.per_initiative_unit)}</b> <button class="btn sm" id="insGo" type="button" ${G.pendingCommit>0?'':'disabled'}>reveal</button></div></div>`;
+  // your side
+  const fits=y.c.loadout.map(id=>A[id]).filter(a=>a.kind==='action'&&status(y,a).cls==='pick');
+  const ctrl=G.over?`<button class="btn primary" id="btnRestart2" type="button">Restart</button>`:G.phase==='declare'?`<span class="hint">click cards below to queue · budget is your reserves</span><button class="btn" id="btnClear" type="button">Clear</button><button class="btn primary" id="btnGo" type="button">Commit declare →</button>`:G.phase==='arm'?`<span class="hint">their queue is face-up · click a reaction to arm (or none)</span><button class="btn primary" id="btnGo" type="button">Lock in → resolve</button>`:`<span class="hint">${G.step<G.order.length?`trick ${Math.floor(G.step/2)+1} · ${G.order.length-G.step} actions left`:'round complete'}</span><button class="btn" id="btnStep" type="button" ${G.interrupt?'disabled':''}>${G.step<G.order.length?'Step ▸':'End round ▸'}</button><button class="btn primary" id="btnAll" type="button" ${G.interrupt?'disabled':''}>Play all ▸▸</button>`;
+  document.getElementById('youSide').innerHTML=`<div class="who"><div class="nm">${esc(y.c.name)}</div><div class="ep">you · ${esc(y.c.epithet)}</div><div class="chips">${stateChips(y)}${woundChips(y,true)}<span class="chip ${dy.attr.courage<=dy.breakAt+15?'w':''}">courage ${dy.attr.courage} / break ${dy.breakAt}</span></div></div>
+    <div><div class="eyebrow" style="margin-bottom:6px">Your table · ${G.phase==='declare'?'queued (hidden until both commit)':'declared, face-up'}</div>
+      <div class="cards">${y.queue.map((id,i)=>{const a=A[id];const done=G.phase==='resolve'&&G.order.findIndex(x=>x.actor===y&&x.id===id)<G.step;return`<div class="card ${a.group}" data-unq="${id}" style="${done?'opacity:.45':''};cursor:${G.phase==='declare'?'pointer':'default'}"><span class="ribbon q">${i+1}</span><div class="n">${esc(a.name)}<span class="rc">${a.reach.toUpperCase()}</span></div><div class="intent">${intent(a)}</div><div class="c">${costStr(a.costs)} · Σreq ${reqSum(a)}</div></div>`}).join('')}
+        ${G.phase==='declare'?`<div class="card slot ${fits.length?'hot':''}">${fits.length?`+ ${fits.map(a=>a.name).join(' / ')} fit`:'nothing else affordable'}</div>`:''}
+        ${y.armed?`<div class="card armed ${A[y.armed].group}"><span class="ribbon">ARMED · hidden</span><div class="n">${esc(A[y.armed].name)}</div><div class="c">on ${A[y.armed].trigger.predicates.join(' + ')} → ${A[y.armed].grade}</div><div class="c">${costStr(A[y.armed].costs)} held · r${y.armedSince}</div></div>`:`<div class="card slot">no reaction armed</div>`}</div></div>
+    <div class="commit ctrl">${ctrl}</div>`;
+  // budget + hand
+  const b=budget(y);
+  document.getElementById('budget').innerHTML=Object.keys(y.c.reserves).map(k=>{const mx=dy.resMax[k],c=y.cur[k],p=v=>clamp(v/mx*100,0,100);const ref=Math.round(mx*dy.refill[k]);
+    return`<div class="bar"><span class="k ${RG[k]}">${k}</span><div class="track"><div class="fill ${RG[k]}" style="width:${p(c)}%"></div>${b.q[k]?`<div class="queued" style="left:${p(c-b.held[k]-b.q[k])}%;width:${p(b.q[k])}%"></div>`:''}${b.held[k]?`<div class="held" style="left:${p(c-b.held[k])}%;width:${p(b.held[k])}%"></div>`:''}</div><span class="n"><b>${b.left[k]}</b> left · ${c}/${mx} · +${k==='focus'?Math.round(dy.refill[k]*100)+'%':ref}</span></div>`}).join('')+`<div class="stats"><span class="eyebrow">hatched = on table · grey = held by reaction</span></div>`;
+  const load=y.c.loadout.map(id=>A[id]);
+  const col=(t,cls,ids,slots,two)=>`<div class="col"><div class="ch"><span class="eyebrow ${cls}">${t}</span><span class="slots">${ids.length}/${slots}</span></div><div style="display:${two?'grid':'flex'};grid-template-columns:1fr 1fr;flex-direction:column;gap:7px">${ids.map(a=>abCard(y,a)).join('')}</div></div>`;
+  document.getElementById('hand').innerHTML=col('Body','body',load.filter(a=>a.group==='body'&&a.kind==='action'),y.c.slots.body,true)+col('Mind','mind',load.filter(a=>a.group==='mind'&&a.kind==='action'),y.c.slots.mind)+col('Spirit','spirit',load.filter(a=>a.group==='spirit'&&a.kind==='action'),y.c.slots.spirit)+col('Reaction','',load.filter(a=>a.kind==='reaction'),y.c.slots.reaction);
+  // drawer
+  document.getElementById('drawer').innerHTML=[y,o].map(a=>{const d=derive(a);return`<div><div class="eyebrow" style="margin-bottom:6px">${esc(a.c.name)} · attributes (effective) · insight ${a.insight}</div><div class="attrs">${Object.keys(a.c.attributes).map(k=>`<div class="attr ${GROUP[k]}"><span class="v">${d.attr[k]}</span><span class="k">${ABBR[k]}</span><span class="d">${d.delta[k]||'&nbsp;'}</span></div>`).join('')}</div>
+    <div class="guards">${Object.entries(a.c.guards).map(([k,v])=>`<div class="guard"><span>${cap(k)}</span><b>${v}</b></div>`).join('')}</div>
+    <div class="wl" style="margin-top:8px">${a.wounds.map(id=>W[id]).map(w=>`<div class="w"><span class="sev">${w.severity}</span><div><div class="nm">${esc(w.name)}</div></div></div>`).join('')||'<span class="chip">unhurt</span>'}</div></div>`}).join('');
+  // log
+  document.getElementById('log').innerHTML=`<header><h3>Resolution</h3><span class="eyebrow">round ${G.round}</span></header><div class="lines" id="lines">${G.log.map(l=>`<div class="${l.cls}">${esc(l.t)}</div>`).join('')}</div>`;
+  const ln=document.getElementById('lines');ln.scrollTop=ln.scrollHeight;
+  wire();}
+
+function wire(){
+  document.querySelectorAll('.hand .ab').forEach(el=>el.addEventListener('click',()=>onCardClick(el.dataset.id)));
+  document.querySelectorAll('[data-unq]').forEach(el=>el.addEventListener('click',()=>{if(G.phase==='declare')onCardClick(el.dataset.unq);}));
+  document.querySelectorAll('[data-reveal]').forEach(el=>el.addEventListener('click',()=>reveal(el.dataset.reveal)));
+  const q=id=>document.getElementById(id);
+  if(q('btnGo'))q('btnGo').onclick=()=>G.phase==='declare'?commitDeclare():commitArm();
+  if(q('btnClear'))q('btnClear').onclick=()=>{G.you.queue=[];render();};
+  if(q('btnStep'))q('btnStep').onclick=()=>stepResolve();
+  if(q('btnAll'))q('btnAll').onclick=()=>{let n=0;while(G.phase==='resolve'&&!G.interrupt&&!G.over&&n++<40)stepResolve();};
+  if(q('btnRestart2'))q('btnRestart2').onclick=reset;
+  const sl=q('ins');if(sl){sl.oninput=()=>{G.pendingCommit=+sl.value;q('insS').textContent=sl.value;q('insE').textContent=fmtI(G.init+sl.value/R.insight.per_initiative_unit);const g=q('ghost');g.style.display=sl.value>0?'':'none';g.style.left=pipPct(G.init+sl.value/R.insight.per_initiative_unit)+'%';q('insGo').disabled=!(+sl.value>0);};}
+  if(q('insGo'))q('insGo').onclick=()=>{commitInsight(G.you,G.pendingCommit);G.pendingCommit=0;render();};}
+document.getElementById('btnRestart').onclick=reset;
+document.getElementById('btnStats').onclick=e=>{const on=document.body.classList.toggle('stats');e.target.textContent='Stats: '+(on?'shown':'hidden');e.target.classList.toggle('on',on);};
+document.getElementById('btnAuto').onclick=e=>{autoAI=!autoAI;e.target.textContent='AI insight: '+(autoAI?'on':'off');};
+reset();
+})();
+</script>
