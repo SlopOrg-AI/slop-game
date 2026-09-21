@@ -15,11 +15,11 @@ The game is not in here. `design/` and `data/` are the game; `design/decisions.m
 
 Anything else is a **task**: a session with a prompt, output to `proposals/`. Cowork is the owner's read-only console; it never writes the repo.
 
-**Build versus steer.** Where a thing has a mechanism underneath it, Builder builds and runs it; the role that uses it says what it should do. The doorbell is the worked example (`queue/_DOORBELL.md`).
+**Build versus steer.** Where a thing has a mechanism underneath it, Builder builds and runs it; the role that uses it says what it should do.
 
 ## 2. Session contract
 
-1. **Claim your role** — create `sessions/<role>.md`. Creating it is the claim; finding one is the collision. Past **3 hours** since `Last seen` it is presumed dead and may be taken, said so in the file; otherwise it names someone who is not you, so **you are not that role** — ask the owner, who alone says who holds one. Not enforcement: any session can overwrite any claim. It buys seconds, not safety.
+1. **Claim your role** — create `sessions/<role>.md`. Creating it is the claim; finding one is the collision. Over **3 hours** since `Last seen` it may be taken, said so in the file; otherwise **you are not that role** — ask the owner, who alone says who holds one. Not enforcement: any session can overwrite any claim. It buys seconds, not safety.
 
    ```markdown
    # Live session — `builder`
@@ -41,7 +41,7 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 - **Stage by path. Never `git add -A`.** A wrong name in history is permanent and invisible to every check.
 - **Never rewrite pushed history.** Fix a bad commit with another commit.
 
-**What the rails refuse** (`tools/hooks/`): a duplicate decision ID · a raw `.png` under `proposals/art/` that is not a contact sheet or under `accepted/` · a commit adding a decision row whose message does not name that ID · a log whose rows no longer parse, so a blind checker refuses rather than passing everything · a commit authored by the owner, who does not commit.
+**What the rails refuse** (`tools/hooks/`): a duplicate decision ID · a raw `.png` under `proposals/art/` that is neither a contact sheet nor under `accepted/` · a commit adding a decision row whose message does not name that ID · a log whose rows no longer parse · a commit authored by the owner.
 
 ## 4. Decisions
 
@@ -52,8 +52,8 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 
 ## 5. Asking, and being asked
 
-- **Between roles:** a row in your own `STATUS.md` section under *asks*. There is no other channel, and no role relays for another — peers read each other's sections directly.
-- **To the owner:** a file in `queue/`, one per question: the question, options with trade-offs, your recommendation, what it blocks. The doorbell surfaces unanswered ones.
+- **Between roles:** a row in your own `STATUS.md` section under *asks*. No other channel, and no role relays for another.
+- **To the owner:** a file in `queue/`, one per question: question, options with trade-offs, recommendation, what it blocks.
 - **The owner's words** live in the decision row and in the queue file they answer (D260921.2-P). There is no `inbox/`; an answer in a queue file *is* the instruction.
 
 ## 6. Budgets
@@ -65,10 +65,11 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 | `roles/<role>.md` | 1 page each |
 | A fresh session, before it works | ≤ 20 KB |
 
-The Tech lead brief reached 50 KB by being a charter, a board, a channel and a logbook at once. That is what these prevent.
+A fresh session's required reading is `CLAUDE.md` + this file + its charter + `STATUS.md`. `AGENTS.md` is looked up, not loaded.
 
 ## Changes
 
+- **2026-09-21** `CLAUDE.md` stops auto-loading `AGENTS.md`; required reading becomes lookup-on-demand, halving what a session pays before it works
 - **2026-09-21** Agents merge, too (D260921.6-P): a merge commit carries the clicker's name, so the owner approves and an agent merges — his name then means "he approved this", nothing else
 - **2026-09-21** Agents commit as the machine account and the owner does not commit at all (D260921.5-P); §1 and the §3 identity line inverted, rail F added. The `Surface:` sentence goes — §Changes already records it
 - **2026-09-21** `sessions/README.md` retired into §2.1 (D260921.1-P); `inbox/` struck from §5 (D260921.2-P) — owner's words live in the decision row and the queue file
