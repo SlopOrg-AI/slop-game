@@ -1,0 +1,13 @@
+{
+  "$comment": "Guard rails for Claude Code in this repo (D5.39). Cowork is not affected by this file, which is why the git hooks in tools/hooks matter more. Enable those with: git config core.hooksPath tools/hooks",
+  "permissions": {
+    "deny": [
+      "Write(sources/**)",
+      "Edit(sources/**)"
+    ],
+    "ask": [
+      "Write(design/decisions.md)",
+      "Edit(design/decisions.md)"
+    ]
+  }
+}
