@@ -2,7 +2,7 @@
 
 One line per decision, chronological, never delete — supersede with a later entry. Later entry wins; docs get corrected to match. Owner decisions only; agent proposals go to `proposals/` until logged here.
 
-**D1–D4 (v1, 2026-09-19/20):** to be compressed into this table from `C:\Claude\docs\combat-scene-decisions.md` — pending (task 4 of the v2 distillation). Until then, that file is the record for D1–D4 and is cited by number from the system docs.
+**D1–D4 (v1, 2026-09-19/20):** still to be compressed into this table — **Systems' judgement, not Tech's**; nobody has ruled which of them survive D5.25–D5.40. Until then the record is `sources/v1/docs/combat-scene-decisions.md`, **rescued into this repo 2026-09-20** (D5.40) from the frozen PC workspace, where it was cited by number from the system docs and reachable from one disk only.
 
 **`Acts on it`** — who has to do something about this row, so nobody reads 30 entries looking for their three:
 
