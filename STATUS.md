@@ -27,7 +27,7 @@ One page, by budget. Detail lives in `status/<role>.md`; this board carries only
 
 ## Steward — claim stale
 
-**state** · `steward-260921-a` claimed 03:09, last seen 03:09 — past the 3-hour rule in `sessions/README.md`, so presumed dead and takeable. Full state: `status/steward.md`.
+**state** · `steward-260921-a` claimed 03:09, last seen 03:09 — past the 3-hour rule (`PROTOCOL.md` §2.1), so presumed dead and takeable. Full state: `status/steward.md`.
 **asks** · `A260921.1 → builder` — run the §11 migration checklist. **In progress**: charters, clones, `PROTOCOL.md` and this collapse are done; the archive pass is held above.
 
 ## Critical path to M1 — `CONFIRMED (owner, 2026-09-20)`

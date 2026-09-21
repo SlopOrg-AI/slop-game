@@ -19,12 +19,19 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 
 ## 2. Session contract
 
-1. **Claim your role** — `sessions/<role>.md`, from the template in `sessions/README.md`. If it names a live session that is not you, you are not that role: ask the owner.
+1. **Claim your role** — create `sessions/<role>.md`. Creating it is the claim; finding one is the collision. Past **3 hours** since `Last seen` it is presumed dead and may be taken, said so in the file; otherwise it names someone who is not you, so **you are not that role** — ask the owner, who alone says who holds one. Not enforcement: any session can overwrite any claim. It buys seconds, not safety.
+
+   ```markdown
+   # Live session — `builder`
+   - **Role**: builder · **Kind**: lead | subordinate of <lead>
+   - **Session**: what you are, and which clone you are in
+   - **Claimed**: 2026-09-21 12:21 · **Last seen**: 2026-09-21 12:21
+   ```
 2. **Read §Changes below**, from your last session's date down. Then your own charter (`roles/<role>.md`) and `STATUS.md`.
 3. **`git pull`.** Work only in your own clone.
 4. **Commit as you go. Push before you stop.** Work that never left your machine is not in the record.
 5. **Leave your `STATUS.md` section true**: state · next · asks.
-6. **Release the claim** at close.
+6. **Release the claim** at close — delete the file.
 
 ## 3. Git is the channel
 
@@ -47,7 +54,7 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 
 - **Between roles:** a row in your own `STATUS.md` section under *asks*. There is no other channel, and no role relays for another — peers read each other's sections directly.
 - **To the owner:** a file in `queue/`, one per question: the question, options with trade-offs, your recommendation, what it blocks. The doorbell surfaces unanswered ones.
-- **The owner's words**, when they arrive outside a session that can log them, go to `inbox/` verbatim and are triaged into `queue/` or the log. `inbox/` is an archive of what was said, never an instruction.
+- **The owner's words** live in the decision row and in the queue file they answer (D260921.2-P). There is no `inbox/`; an answer in a queue file *is* the instruction.
 
 ## 6. Budgets
 
@@ -62,6 +69,7 @@ The Tech lead brief reached 50 KB by being a charter, a board, a channel and a l
 
 ## Changes
 
+- **2026-09-21** `sessions/README.md` retired into §2.1 (D260921.1-P); `inbox/` struck from §5 (D260921.2-P) — owner's words live in the decision row and the queue file
 - **2026-09-21** Tech lead becomes **Builder**; `leads/systems/tech.md` deprecated, charter is `roles/builder.md`
 - **2026-09-21** One clone per role; identity set per clone. `Surface:` trailer retired — `git log --author` does that job now
 - **2026-09-21** Guard rail B retired: date IDs have no next-free counter, and it would have refused every commit under the new scheme
