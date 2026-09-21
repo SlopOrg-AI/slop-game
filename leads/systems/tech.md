@@ -106,6 +106,8 @@ Successor handoff checklist: that file §7. Board custody after the move: `propo
 | D | added a `D5.40` row, message omitting the number | refused at `commit-msg` |
 Every attempt was made against the real repo and reverted; the tree was byte-identical afterwards. The first attempt exposed the fail-open bug above — the reason to verify by attempting rather than by reading the code.
 
+- **Say which topology an instruction assumes.** Tech told the art agent to `git pull --ff-only` before its next commit; it is a no-op and prints a tracking notice, because all three surfaces share one working tree — a commit is in every surface's log the moment it is made. The advice was written for the topology in `proposals/2026-09-20-two-machine-migration.md`, not the one we are in. The same sentence to Cowork would mislead it the same way. Until the clones separate: **no pulling, no pushing between surfaces, one tree**. After: both become mandatory. Any instruction Tech gives a peer should name which of those it assumes.
+
 ## Guard rail E — verification record (2026-09-20)
 | Attempt | Result |
 |---|---|
