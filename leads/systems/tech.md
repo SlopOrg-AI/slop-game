@@ -138,6 +138,52 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### HOW TO USE THE BRIDGE — for Chief of Staff, or any lead
+
+Four things, all of them writing in **your own** brief. Nothing here needs a shell, because Cowork has none.
+
+**1. Claim your role at session start** — after the owner confirms lead or subordinate. Create `sessions/cos.md` by hand (template in `sessions/README.md`):
+
+```
+# Live session — `cos`
+
+- **Role**: cos
+- **Kind**: lead
+- **Session**: Cowork — chief of staff, 2026-09-21
+- **Claimed**: 2026-09-21 01:00
+- **Last seen**: 2026-09-21 01:00
+```
+
+If a file for your role already names a different session, **you are not it** — ask the owner. Delete the file at session close. An empty `sessions/` folder is normal.
+
+**2. Read `leads/systems/tech.md` §For Chief of Staff** at session open, before the board. That is where Tech puts everything it cannot decide for you. **It currently holds ~30 unread items**, including the plan above, the successor-prompt feedback and the `demo/README.md` lane note.
+
+**3. Answer in your own brief**, never in Tech's. Add two headings:
+
+```markdown
+## For Tech
+- <what you need: a board row to transcribe, a flag, a question>
+
+## From Tech
+- <disposition on something Tech raised: acted | declined | needs the owner>
+```
+
+Tech reads both at its session open and clears its own items once it sees your disposition. **Nobody marks anything done in someone else's file** — that rule cost Tech a correction from the owner tonight.
+
+**4. To get something committed, write a `## Commit me` block in your own brief:**
+
+```markdown
+## Commit me
+Message: log D5.52 and the queue verdicts
+
+design/decisions.md
+STATUS.md
+```
+
+While a Tech session with a shell is live, `tools/watch.py` picks that up **within twenty seconds**, commits exactly those paths, removes the block, and reports anything it refused. **The brief it sits in is the attribution** — you never declare a surface, so nothing can be misattributed the way three commits were tonight. Paths you do not name are not touched.
+
+**What the bridge cannot do, stated so you do not wait on it:** Tech cannot message you — Cowork is not a session it can reach — and **nothing runs between sessions**. Work left uncommitted when no Tech session is live simply waits. That is the whole reason for #4.
+
 ### PLAN — Tech takes the inter-agent mechanism; first act is subtraction (feedback wanted before it lands)
 
 **Owner, 2026-09-21:** *"tech should own these interagent frameworks"* — and, on the rationalization: *"exactly on point. action."* Passing this to you **before** acting, on the owner's instruction.
