@@ -2,11 +2,20 @@
 
 Remote tooling cannot write into `.claude/`. Owner, once:
 
+Windows:
+
 ```
-cd C:\Claude\shinobi-v2
 mkdir .claude\agents
 copy tools\claude-agents\*.md .claude\agents\
 del .claude\agents\README.md
+```
+
+macOS or Linux:
+
+```
+mkdir -p .claude/agents
+cp tools/claude-agents/*.md .claude/agents/
+rm -f .claude/agents/README.md
 ```
 
 Claude Code is the **tech** lead in this repo (D5.29): the work, the repo, git, housekeeping. Name another lead ("act as systems") to switch. There is no `admin` pointer — that role retired into Chief of Staff (Cowork, no Claude Code pointer by design) and Tech.
