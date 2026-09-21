@@ -45,6 +45,8 @@ it exists because the alternative is the request firing twice.
 """
 
 import argparse
+import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -67,6 +69,11 @@ for _stream in (sys.stdout, sys.stderr):
 FENCE = re.compile(r"^```.*?^```", re.M | re.S)
 
 ROOT = Path(__file__).resolve().parents[1]
+# Per-clone state, deliberately inside .git: which request was last consumed
+# from each brief. Two surfaces write these files, and a lead saving its brief
+# from its own buffer restores a block Tech has already stripped - which is
+# what happened tonight and produced two commits of one request.
+CONSUMED = ROOT / ".git" / "watch-consumed.json"
 HEADING = re.compile(r"^##\s+Commit me\s*$", re.M)
 # The brief's path is the attribution. No surface declares itself here.
 BRIEFS = {
@@ -86,6 +93,30 @@ def git(*args, check=True):
         ["git", "-C", str(ROOT)] + list(args),
         capture_output=True, check=check, encoding="utf-8", errors="replace",
     )
+
+
+def fingerprint(message, paths):
+    blob = "|".join([message or ""] + sorted(paths))
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]
+
+
+def already_consumed(brief, fp):
+    try:
+        return json.loads(CONSUMED.read_text(encoding="utf-8")).get(brief) == fp
+    except (OSError, ValueError):
+        return False
+
+
+def mark_consumed(brief, fp):
+    try:
+        data = json.loads(CONSUMED.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        data = {}
+    data[brief] = fp
+    try:
+        CONSUMED.write_text(json.dumps(data, indent=1), encoding="utf-8")
+    except OSError:
+        pass
 
 
 def find_block(text):
@@ -125,6 +156,17 @@ def handle(brief, surface, no_push=False):
     if not found:
         return False
     message, paths, start, end = found
+    fp = fingerprint(message, paths)
+    if already_consumed(brief, fp):
+        print("")
+        print("--- %s: SAME request again, not committing (%s) ---"
+              % (surface, time.strftime("%H:%M:%S")))
+        print("  This exact request was already carried out. The brief was")
+        print("  written back from a buffer that still held the block, which")
+        print("  overwrote the strip - the drift guard in your own brief says")
+        print("  read the file from disk in the same session before any write.")
+        print("  Remove the block, or change it if the request is genuinely new.")
+        return False
     print("\n--- %s asks to commit (%s) ---" % (surface, time.strftime("%H:%M:%S")))
     if not message or not paths:
         print("REFUSED: the block needs a 'Message:' line and at least one path.")
@@ -170,6 +212,7 @@ def handle(brief, surface, no_push=False):
         print("REFUSED by a guard rail. Request restored; nothing retried.")
         return False
 
+    mark_consumed(brief, fp)
     print("committed, request consumed: %s" % git("log", "-1", "--format=%h %s").stdout.strip())
     push(no_push)
     return True
