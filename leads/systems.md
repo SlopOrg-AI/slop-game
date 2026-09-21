@@ -22,7 +22,10 @@ The game itself: **what exists** (ontology — entities, actor kinds, sheets, po
 |---|---|---|---|
 | C1, C3 | reactions-as-abilities · no ability modes | Cowork 2026-09-20 | **PROMOTED → D5.25, D5.26** |
 | C12, C17, C19 | gold = two classes · Devotion · provisional terms | Cowork 2026-09-20 | DEFERRED — ride with C10, the traditions cluster, the ontology pass |
-| C2, C4–C11, C13–C16, C18, C20 | RPS precedence, tag dictionary, materials, damage tags+numbers, narrowed RNG, stars, draws, attributes on sight, range/space, magic traditions, instantiated reserves, sheets, Push, nested tug-of-wars | Cowork 2026-09-20 | PROPOSED — walk continues, one at a time → D5.27+ |
+| C7, C9, C10 | consistent % -of-stat damage · weighted attribute pull · fixed-at-acquisition distribution | Cowork 2026-09-20 | **ABSORBED → D5.30** (the pull is now a `check`; no in-fight dial) |
+| C18 | Push — spend attributes at critical moments | Cowork 2026-09-20 | OPEN, reshaped — now overlaps the D5.32 momentum unlock and "force a failed check"; decide which hat it wears |
+| C11 | attributes readable on sight; holding back | Cowork 2026-09-20 | OPEN — `restrained-N` (ontology draft §2 F) remains the mechanism; it never needed a commitment dial |
+| C2, C4–C6, C8, C13–C16, C20 | RPS precedence, tag dictionary, materials, damage tags+numbers, stars, range/space, magic traditions, instantiated reserves, sheets, nested tug-of-wars | Cowork 2026-09-20 | PROPOSED — walk continues, one at a time → D5.38+ |
 | — | D5.24 (engagement-scoped initiative) cited in `11`, `14`, `00-steer` §6 but not in `decisions.md` | handoff §1b | **IN PROGRESS** — owner: resolve properly next, with C20 (nested meters) + C13 (range bands) |
 
 ## Status
@@ -35,15 +38,29 @@ The game itself: **what exists** (ontology — entities, actor kinds, sheets, po
 | `12-reactions-insight.md` | **deleted 2026-09-20** (Admin housekeeping; the rename was D5.9) | — | successor-review |
 | `decisions.md` `Acts on it` column | added + backfilled D5.1–D5.23 (Tech / Vocabulary / Designers / Content / Art / Production) | — | D5.25 session |
 | Reach-on-bar (D2.8/D2.12), trick-taking (D2.13), `00-steer` §4 boundary | UNDER REVIEW pending C-ref promotion | MVP | handoff §1b |
+| Attribute economy: `check` at resolution, commit-for-round, toggle-off, lockout | DECIDED | MVP | D5.30–D5.32 |
+| Cards + three class decks + draw step; `draw` reserved for cards | DECIDED | MVP | D5.34, D5.35 |
+| Courage = spirit attribute | DECIDED | MVP | D5.36 |
+| Escape as fifth exit | DECIDED | MVP | D5.33 |
+| `02-ontology.md` momentum row (per-actor) vs C20 (nested shared) | CONFLICT — draft must be corrected when 02 is written | MVP | ontology draft §2 D |
+| `11-initiative.md` status table asserts D5.24 DECIDED | CONFLICT — doc claims canon that is not logged | MVP | `11` |
+| Damage as option-denial (channel closes the matching deck) | PROPOSED — agent synthesis of D5.36 + D5.30 | MVP | c-coherence §4b |
 
 ## Next actions
-1. **Next session — the momentum/space exchange (owner present).** D5.24 + C20 (nested individual/team/skirmish meters) + C13 (range bands, anchors, reach off the bar) resolved together, since D5.24's "engagement" is C20's team level and C13 is what empties the bar. Output: D5.27+ and a rewritten `11-initiative.md`. Then the rest of the C-walk (C2, C4–C11, C14–C16, C18).
-1b. Done 2026-09-20: C1 → **D5.25**, C3 → **D5.26**; `decisions.md` gained an **`Acts on it`** column with a legend; `00-steer` §2/§4/§6 supersessions applied; Open #3 closed. Still owed: nothing from that session — `12-reactions-insight.md` deleted 2026-09-20 by Admin.
+1. **Close the card model** (owner present): hand persistence between rounds · where a gold two-class card lives · deck exhaustion/reshuffle · hand size and what sets it. These block `02-ontology` because they change what a character *is*.
+1a. **Then the momentum/space exchange.** D5.24 + C20 (nested individual/team/skirmish meters) + C13 (range bands, anchors, reach off the bar) together — D5.24's "engagement" is C20's team level, C13 is what empties the bar, and D5.32 now depends on the zones existing. Output: D5.38+ and a rewritten `11-initiative.md`.
+1b. Done 2026-09-20: C1 → **D5.25**, C3 → **D5.26**; the `Acts on it` column added and backfilled; **D5.30–D5.37** logged (attribute checks, commitment/toggle-off, lockout, escape exit, `draw`→cards, three class decks, Courage=spirit, perspective-conveys-scale); `00-steer` §2/§4/§6, `data/README.md` and `proposals/2026-09-20-c-coherence.md` updated to match. **Owed to Chief of Staff:** `STATUS.md` next-free is now **D5.38**, C-ref **C23**; conflict #2 (§4 "+ reaction") closed by D5.25; two new conflicts above; D5.33 is an MVP scope change; D5.37 belongs to Art.
 2. `02-ontology.md` + `data/SCHEMA.md`, one section per exchange, PROVISIONAL/LOCKED column on every term (C19). Gate: action 1.
 3. Distill `10 → 11 → 13 → 14 → 12 → 15` against the ontology, citing D-numbers or marking PROPOSED; compress D1–D4 during `10`. Gate: action 2.
 
 ## Open questions
-Handoff §5 #1–#11 (momentum sub-questions, zones in M1, Courage's class, Focus, minting policy, acquisition distribution, Push details, M1 content adds, Lightning Palm, family/role names, carried `00-steer` §6 opens).
+Handoff §5 #1–#11, minus Courage's class (closed, D5.36). Added by session 6e:
+1. Hand persistence between rounds; hand size and what sets it.
+2. Where a gold (two-class) card lives — either deck, its own deck, or fixed at acquisition. Gold now checks **both** classes, so it is doubly darkenable; the deck answer should pay for that.
+3. Deck exhaustion — reshuffle, or does running out mean something?
+4. The mind class's second attribute (`00-steer` Open #13), now that Courage is spirit.
+5. Whether Grit and Will earn two separate guards, or terror is one thing with two flavours.
+6. What C18 Push is, now that D5.32 unlocks on momentum and "force a failed check" is available as its shape.
 
 ## Escalates to
 Owner. Rule for the lead: if a v1 rule and an unpromoted C-ref conflict, write the v1 rule and flag the conflict — never silently harmonise.

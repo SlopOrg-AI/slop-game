@@ -13,7 +13,7 @@ Turn-based card battler with a persistent campaign and world state. Create a shi
 
 - v1 (`C:\Claude`, 2026-09-19/20): three design sessions settled the combat core; an HTML wireframe (`combat-1v1-v4.html`) ran AI-vs-AI; a one-day Godot port was archived for compounding scope before any human played. **No human has played a duel yet.**
 - v2 (this folder): distilled restart. Disk is canon, `decisions.md` arbitrates, new decisions start at D5.1.
-- **Session 6b (2026-09-20, Cowork design session) — read before any 10–15 distillation, schema or demo work:** the owner reconsidered combat foundations (resolution order, reach/initiative, damage numerics, draws/stars/gold, reserves as instantiated pools, sheets per actor kind, tag chemistry + materials, magic traditions, attribute Push). Owner direction (C1–C20) and the resulting model are PROPOSED in `proposals/2026-09-20-session-6-handoff.md` (+ `…-ontology-draft.md`, `…-successor-review.md`); **partly promoted 2026-09-20: C1 → D5.25, C3 → D5.26; C12/C17/C19 deferred; next free is D5.27** (D5.16–D5.23 are the same-day inspiration-index session; **D5.24 is cited in `11`/`14`/§6 below but not yet in `decisions.md`** — being resolved next alongside C20/C13). Until promoted, treat D2.8/D2.12 (reach on the bar), D2.13 (trick-taking) and the §4 boundary below as under review.
+- **Session 6b (2026-09-20, Cowork design session) — read before any 10–15 distillation, schema or demo work:** the owner reconsidered combat foundations (resolution order, reach/initiative, damage numerics, draws/stars/gold, reserves as instantiated pools, sheets per actor kind, tag chemistry + materials, magic traditions, attribute Push). Owner direction (C1–C20) and the resulting model are PROPOSED in `proposals/2026-09-20-session-6-handoff.md` (+ `…-ontology-draft.md`, `…-successor-review.md`); **partly promoted 2026-09-20: C1 → D5.25, C3 → D5.26; the attribute economy and the card/hand model are D5.30–D5.37; C12/C17/C19 deferred; next free is D5.38** (D5.16–D5.23 are the same-day inspiration-index session; **D5.24 is cited in `11`/`14`/§6 below but not yet in `decisions.md`** — being resolved next alongside C20/C13). Until promoted, treat D2.8/D2.12 (reach on the bar), D2.13 (trick-taking) and the §4 boundary below as under review.
 - **D5.2:** Godot from the start, basic screens included. **Screens are disposable; components persist.** A component library models what the image-gen boards show; each selected board is decomposed into components and recomposed as a screen. Guard against the v1 failure mode: every screen change is a reaction to a human play session or a selected board, not to an agent's plan.
 
 ## 3. Priorities (in order)
@@ -29,17 +29,17 @@ Turn-based card battler with a persistent campaign and world state. Create a shi
 **IN**
 - Two characters from JSON; player vs scripted AI (AI must remember "was I countered last round?").
 - Stat model: 5 attributes · 3 reserves · 2 meters · 3 guards. Scale 0–300, irregular values.
-- Round: **Plan → Resolve** (D5.8). Actives and passives committed together, hidden. No reveal; learn by watching. Budget = reserves (no action count). Order = trick-taking by requirement sum (D2.13, confirm in play).
+- Round: **Plan → Resolve** (D5.8). Actives and passives committed together, hidden. No reveal; learn by watching. Budget = **attribute checks at resolution (D5.30)**; a failed check locks the card out for the scene (D5.32). Order = trick-taking by requirement sum (D2.13, confirm in play).
 - Initiative bar −50…+50, reach −10, Dominant ≥+25, Desperate ≤−25.
 - Insight: hidden meter, partial spend as initiative modifier or reveal; cap Wits/2, drained on reaction fire (D3.2, confirm in play).
 - Ability kinds (D5.9): activated · reaction · sustained · decaying · one-off; `hold`/`upkeep` costs. **Kind governs only how an ability resolves (D5.25); reactions and passives are ordinary abilities chosen in Plan, no slot, no armed cap.** Reactions graded by trigger specificity; reversal = ability delta only (D3.3); held reserve excluded from refill (D3.4).
 - Information model (D5.10) in the engine: fact × knower-tier × surface; tiers advance by witnessing, Insight reveal, winning. Unknown abilities show as magnitude bands. Minimal bestiary screen.
-- Damage: tag stack → guard → **tiered states** (D5.14) → severity band → named wound. ~12 wounds. Amount × Strength/100 (D3.1).
+- Damage: tag stack → guard → **tiered states** (D5.14) → severity band → named wound. ~12 wounds. Magnitude from the card's check (D5.30, supersedes D3.1). A wound lowers an attribute, which pushes cards below their checks — **damage closes options rather than reducing output**.
 - **Engine constraints (D5.12):** actor {scale, kind, stats-from-data}; scene {scale, parent, children}; selectable-actor list data-driven. M1 shows one character each side; the code never assumes it.
-- Win: courage break · incapacitation · surrender · kill (scene-flagged).
+- Win/exit: courage break · incapacitation · surrender · kill · **escape** (D5.33) (scene-flagged).
 - ~16 abilities (4 reactions, 3 insight openers). Variance: per-ability band on 2 abilities (D2.15), revisit after play.
 - Scene conditions engine; **footing** and **light** authored.
-- Loadout screen (typed slots: body/mind/spirit; **no reaction slot — D5.25**).
+- **Deck construction** screen, three decks by class: body/mind/spirit (D5.35; no reaction slot — D5.25). In play: choose a deck, draw one card per draw step, up to hand size.
 - M1 presentation: basic Godot screens + text log, restyled as image-gen boards are selected. M2: pose-swap cut-outs, table view ↔ cutaway.
 
 **OUT** (TARGET / FUTURE — designed, not built)
@@ -66,7 +66,7 @@ Turn-based card battler with a persistent campaign and world state. Create a shi
 
 | # | Question | Status | Doc |
 |---|---|---|---|
-| 1 | Variance mechanism — per-ability band is the demo default; alternatives (commit levels, sealed roll, deck draw) live | OPEN, gated on play | 10 |
+| 1 | Variance mechanism — **largely answered by D5.35**: variance is in the draw, outcomes stay deterministic. Per-ability band (D2.15) now probably redundant | OPEN (narrowed), gated on play | 10 |
 | 2 | D2.13 trick-taking interleave — confirm reading | OPEN, gated on play | 10 |
 | 3 | ~~Slots for passives/reactions~~ | **CLOSED — D5.25**: a false question; reactions and passives are ordinary abilities, concurrency limited by cost | 12 |
 | 4 | Wound regions — head/torso/arms/legs + mind + spirit | OPEN (confirm) | 13 |
@@ -78,7 +78,7 @@ Turn-based card battler with a persistent campaign and world state. Create a shi
 | 10 | Cultures as knowers, or only organized groups with culture as identification modifier | OPEN | 50 |
 | 11 | Minion groups: literal roster (members can be named later) vs abstract strength | OPEN | 50 |
 | 12 | UI numbers — raw vs bands (bands now the info-system default for unknowns) | OPEN, low stakes | 31 |
-| 13 | Mind attribute beyond Wits | OPEN, low stakes | 10 |
+| 13 | Mind's second attribute — Courage went to spirit (D5.36), so mind is Wits alone. Mental-channel damage degrades Wits (reads decay), so this is a gap, not a hole | OPEN | 02, 10 |
 
 ## 7. Rules for agents
 

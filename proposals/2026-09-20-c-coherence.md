@@ -32,7 +32,7 @@ Plus C19: every term above is provisional (deferred, rides with the ontology pas
 
 Six clashes. Each needs a **pick**, not a clarification. Ordered by leverage.
 
-### A. The armed-ability economy is unbounded — introduced by D5.25
+### A. ~~The armed-ability economy is unbounded~~ — **RESOLVED 2026-09-20 by D5.30–D5.32.** Attributes are checked at resolution and commit for the round; reserves are earmarked by `hold` and spent on firing; prepped abilities toggle off below their check. No cap was needed and `hold` was not retired. Original statement follows.
 **The clash.** D5.25 removed the cap on armed abilities, saying concurrency is limited by "what the character can afford." But D5.9 makes the `hold` cost **optional** ("any kind may use either"). If holding a reaction is free, the dominant strategy is to arm everything every round — precisely the degenerate case the old cap prevented. D5.25 is live canon and currently has a hole in it.
 
 **The fork.**
@@ -108,6 +108,15 @@ Consequence: (1) makes disengaging a movement problem; (2) makes it a commitment
 3. **C** — cheap once B is settled; mostly a retirement of D2.15.
 4. **E**, **F**, **D** — ride with the traditions cluster, the draw-budget cluster and the ontology pass respectively.
 5. **G** and the §3 readings — cheap, resolve in passing.
+
+## 4b. Superseded by session 6e (2026-09-20)
+
+- **Conflict A** — resolved (D5.30–D5.32).
+- **Conflict C (randomness)** — reshaped, not closed: D5.35 puts variance in the **draw**, so D2.15's per-ability bands are probably redundant and minting-variance is the only live question.
+- **Terminology** — every use of *draw* meaning an attribute pull in §1–§3 above should read **check** (D5.34).
+- **§1 statement 2** — "an ability's power is a weighted draw" is now "an ability **checks** attributes at resolution; the checked amount is its magnitude."
+- **§1 statement 7** — decks (D5.35) add a third axis the statement doesn't carry.
+- **§3 C11 reading** — holding back keeps `restrained-N` from the ontology draft; it never needed a commitment dial.
 
 ## 5. Status & scope
 

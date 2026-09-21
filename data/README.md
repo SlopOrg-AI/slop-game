@@ -23,4 +23,9 @@ These files encode the **v1** rules. Session-5 decisions changed the model; the 
 - **D5.25** reactions/passives are ordinary abilities — `characters.json → slots.reaction` and `rules.json → reactions.max_armed` are now dead fields. **Not deleted yet**: schema v3 rewrites both files, and a piecemeal edit now would leave the validator with nothing to check against. Delete them in the v3 migration, not before.
 - `shot` ids on abilities point at the frozen `shots.json`; harmless, ignore until M2.
 
+- **D5.30/D5.34** ability `draws` → **`checks`** `[{attribute, amount}]`, tested at resolution. `draw` is now reserved for drawing cards.
+- **D5.31** reaction `hold` survives and is the reserve earmark; `upkeep` unreviewed. Sustained abilities commit their attribute check continuously.
+- **D5.35** characters need **three decks by class** plus hand size; the loadout shape in `characters.json` is superseded.
+- **D5.36** Courage is a spirit attribute; any class tagging in `characters.json` must match.
+
 Migration is a task for the 10–14 distillation pass, not a silent edit. Log a D-number for the schema bump when it happens.
