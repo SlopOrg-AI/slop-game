@@ -10,7 +10,7 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 ## Owns
 - `demo/` (not created yet — gate in `demo/README.md`)
 - `data/validate.py` (to write) — enforces Systems' validator rules against `SCHEMA.md`
-- Golden tests; the archived v1 engine at `C:\Claude\Godot\shinobi-master` as *reference only* (ideas, not code, unless a D-number says otherwise)
+- Golden tests; the archived v1 engine at `C:\Claude\Godot\shinobi-master` as *reference only* (ideas, not code, unless a D-number says otherwise) — **not rescued, PC disk only** (D5.40)
 - `.claude/` (agent pointers, settings, hooks), `.gitattributes`, `.gitignore`, git hooks; git remote when the owner wants one; `tools/claude-agents/` seed
 - `tools/` code (`annotate/` — Content owns its *use*), `tools/hooks/` (proposed)
 - **Git execution** (D5.29): staging by path — never `git add -A` — commit messages (what changed + D-numbers), milestone tags (`m1-playable`), and committing another surface's work with a message that says whose it is
@@ -90,9 +90,9 @@ Qwen-Image-Edit 2511 reported better at character consistency (21 GB).
 | Runs where | What |
 |---|---|
 | Either machine | repo, git, docs, `data/`, Godot (when the gate clears), `tools/annotate/server.py` |
-| **PC only** | ComfyUI + Qwen weights on the RTX 5090; `tools/workflows/build_workflows.py`, `tools/annotate/regional_edit.py` (Windows paths compiled in) |
+| **PC only** | ComfyUI + Qwen weights on the RTX 5090; `tools/workflows/build_workflows.py`, `tools/annotate/regional_edit.py` — they now read `SHINOBI_COMFY_ROOT` and **fail with one clear sentence** off-machine (step 6) · the 177 MB v1 Godot archive, not rescued |
 | **Blocking** | no git remote exists. **Ruled D5.40**; blocked on the owner creating an empty private repo — no `gh`, no credentials here, and Tech handles neither |
-| **Deadline** | the text behind D1–D4 and the v1 bible live only on the PC disk and are cited by canon — §2 of the same file. Rescue before the disk goes |
+| **Deadline** | ~~the text behind D1–D4 and the v1 bible live only on the PC disk~~ **DONE 2026-09-20** — `sources/v1/` holds all of v1 `docs/` and the v4 wireframe; every stub and the D1–D4 note now cite the in-repo copies |
 
 Successor handoff checklist: that file §7. Board custody after the move: `proposals/2026-09-20-board-custody.md` (Chief of Staff and owner rule).
 

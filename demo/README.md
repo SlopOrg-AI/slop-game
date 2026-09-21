@@ -1,6 +1,6 @@
 # demo/ — Godot 1v1 duel demo (MVP)
 
-Target: Godot 4.x, GDScript. Fresh project; the archived port at `C:\Claude\Godot\shinobi-master` is reference only (its engine passed a golden test — reuse ideas, not code, unless a D-number says otherwise).
+Target: Godot 4.x, GDScript. Fresh project; the archived port at `C:\Claude\Godot\shinobi-master` is reference only — **PC disk only, deliberately not rescued** (177 MB; `sources/v1/README.md` says why), so treat it as gone once prompting moves (its engine passed a golden test — reuse ideas, not code, unless a D-number says otherwise).
 
 Scope = `design/00-steer.md` §MVP boundary. Data comes from `../data/*.json`. Milestones live in `design/40-production.md`.
 
