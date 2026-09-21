@@ -1,6 +1,6 @@
 # Proposal — one execution agent per lead, and what Tech oversees
 
-**Produced by:** Tech (Claude Code), 2026-09-20 · **Targets:** `CLAUDE.md`, `AGENTS.md` §4/§6, `leads/README.md`, `tools/claude-agents/`, `proposals/2026-09-20-commit-sweep.md` §A.1 · **Proposes:** adopt the owner's model with two corrections · **Status:** `PROPOSED` — Chief of Staff and the owner rule; Tech states the mechanism only. Next free D-number **D5.41**.
+**Produced by:** Tech (Claude Code), 2026-09-20 · **Targets:** `CLAUDE.md`, `AGENTS.md` §4/§6, `leads/README.md`, `tools/claude-agents/`, `proposals/2026-09-20-commit-sweep.md` §A.1 · **Proposes:** adopt the owner's model with two corrections · **Status:** `PROPOSED` — Chief of Staff and the owner rule; Tech states the mechanism only. **unnumbered** — rides with whatever D-number the owner gives it. *(D5.41 was cited here earlier; a parallel Chief of Staff session took it for the context-economics ruling. Corrected rather than left dangling — D5.24 is what a stale number citation looks like six files later.)*
 
 **Owner, in chat:** *"i think each lead has a claude code subordinate to execute on their behalf. you as tech lead also oversee these subordinates. does that cohere"*
 

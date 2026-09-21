@@ -1,6 +1,6 @@
 # Proposal — execution agents file a session report; Tech reviews the report, not the output
 
-**Produced by:** Tech (Claude Code), 2026-09-20 · **Targets:** `proposals/reports/` (new), `leads/README.md`, `leads/systems/tech.md`, `CLAUDE.md`, `tools/claude-agents/*.md` · **Proposes:** a fixed short report per prompted execution-agent session, read by two readers · **Status:** `PROPOSED` — rides with `2026-09-20-execution-agents.md` (**D5.41**). Owner ruled the principle; Tech proposes the mechanism only.
+**Produced by:** Tech (Claude Code), 2026-09-20 · **Targets:** `proposals/reports/` (new), `leads/README.md`, `leads/systems/tech.md`, `CLAUDE.md`, `tools/claude-agents/*.md` · **Proposes:** a fixed short report per prompted execution-agent session, read by two readers · **Status:** `PROPOSED` — rides with `2026-09-20-execution-agents.md`, **unnumbered** — rides with whatever D-number the owner gives it. *(D5.41 was cited here earlier; a parallel Chief of Staff session took it for the context-economics ruling. Corrected rather than left dangling — D5.24 is what a stale number citation looks like six files later.)*. Owner ruled the principle; Tech proposes the mechanism only.
 
 **Owner, in chat:** *"other cc leads should output reports as session artifacts upon prompting, these should be provided to tech and respective lead. that should be what tech is reviewing rather than larger output from other cc agents"*
 
