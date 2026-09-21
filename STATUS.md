@@ -6,30 +6,30 @@ One page, by budget. Detail lives in `status/<role>.md`; this board carries only
 
 ## For the owner — rule on these (≤ 5)
 
-**Q1 · Three settings, all needing admin or the token — an agent can set none of them.**
-CI was unwritable by anyone: agents had no **Workflows** permission and `D260921.5-P` says the
-owner does not commit. The permission was withholding nothing real — the rail logic is
-`tools/hooks/checks.py`, an ordinary repo file, and a pull request runs its own copy of it
-(PR #9 proved this). So the boundary moves to review, which is where it was actually held.
-Done on this branch: `CODEOWNERS` now gives `/.github/` and `/tools/hooks/` to the owner alone.
-**Owed by the owner:** (a) grant the token **Workflows: Read and write** · (b) set
-`require_code_owner_review: true` · (c) set `required_approving_review_count: 1`, now safe
-because the owner authors no pull requests. *Blocks:* the Godot check, and any future rail.
-*Unverified:* whether code-owner review does anything with the count at 0 — set both together
-and check, rather than assume.
+**Q1 · Three settings you have ruled but that are not applied. An agent can do none of them.**
+Ruled **A** on 2026-09-21. Until they are set, the repository does not behave the way the
+documents now say it does. (a) `required_approving_review_count: 1` · (b)
+`require_code_owner_review: true` — both at
+<https://github.com/SlopOrg-AI/slop-game/settings/rules>, and both need **admin**, which the
+machine account deliberately does not have · (c) grant the token **Workflows: Read and write**
+at <https://github.com/settings/personal-access-tokens> as `sloporgAI`, which re-triggers org
+approval. *Blocks:* (a) and (b) block any true claim that review is enforced — **it is not
+today, `required_approving_review_count` is still 0**. (c) blocks the Godot check and every
+future rail. *Then verify:* whether code-owner review does anything with the count at 0 is
+still unverified; set both together and check rather than assume.
 
-**Q2 · Does a merge commit count as you committing?** GitHub authors merge commits as
-whoever clicks merge. Rail F excludes them, treating a merge as a review action rather than
-authorship. If you want `chris-egan` out of the history entirely, **agents must do all
-merging** — which makes the merge-classifier question load-bearing rather than curiosity.
-*Blocks:* nothing today; decides whether Q3 is optional or required.
+**Q2 · The three exposure findings, deferred.** `sloporgAI`'s real Gmail is permanently in
+public history (`a6d5625`) and is that identity's password-recovery path · neither account has
+two-factor authentication · the merge classifier is not a control. Detail and fixes:
+`proposals/2026-09-21-machine-account-exposure.md`. *Blocks:* nothing. The email setting is
+worth doing first — every merge by that account republishes the address until it is on.
 
-**Q3 · Raise `required_approving_review_count` to 1?** `D260921.4-P` (a) said prove the lane
-once, then decide. The lane is proven: `sloporgAI` opened #8, `rails` went green, and rail F
-was shown refusing a deliberate failure in real CI. The risk I flagged earlier — an agent
-signing off your work — **disappears** under `D260921.5-P`, because you no longer author
-pull requests. `require_code_owner_review` becomes safe for the same reason, which closes
-Trap 1. *Needs:* admin; an agent cannot set it.
+**Q3 · What should Builder do next?** **A** the Godot check — the original objective, blocked
+on Q1(c) · **B** the governance rule sketched on 2026-09-21: the owner rules game decisions
+(tags S, A, C), roles decide their own mechanism (P, E), and no role may widen what it is
+allowed to decide. Needs the owner's own wording to log · **C** the archive pass on `leads/`,
+`inbox/`, `bridge/`, held on `A260921.9`. **Recommendation: B, then A** — B is what stops this
+queue re-forming every session. *Blocks:* Builder.
 
 ## Designer — no live session
 
