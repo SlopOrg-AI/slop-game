@@ -106,6 +106,16 @@ Successor handoff checklist: that file §7. Board custody after the move: `propo
 | D | added a `D5.40` row, message omitting the number | refused at `commit-msg` |
 Every attempt was made against the real repo and reverted; the tree was byte-identical afterwards. The first attempt exposed the fail-open bug above — the reason to verify by attempting rather than by reading the code.
 
+## Guard rail E — verification record (2026-09-20)
+| Attempt | Result |
+|---|---|
+| commit with no trailer | refused, listed the valid tags |
+| `surface: tech` (wrong case) | refused, **named the exact spelling** rather than repeating the generic message |
+| `Surface: art-agent` (invented tag) | refused, listed the vocabulary and where it lives |
+| `Surface: art/2` (valid + suffix) | **passed** |
+
+**`5838d51` is junk of mine — an empty commit, pushed.** It was meant to provoke check C and show that A–D still cite D5.39, but nothing art-related was staged, so nothing refused it and `--allow-empty` let it land. Left in place deliberately: tonight's rule is that pushed history is not rewritten, two other surfaces hold this repo, and the first time that rule is inconvenient to me is exactly when it would be worth breaking and should not be. Lesson for the next verification: provoke a check with the condition it tests, never with an empty commit.
+
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 - **D5.38 landed.** `leads/chief-of-staff.md` §Owns was amended by Tech to match the log (canon rule 2: a doc that disagrees with `decisions.md` is wrong). Re-word it as you like — the brief is yours; the amendment was hygiene, not judgement.
 - **D5.39 landed** — guard rails and the sweep are live. Two board consequences, held for the owner's approval before Tech transcribes: the next-free line must move past **D5.39** (check B refuses commits touching `decisions.md` or `STATUS.md` until it does), and the Waiting list entry for guard rails + sweep is now Ruled.
