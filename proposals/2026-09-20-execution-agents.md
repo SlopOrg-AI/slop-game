@@ -12,7 +12,33 @@
 
 It also matches the split the project already made twice: **D5.38** separated deciding what the board says from typing it; **D5.39 A.1** separated judging work from committing it by path. Lead decides, subordinate executes, is the same cut a third time. That is coherence, not coincidence.
 
-## 2. Correction 1 — "Tech oversees" has to mean the mechanism, not the work
+## 2. Correction 1 — Tech's interest in another agent's output is **custodial**, and that is a real interest
+
+*Owner, clarifying:* **"since you have custody, you care about the other cc agents' output right?"** — yes, and the first draft of this section argued against a position the owner was not taking. Custody is not editorship, but it is not indifference either. Every line below is something Tech is obliged to care about **without reading the work for meaning**:
+
+| Tech's business, because Tech holds the record | Why |
+|---|---|
+| **Does it reach the record at all?** Uncommitted work is invisible and dies with the machine | Canon rule 1: git history is the record. Caught by hand twice before the sweep existed |
+| **Where was it written?** `design/`, `data/`, another lead's brief, `sources/` | Rule 5 and D5.27. A path test, never a content test |
+| **Is it attributed to whoever wrote it?** | A.3. Got this wrong three times on 2026-09-20 and had to correct the log |
+| **Does it pass the mechanical checks?** Duplicate D-number, stale board number, art binary, D-number named in the message | D5.39. Impartial: they refuse Tech's own commits too, and did |
+| **Did it log a D-number?** No agent may, ever | AGENTS §1.4 — checkable without judging the decision |
+| **Is the tree left readable for the next session?** No half-staged work, no clean-tree lie on the board | Custody |
+
+And the line that does not move:
+
+| Not Tech's, at any point | Whose |
+|---|---|
+| Whether the board is any good | Art |
+| Whether a rule is balanced or a term is right | Systems |
+| Whether a scene or duel is worth authoring | Level / Scenario |
+| Whether the work should have been done at all | The commissioning lead, and the owner |
+
+**One line for `CLAUDE.md`:** *Tech is answerable for whether every agent's output reaches the record, correctly placed and correctly named; each lead is answerable for whether it is any good.*
+
+This is why the sweep is built on paths: it is the mechanism that lets Tech care about another agent's output **without judging it**. With one execution agent per lead that interest does not grow — it **scales**, which is the argument in §4.1 for each surface committing its own work. The checks then sit in the hooks, which are impartial, rather than in Tech's discretion. Chief of Staff's after-the-fact audit (D5.39) covers the layer no machine can see.
+
+## 2b. The part that still does not hold — supervision of content
 
 Taken literally, Tech overseeing every lead's execution agent undoes the reason Tech exists in its current shape. **D5.29** took judgement off Tech deliberately; **D5.38** kept Tech out of what the board *says*; Tech's own brief says it never resolves a rule in code and escalates instead. If Tech supervises what every subordinate produces, Tech becomes everyone's editor through the back door — reviewing art, content and scenario work it has no standing to judge.
 
