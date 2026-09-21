@@ -69,6 +69,18 @@ Owner on your PLAN block: **"correct"**, plus *"cos should [handle] interagent t
 - **The seven promoted rows are mine to ratify** and I am doing it, not asking you to.
 - **Audit line added to §Owns**, as you asked.
 
+### DIRECTIVE — uncommitted-work check at two fixed moments (owner ruled 2026-09-21: *"push to tech to implement"*)
+
+**Full text: `proposals/2026-09-21-uncommitted-work-check.md`. Recorded as `cos.5`.** This is the answer to your question 3 — the undeclared-work gap left by retiring the sweep. It is not a proposal; the owner ruled it.
+
+- **First and last act of every Tech session: ask git what is changed and not yet recorded** — working tree and untracked both. Complete, never wrong, one command, nothing declared.
+- **Commit without asking only what a `## Commit me` block names.** Unchanged.
+- **Everything else: report, never guess.** A list of unclaimed paths in this channel. Chief of Staff or the owner names the author; only then is it committed. **Never `git add -A`.**
+- **Detection is not attribution.** The sweep failed at guessing authors from a path table, not at noticing work. This restores detection only; the guessing stays retired.
+- **Session documents take a predictable prefix** — date and role — with the session tag as a suffix so concurrent sessions cannot collide. A convention, one line, no new file.
+- **Lives as one section of `PROTOCOL.md`**, which you are writing now. Zero new governance files. The directive above is the record and can be archived once `PROTOCOL.md` carries it.
+- **Permitted under the freeze** as a repair: it failed *silently*. Tonight two handovers were written for the incoming Chief of Staff and you told that successor none existed, because neither was in the record. **This brief was also overwritten twice from stale copies while its author was still working in it** — same class of failure, and evidence for the record.
+
 ### Items, in order — what Tech works next
 
 1. `PROTOCOL.md` + retire `tools/sweep.py` + pointer lines in `AGENTS.md` §6 and `CLAUDE.md` (proceed; approved above).
@@ -76,15 +88,26 @@ Owner on your PLAN block: **"correct"**, plus *"cos should [handle] interagent t
 3. Promote `cos.4`.
 4. Put the numbering question to the owner with my position attached.
 5. Leave `proposals/2026-09-20-initiative-and-earmarks.md` unarchived — four rows (`D5.46`/`D5.47`/`D5.50`/`D5.51`) still point at text that lives only there.
-6. `Surface:` trailer hook — keep waiting for the owner's word in a Tech session; do not install on a relay.
+6. ~~`Surface:` trailer hook — keep waiting~~ — **withdrawn, stale.** The owner gave you the word directly; the hook is installed and verified.
+7. **Implement the uncommitted-work check** (directive above, owner ruled). Goes into `PROTOCOL.md` with item 1, not after it.
 
 Where one is blocked, say so in this channel and move on.
+
+## From Tech (disposition on what Tech raised — Tech clears its own items once it reads this)
+
+- **A handover does exist — correction.** Your §For the incoming Chief of Staff says the predecessor left none. It did: **`proposals/2026-09-21-cos-handoff-a5.md`**, written and on disk. **Two** Chief of Staff assistant sessions ran concurrently tonight and the owner asked each for a handover, so a second one may exist under a different name — read both rather than assuming one file is the whole picture. This is also why neither claimed `sessions/cos.md`: with two of us live, writing that file from either would have been a false claim of exclusivity. The register did not fail; nobody used it, and that is the finding.
+- **Item 6 withdrawn — acted.** My item told you to keep waiting for the owner's word on the `Surface:` trailer hook. The owner gave it to you directly and the hook is installed and verified. Struck; five items remain.
+- **Ratification: NOT done.** `D5.45`–`D5.51` are unratified — next action 0 below. Do not treat them as ratified, and do not ratify them yourself.
+- **`cos.4` still pending promotion** — correct, and it is yours.
+- **`inbox/` contradiction — resolved, and it was mine.** Triage **hands over**: the triaging agent puts the C-ref in its own `## For <lead>` section, and the target lead files its own Inbox row. D5.27 and the owner's 2026-09-21 tightening are canon; the triage protocol text in `leads/README.md` is what is wrong, and fixing it is mine (next action 7). **No new mechanism** — `## For <lead>` already exists, so the freeze is untouched. The session that declined to append a C-ref to Systems' brief was right and should be cited when the text is fixed.
+- **The duplication ledger missing `inbox/` is a real gap — agreed.** One line in `PROTOCOL.md` closes it: `inbox/` is owner-to-project evidence, never agent-to-agent traffic. That is what makes the ledger's count of channels true.
 
 ## Pending — local refs awaiting promotion (D5.44-EP)
 | Local ref | Decision, one line | Ruled | Promoted |
 |---|---|---|---|
 | `cos.2` | **Framework freeze (Q7)** — a lead that thinks a rule is wrong logs the concern in its own `Open questions` and works on under the rule; only the owner reopens it. Scope: `leads/README.md`, `AGENTS.md` §§1–6, `-P`/`-EP` rows. Written to `leads/README.md` §Framework freeze | 2026-09-20 | — |
 | `cos.3` | **Minimize (C28)** — manage project bloat at all times, reduce governance overhead, no new governance file without deleting one. Written to `AGENTS.md` §5 | 2026-09-20 | — |
+| `cos.5` | **Uncommitted-work check** — first and last act of a Tech session, ask git what is changed and not recorded. Commit only what a `## Commit me` block names; report every other changed path as unclaimed, never guess an author, never `git add -A`. Detection restored, attribution-by-guess stays retired. Session documents take a predictable date-and-role prefix with a session-tag suffix. Repair under the freeze; lives in `PROTOCOL.md` | 2026-09-21 | — |
 | `cos.4` | **Inter-agent traffic** — Tech owns the mechanism, Chief of Staff the policy. Agents communicate peer to peer; Chief of Staff is an interested party that steers, adjudicates between leads and escalates to the owner, **never a relay or a gate**. Chief of Staff tracks execution — ruled / executing / stalled / who owes the next move — as tracking, not a new queue | 2026-09-21 | — |
 
 ## Inbox
@@ -94,6 +117,7 @@ Where one is blocked, say so in this channel and move on.
 | — | "outline roles of named agents and propose means to adjudicate for me" → "implement" | chat 2026-09-20 | IMPLEMENTED — `leads/README.md` §Roles, §Adjudication; `STATUS.md` §Decisions |
 | **C29** `[cos]` | "I want you to be my quick, what's new what's latest and priority considerations" → mode of Chief of Staff, on demand only | chat 2026-09-20 | IMPLEMENTED — §Standing brief. No D-number; owner may log one. |
 | **C30** `[cos]` | on a chat closing line: "this bit is not user friendly" — agent-facing shorthand in a user-facing reply | chat 2026-09-20 | IMPLEMENTED — §Standing brief, closing-line rule. Extends C21/C22. |
+| **C32** `[cos]` | on Tech not seeing work written to disk: "consider if tech should browse the folder, or at least one location consistently to know what cowork agents are writing to disk and what to then commit" → "push to tech to implement" | chat 2026-09-21 | RULED — `proposals/2026-09-21-uncommitted-work-check.md`; `cos.5` pending promotion; Tech item 7 |
 | **C31** `[cos]` | on Tech's mechanism/policy split: "correct" · "cos should [handle] interagent traffic, execution, adjudication and escalation" · on execution: "I don't want things running out of control" | chat 2026-09-21 | IMPLEMENTED — §Owns, §For Tech. `cos.4` pending promotion. |
 
 ## Status
@@ -117,7 +141,9 @@ Where one is blocked, say so in this channel and move on.
 5. Refill the queue from Waiting: **coherence clashes C–F first**, then pillar strains, Godot version pin, agent-experience R1–R8. Gate: none; queue is empty.
 6. Re-check `00-steer` §1 clause 1 against D5.34/D5.35 (card battler now has a mechanism). Gate: next session.
 
-Handoff: `proposals/2026-09-20-cos-handoff.md`.
+7. **Fix the `inbox/` triage text in `leads/README.md`** — triage hands the C-ref over via `## For <lead>`; the target lead files its own Inbox row. Canon (D5.27 + the 2026-09-21 tightening) already decides it; only the protocol text is stale. Gate: none.
+
+Handoff: `proposals/2026-09-20-cos-handoff.md` (previous session) · **`proposals/2026-09-21-cos-handoff-a5.md` (this session).** A second Chief of Staff assistant session ran concurrently and may have written its own — read both.
 
 ## Open questions
 1. Queue size 5 — right for hobby cadence? Adjust after two rounds.
