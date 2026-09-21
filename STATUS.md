@@ -3,7 +3,7 @@
 **Authored by Chief of Staff** (`leads/chief-of-staff.md`, Cowork) — it decides what every row says. **Kept by Tech** (Claude Code): types and commits it, transcribing without paraphrase, never re-sequencing (D5.27 → D5.29 → **D5.38**). Leads write their row in their own brief first. This page answers only: **phase · blocked on · next · what the owner must decide**.
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
-**Next free numbers:** D-number **D5.39** · C-ref **C25**. (D5.29 logged; D5.30–D5.37 logged by the combat session; D5.38 = board custody. C23 = three decks, C24 = the Mac move.) D5.24 still unlogged — resolves with Q2.
+**Next free numbers:** D-number **D5.40** · C-ref **C28**. (D5.38 = board custody; **D5.39 = guard rails + sweep, ruled in chat and logged**. C25 = Q1's earmark mechanic, C26 = vision-as-test, C27 = "distilled".) D5.24 still unlogged — folds into Q2's entry.
 **Git:** `main`, local only. Tech (Claude Code) executes git, staging by path — never `git add -A`.
 
 ## Decisions — for the owner
@@ -11,25 +11,21 @@
 Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defer to <gate>`.
 
 ```
-Q1 · Armed abilities: holding a reaction is free, so arming everything every round is the best play · blocks: 10, 12, schema v3
-  A: `hold` cost mandatory for reactions/sustained — existing vocabulary, no new mechanic   ← Systems
-  B: pay on arm, spent whether or not it fires — arming becomes a bet
-Q2 · Initiative: one bar, or nested bars (pair · team · fight) with distance moved off the bar onto the map · blocks: 11, 14, D5.24
-  A: nested bars, distance on the map (C13 + C20 as stated)   ← Systems
-  B: keep one bar as-is until the demo is played; C13/C20 wait
-Q3 · Vision paragraph (00-steer §1): the pitch, or the test everything is held against? · blocks: vision-coherence findings
-  A: pitch — pillars are the test; §1 stops being cited as canon   ← Chief of Staff
-  B: test — §1 must carry pillars 3 and 6 and be corrected now
-Q4 · Confirm the critical path below as written · blocks: nothing; settles sequence
-  A: confirm   ← Chief of Staff
-  B: amend (say what)
-Q5 · Marketing: record from now, or from the first playable demo · blocks: marketing scope
-  A: from M1 — nothing showable yet   ← Chief of Staff
-  B: from now — design-process devlog
+Q4 · Confirm the critical path below · blocks: nothing; settles sequence
+  REPROMPTED — owner: "too brief how is user to know without easy reference."
+  Chief of Staff owes a re-presentation in plain words, with the references.
+  Until then the critical path stays PROPOSED — no CONFIRMED tag is written.
 ```
 
-**Waiting** (queued as slots free): coherence clashes C–F + four readings (`c-coherence` §2–§3) · pillar strains P2a, P3a (`vision-coherence` §3) · Godot version pin · which smoketest PNGs are keepers.
-**Ruled:** —
+**Waiting** (queued as slots free): coherence clashes C–F + four readings (`c-coherence` §2–§3) · pillar strains P2a, P3a (`vision-coherence` §3) · Godot version pin · which smoketest PNGs are keepers · **guard rails + commit sweep, as one ruling** (`proposals/2026-09-20-guard-rails.md` §6 + `proposals/2026-09-20-commit-sweep.md` §C → D5.39) · agent-experience review R1–R8 (`proposals/2026-09-20-agent-experience-review.md` §4).
+**Ruled** (2026-09-20, `inbox/2026-09-20-queue-verdicts-1.md`):
+- **Q1 — A, with the owner's own mechanic** (**C25** `[sys]`): earmarks clear each round; arming earmarks that round; the earmark equals the ability's check number (D5.30). Systems logs, reconciles against D5.31 where they differ, writes into `10`/`12`.
+- **Q2 — A**: nested bars (pair · team · fight), distance on the map (C13 + C20 promoted). Systems logs and resolves **D5.24** in the same entry → `11-initiative.md`.
+- **Q3 — vision paragraph *and* pillars are together the test** for all work (**C26** `[sys] [cos]`), not pitch-only. Systems corrects `00-steer` §1 against the log; Chief of Staff cites both as the test in templates.
+- **Q5 — hold.** Marketing stays dormant and off the queue.
+- **Q6 — ruled by the addendum** (**C27**): *distilled* = written against `02-ontology.md` and `data/SCHEMA.md`, produced by synthesis across sources, carrying no STUB marker and no OPEN row at MVP scope. Cited by the `demo/README.md` gate and `40-production.md` open #3.
+- **Q7 — A, as the owner reads it**: framework freeze means leads and agents *log* concerns; the owner decides whether to change. Chief of Staff adds it to `leads/README.md`.
+- **D5.39 — guard rails, commit sweep, Chief of Staff audit**: ruled in chat and logged; the verdicts file predates it and lists it as unruled.
 
 ## Board
 
@@ -60,8 +56,9 @@ Parallel, not blocking: Art style card → Content cut-outs → M1 restyle.
 
 ## Housekeeping (Tech owns; listed here until Tech's brief carries it)
 - `decisions.md` `Acts on it` value "Production" names a retired lead — Systems' call (`Process`?); rows are history
-- `leads/admin.md`, `tools/claude-agents/admin.md`, `.claude/agents/admin.md` — tombstone/delete with D5.29
 - `leads/systems/tech.md` — add git execution + housekeeping to Owns; `CLAUDE.md` hat line; `AGENTS.md` §6 already updated
+- **Retired-role residue** (`Admin`, D5.29) still stated in live docs: `design/40-production.md` §1 tool-split row and **§3 record-discipline row** (states a rule D5.38 superseded) · `inbox/README.md` triage protocol · `tools/claude-agents/README.md` · Does-NOT-own rows in `leads/marketing.md`, `leads/systems.md`, `leads/systems/content.md`
+- **`D5.24` cited as canon in six files** and absent from `decisions.md` — `00-steer` §6, `11-initiative.md` (status table asserts DECIDED), `14-scenes-conditions.md`, `STATUS.md`, `leads/systems.md`, `leads/direction/level.md`. Folds into Q2
 - `design/40-production.md` §5 M1/M2 definitions — after Q1/Q2
 - D1–D4 not compressed into `decisions.md`
 - `rules.json` `_note`s cite v1 open numbers; `insight.reveal_timing` references the removed Arm step
