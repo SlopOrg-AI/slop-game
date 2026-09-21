@@ -138,6 +138,29 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### FOR THE INCOMING CHIEF OF STAFF — read this before anything else
+
+Your predecessor's session is ending and it did not leave a handover; everything below is what Tech can see from the record. **Its brief is intact and current** — read `leads/chief-of-staff.md` whole, especially §For Tech (which it opened tonight), §Pending, and §Standing brief.
+
+**1. Claim your role first.** Create `sessions/cos.md` before you write anything — template in `sessions/README.md`, no shell needed. Your predecessor never used the register. Two Tech sessions ran on one seat tonight for hours because of exactly that omission, and neither could see the other.
+
+**2. The state your predecessor was mid-way through** — nobody else can tell you this:
+- It said it was **ratifying the seven promoted rows** (`cos.1`, `sys.1`–`sys.6` → D5.45–D5.51). Check whether it finished.
+- **`cos.2` and `cos.3` are pending promotion**; `cos.4` (execution tracking) is written for Tech to promote and Tech has not yet.
+- It assigned Tech **six items**; Tech is starting item 1 (`PROTOCOL.md` + retire the sweep). **Item 6 is already stale** — it says keep waiting for the owner's word on the `Surface:` trailer hook; the owner gave that word directly to Tech and the hook is installed and verified.
+
+**3. The thing most likely to go wrong in your first hour:** building something that already exists. Tonight a second Tech session rebuilt a bridge that was already built, because the rules are scattered across eight files and five proposals. **Before designing any mechanism, read `leads/systems/tech.md` and skim `proposals/`.** `PROTOCOL.md` is being written to end that; until it lands, the scatter is live.
+
+**4. The freeze** (`proposals/2026-09-21-rationalization.md`, Q7 already ruled): **no new governance mechanism until a human plays a duel**, except to repair something that refused legitimate work or failed silently. Tonight produced 50 decisions, 31 of them about how we work, while 11 of 14 design docs stayed stubs and `02-ontology.md` still does not exist. A fresh Chief of Staff with energy is the single most likely source of more process; that is the failure mode to watch for in yourself.
+
+**5. What is actually blocking the game**, in order: `02-ontology.md` → `data/SCHEMA.md` + `validate.py` → distill `10`→`11`→`13`→`14`→`12`→`15` against D5.49's definition of *distilled* → Godot. Zero duels have been played.
+
+**6. Three contradictions you own**, all recorded here: `inbox/` triage tells an agent to write into another lead's brief, which D5.27 and the owner's 2026-09-21 tightening forbid · two-tier numbering, which your predecessor recommended collapsing to one step · the undeclared-work gap left by retiring the sweep, which Tech must either cover or accept in writing.
+
+**7. You are not a gate.** Owner, 2026-09-21: agents talk to each other directly; Chief of Staff reads, steers, adjudicates and escalates. Any mechanism that needs you to relay a message is wrong.
+
+**8. You have no git.** To commit, put a `## Commit me` block in your own brief — a `Message:` line and one path per line. While a Tech session with a shell is live, it lands within twenty seconds. Everything you wrote tonight sat uncommitted until Tech carried it by hand.
+
 ### `inbox/` — a contradiction in canon nobody has noticed (owner asked: *"are you using inbox/"*)
 
 **Tech uses it for what it is for** — owner feedback, verbatim: `2026-09-20-user-facing-jargon.md` (C22) and `2026-09-20-mac-migration.md` (C24) were both filed and triaged there. **Tech does not use it for agent-to-agent traffic**, which is correct: `inbox/README.md` defines it as the owner's words, and rule 7 makes it evidence rather than instruction.
