@@ -58,3 +58,19 @@ Chief of Staff was asked *"think if the end state of your proposals are fit for 
 | Handshake on launch | Chief of Staff's four-step launch routine written into `leads/chief-of-staff.md` §Launch handshake (claim seat · read Tech's channel · answer in own brief · probe with a `## Commit me` block) | Chief of Staff — done 2026-09-21 |
 | Which bridge | **The briefs** (`proposals/2026-09-21-cos-tech-handshake.md` §1: four sections in two briefs). `bridge/` retired — one bridge (routing is Chief of Staff's; both Tech proposals said so) | Tech retires `bridge/tech.md`; archive `proposals/2026-09-21-bridge.md` |
 | Handshake proposal §8 | Effectively **A** in practice (four sections exist, session-open routine exists); Tech's §6 git practice is Tech's own lane. Owner may log one D-number or leave it as practice | owner |
+
+## Addendum 3 — same sitting: the handshake binds
+
+**Owner said (verbatim):**
+> explain handshake binding as decision? it should be part of interagent protocol for sure.
+
+**Ruled:** the Chief of Staff ↔ Tech handshake is a **decision, not practice** — Tech logs one `D5.nn-P` row (one ID chain: canonical number at logging, from this file) and carries it as a section of `PROTOCOL.md`. Content of the row: `proposals/2026-09-21-cos-tech-handshake.md` §1 (four sections in the two briefs, nobody writes another lead's file) + §4 (two fixed moments, no on-demand) + the launch routine (`leads/chief-of-staff.md` §Launch handshake: claim seat · read the other's channel · answer in own brief · probe with a `## Commit me` block) + directed commits push to the remote (watcher). `bridge/` retired. Tech's §6 git practice rides in the same `PROTOCOL.md` section as Tech's own lane. **Owning lead:** Tech logs and writes the section; Chief of Staff audits the row against this file.
+
+## Addendum 4 — same sitting: simplify for fresh sessions
+
+**Owner said (verbatim):**
+> can we simplify agent files, briefs and protocols? next time user access will be spinning up fresh sessions
+
+> consider plan for A and ask tech lead for advice
+
+**Disposition:** plan written — `proposals/2026-09-21-simplify-a.md` (option A: one prompt, four reads). Not ruled; Tech's advice requested in `leads/chief-of-staff.md` §For Tech before anything lands.
