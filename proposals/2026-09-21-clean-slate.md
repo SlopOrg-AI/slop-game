@@ -119,3 +119,29 @@ Tasks that used to be leads — art execution, level, scenario, marketing — ar
 - [ ] Verify: a fresh Steward tab from the launcher reads ≤ 20 KB before its first act; the stop step renders `STATUS.md`; a test `queue/` item round-trips through the doorbell
 
 **Steward's session after that (owner present):** audit `PROTOCOL.md` and the charters against this document; seed `queue/` with the three game questions that block M1 (card model / C23 · reserve object · `02-ontology.md` scope). Then the hard stop.
+
+## 12. Naming and messaging grammar (Steward, 2026-09-21 — one section of `PROTOCOL.md`, ≤ half a page)
+
+**Ruled (owner, 2026-09-21):** the owner answers the doorbell as `Q1: A` / `Q1: B` / `Q1: A but …` / `Q1: later`. The doorbell numbers items per message, oldest first, and resolves `Q<n>` only against the list it sent in that session; the `Ruled:` line and the decision row cite the queue file, so the record is stable while the reply stays short.
+
+**Proposed, for Builder to implement unless the owner objects:**
+
+| Naming | Form | Example |
+|---|---|---|
+| Role | lowercase, one word; the tag everywhere | `designer` · `builder` · `steward` |
+| Session | `<role>-<yymmdd>-<letter>`; task session `<role>/<task>-<yymmdd>-<letter>`. Launcher assigns the letter. Used as claim-file name, worktree name, commit author string | `steward-260921-b` · `designer/art-260922-a` |
+| Worktree / branch | `wt/<session-id>`; merged to `main` at stop, deleted after | |
+| Commit message | `<session-id>: <what changed>` + `D…` / `Q…` refs. The commit is the report | `builder-260922-a: PROTOCOL.md v1 (D260921.1)` |
+| Decision | `D<yymmdd>.<n>-TAG` (S A C E P) | `D260921.2-P` |
+| Queue item | the filename is the ID and is stable | `queue/260921-card-model.md` |
+| Ask | `A<yymmdd>.<n>` per asker, in the asker's status file | `A260922.1` |
+| Document markers | unchanged, `design/` only: DECIDED / PROPOSED / OPEN · MVP / TARGET / FUTURE | |
+
+**Messaging — four verbs, nothing else**
+1. **Report** — commit message + `status/<role>.md`. Audience: everyone, at next start.
+2. **Ask** — one row in the asker's own status file: `A260922.1 → builder · <one line> · blocks: <what>`. Addressee writes `ack A260922.1 <date>` in its own file, then `done A260922.1 · <one line>`; asker deletes its row. Two files, no cross-writing; the rendered board shows both.
+3. **Escalate** — a queue file, to the owner only (§10.5).
+4. **Propose** — a proposals file, to anyone; no reply owed.
+
+**Live nudge:** a Claude Code session may message another live session only to say "read the board" — never to carry content. Nothing is lost if the addressee is not live, because the content is already on the board.
+**Task sessions** report in `status/<role>/<task>.md`; the role folds it into its own file.
