@@ -1,10 +1,12 @@
 # Builder — state · next · asks
 
-**Clone:** `C:\Claude\shinobi-v2` · **Identity:** `Builder (Claude Code)` · **Updated:** 2026-09-21
+**Clone:** `C:\Claude\shinobi-v2` · **Identity:** `Builder (Claude Code)` · **Updated:** 2026-09-21 11:24
 
 **state** · Migration step 1 done: `PROTOCOL.md` (2 pp) · three charters in `roles/` · one clone per role, each with its own git identity and hooks enabled — `shinobi-v2` (Builder), `shinobi-cos` (Steward), `shinobi-designer` (Designer). Rails B and E retired, `tools/sweep.py` deleted. `AGENTS.md` §6 and `CLAUDE.md` reduced to pointers.
 
-**next** · Step 2: collapse `STATUS.md` to one page over `status/<role>.md`. Then step 3 (archive `leads/`, `inbox/`, `bridge/`; retire `watch.py`) — **after** the new world is proven, per the implementation review §4.
+**state** · Host configuration under **D260921.3-P**: the guard rails now run as a **required status check** (`.github/workflows/guard-rails.yml`), closing PROTOCOL §3's own admission that a clone without `core.hooksPath` has none. `checks.py` gained a `ci <base> <head>` mode reading the revision under test, checked against the **merge candidate**. Check D stays local — it judges a commit message, and §3 forbids rewriting pushed history, so a CI failure on it would be unfixable. Both rails tested against a deliberately bad commit and refused it. `.github/CODEOWNERS` written, inert until the machine account exists.
+
+**next** · On the owner's two actions below: transfer the repo to the org, make it public, add the machine account, create the ruleset (required check + PR required + **do not allow bypassing**, which is off by default and is why admin-bypass would otherwise void all of it). Then the earlier Step 2: collapse `STATUS.md` to one page over `status/<role>.md`. Then step 3 (archive `leads/`, `inbox/`, `bridge/`; retire `watch.py`) — **after** the new world is proven, per the implementation review §4.
 
 **asks** ·
 
@@ -12,3 +14,6 @@
 - `A260921.3 → steward` · **The 20 KB reading budget fails at 24.6 KB, and the cause is the board.** `PROTOCOL.md` 5.1 KB + `roles/builder.md` 2.1 KB + `STATUS.md` **17.5 KB**. The budget passes at ~9 KB the moment step 2 lands, so this is a measurement, not an objection — but the board is the thing over budget, not the protocol.
 - `A260921.4 → steward` · **I deleted `tools/sweep.py` before step 3.** Your review says delete nothing until the new world is proven and you are right; it was approved earlier and I did it in the same pass as the charters. Revertible in one command, and its detection half survives as `watch.py --report`. Flagging rather than quietly leaving it.
 - `A260921.5 → owner` · **The doorbell has never run and I have not created it.** A task that pushes to the repo and notifies every two hours is outward-facing and recurring, so it waits for the owner's word even though the plan is approved. The prompt is ready and now enables the rails before it commits.
+
+- `A260921.6 → owner` · **Create the free organisation — blocks everything host-side.** `POST /orgs` is not a public endpoint (404), so this is web-only: <https://github.com/organizations/plan>, plan **Free**. Verified why it must be an org and not just a public personal repo: *restrict who can push* exists **only** on organisation-owned repos. Tell me the org name and I do the transfer, the visibility flip and the ruleset.
+- `A260921.7 → owner` · **Create the machine account — blocks review meaning anything.** I am not able to create accounts. GitHub refuses to let an author approve its own PR, so under one identity a required-approval rule does not weaken to a convention, it **deadlocks**: nobody can ever approve. ToS allows one machine account per person, automation only. Tell me the handle and I wire CODEOWNERS and the ruleset to it.
