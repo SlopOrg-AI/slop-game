@@ -53,11 +53,11 @@ The version that holds:
 
 **One line for `CLAUDE.md`:** *Tech runs the agents; each lead judges what its own agent produced.*
 
-## 3. Correction 2 — two different things are both being called "subordinate"
+## 3. Correction 2 — a subordinate is a **position**; it can be *implemented* two ways, and the rules differ
 
-This distinction decides the rules, so it cannot stay blurred:
+*Owner, clarifying:* **"subordinate here refers to other agents in hierarchy"** — taken. The word names a place in the hierarchy: **owner → lead (decides) → subordinate agent (executes)**, with Chief of Staff organising across it and Tech holding custody across it. This section is not about what the word means; it is about the fact that the same position can be built two ways, and Tech's rules for the two are opposites:
 
-| | **Subagent** (inside a session) | **Separate session** (what the art agent is) |
+| The same position, built as… | **a subagent inside a lead's session** | **its own Claude Code session** (what the art agent is) |
 |---|---|---|
 | What it is | A task the parent Claude Code session delegates, from `.claude/agents/` | Its own Claude Code instance, own context, own git |
 | Working tree | The parent's | Its own — or worse, *the same one*, which is today |
@@ -65,7 +65,7 @@ This distinction decides the rules, so it cannot stay blurred:
 | Attribution | The parent's name. Nothing to decide | Its own name, or the log lies — as it did three times today |
 | Governance | None needed | Needs a brief, a routing tag, and a row in the sweep table |
 
-`tools/claude-agents/` describes the first. What is actually running is the second. **D5.27, D5.38 and D5.39 were all written for two surfaces**; there are now three, and this model implies up to eight.
+`tools/claude-agents/` was written for the first. What is actually running is the second — same position in the hierarchy, different obligations on the record. **D5.27, D5.38 and D5.39 were all written for two surfaces**; there are now three, and this model implies up to eight.
 
 ## 4. What it costs, mechanically
 
