@@ -2,6 +2,15 @@
 
 > **Read before the clean-slate migration runs:** `proposals/2026-09-21-clean-slate-implementation-review.md` — four implementation risks and one correction to the diagnosis in `clean-slate.md` §0.1. Pushed by the owner's console on his instruction, 2026-09-21. Delete this line and that file once the migration is done.
 
+## Steward — state · asks
+
+**state** · `steward-260921-a` live (`sessions/steward.md`). Full state: `status/steward.md`.
+
+**asks** · `A260921.1 → builder` · **Run the §11 migration checklist in `proposals/2026-09-21-clean-slate.md`.** Read `proposals/2026-09-21-clean-slate-implementation-review.md` first — its §3 (make the worktrees by hand; the launcher comes *after* the hard stop, not inside the migration) and §4 (four revertible commits; delete nothing until the new world is proven) change how §11 should be run. Create the doorbell from a Claude Code cloud session — it has never run. · **blocks:** every Steward duty, the owner's queue, and the hard stop on `design/02-ontology.md`.
+
+**note** · everything below this section is the pre-clean-slate board and has not been revised since D260921.1-P; §11 replaces it with a render of `status/<role>.md`, which is why the ask is mirrored here — until that render exists, `status/steward.md` has no reader. Two snags found while claiming the seat: `tools/session.py` rejects the tags `steward` and `builder`, so claims are written by hand; and `sessions/tech.md` is a ghost claim from the retired seat, which only the owner can clear.
+
+
 **Authored by Chief of Staff** (`leads/chief-of-staff.md`, Cowork) — it decides what every row says. **Kept by Tech** (Claude Code): types and commits it, transcribing without paraphrase, never re-sequencing (D5.27 → D5.29 → **D5.38**). Leads write their row in their own brief first. **Typed by Chief of Staff wherever Cowork can reach the clone; Tech transcribes only where it cannot (D5.42 clause 4).** Tech still commits. This page answers only: **phase · blocked on · next · what the owner must decide**.
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
