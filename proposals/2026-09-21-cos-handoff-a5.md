@@ -1,8 +1,8 @@
 # Chief of Staff handoff — Cowork session `a5`, 2026-09-21
 
-**Produced by:** Chief of Staff assistant, Cowork session `a5` · **For:** the Chief of Staff successor (`cos-lead`), Tech, owner · **Status:** record, not proposal.
+**Produced by:** Chief of Staff assistant, Cowork session `a5` · **For:** the Chief of Staff successor (`cos-lead`), Tech, owner · **Status:** **FINAL** — closed 2026-09-21 after incorporating Tech's channel. §§7–10 were added in the closing pass and supersede anything earlier that disagrees.
 
-> **Two Chief of Staff assistant sessions ran concurrently tonight and the owner requested a handover from each. This is one of two.** Read both; do not merge by overwriting. This session wrote exactly two paths: `leads/chief-of-staff.md` (its own brief, every write guarded against the on-disk timestamp) and this file, whose name carries the session tag precisely so it cannot collide with the other handover. Nothing else was touched.
+> **Two Chief of Staff assistant sessions ran concurrently tonight and the owner requested a handover from each. This is one of two.** Read both; do not merge by overwriting. This session wrote four paths and no others: `leads/chief-of-staff.md` (its own brief, every write guarded against the on-disk timestamp), this file, `proposals/2026-09-21-uncommitted-work-check.md` and `proposals/2026-09-21-permissions-and-inbox.md` — each named with the session tag or a unique topic precisely so it cannot collide with the other session's work. No other lead's file was touched.
 
 ---
 
@@ -57,7 +57,7 @@ Eight things are settled enough to build on. The successor's job is to cement th
 
 ## 5. Guidance to the Chief of Staff successor
 
-**Read, in this order, and stop:** `STATUS.md` → `leads/chief-of-staff.md` (your brief, including `## For Tech`) → `leads/systems/tech.md` §For Chief of Staff → this file and the other session's handover. Nothing else unless a question turns on it. You are the most expensive surface in the project; reading the folder is how that cost stops being worth paying.
+**Read, in this order, and stop:** `leads/chief-of-staff.md` (your brief, including `## For Tech`) → `leads/systems/tech.md` §For Chief of Staff → this file and the other session's handover → `STATUS.md`. *(Order corrected in the closing pass: Tech's channel is now first in the brief's own §Reads first, because nothing pointed at it and it went unread for five hours.)* Nothing else unless a question turns on it. You are the most expensive surface in the project; reading the folder is how that cost stops being worth paying.
 
 **Claim `sessions/cos.md` before you write anything.** Neither Chief of Staff session tonight claimed it — the register exists precisely because two Tech sessions once spent hours rebuilding each other's work, and tonight two of *us* ran. Creating the file is the claim; finding one already there is the collision, and a collision is a question for the owner, not something to resolve by overwriting.
 
@@ -80,3 +80,94 @@ Eight things are settled enough to build on. The successor's job is to cement th
 Treat §2 as inputs, not open questions — the owner has ruled on the split, on traffic, and on execution tracking. Tech's four questions are **answered** in `leads/chief-of-staff.md` §For Tech; that section is the current policy statement and `PROTOCOL.md` should be consistent with it, not a second version of it. The genuinely open items are the seven in §3, and of those only #1 changes the shape of the model.
 
 The failure mode to design against is the one this project keeps producing: **a rule written in five places, and a second session rebuilding what already exists because it could not find the first.** One home per rule, one pointer from everywhere else.
+
+---
+
+## 7. Closing pass — what changed after §§1–6 were written
+
+Tech's channel moved fast in the last hour. All of this is verified by Tech, not claimed here:
+
+- **`cos.5` is implemented and verified.** `python tools/watch.py --report` lists unrecorded work, split into *declared* and *unclaimed*, and commits nothing. Detection restored, guessing still retired.
+- **On its first run it caught a flaw in Tech's own watcher** — the requesting brief was being committed *after* its request was cleared, which would have put a lead's edits under Tech's name. Fixed: the request is stripped before committing, and the brief lands in its own commit tagged to its author.
+- **The declare-to-commit path worked end to end** (`f05f9a0`, three paths, tagged `cos`). First time tonight a lead got work into the record without Tech carrying it by hand.
+- **Relayed authorization — the owner ruled Chief of Staff may carry it.** Tech's refusal of `cos.5` is withdrawn. **Four things still go to the owner in person:** irreversible or outward-facing acts (remotes, force-push, history rewrites, deletions) · Tech's own permissions and guard rails · canon (`CLAUDE.md`, `AGENTS.md`) · anything contradicting what the owner told Tech directly. Everything else Chief of Staff carries as the owner's word.
+- **Item 6 of Tech's queue is withdrawn** — the commit-attribution hook is installed and verified on the owner's direct word.
+- **Tech has read `proposals/2026-09-21-permissions-and-inbox.md` and has no objection**, correctly noting it is policy rather than mechanism and therefore not Tech's to rule on. It prefers this framing of the `inbox/` contradiction to its own.
+- **Tech's channel is now the first line of this brief's §Reads first.** That single missing line is why five hours of Tech's channel went unread. It was the highest-value edit available to this seat.
+- **One file in the tree is still unclaimed:** `proposals/2026-09-21-cos-handover-a.md`, from the other concurrent session. Session `a5` cannot declare another session's work. Session `a` names it, or the owner does, or it sits there uncommitted.
+
+## 8. What this session did NOT finish
+
+No log will tell you any of this, which is the one half of a handover nobody else can write.
+
+| Owed | State |
+|---|---|
+| **Ratify the seven promoted rows** (`D5.45`–`D5.51`) | **Zero of seven done.** Not started, not partially done |
+| `cos.2`, `cos.3` | Recorded, **not promoted** |
+| `cos.4`, `cos.5` | Recorded, not promoted. `cos.5` was implemented ahead of its promotion — correct under the ruling, but it means the record and the log disagree until Tech promotes |
+| **`C23` to Systems** | **Still owed, two days running.** Owner feedback on the three-deck draw that triage could not deliver because delivering it required writing into another lead's brief |
+| Critical path | Still `PROPOSED`. The owner reprompted it — *"too brief, how is user to know without easy reference"* — and the re-presentation was never written |
+| Triage text in `leads/README.md` | Not fixed. Resolution is decided (hand over, never cross-write); only the text is stale |
+| `sessions/cos.md` | **Never claimed.** Deliberate with two sessions live — either claim would have been false — but the register holds no record of tonight at all |
+| `STATUS.md` | **This session never read it.** Everything said about the board came from the briefs and Tech's channel. Flagged because that is exactly how a confident wrong claim gets made later |
+
+## 9. Proposed opening prompt for the successor
+
+Owner's to take, edit or ignore. It front-loads the two things that cost the most last night — an unclaimed seat and an unread channel — and it closes the session properly, which no prompt here has done before.
+
+```
+Act as Chief of Staff. You are a lead.
+
+1. Claim your seat first: create sessions/cos.md by hand — the template in
+   sessions/README.md is the whole specification. If a claim is already there
+   naming a different session, stop and ask me before writing anything.
+
+2. Read, in this order, and stop:
+   leads/chief-of-staff.md (your brief)
+   leads/systems/tech.md  §For Chief of Staff  (Tech's channel to you — it holds
+     ~30 items and a handover addressed to you; it went unread for five hours
+     last night because nothing pointed at it)
+   proposals/2026-09-21-cos-handoff-a5.md  and  proposals/2026-09-21-cos-handover-a.md
+     (two predecessor sessions ran concurrently; read both)
+   STATUS.md
+   Nothing else unless a question turns on it.
+
+3. Before writing to any file: read it from disk in the same session, and never
+   write back a copy you read minutes ago. Three of your predecessor's writes
+   were silently overwritten that way last night.
+
+4. First four acts, in order — do not start anything new until these are done:
+   a. Ratify the seven promoted rows D5.45–D5.51 against what I actually ruled,
+      then write the board rows. Zero of seven are done.
+   b. Deliver C23 to Systems. It has been owed for two days.
+   c. Put the three rulings in proposals/2026-09-21-permissions-and-inbox.md in
+      front of me, framed as options with your recommendation.
+   d. Fix the triage text in leads/README.md — triage hands over, never writes
+      into another lead's brief.
+
+5. You have no git. To get anything into the record, put a ## Commit me block in
+   your own brief naming the paths. Work sitting on disk is not in the record —
+   that is how two handovers written for you nearly went unseen.
+
+6. You may carry my authorization to Tech and Tech acts on it. Four exceptions
+   come to me in person; they are listed in Tech's channel.
+
+7. Do not build. The freeze stands: no new governance mechanism until a human has
+   played a duel, except to repair something that failed silently. What actually
+   blocks the game is design/02-ontology.md, which does not exist. If you find
+   yourself proposing a new file, register or tier, the answer is a line in a
+   brief that already exists.
+
+8. At session close: update your brief, delete sessions/cos.md to release the
+   seat, and leave a handover at proposals/<date>-cos-handoff-<session>.md saying
+   what you did not finish.
+```
+
+## 10. One judgement to carry forward
+
+The owner asked whether getting the agent setup right early pays off in cascading benefits. It does — but last night is a clean natural experiment on *which* structure pays, and the answer is narrower than the question:
+
+- **Every mechanism that paid for itself was written after a failure that had already happened.** The session register (two Tech sessions collided) · the declare-to-commit block (an hour of untracked work) · the unclaimed-work report (a handover invisible to the surface that records things) · the guard rails (each refused something real, including four of Tech's own commits).
+- **Every mechanism that cost was written in anticipation of one.** Two-tier numbering, party-tagged identifiers, agent namespaces and a promotion flow were locked before the documents they govern existed, and blinded three guard rails within the hour.
+
+So the rule to carry: **build in response to a failure that actually happened, not one you can imagine.** And bound the next pass — one more iteration on the setup, then the next session is judged on whether `design/02-ontology.md` exists, because 31 of 50 decisions so far are about how we work and zero duels have been played.
