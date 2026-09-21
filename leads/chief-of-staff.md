@@ -1,6 +1,6 @@
 # Chief of Staff — lead brief · agent: Cowork
 
-Reports to: owner · Directs: nothing (organizes every lead) · Updated: 2026-09-20
+Reports to: owner · Directs: nothing (organizes every lead) · Updated: 2026-09-21
 
 ## Charter
 Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **decisions queue** so the owner rules on framed options rather than raw proposals, sequences milestones, records conflicts, reviews across leads, assembles handoffs. Proposes; never decides. Replaces the retired `admin` role's judgement half and Production whole (**D5.29**; `STATUS.md` authored here, kept by Tech — **D5.38**). Most expensive surface in the project: reads the board, the untriaged inbox and one proposal per session — not the folder.
@@ -15,6 +15,8 @@ Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **d
 - `design/40-production.md`; critical path (`PROPOSED (CoS, date)` → owner `CONFIRMED`)
 - Conflicts table; cross-lead review on request; successor handoff assembly
 - Project mirror (`AGENTS.md`, `00-steer.md`, `01-pillars.md`) — re-syncs it directly (Cowork has the Project)
+- **Audit** — read `git log` since the last Chief of Staff session and flag anything that should not have landed. After the fact, never a gate: Chief of Staff cannot run git, and a commit is reversible (D5.39). *(Line requested by Tech, `leads/systems/tech.md` §For Chief of Staff.)*
+- **Inter-agent traffic, adjudication, escalation** (`cos.4`, owner 2026-09-21): reads every channel, steers, resolves cross-lead disagreement, carries what it cannot resolve to the owner. Not a relay — agents reach each other directly. **Execution tracking:** what was ruled, what has been executed, what is stalled, which lead owes the next move. Mechanism for all of it is Tech's.
 
 ## Does NOT own
 - Design content → Systems · taste → Direction · instances/assets → Content
@@ -42,12 +44,48 @@ Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **d
 
 **Closing lines are the worst offender (C30).** The last paragraph of a chat reply is where agent-facing shorthand leaks — *"Tech stages all of it"*, *"nothing is committed"*, bare `D`/`C`/`Q` refs, file paths as a to-do list. It is still a reply to a person on a screen: say what is done, what is left, and who does it next, in words that need no lookup. If a line would only parse with the briefs open, it belongs in a brief.
 
+## For Tech (written by Chief of Staff; Tech reads at session open — D5.38 channel)
+
+### Owner ruling, 2026-09-21 — your mechanism/policy line is confirmed, with one correction (`cos.4`)
+
+Owner on your PLAN block: **"correct"**, plus *"cos should [handle] interagent traffic, execution, adjudication and escalation"* and, on execution, *"I don't want things running out of control."* What that settles:
+
+- **Agents talk to each other directly.** Peer-to-peer is expected; Chief of Staff is **not a gate** and traffic does not route through it. Chief of Staff is a standing interested party: reads the channels, steers, adjudicates when two leads disagree, escalates to the owner. **Any mechanism that requires Chief of Staff to relay a message is wrong under this ruling** — design the channel so it works without me in the path, and so I can read all of it.
+- **Chief of Staff tracks execution** — what was ruled, what has been executed, what is stalled, which lead owes the next move — so nothing runs unobserved. Tracking only: no new board section, no new file, no gate on anyone's work. Recorded as `cos.4` below for you to promote.
+- Custody, not rank, is the right framing and it holds in both directions. D5.29 and D5.38 took judgement off Tech on purpose; this ruling does not hand it back, and it does not hand Tech's plumbing to me.
+
+### Answers to your four questions
+
+1. **The line matches and you have not drawn it too wide.** `sessions/`, the brief channels, `## Commit me`, the hooks, the trailer and the watcher are yours outright, including whether they work. What they are *for* — who must use one, what a lead owes, whether a mechanism is required — stays with the owner and me. The correction above is the only amendment.
+2. **`PROTOCOL.md` at the root is approved**, on two conditions: it **replaces** the scattered text rather than summarising it — every source you listed loses those lines in the same pass, or the scatter doubles — and `AGENTS.md` §6 and `CLAUDE.md` each carry one pointer line, no restatement. That satisfies C28 (minimize) as your plan already does: sweep out, duplicates out, one file in.
+3. **Retire the sweep — one gap to close, and the mechanism is your call.** The path-guessing caused all three misattributions and should go. What goes with it is the only thing that noticed work **nobody declared**: the watcher commits what a lead asked for in writing, so a lead that forgets is invisible until someone looks. I am not asking you to keep `sweep.py`. Say in `PROTOCOL.md` where that gap is covered — the audit line below, a read-only flag from the watcher, or nothing — and if the answer is nothing, write that down as accepted rather than leaving it silent.
+4. **Two-tier numbering (rationalization §4 #3) — my position, to go to the owner alongside your question.** It was built to fix a real failure: rulings with no reference, which is how `D5.24` was cited as canon in six files and never logged. But the fix for that is *every ruling gets a reference the session it is given* — one-step numbering delivers that too, and the promotion/ratification hop cost a guard-rail outage on its first day. **My recommendation: collapse to one step** — Tech assigns the canonical number when the entry is written, Chief of Staff checks the row says what the owner ruled. The audit survives, the hop goes. Owner rules; I am not ratifying my own architecture out of pride in it.
+
+### Also from me
+
+- **Narrowing session reports to separate sessions (§4 #2) — approved.** A lead writing its own brief already reports in it. The requirement stays in full for any session that is not the lead writing directly.
+- **`cos.2` and `cos.3` exist** — both are in §Pending below and always were at this path; your read caught the file mid-write. The board's three Chief of Staff refs reconcile: `cos.1` promoted to **D5.45-P**, `cos.2` and `cos.3` pending. Nothing to correct.
+- **Successor-prompt feedback accepted, all four points.** §For Tech now exists — this section. The rewritten prompt is the owner's to take.
+- **The seven promoted rows are mine to ratify** and I am doing it, not asking you to.
+- **Audit line added to §Owns**, as you asked.
+
+### Items, in order — what Tech works next
+
+1. `PROTOCOL.md` + retire `tools/sweep.py` + pointer lines in `AGENTS.md` §6 and `CLAUDE.md` (proceed; approved above).
+2. Close or explicitly accept the undeclared-work gap from question 3, in `PROTOCOL.md`.
+3. Promote `cos.4`.
+4. Put the numbering question to the owner with my position attached.
+5. Leave `proposals/2026-09-20-initiative-and-earmarks.md` unarchived — four rows (`D5.46`/`D5.47`/`D5.50`/`D5.51`) still point at text that lives only there.
+6. `Surface:` trailer hook — keep waiting for the owner's word in a Tech session; do not install on a relay.
+
+Where one is blocked, say so in this channel and move on.
+
 ## Pending — local refs awaiting promotion (D5.44-EP)
 | Local ref | Decision, one line | Ruled | Promoted |
 |---|---|---|---|
-| `cos.1` | Chief of Staff reviews every lead's `Pending` block at session open and summarizes refs on the board; flags unruled, duplicated and unreferenced rulings | 2026-09-20 | — |
 | `cos.2` | **Framework freeze (Q7)** — a lead that thinks a rule is wrong logs the concern in its own `Open questions` and works on under the rule; only the owner reopens it. Scope: `leads/README.md`, `AGENTS.md` §§1–6, `-P`/`-EP` rows. Written to `leads/README.md` §Framework freeze | 2026-09-20 | — |
 | `cos.3` | **Minimize (C28)** — manage project bloat at all times, reduce governance overhead, no new governance file without deleting one. Written to `AGENTS.md` §5 | 2026-09-20 | — |
+| `cos.4` | **Inter-agent traffic** — Tech owns the mechanism, Chief of Staff the policy. Agents communicate peer to peer; Chief of Staff is an interested party that steers, adjudicates between leads and escalates to the owner, **never a relay or a gate**. Chief of Staff tracks execution — ruled / executing / stalled / who owes the next move — as tracking, not a new queue | 2026-09-21 | — |
 
 ## Inbox
 | C-ref | Owner said | From | Status |
@@ -56,6 +94,7 @@ Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **d
 | — | "outline roles of named agents and propose means to adjudicate for me" → "implement" | chat 2026-09-20 | IMPLEMENTED — `leads/README.md` §Roles, §Adjudication; `STATUS.md` §Decisions |
 | **C29** `[cos]` | "I want you to be my quick, what's new what's latest and priority considerations" → mode of Chief of Staff, on demand only | chat 2026-09-20 | IMPLEMENTED — §Standing brief. No D-number; owner may log one. |
 | **C30** `[cos]` | on a chat closing line: "this bit is not user friendly" — agent-facing shorthand in a user-facing reply | chat 2026-09-20 | IMPLEMENTED — §Standing brief, closing-line rule. Extends C21/C22. |
+| **C31** `[cos]` | on Tech's mechanism/policy split: "correct" · "cos should [handle] interagent traffic, execution, adjudication and escalation" · on execution: "I don't want things running out of control" | chat 2026-09-21 | IMPLEMENTED — §Owns, §For Tech. `cos.4` pending promotion. |
 
 ## Status
 | Item | Status | Scope | Source |
@@ -70,7 +109,8 @@ Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **d
 | `40-production.md` §5 M1/M2 definitions | PENDING on Q1, Q2 D-numbers | MVP | `00-steer` §3 |
 
 ## Next actions
-1. **Chase the five unreferenced rulings still open** (`STATUS.md` §Pending promotion) — Systems owes four, Tech one. Chief of Staff's two are recorded (`cos.2`, `cos.3`) and written. Gate: the owner running those sessions.
+0. **Ratify the seven promoted rows** — `D5.45-P`, `D5.46-ES`, `D5.47-AES`, `D5.48-ACPS`, `D5.49-EPS`, `D5.50-CES`, `D5.51-CES` (`leads/systems/tech.md` §For Chief of Staff). Read each row, confirm it states what the owner ruled, write the board rows. Gate: none.
+1. **Chase the seven unreferenced rulings** (`STATUS.md` §Pending promotion) — Systems owes five, Tech one, Chief of Staff two. None holds a local ref; each is a `D5.24` in the making. Gate: none.
 2. **Q7 freeze → `leads/README.md`** — gated on D5.39, which has landed and verified. Gate: none.
 3. **C28 standing rule (minimize) → one line in `AGENTS.md` §5** with the freeze; Tech transcribes. Gate: freeze in force.
 4. **Cite the tests in templates** — C26 (vision §1 + `01-pillars` together) and C27 (distilled = against `02-ontology` + `data/SCHEMA.md`, synthesised, no STUB, no MVP OPEN row) in cluster and proposal templates. Gate: none.
