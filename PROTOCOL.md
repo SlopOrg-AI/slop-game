@@ -35,11 +35,13 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 
 ## 3. Git is the channel
 
-- **One clone per role.** You write your clone and nobody else's. A conflict is a merge, which is visible; a shared tree gives you a silent overwrite, which is what it did on 2026-09-20.
+- **One clone per role.** You write your clone and nobody else's. A conflict is a visible merge; a shared tree is a silent overwrite, which is what it did on 2026-09-20.
 - **Identity is per clone**, set at creation: `git config user.name "Builder (Claude Code)"` — and the **machine account's** no-reply as the email, never the owner's (D260921.5-P). The name separates the roles for `git log --author`; the email says this was an agent, not the owner. Rail F refuses the mix.
 - **Guard rails are per clone too:** `git config core.hooksPath tools/hooks` on every clone, including cloud ones. A clone without it has none.
 - **Stage by path. Never `git add -A`.** A wrong name in history is permanent and invisible to every check.
 - **Never rewrite pushed history.** Fix a bad commit with another commit.
+
+**What binds, and what does not.** The ruleset is real and has no bypass actors: no direct push to `main`, no force-push, no deletion, `rails` must pass — for every account including the owner's. **Not enforced: that a human looked.** Approvals are **0** by decision (D260921.8-P), so review here is a **convention**. The rails are a net, not a lock — a pull request that weakens `checks.py` is checked by its own weakened copy — and `CODEOWNERS` is inert while code-owner review is off. What remains is attributable history, and the owner reading it.
 
 **What the rails refuse** (`tools/hooks/`): a duplicate decision ID · a raw `.png` under `proposals/art/` that is neither a contact sheet nor under `accepted/` · a commit adding a decision row whose message does not name that ID · a log whose rows no longer parse · a commit authored by the owner.
 
@@ -69,6 +71,7 @@ A fresh session's required reading is `CLAUDE.md` + this file + its charter + `S
 
 ## Changes
 
+- **2026-09-21** Approvals stay at 0 (D260921.8-P): review here is a convention and §3 says so, because an approval requirement and D260921.7-P cannot both hold — GitHub has no per-path approval count
 - **2026-09-21** Roles decide their own mechanism (D260921.7-P): game decisions S/A/C stay the owner's, P/E become the owning role's, and no role may widen its own remit
 - **2026-09-21** `CLAUDE.md` stops auto-loading `AGENTS.md`; required reading becomes lookup-on-demand, halving what a session pays before it works
 - **2026-09-21** Agents merge, too (D260921.6-P): a merge commit carries the clicker's name, so the owner approves and an agent merges — his name then means "he approved this", nothing else
@@ -79,5 +82,3 @@ A fresh session's required reading is `CLAUDE.md` + this file + its charter + `S
 - **2026-09-21** Guard rail B retired: date IDs have no next-free counter, and it would have refused every commit under the new scheme
 - **2026-09-21** Decision IDs become `D<yymmdd>.<n>-<TAG>`; local refs, promotion, ratification and next-free counters all go
 - **2026-09-21** Asks between roles move to `STATUS.md` sections; `## For`/`## From` channels, `bridge/` and the handshake retire
-- **2026-09-21** Steward steers the doorbell, Builder builds it; the doorbell enables the rails before it commits
-- **2026-09-21** Builder no longer edits another role's brief at all; `## Commit me` stays only until every role is on Claude Code with its own clone, then goes with the watcher
