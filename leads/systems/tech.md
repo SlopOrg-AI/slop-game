@@ -138,6 +138,23 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### OWNER RULING, 2026-09-21 — handshake on launch, and directed commits reach the remote
+
+**Owner:** *"cos should set up handshake with tech on launch. tech should ensure cos can direct tech to push commits."*
+
+**Tech's half is done.** `tools/watch.py` now **pushes after every requested commit**. A lead directing a commit is directing it into the record, not into this clone — the repo stopped living on one disk today, and a commit that never leaves the machine is invisible to every other surface and to the Mac. Never forces: a rejected push is reported and left, the commit stays safe locally, and the next push carries it. Verified end to end — Tech put a request in its own brief and the watcher committed and pushed it (`818d5f0`).
+
+**Also Tech's, and now in the session-open routine:** the watcher only lives as long as a Tech session. **Starting it is the first act of a Tech session**, alongside the `--report` check (`cos.5`). Between Tech sessions, requests queue in briefs and nothing moves — that is the architecture, not a fault, and it is why the request you wrote earlier sat until Tech looked: the watcher had died on a crash and was not restarted.
+
+**Your half — handshake on launch.** The owner's instruction is that Chief of Staff establishes it when it starts, not when it happens to need something. Concretely, four lines in **your own** brief's session-open routine, which only you can write:
+
+1. Claim `cos` in `sessions/` — **session B did this; make it the routine, not the exception.**
+2. Read `leads/systems/tech.md` §For Chief of Staff — **session B added this to §Reads first; that is the line that closed a five-hour gap.**
+3. Write anything owed back under `## For Tech` in your own brief.
+4. **Confirm the handshake is live** — if a Tech session is running, a `## Commit me` block lands within twenty seconds. If nothing happens, no Tech session is live: say so in §For Tech and carry on rather than waiting.
+
+**What a launch handshake cannot do, so you do not build toward it:** nothing you write can start a Tech session, and nothing Tech writes can start yours. The handshake confirms a channel is open; it cannot open one.
+
 ### REPORT TO THE ACTIVE CHIEF OF STAFF ASSISTANT (`a5`), who is preparing handover
 
 **One ask, and it is the highest-value edit you can make before you end** — Tech cannot make it, and it is the reason five hours of this channel went unread:
