@@ -52,6 +52,10 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 | Repo guard rails — 4 hook checks + `.claude/settings.json` | **DECIDED D5.39 — installed and verified** (each check refused a real attempt, 2026-09-20) | — | `proposals/2026-09-20-guard-rails.md` |
 | Commit sweep — `tools/sweep.py` | **DECIDED D5.39 — installed; first run swept 5 files (Cowork)** | — | `proposals/2026-09-20-commit-sweep.md` |
 | Hook bug: first version failed **open** on Windows cp1252 | FIXED same session — UTF-8 read, and a check that cannot run now refuses | — | commit `b75c9c4` |
+| Guard rail B caught **real work**, not a test — refused the D5.40 commit while the board still advertised D5.40 | WORKING as designed, 2026-09-20 | — | commit `5a2eba4` |
+| Git remote (C24) | **DECIDED D5.40 — execution BLOCKED on the owner**: no `gh` on this machine, no credential helper, no global identity. Tech does not create accounts or handle credentials | — | `proposals/2026-09-20-two-machine-migration.md` |
+| Retired-role residue (`admin`) | CLEARED 2026-09-20 across eight live docs; history left alone | — | X-list / board |
+| Stub redirects (X2) + required-reading stamps (X3) | DONE — nine stubs, two proposals; redirects regenerate idempotently | — | `proposals/2026-09-20-agent-experience-response.md` |
 | `.claude/settings.json` reach | **PARTIAL by construction** — binds Claude Code's Write/Edit tools; a shell edit (`python`, `sed`) is not covered. The hooks are what actually hold | — | this session |
 | `.gitattributes` / `.gitignore` | present; art-binary policy **DECIDED D5.28** — contact sheets + selected boards only, raw gens ignored. `.gitignore` updated 2026-09-20; existing history left alone | — | D5.28 |
 | Godot version | OPEN — pin 4.7 (archive) or latest 4.x | MVP | successor-review §4 #5 |
@@ -65,7 +69,14 @@ All technical execution. Builds what Systems specifies and Direction/Content han
    `decisions.md` `Acts on it` value "Production" → Systems' call; which committed
    smoketest PNGs are keepers → Art/Content, then Tech untracks the rest; D1–D4
    compression → Systems. Tech executes, each named lead decides. Gate: per item.
-3. Write `data/validate.py` alongside `SCHEMA.md` (same commit as schema v3). Gate: `SCHEMA.md` drafted.
+3. **The remote (D5.40) — owner's move, then two of mine.** Owner creates an **empty
+   private** repository. Tech then: `git remote add origin <url>` · `git push -u origin main`
+   · verify from a second directory (`git log --oneline | wc -l` against the board) and
+   report before the PC disk is treated as disposable. Gate: the repository existing.
+4. **The v1 rescue** (`proposals/2026-09-20-two-machine-migration.md` §2) — the text behind
+   **D1–D4** and the v1 bible §7 exist only on the PC disk and are cited by canon. Pushing does
+   not substitute: what is not in the repo cannot be pushed. Gate: owner says what scope to copy.
+5. Write `data/validate.py` alongside `SCHEMA.md` (same commit as schema v3). Gate: `SCHEMA.md` drafted.
 4. Headless engine first, data-driven sheets/pools/tags/materials from commit 1; golden test rewritten for v2 rules; then loadout → duel → table-view stub, one commit per screen, owner plays before the next. Gate: action 3 + Systems action 3.
 
 Pipeline follow-ups (low priority, none blocking M1; detail in the handoff §8):
@@ -78,7 +89,7 @@ Qwen-Image-Edit 2511 reported better at character consistency (21 GB).
 |---|---|
 | Either machine | repo, git, docs, `data/`, Godot (when the gate clears), `tools/annotate/server.py` |
 | **PC only** | ComfyUI + Qwen weights on the RTX 5090; `tools/workflows/build_workflows.py`, `tools/annotate/regional_edit.py` (Windows paths compiled in) |
-| **Blocking** | no git remote exists — `proposals/2026-09-20-two-machine-migration.md` §1 |
+| **Blocking** | no git remote exists. **Ruled D5.40**; blocked on the owner creating an empty private repo — no `gh`, no credentials here, and Tech handles neither |
 | **Deadline** | the text behind D1–D4 and the v1 bible live only on the PC disk and are cited by canon — §2 of the same file. Rescue before the disk goes |
 
 Successor handoff checklist: that file §7. Board custody after the move: `proposals/2026-09-20-board-custody.md` (Chief of Staff and owner rule).
@@ -96,6 +107,8 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 - **D5.38 landed.** `leads/chief-of-staff.md` §Owns was amended by Tech to match the log (canon rule 2: a doc that disagrees with `decisions.md` is wrong). Re-word it as you like — the brief is yours; the amendment was hygiene, not judgement.
 - **D5.39 landed** — guard rails and the sweep are live. Two board consequences, held for the owner's approval before Tech transcribes: the next-free line must move past **D5.39** (check B refuses commits touching `decisions.md` or `STATUS.md` until it does), and the Waiting list entry for guard rails + sweep is now Ruled.
 - **Conflict #4's wording is superseded.** It reads "Chief of Staff sole writer, Tech commits"; D5.38 split that into author and keeper.
+- **Verdicts round 1 transcribed** (`inbox/2026-09-20-queue-verdicts-1.md`). Two reconciliations Tech did **not** decide: (a) the addendum rules **Q6** while the Board-rows section still lists it reprompted — transcribed as ruled, per the addendum; (b) the file says "Not yet ruled: D5.39", which the owner ruled in chat before the file was written to disk — transcribed as ruled and logged.
+- **No CONFIRMED tag was written.** Q4 *was* the confirm-the-critical-path question and came back **reprompted** ("too brief how is user to know without easy reference"). The critical path stays `PROPOSED`. Chief of Staff owes the re-presentation.
 - **Sweep flags, 2026-09-20:** none. `STATUS.md` was classified as custody, not swept — it carries your pending edit and the owner is approving the rows first.
 - **Add to your own brief when you next write it** (Tech does not edit it): *"Audit — read `git log` since the last Chief of Staff session and flag anything that should not have landed. After the fact, never a gate: Chief of Staff cannot run git, and a commit is reversible (D5.39)."*
 - Housekeeping line "`leads/admin.md`, `tools/claude-agents/admin.md`, `.claude/agents/admin.md` — tombstone/delete with D5.29" is **done**; all three deleted, no dangling pointers. Strike it.
