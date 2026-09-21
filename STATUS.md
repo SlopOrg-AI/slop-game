@@ -28,13 +28,23 @@ Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defe
 - **D5.44-EP — agents number in their own namespace; Tech promotes.** A lead records a ruling the session it is given, in its own brief's `Pending` block, under `sys.12` / `art.3` / `cos.7`. Tech assigns the canonical `D5.nn-TAG` and keeps the local ref as a permanent alias — nothing is renumbered, and a doc may cite the local ref immediately. `Pending` is a queue; promoted entries leave it. Supersedes D5.43-P's interim numbering note.
 - **D5.43-P — decision IDs carry an interested-party tag; one log, no lead copies.** Suffix letters **S** Systems · **A** Art/Direction · **C** Content · **E** Engine/tooling · **P** Process. Replaces the `Acts on it` column. A per-lead log is a tag match, never a second file. The number is identity, the tag is routing and is corrigible in place. `decisions.md` leaves the `AGENTS.md` §2 reading table — matched, never read. **All 42 rows retro-tagged and the column deleted, 2026-09-20.**
 - **D5.42 — numbering authority to Tech; no addenda; three-step chain.** Tech assigns and adjudicates D-numbers at the moment of logging and reports to Chief of Staff to ratify; numbers are settled when logged and never renumbered; an `inbox/` file is a capture buffer that closes once logged, and no doc cites an addendum. Chain: owner rules → Tech logs with a number → Chief of Staff ratifies and writes the board row. Amends D5.38 (board custody conditional).
+- **D5.45-P … D5.51-CES — RATIFIED (Chief of Staff, 2026-09-21)** against the verdict sources (`inbox/2026-09-20-queue-verdicts-1.md` Q1/Q2/Q3/Q6; owner verbatim in `proposals/2026-09-20-initiative-and-earmarks.md` §1; `cos.1` in the Chief of Staff brief). Each row states what the owner ruled. Read the rows in `decisions.md` §Session 6m; the board keeps no copy.
+  - **D5.45-P** `cos.1` — Pending review at session open, refs only.
+  - **D5.46-ES** `sys.1` — earmarks per-round, equal the check (Q1, C25).
+  - **D5.47-AES** `sys.2` — nested bars pair·team·fight, distance on the map; absorbs `D5.24`, which gets no number (Q2). Propagation detail is Systems' rule text, owed to `11`.
+  - **D5.48-ACPS** `sys.3` — vision paragraph and pillars together are the test (Q3, C26).
+  - **D5.49-EPS** `sys.4` — *distilled* defined (Q6 + addendum, C27).
+  - **D5.50-CES** `sys.5` — a multi-attribute ability earmarks every attribute it checks, in full.
+  - **D5.51-CES** `sys.6` — attribute is capability, reserve is economy; supersedes D3.4. Systems' synthesis of the owner's "make the statement cohere"; percentages illustrative. Flagged for an owner glance, not held.
+  - Four of the seven (D5.46/47/50/51) are **logged, not closed** — rule text still only in the proposal; `10`/`11`/`12` owed on an owner instruction. Do not archive the proposal.
+- **C33 — RULED 2026-09-21** (`inbox/2026-09-21-permissions-rulings.md`): **1: A** — one path-keyed permissions table, into `PROTOCOL.md` (`cos.6`) · **2: B** — Inbox tables deleted from every brief, `inbox/` the only home for the owner's words, each lead deletes its own (`cos.7`) · **3: "reconsider new rules now"** — reading unconfirmed, nothing built. **Handover A approved** — Tech commits `proposals/2026-09-21-cos-handover-a.md` as session `a`'s.
 - **C28 — standing rule: minimize.** Manage project bloat at all times; reduce governance overhead. Every lead, every proposal. No new governance file without deleting one. Chief of Staff writes one line into `AGENTS.md` §5 with the freeze; Tech transcribes.
 
 ## Pending promotion (Chief of Staff reviews every `Pending` block at session open — D5.45-P)
 
 **Refs only. To read one, open the brief** — the board keeps no second copy (D5.42-EP cl.2).
 
-**Promoted 2026-09-21** (Tech, `decisions.md` §Session 6m) — nothing outstanding from these
+**Promoted 2026-09-21** (Tech, `decisions.md` §Session 6m) — **ratified 2026-09-21 (Chief of Staff)**; nothing outstanding from these
 | Local ref | Canonical |
 |---|---|
 | `cos.1` | **D5.45-P** |
@@ -42,17 +52,18 @@ Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defe
 
 `D5.47-AES` absorbs **`D5.24`**, which gets no number of its own; six files still assert `D5.24` as DECIDED and re-point when the rule text lands. `D5.51-CES` supersedes **D3.4**.
 
-**Recorded, awaiting promotion** — 3
+**Recorded, awaiting promotion** — 9
 | Ref | Brief |
 |---|---|
-| `cos.2` `cos.3` | `leads/chief-of-staff.md` — **rewritten 2026-09-21 after being lost, see below** |
+| `cos.2` `cos.3` `cos.4` `cos.5` `cos.6` `cos.7` | `leads/chief-of-staff.md` — `cos.2`/`cos.3` rewritten 2026-09-21 after being lost, see below |
+| `sys.7` `sys.8` | `leads/systems.md` |
 | `tech.1` | `leads/systems/tech.md` |
 
 **Ruled but holding no reference** — none.
 
 ## Working tree is not committed — read before writing anything here
 
-**Nothing from 2026-09-20 or 2026-09-21 is in git.** `HEAD` = `8d8a877` on `main`, `origin/main` the same. Every file listed above, `design/decisions.md` §Session 6m included, exists only in the working tree.
+**Partly stale — Tech reports (its channel, 2026-09-21) that commits resumed via the watcher (`f05f9a0`, first `## Commit me` landing).** Unverified from this seat: Chief of Staff cannot run git. What is in the record is what `git log` says, not this paragraph. Still unclaimed as of Tech's last report: `proposals/2026-09-21-cos-handover-a.md` (session `a`'s; only `a` or the owner can name it).
 
 **Confirmed cause of the lost writes** (Tech, `proposals/2026-09-21-cos-tech-handshake.md` §5): a `git reset --hard HEAD~1` run to drop an empty test commit also discarded uncommitted work in the shared tree. It is not a mystery and it was not a second author. **Three CoS writes were destroyed this way** — `AGENTS.md` §5 (C28), `leads/README.md` §Framework freeze, and `leads/chief-of-staff.md` rows `cos.2`/`cos.3`, all rewritten 2026-09-21 — plus the `§Action register` in `inbox/2026-09-20-queue-verdicts-1.md`, not restored.
 
@@ -64,7 +75,7 @@ Answer in chat or here: `Q1: A` · `Q1: A, but …` · `Q1: reject` · `Q1: defe
 
 | Lead | Phase | Blocked on | Next action | Updated |
 |---|---|---|---|---|
-| Chief of Staff | 7 refs promoted; 3 destroyed writes rebuilt; nothing unreferenced | **a Tech session with a shell** — tree uncommitted | ratify §Session 6m; route the two handshake proposals; refill queue from Waiting | 2026-09-21 |
+| Chief of Staff | **D5.45–D5.51 ratified**; C23 handed to Systems; **C33 ruled 1: A, 2: B** — own Inbox table deleted, template + triage text updated; ruling 3 reading unconfirmed | owner: C33 ruling 3, one word · Tech: promote `cos.2`–`cos.7`, commit handover A · every lead: delete its own Inbox table at next session | re-present the critical path (Q4 reprompt still owed); route the two handshake proposals; refill queue from Waiting | 2026-09-21 |
 | Systems | C1→D5.25, C3→D5.26; coherence pass done — 20 C-refs → 9 statements, 7 clashes + 4 readings open | — (Q1, Q2 ruled) | log Q1/Q2 D-numbers (D5.24 resolves in Q2's entry); write `11-initiative.md`; correct `00-steer` §1 (C26); cite C27 in the `demo` gate | 2026-09-20 |
 | ↳ Content | v1-schema data on disk; no accepted board | schema v3 · accepted style card | hold; then Kaede/Genzo × 2 poses | 2026-09-20 |
 | ↳ Tech | **owes: promote local refs (D5.44-EP); add its own `Pending` block; D5.33-EP tag looks wrong** — guard rails + sweep live and verified (D5.39); **remote pushed and verified** (D5.40); **v1 rescued** into `sources/v1/`; retired-role residue cleared; stub redirects + required-reading stamps landed (X2, X3); Godot gated | — | **take D-numbering from D5.43** (D5.42 cl.1) + fold cl.2 into `tech.md`/`inbox/README.md`, collapse hooks A/B; **D5.41 P3+P4**; Q9 canon-clone field; tag the critical path block CONFIRMED; Mac clone, then `validate.py` with schema v3 | 2026-09-20 |
@@ -87,7 +98,10 @@ Parallel, not blocking: Art style card → Content cut-outs → M1 restyle.
 | 3 | Tech ↔ Chief of Staff | art binaries in git | RESOLVED — D5.28; residue in Waiting |
 | 4 | Cowork ↔ Claude Code | two writers of `STATUS.md` | RESOLVED — D5.27/D5.29/**D5.38**; Chief of Staff **authors** the board, Tech **keeps** it |
 
-## For Systems — two tag corrections (D5.43-P cl.4: corrigible in place, no renumber)
+## For Systems
+- **C23 delivered** — cards as three decks drawn by choice, owner verbatim in `inbox/2026-09-20-three-deck-draw.md`. Handed over in `leads/chief-of-staff.md` §For Systems (triage hands over; it never writes your brief). Systems files its own Inbox row. Owed since 2026-09-20.
+
+### Two tag corrections (D5.43-P cl.4: corrigible in place, no renumber)
 - **`D5.33-EP`** — escape as a fifth exit condition is a **game rule**, tagged from an `Acts on it` cell that read "Tech + Production". Almost certainly wants **S**.
 - **`D5.2-PS`** — carries a Production clause and an Engine clause; the log's own header says a row carrying two is really two rows.
 

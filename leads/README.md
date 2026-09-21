@@ -49,8 +49,8 @@ A lead records an owner ruling **the session it is given**, in its own brief's `
 ## Triage protocol (owner feedback → leads)
 
 1. Owner writes feedback verbatim to `inbox/YYYY-MM-DD-<topic>.md` (or says it in chat; the agent in session files it there).
-2. Chief of Staff (or the agent in session, on owner instruction): split into **C<n>** items (next free in `STATUS.md`), tag, append to the target lead's **Inbox** table with the owner's words. No paraphrase that changes meaning. Stamp the file `TRIAGED YYYY-MM-DD`.
-3. Lead session: work the inbox → synthesis → `proposals/<date>-<topic>.md` → Chief of Staff queues it (§Adjudication) → owner rules → lead records a **local ref** in its `Pending` block, edits the doc, updates its status table. Tech promotes the ref to a D-number (§Local refs).
+2. Chief of Staff (or the agent in session, on owner instruction): split into **C<n>** items (scan `STATUS.md` and `inbox/` for the last used — no counter is advertised, D5.42 cl.1), tag, stamp the file `TRIAGED YYYY-MM-DD` with a one-line tag index at the top. **Triage hands over; it never writes into another lead's brief** (D5.27 cl.1, tightened by the owner 2026-09-21: no agent edits another lead's brief for any reason). **Briefs carry no Inbox table (C33 ruling 2, owner 2026-09-21, `cos.7`): `inbox/` is the only home for the owner's words.** A lead's session-open read is *"`inbox/` files carrying my tag since I last looked."* Where triage wants to point a lead at an item explicitly (a cluster reading, a cross-lead flag), the pointer goes in the triaging agent's **own** brief under `## For <lead>`. *(Text corrected 2026-09-21 on the owner's instruction. The old step said "append to the target lead's Inbox table", which canon forbade; `inbox/2026-09-20-three-deck-draw.md` records a session rightly declining to do it, and its item, C23, went undelivered for two days as a result.)*
+3. Lead session: read `inbox/` for its tag → synthesis → `proposals/<date>-<topic>.md` → Chief of Staff queues it (§Adjudication) → owner rules → lead records a **local ref** in its `Pending` block, edits the doc, updates its status table. Tech promotes the ref to a D-number (§Local refs).
 4. Cross-lead conflict → same queue; the two positions are options A and B.
 
 ## Adjudication — how decisions reach the owner
@@ -76,7 +76,7 @@ Scope: everything in this file, `AGENTS.md` §§1–6, and the process decisions
 
 ## Single-writer rules (D5.27 → D5.29 → D5.38)
 
-1. **A lead's own brief** has one writer: that lead, on whichever surface runs it. Chief of Staff asks and transcribes; never edits.
+1. **A lead's own brief** has one writer: that lead, on whichever surface runs it. Chief of Staff asks and transcribes; never edits. *(C33 ruling 1, owner 2026-09-21, `cos.6`: the full who-writes-what table is `proposals/2026-09-21-permissions-and-inbox.md` §3 until `PROTOCOL.md` carries it; this section then reduces to a pointer.)*
 2. **`STATUS.md`** has one **author** — Chief of Staff, which decides what every row says, what is blocked, and the queue order — and one **keeper**, Tech, which types the file and commits it (D5.38). Tech transcribes without paraphrase that changes meaning and never re-sequences; where it disagrees, it writes a note in its own brief. Where Chief of Staff can reach a clone it may type its own rows; where it cannot, it hands them to Tech. Drift guard: read from disk in-session before any write; never force-write. No second copy anywhere (Project mirror included).
 
    *Why the wording changed:* the rule has to survive prompting moving to a Mac, where the surface that authors the board may not be the surface that can reach git. One head decides, one hand types.
@@ -106,7 +106,6 @@ Briefs, proposals, the board, triage, handoffs: **agent-facing** — compress, c
 # <Lead> — lead brief
 Reports to: owner | Directs: … | Updated: YYYY-MM-DD
 ## Charter · ## Owns · ## Does NOT own · ## Reads first
-## Inbox     | C-ref | Owner said | From | Status |
 ## Pending   | Local ref | Decision, one line | Ruled | Promoted |   ← D5.44-EP; cleared as Tech promotes
 ## Status    | Item | Status | Scope | Source |
 ## Next actions (≤3, each gated) · ## Open questions · ## Escalates to
