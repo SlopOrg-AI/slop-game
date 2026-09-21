@@ -53,7 +53,7 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 | Commit sweep — `tools/sweep.py` | **DECIDED D5.39 — installed; first run swept 5 files (Cowork)** | — | `proposals/2026-09-20-commit-sweep.md` |
 | Hook bug: first version failed **open** on Windows cp1252 | FIXED same session — UTF-8 read, and a check that cannot run now refuses | — | commit `85263f2` |
 | Guard rail B caught **real work**, not a test — refused the D5.40 commit while the board still advertised D5.40 | WORKING as designed, 2026-09-20 | — | commit `06fd397` |
-| Git remote (C24) | **DECIDED D5.40** — `origin` = the owner's **private** `chris-egan/slop-game`, added 2026-09-20. Push pending the owner's GitHub sign-in; Tech does not handle credentials | — | `proposals/2026-09-20-two-machine-migration.md` |
+| Git remote (C24) | **DONE 2026-09-20 (D5.40)** — pushed to the owner's private `chris-egan/slop-game` and **verified**: a fresh clone from GitHub matches this one commit for commit (48), same tree hash, 132 files, only the no-reply author. The repo no longer exists on one disk | — | `proposals/2026-09-20-two-machine-migration.md` |
 | **History rewritten once, before any push** (2026-09-20) | all 39 commits re-authored to the owner's GitHub no-reply address; every hash changed. Safe only because nothing was pushed and no second clone existed. Backup of the pre-rewrite `.git` kept in the session scratchpad until the push verifies | — | owner, chat |
 | GitHub CLI | installed 2026-09-20 (`winget`, v2.101.0). Sign-in is the owner's | — | owner, chat |
 | Retired-role residue (`admin`) | CLEARED 2026-09-20 across eight live docs; history left alone | — | X-list / board |
@@ -71,13 +71,11 @@ All technical execution. Builds what Systems specifies and Direction/Content han
    `decisions.md` `Acts on it` value "Production" → Systems' call; which committed
    smoketest PNGs are keepers → Art/Content, then Tech untracks the rest; D1–D4
    compression → Systems. Tech executes, each named lead decides. Gate: per item.
-3. **The remote (D5.40) — owner's move, then two of mine.** Owner creates an **empty
-   private** repository. Tech then: `git remote add origin <url>` · `git push -u origin main`
-   · verify from a second directory (`git log --oneline | wc -l` against the board) and
-   report before the PC disk is treated as disposable. Gate: the repository existing.
-4. **The v1 rescue** (`proposals/2026-09-20-two-machine-migration.md` §2) — the text behind
-   **D1–D4** and the v1 bible §7 exist only on the PC disk and are cited by canon. Pushing does
-   not substitute: what is not in the repo cannot be pushed. Gate: owner says what scope to copy.
+3. ~~The remote~~ **done and verified** (D5.40). ~~The v1 rescue~~ **done** — `sources/v1/`.
+   Remaining from migration §6: **step 5, the Mac clone** — clone, enable the hooks, re-seed
+   `.claude/agents/`, run the annotator once, and report the commit count back. Gate: the Mac.
+4. **D1–D4 compression** is now Systems' whenever it wants it — no longer a deadline, because
+   `sources/v1/docs/combat-scene-decisions.md` is in the repo. Tech executes, Systems judges.
 5. Write `data/validate.py` alongside `SCHEMA.md` (same commit as schema v3). Gate: `SCHEMA.md` drafted.
 4. Headless engine first, data-driven sheets/pools/tags/materials from commit 1; golden test rewritten for v2 rules; then loadout → duel → table-view stub, one commit per screen, owner plays before the next. Gate: action 3 + Systems action 3.
 
@@ -91,7 +89,7 @@ Qwen-Image-Edit 2511 reported better at character consistency (21 GB).
 |---|---|
 | Either machine | repo, git, docs, `data/`, Godot (when the gate clears), `tools/annotate/server.py` |
 | **PC only** | ComfyUI + Qwen weights on the RTX 5090; `tools/workflows/build_workflows.py`, `tools/annotate/regional_edit.py` — they now read `SHINOBI_COMFY_ROOT` and **fail with one clear sentence** off-machine (step 6) · the 177 MB v1 Godot archive, not rescued |
-| **Blocking** | no git remote exists. **Ruled D5.40**; blocked on the owner creating an empty private repo — no `gh`, no credentials here, and Tech handles neither |
+| **Remote** | `origin` → the owner's private `chris-egan/slop-game`. Pushed and verified 2026-09-20. Every clone runs `git config core.hooksPath tools/hooks` on arrival |
 | **Deadline** | ~~the text behind D1–D4 and the v1 bible live only on the PC disk~~ **DONE 2026-09-20** — `sources/v1/` holds all of v1 `docs/` and the v4 wireframe; every stub and the D1–D4 note now cite the in-repo copies |
 
 Successor handoff checklist: that file §7. Board custody after the move: `proposals/2026-09-20-board-custody.md` (Chief of Staff and owner rule).
@@ -111,6 +109,8 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 - **Conflict #4's wording is superseded.** It reads "Chief of Staff sole writer, Tech commits"; D5.38 split that into author and keeper.
 - **Verdicts round 1 transcribed** (`inbox/2026-09-20-queue-verdicts-1.md`). Two reconciliations Tech did **not** decide: (a) the addendum rules **Q6** while the Board-rows section still lists it reprompted — transcribed as ruled, per the addendum; (b) the file says "Not yet ruled: D5.39", which the owner ruled in chat before the file was written to disk — transcribed as ruled and logged.
 - **No CONFIRMED tag was written.** Q4 *was* the confirm-the-critical-path question and came back **reprompted** ("too brief how is user to know without easy reference"). The critical path stays `PROPOSED`. Chief of Staff owes the re-presentation.
+- **Board rows owed from the migration work** (handed to the owner for approval first): remote pushed and verified · v1 rescued · the "D1–D4 not compressed" housekeeping line loses its deadline but stays open · Tech's blocker is no longer the owner.
+- **History was rewritten once**, before the first push, re-authoring all commits to the owner's no-reply address. Anything quoting a pre-2026-09-20 commit hash is stale; two in this brief were repointed.
 - **Sweep flags, 2026-09-20:** none. `STATUS.md` was classified as custody, not swept — it carries your pending edit and the owner is approving the rows first.
 - **Add to your own brief when you next write it** (Tech does not edit it): *"Audit — read `git log` since the last Chief of Staff session and flag anything that should not have landed. After the fact, never a gate: Chief of Staff cannot run git, and a commit is reversible (D5.39)."*
 - Housekeeping line "`leads/admin.md`, `tools/claude-agents/admin.md`, `.claude/agents/admin.md` — tombstone/delete with D5.29" is **done**; all three deleted, no dangling pointers. Strike it.
