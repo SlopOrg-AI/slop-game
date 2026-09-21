@@ -1,6 +1,6 @@
 # PROTOCOL — how we work
 
-Kept by Builder. **Two pages, hard.** A change to how we work is one dated line in §Changes, and must delete a line somewhere. Framework: `proposals/2026-09-21-clean-slate.md` (owner-approved, D260921.1-P).
+Kept by Builder. **The cap is what a session loads, not bytes on disk** (D260921.9-P). A change to how we work is one dated line in §Changes, and must delete a line somewhere — with no size limit, that is the only bloat control left. Framework: `proposals/2026-09-21-clean-slate.md` (owner-approved, D260921.1-P).
 
 The game is not in here. `design/` and `data/` are the game; `design/decisions.md` is the arbiter and outranks this file.
 
@@ -60,17 +60,18 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 
 ## 6. Budgets
 
-| File | Limit |
-|---|---|
-| `PROTOCOL.md` | 2 pages |
-| `STATUS.md` | 1 page |
-| `roles/<role>.md` | 1 page each |
-| A fresh session, before it works | ≤ 20 KB |
+**The budget is context loaded, not bytes on disk** (D260921.9-P). A file may be as long as it needs to be, provided nothing loads it that does not need it.
 
-A fresh session's required reading is `CLAUDE.md` + this file + its charter + `STATUS.md`. `AGENTS.md` is looked up, not loaded.
+| | Limit |
+|---|---|
+| A fresh session, before it works | **≤ 20 KB** |
+| Anything auto-loaded into every session | justify it, or move it behind a lookup |
+
+Required reading is `CLAUDE.md` + this file + your charter + `STATUS.md` — 13 KB today. Everything else is looked up: `AGENTS.md`, `design/`, and `decisions.md`, which is matched and never read whole. A file read on demand costs nothing until it is needed; a file auto-loaded costs every session, whatever its length.
 
 ## Changes
 
+- **2026-09-21** Budgets measure context loaded, not file size (D260921.9-P): per-file page caps retire, the ≤ 20 KB a session reads before it works stands, and anything auto-loaded must justify itself
 - **2026-09-21** Approvals stay at 0 (D260921.8-P): review here is a convention and §3 says so, because an approval requirement and D260921.7-P cannot both hold — GitHub has no per-path approval count
 - **2026-09-21** Roles decide their own mechanism (D260921.7-P): game decisions S/A/C stay the owner's, P/E become the owning role's, and no role may widen its own remit
 - **2026-09-21** `CLAUDE.md` stops auto-loading `AGENTS.md`; required reading becomes lookup-on-demand, halving what a session pays before it works
