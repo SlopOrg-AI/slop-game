@@ -14,7 +14,7 @@ Disable: `git config --unset core.hooksPath`. Bypass one commit: `--no-verify`.
 | Check | Hook | Refuses |
 |---|---|---|
 | A | pre-commit | the same `D#.#` on two logged rows in `design/decisions.md` |
-| B | pre-commit | `STATUS.md` advertising a next-free D-number that is already used — only on commits touching `decisions.md` or `STATUS.md`, so a stale board never blocks unrelated work |
+| ~~B~~ | — | **retired 2026-09-21.** Date IDs (`D260921.n`) have no next-free counter, and a board still advertising `D5.x` reads as lower than any date ID, so it would have refused every commit from the new scheme's first day |
 | C | pre-commit | a `.png` under `proposals/art/` that is not `_contact-sheet.png` and not under `accepted/` (D5.28, including `git add -f`) |
 | D | commit-msg | a commit that adds a `D#.#` row without naming it in the message |
 | E | commit-msg | a commit that does not name the surface that wrote it: `Surface: <tag>` |
