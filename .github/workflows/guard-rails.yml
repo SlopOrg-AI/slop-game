@@ -1,0 +1,39 @@
+# The guard rails as a required status check (D260921.3-P).
+#
+# PROTOCOL 3: "Guard rails are per clone too - a clone without that line has
+# none." That is the gap this closes. The same checks.py the hooks run is run
+# here, where no clone-local git config can skip it and no --no-verify reaches
+# it. The hooks stay: they fail in a second, on the machine, before the commit.
+#
+# Checked against the MERGE CANDIDATE, not the branch. For a pull_request event
+# github.sha is the merge commit of head into base, so a PR that is clean alone
+# and dirty once merged fails here rather than after landing.
+name: guard rails
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  rails:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # full history: the rail diffs against the merge base
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: guard rails
+        env:
+          # via env, not inline ${{ }}, so nothing interpolates into the shell
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          MERGE_SHA: ${{ github.sha }}
+        run: python tools/hooks/checks.py ci "$BASE_SHA" "$MERGE_SHA"

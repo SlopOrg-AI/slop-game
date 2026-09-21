@@ -1,0 +1,11 @@
+# Review is enforced by identity, not by convention (D260921.3-P).
+#
+# GitHub refuses to let an author approve their own pull request. That is the
+# whole mechanism: agents implement as the machine account, so they cannot
+# approve their own work, and approval has to come from this account. With one
+# shared identity there was nothing here to enforce - every agent was the owner.
+#
+# Consequence to know: a PR opened BY @chris-egan cannot be approved by
+# @chris-egan either. Work is meant to arrive from the machine lane; a PR
+# raised from this account needs a second reviewer or an admin merge.
+* @chris-egan

@@ -14,6 +14,10 @@ Four checks, all string scans over two files. No dependencies.
   E  RETIRED 2026-09-21 - each clone now sets its own git identity, so
      `git log --author` separates the roles and the trailer is redundant.
 
+Modes: pre-commit, commit-msg, and `ci <base-sha> <head-sha>` (D260921.3-P),
+which runs A and the blind check as a required status check so the rails
+bind a clone that never ran `git config core.hooksPath`.
+
 Escape hatch: git commit --no-verify. The hooks are a net, not a lock.
 """
 
@@ -86,12 +90,34 @@ def staged_paths():
     return [p for p in (out or "").splitlines() if p]
 
 
-def content(path, staged):
-    """Staged version of a file if it is staged, else the HEAD version.
+def range_paths(base, head):
+    """Paths a pull request touches, for the CI rail (D260921.3-P).
 
-    A file absent from HEAD (new, unstaged) is genuinely empty here, so that
-    lookup is optional; a staged file must be readable or we refuse.
+    Three-dot: what the PR side added since the merge base, not everything
+    that landed on main meanwhile. The file contents the checks read come from
+    SOURCE (the head revision), not from the index, so the rail does not depend
+    on the runner having staged anything.
     """
+    out = git("diff", "--name-only", "--diff-filter=ACMR", "%s...%s" % (base, head))
+    return [p for p in (out or "").splitlines() if p]
+
+
+# Set by the ci mode to the revision under test. The hooks leave it None and
+# keep reading the index, which is what a pre-commit rail must judge. CI has no
+# meaningful index -- depending on one made the rail pass a file it had not
+# read, which is the same failure check_blind() exists to refuse.
+SOURCE = None
+
+
+def content(path, staged):
+    """The version of a file this run is judging.
+
+    SOURCE when the caller named a revision, else the staged version if it is
+    staged, else HEAD. A file absent from the revision is genuinely empty here,
+    so that lookup is optional; a staged file must be readable or we refuse.
+    """
+    if SOURCE is not None:
+        return git("show", "%s:%s" % (SOURCE, path), required=False) or ""
     if staged:
         return git("show", ":" + path)
     return git("show", "HEAD:" + path, required=False) or ""
@@ -199,15 +225,31 @@ def check_d(staged, message):
     return 0
 
 
+def check_blind_or_a_or_c(paths):
+    """The tree-level rails, shared by the commit hook and CI."""
+    return check_blind(paths) or check_a(paths) or check_c(paths)
+
+
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "pre-commit"
+    if mode == "ci":
+        # Check D is deliberately absent here. It reads a commit message, and
+        # PROTOCOL 3 forbids rewriting pushed history - so a CI failure on a
+        # bad message would be unfixable except by force. It stays a local
+        # rail, where it can still be obeyed.
+        global SOURCE
+        base, head = sys.argv[2], sys.argv[3]
+        SOURCE = head
+        return check_blind_or_a_or_c(range_paths(base, head))
     staged = staged_paths()
     if mode == "commit-msg":
         path = sys.argv[2]
         with open(path, encoding="utf-8") as fh:
             message = fh.read()
         return check_d(staged, message)
-    return check_blind(staged) or check_a(staged) or check_c(staged)
+    return check_blind_or_a_or_c(staged)
+
+
 
 
 if __name__ == "__main__":
