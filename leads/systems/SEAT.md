@@ -1,4 +1,10 @@
-# The Tech seat — who holds it right now
+# RETIRED 2026-09-21 — superseded by `sessions/`
+
+This file solved one role. The owner asked for a system covering **every** lead and subordinate, so the claim now lives in `sessions/tech.md` with the rest: one file per role, claimed at session start after the owner confirms which role you are, released at session close. See `sessions/README.md`. Two mechanisms for one job is the mistake this project made with the bridge an hour earlier; kept as a tombstone rather than deleted so a reader who was sent here finds the way on.
+
+---
+
+# The Tech seat — who held it when this file was written
 
 **Held by:** Claude Code session **`Review needed [6eb758]`**, on the owner's PC.
 **Claimed:** 2026-09-21, ~00:20, on the owner's word in that session: *"you are tech lead - that was already established correct?"* — confirming D5.29.
