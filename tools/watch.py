@@ -292,21 +292,53 @@ def sweep_once(no_push=False):
     return acted
 
 
+def set_root(path):
+    """Point every path in this module at another clone.
+
+    One clone per surface is the only real fix for two surfaces racing one
+    tree (proposals/2026-09-20-execution-agents.md section 4.2). Cowork has no
+    git, so its clone cannot push itself - a Tech session watches it from here
+    and commits there, which keeps the custody arrangement and removes the
+    shared working tree that caused the duplicate commit.
+    """
+    global ROOT, CONSUMED
+    ROOT = Path(path).resolve()
+    CONSUMED = ROOT / ".git" / "watch-consumed.json"
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--interval", type=int, default=20)
     ap.add_argument("--once", action="store_true")
+    ap.add_argument("--root", action="append", default=[],
+                    help="another clone to watch as well; repeatable. A surface "
+                         "with its own clone cannot race this one's tree")
     ap.add_argument("--no-push", action="store_true",
                     help="commit but do not push; the default is to push")
     ap.add_argument("--report", action="store_true",
                     help="list unrecorded work, declared vs unclaimed; commit nothing")
     a = ap.parse_args()
     if a.report:
-        return report()
+        codes = []
+        for r in [str(ROOT)] + [x for x in a.root if Path(x).is_dir()]:
+            set_root(r)
+            if len(a.root) > 0:
+                print("--- %s ---" % r)
+            codes.append(report())
+        return max(codes) if codes else 0
     print("watching %d briefs for '## Commit me' (every %ds) - Ctrl-C to stop"
           % (len(BRIEFS), a.interval))
+    roots = [str(ROOT)] + [r for r in a.root if Path(r).is_dir()]
+    for r in a.root:
+        if not Path(r).is_dir():
+            print("skipping --root %s: not a directory" % r)
     while True:
-        sweep_once(a.no_push)
+        for r in roots:
+            set_root(r)
+            if len(roots) > 1:
+                sweep_once.__doc__  # keep the reference honest
+            sweep_once(a.no_push)
+        set_root(roots[0])
         if a.once:
             return 0
         time.sleep(a.interval)
