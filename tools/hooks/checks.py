@@ -22,11 +22,18 @@ import sys
 DECISIONS = "design/decisions.md"
 BOARD = "STATUS.md"
 
-# A logged decision row has six columns: ID | Acts on it | Decision |
-# Rationale | Supersedes | Doc. The deferred table elsewhere in the file
-# has three, and must not be mistaken for a logged decision - D5.24 lives
+# A logged decision row starts with its ID and has at least five columns.
+# The three-column deferred table must not be mistaken for one - D5.24 lives
 # there precisely because it is NOT logged.
-DECISION_ROW = re.compile(r"^\|\s*\*{0,2}(D\d+\.\d+)\*{0,2}\s*\|")
+#
+# The ID may carry an interested-party suffix (D5.41-EP). Only the number is
+# captured: under "the log stays single", D5.41-EP and D5.41-P are the same
+# number twice and check A should say so.
+DECISION_ROW = re.compile(r"^\|\s*\*{0,2}(D\d+\.\d+)(?:-[A-Za-z]+)?\*{0,2}\s*\|")
+# Anything that merely looks like a decision row. If this finds rows and
+# DECISION_ROW finds none, the parser has gone blind and must say so rather
+# than report a clean file - see check_blind().
+LOOKS_LIKE_ROW = re.compile(r"^\|\s*\*{0,2}D\d")
 MIN_PIPES = 6
 
 NEXT_FREE = re.compile(r"Next free numbers:.*?D-number\s*\*{0,2}(D\d+\.\d+)", re.S)
@@ -109,6 +116,30 @@ def fail(check, message, fix, origin="D5.39"):
     print("  fix: %s" % fix, file=sys.stderr)
     print("", file=sys.stderr)
     return 1
+
+
+def check_blind(staged):
+    """Refuse when the log has rows we can no longer parse.
+
+    Checks A, B and D all read DECISION_ROW. On 2026-09-20 the log was
+    reformatted to carry party suffixes and the pattern matched nothing -
+    three rails passed every commit while seeing an empty file. A guard rail
+    that cannot read its input must refuse, not report all clear.
+    """
+    text = content(DECISIONS, DECISIONS in staged)
+    loose = sum(1 for line in text.splitlines()
+                if LOOKS_LIKE_ROW.match(line) and line.count("|") >= MIN_PIPES)
+    if loose and not decision_ids(text):
+        return fail(
+            "blind - the log changed shape",
+            "%d rows in %s look like decisions and none of them parse."
+            % (loose, DECISIONS),
+            "checks A, B and D all read that pattern, so they would pass "
+            "everything while seeing nothing. Update DECISION_ROW in "
+            "tools/hooks/checks.py to the log's new shape, in the same commit "
+            "that changes the log.",
+        )
+    return 0
 
 
 def check_a(staged):
@@ -232,7 +263,7 @@ def main():
         with open(path, encoding="utf-8") as fh:
             message = fh.read()
         return check_d(staged, message) or check_e(message)
-    return check_a(staged) or check_b(staged) or check_c(staged)
+    return check_blind(staged) or check_a(staged) or check_b(staged) or check_c(staged)
 
 
 if __name__ == "__main__":
