@@ -1,5 +1,8 @@
 # Session 6 handoff — 2026-09-20 (Cowork → successor agent)
 
+> **REQUIRED READING until `design/02-ontology.md` exists** (X3, agent-experience response). Canon rule 2 still applies: this file is `proposals/`, non-canon — where it and `design/decisions.md` disagree, **the log wins**. The stamp goes when R7 lands.
+
+
 **Produced by:** Claude (Cowork), end of session · **Status:** `PROPOSED` inbox document. Nothing here is canon until the owner logs D-numbers. **Read this before touching `design/10`–`14`, `data/`, or `demo/`** — the session reconsidered several v1/v2 combat foundations and the stubs must not be distilled from the v1 bible as-is.
 
 Companion files from this session (all `proposals/`, all PROPOSED):

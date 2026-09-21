@@ -1,5 +1,8 @@
 # Proposal — ontology draft: attribute hierarchy + naming schema
 
+> **REQUIRED READING until `design/02-ontology.md` exists** (X3, agent-experience response). Canon rule 2 still applies: this file is `proposals/`, non-canon — where it and `design/decisions.md` disagree, **the log wins**. The stamp goes when R7 lands.
+
+
 **Produced by:** Claude (Cowork), 2026-09-20, from the owner's design session of the same day · **Targets:** new `design/02-ontology.md`, `data/SCHEMA.md`, schema v3 · **Status:** `PROPOSED` — every term below is **PROVISIONAL** until a D-number locks it. Nothing here supersedes a decision; it names what the session discussed so 10–14 and the data can cite one vocabulary.
 
 ---
