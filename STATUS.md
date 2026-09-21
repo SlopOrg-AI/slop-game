@@ -6,14 +6,17 @@ One page, by budget. Detail lives in `status/<role>.md`; this board carries only
 
 ## For the owner — rule on these (≤ 5)
 
-**Q1 · Nobody can change CI any more.** The machine account's token has no **Workflows**
-permission by design, so an agent cannot edit `.github/workflows/`; `D260921.5-P` says you
-do not commit. Between them, `guard-rails.yml` is now unwritable by anyone. *Blocks:* the
-Godot check when it comes off the back burner, and any future rail that needs a workflow
-change. **Options:** grant the token Workflows write (an agent can then rewrite the rails
-that police it) · carve out `.github/**` as the one place you do commit · a separate
-credential used only for workflow changes. **Recommendation:** the carve-out — it is rare,
-deliberate, and keeps the property that agents cannot disarm their own guard rails.
+**Q1 · Three settings, all needing admin or the token — an agent can set none of them.**
+CI was unwritable by anyone: agents had no **Workflows** permission and `D260921.5-P` says the
+owner does not commit. The permission was withholding nothing real — the rail logic is
+`tools/hooks/checks.py`, an ordinary repo file, and a pull request runs its own copy of it
+(PR #9 proved this). So the boundary moves to review, which is where it was actually held.
+Done on this branch: `CODEOWNERS` now gives `/.github/` and `/tools/hooks/` to the owner alone.
+**Owed by the owner:** (a) grant the token **Workflows: Read and write** · (b) set
+`require_code_owner_review: true` · (c) set `required_approving_review_count: 1`, now safe
+because the owner authors no pull requests. *Blocks:* the Godot check, and any future rail.
+*Unverified:* whether code-owner review does anything with the count at 0 — set both together
+and check, rather than assume.
 
 **Q2 · Does a merge commit count as you committing?** GitHub authors merge commits as
 whoever clicks merge. Rail F excludes them, treating a merge as a review action rather than
