@@ -111,5 +111,13 @@ The attribute economy, the terminology change that makes abilities cards, and th
 
 **Stated expiry (`commit-sweep` §A.4):** the sweep assumes **one disk, two surfaces, one working tree**. When prompting moves to a Mac and the Tech successor holds the only clone, Cowork writes no file into that tree and the sweep is inert — not wrong, empty. Its replacement is a git remote plus each surface committing its own work. Hooks, settings and the audit survive the move unchanged.
 
+## Session 6h — 2026-09-20 (the repo gets a remote, Claude Code as Tech · owner present)
+
+| ID | Acts on it | Decision | Rationale | Supersedes | Doc |
+|---|---|---|---|---|---|
+| D5.40 | Tech + Production | **The repo gets a private remote, and is pushed before prompting moves to the Mac** (C24). Host and account are the owner's; Tech adds the remote and pushes, and **never creates an account or handles credentials**. Order matters: the **v1 rescue** (`proposals/2026-09-20-two-machine-migration.md` §2 — the text behind D1–D4, and the v1 bible §7 that `12-reactions-passives.md` still needs) happens while the PC disk is reachable; pushing does not substitute for it, because what is not in the repo cannot be pushed. Every clone enables the guard rails on arrival: `git config core.hooksPath tools/hooks` (D5.39). | Owner this session: *"log the C24 decision, create the private remote and push"*, after *"i want to move prompting to mac laptop. pc disk will not be accessible"* (C24). Canon rule 1 makes this folder canon; 28 MB of history existed on one disk and nowhere else, so an unreachable disk meant no project. | "Git: local only for now" (owner, leads-structure session — never D-logged) | `leads/systems/tech.md`, `README.md`, migration proposal |
+
+**Execution status, 2026-09-20:** **blocked on the owner.** This machine has no GitHub CLI (`gh` not installed) and no configured git credential helper or global identity, so Tech cannot create the repository. Creating accounts and entering credentials are not Tech's to do at all. The owner creates an **empty private** repository; Tech then runs `git remote add origin <url>` and `git push -u origin main`, and reports the verification (`git log --oneline | wc -l` from a second directory) before the PC disk is treated as disposable.
+
 ## Open (carried, see `00-steer.md` §6)
 Variance mechanism · D2.13 interleave · ~~slots for passives (A/B/C)~~ (closed by D5.25) · wound regions · N-vs-M initiative · selector/targeting · title · UI numbers · Mind attribute · stack vs trick-taking for reactions · minion group as roster vs abstract · cultures as knowers vs modifiers · opponent team sheet under info system.

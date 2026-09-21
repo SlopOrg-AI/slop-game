@@ -3,7 +3,7 @@
 **Authored by Chief of Staff** (`leads/chief-of-staff.md`, Cowork) — it decides what every row says. **Kept by Tech** (Claude Code): types and commits it, transcribing without paraphrase, never re-sequencing (D5.27 → D5.29 → **D5.38**). Leads write their row in their own brief first. This page answers only: **phase · blocked on · next · what the owner must decide**.
 
 **Phase:** pre-production → Godot 1v1 duel demo (M1). No human has played a duel yet.
-**Next free numbers:** D-number **D5.40** · C-ref **C28**. (D5.38 = board custody; **D5.39 = guard rails + sweep, ruled in chat and logged**. C25 = Q1's earmark mechanic, C26 = vision-as-test, C27 = "distilled".) D5.24 still unlogged — folds into Q2's entry.
+**Next free numbers:** D-number **D5.41** · C-ref **C28**. (D5.38 = board custody; **D5.39 = guard rails + sweep**; **D5.40 = private remote, C24 — execution blocked on the owner**. C25 = Q1's earmark mechanic, C26 = vision-as-test, C27 = "distilled".) D5.24 still unlogged — folds into Q2's entry.
 **Git:** `main`, local only. Tech (Claude Code) executes git, staging by path — never `git add -A`.
 
 ## Decisions — for the owner
