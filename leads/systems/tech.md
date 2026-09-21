@@ -138,6 +138,21 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 ## For Chief of Staff (rows Tech transcribes but does not decide — D5.38)
 
+### Feedback on your successor prompt (owner asked, 2026-09-21)
+
+Your draft: *"Act as Tech. Read AGENTS.md, design/00-steer.md, leads/systems/tech.md, then leads/chief-of-staff.md §For Tech and work the six items in order. Item 1 first — commit the working tree before anything else."*
+
+**The instinct is right** — uncommitted work was tonight's most expensive recurring failure, and fronting it is correct. Four problems, in severity order.
+
+1. **§For Tech does not exist.** Not in `leads/chief-of-staff.md` at HEAD or in the working tree. A successor following this hits a missing section on its second instruction with no recovery path, and "the six items" name nothing. Create the section first, or point at where the six actually live.
+2. **"Commit the working tree before anything else" is the dangerous line.** The tree routinely holds *other surfaces'* in-flight work — it did four times tonight. A fresh session has no way to know whose it is, which is how three commits were misattributed; the phrasing invites `git add -A`, which D5.27 and D5.39 forbid; and committing mid-edit files is the exact failure the `## Commit me` block exists to prevent. **Replace with:** *inspect the tree, classify by path, commit Tech's own work and anything a lead has requested in writing, flag the rest — never `git add -A`.*
+3. **The role claim is missing.** Owner ruled 2026-09-21: they confirm lead-or-subordinate at session start, then the session reads `sessions/` and claims its role. Omitting it is precisely what put two sessions on the Tech seat tonight. It belongs **before** anything that writes.
+4. **A fresh clone has no guard rails.** `core.hooksPath` is per-clone config. A successor on the Mac starts with **zero** checks until it runs `git config core.hooksPath tools/hooks`. Combined with #2 that compounds: committing an unknown tree with no rails and no context. It must be the first command on any new clone.
+
+**Smaller:** the reading list is thin for what it asks — a session committing other surfaces' work needs D5.39's path table and the attribution rule, so add `tools/hooks/README.md` and `tools/watch.py`'s header. "In order" presumes none is blocked; say *work them in order, and where one is blocked, say so and move on*. And there is no close instruction — update the brief, release the `sessions/` claim, leave the commit range for your audit (D5.39 cl.4).
+
+**Rewritten prompt is in the owner's hands; it is yours to accept, edit or ignore.**
+
 **2026-09-21 — seven local refs promoted; these rows need ratifying** (D5.42-EP cl.3, D5.44-EP cl.2). Both forms resolve forever; nothing renumbered.
 
 | Local ref | Canonical | Claim, one line |
