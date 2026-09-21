@@ -44,6 +44,8 @@ SURFACES = ("cos", "sys", "content", "tech", "art", "level", "scenario", "mkt")
 SURFACE_LINE = re.compile(r"^Surface:[ 	]*(\S+)[ 	]*$", re.M)
 SURFACE_LOOSE = re.compile(r"^[ 	]*surface[ 	]*:", re.M | re.I)
 GENERATED = ("merge ", "revert ", "fixup!", "squash!")
+# A to D come from D5.39. E does not - it is tonight's trailer ruling, unlogged.
+E_ORIGIN = "owner 2026-09-20, not yet logged"
 
 
 def git(*args, required=True):
@@ -100,9 +102,9 @@ def as_tuple(d):
     return (int(major), int(minor))
 
 
-def fail(check, message, fix):
+def fail(check, message, fix, origin="D5.39"):
     print("", file=sys.stderr)
-    print("  guard rail %s (D5.39) refused this commit" % check, file=sys.stderr)
+    print("  guard rail %s (%s) refused this commit" % (check, origin), file=sys.stderr)
     print("  %s" % message, file=sys.stderr)
     print("  fix: %s" % fix, file=sys.stderr)
     print("", file=sys.stderr)
@@ -205,6 +207,7 @@ def check_e(message):
             "%s. Tags are the routing tags in leads/README.md: %s. "
             "Three surfaces share one git identity here, so this line is the only "
             "attribution a machine can read." % (hint, ", ".join(SURFACES)),
+            origin=E_ORIGIN,
         )
 
     tag = m.group(1)
@@ -216,6 +219,7 @@ def check_e(message):
             "use one of: %s (optionally '<tag>/N' when one lead runs two surfaces). "
             "The list is the routing tags in leads/README.md; if a new surface is real, "
             "that file and this hook change together." % ", ".join(SURFACES),
+            origin=E_ORIGIN,
         )
     return 0
 
