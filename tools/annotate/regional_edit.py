@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import sys
 import time
@@ -24,7 +25,16 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ART = (HERE / ".." / ".." / "proposals" / "art").resolve()
-COMFY = Path(r"C:\tools\ComfyUI_windows_portable\ComfyUI")
+# ComfyUI runs on the PC with the 5090 and nowhere else (D5.40); override with
+# SHINOBI_COMFY_ROOT. Checked at import so an off-Windows run says why.
+COMFY = Path(os.environ.get("SHINOBI_COMFY_ROOT", r"C:\tools\ComfyUI_windows_portable\ComfyUI"))
+if not COMFY.is_dir():
+    raise SystemExit(
+        "ComfyUI not found at %s.\n"
+        "Image generation runs on the PC with the RTX 5090 and nowhere else; this\n"
+        "script cannot work from another machine. Set SHINOBI_COMFY_ROOT if it is\n"
+        "installed somewhere else on this one." % COMFY
+    )
 INPUT_DIR = COMFY / "input"
 HOST = "http://127.0.0.1:8188"
 

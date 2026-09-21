@@ -12,9 +12,28 @@ from __future__ import annotations
 
 import json
 import os
+import pathlib
 
-COMFY_WF = r"C:\tools\ComfyUI_windows_portable\ComfyUI\user\default\workflows"
-REPO_WF = r"C:\Claude\shinobi-v2\proposals\art"
+# Paths. ComfyUI runs on the PC with the 5090 and nowhere else (D5.40 and
+# proposals/2026-09-20-two-machine-migration.md section 3). The repo path is
+# derived, so this works from any clone including the Mac successor's.
+# Override the ComfyUI location with SHINOBI_COMFY_ROOT.
+_COMFY_ROOT = pathlib.Path(
+    os.environ.get("SHINOBI_COMFY_ROOT", r"C:\tools\ComfyUI_windows_portable\ComfyUI")
+)
+COMFY_WF = str(_COMFY_ROOT / "user" / "default" / "workflows")
+REPO_WF = str(pathlib.Path(__file__).resolve().parents[2] / "proposals" / "art")
+
+
+def require_comfy():
+    """Fail loudly and specifically when ComfyUI is not on this machine."""
+    if not _COMFY_ROOT.is_dir():
+        raise SystemExit(
+            "ComfyUI not found at %s.\n"
+            "Image generation runs on the PC with the RTX 5090 and nowhere else.\n"
+            "If it is installed elsewhere, set SHINOBI_COMFY_ROOT to its ComfyUI folder."
+            % _COMFY_ROOT
+        )
 
 # --- settings -------------------------------------------------------------
 # cfg 4.0: the Qwen-Image model card uses true_cfg_scale=4.0 and Segmind's guide
