@@ -21,8 +21,6 @@ bind a clone that never ran `git config core.hooksPath`.
 Escape hatch: git commit --no-verify. The hooks are a net, not a lock.
 """
 
-import json
-import os
 import re
 import subprocess
 import sys
@@ -240,37 +238,23 @@ def check_d(staged, message):
     return 0
 
 
-def pr_author():
-    """Who opened this pull request, read from the Actions event payload.
-
-    Read from GITHUB_EVENT_PATH rather than passed in as a workflow input:
-    the machine account's token has no Workflows permission, by design, so an
-    agent cannot edit guard-rails.yml. A rail that needed a YAML change in
-    order to arrive could not be added by the lane it polices.
-    """
-    path = os.environ.get("GITHUB_EVENT_PATH")
-    if not path or not os.path.exists(path):
-        return None
-    with open(path, encoding="utf-8") as fh:
-        event = json.load(fh)
-    return ((event.get("pull_request") or {}).get("user") or {}).get("login")
-
-
 def check_f(base, head):
-    """Refuse owner-authored commits inside an agent's pull request.
+    """Refuse commits authored by the owner. He does not commit (D260921.5-P).
 
-    Keyed on who OPENED the pull request, not on the branch name -- a naming
-    convention is evaded by picking another name, and this rail is worth
-    nothing if stepping around it is a rename.
+    The first version of this rail only refused them in pull requests opened by
+    someone else, because it assumed the owner sometimes commits himself. He
+    ruled that he does not, which removes the carve-out and with it the hole:
+    an agent could have opened nothing and simply committed as him. Now there
+    is no condition -- an owner-authored commit is wrong wherever it appears.
+
+    That also drops the dependency on the Actions event payload and on branch
+    naming, so there is less to be wrong about and nothing to evade.
 
     Merge commits are excluded: GitHub authors those as whoever clicks merge,
-    which is legitimately the owner and would otherwise cry wolf every time.
+    which is a review action rather than authorship. If the owner is to stop
+    appearing in the history entirely, agents have to do the merging -- that is
+    a ruling, not something this rail should quietly decide.
     """
-    author = pr_author()
-    if author is None or author == OWNER_LOGIN:
-        # Not a pull request event, or it is the owner's own. His commits are
-        # his to make; the rail exists to catch them turning up in ours.
-        return 0
     out = git("log", "--no-merges", "--format=%h %ae", "%s..%s" % (base, head))
     bad = [
         ln for ln in (out or "").splitlines()
@@ -278,12 +262,11 @@ def check_f(base, head):
     ]
     if bad:
         return fail(
-            "F - owner-authored commit in an agent pull request",
-            "opened by @%s, but these commits are authored by the owner: %s"
-            % (author, "; ".join(bad)),
+            "F - owner-authored commit",
+            "the owner does not commit, but these are authored by him: %s"
+            % "; ".join(bad),
             "agents commit as the machine account. Check `git config user.email` "
-            "in this clone; it should be the machine account no-reply address. "
-            "If the owner really did write these, he opens the pull request.",
+            "in this clone; it should be the machine account no-reply address.",
             origin=F_ORIGIN,
         )
     return 0
