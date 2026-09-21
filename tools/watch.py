@@ -39,9 +39,12 @@ it is the authoring surface asking, in writing, for its own work. That is the
 authorisation A.1's blanket refusal stands in for. Paths not named are still
 refused, and every guard rail still runs on the commit.
 
-The watcher removes the block after a successful commit - it is a request, not
-a document. That is the one edit any surface may make to another's brief, and
-it exists because the alternative is the request firing twice.
+TECH NEVER EDITS THE REQUESTING BRIEF. The block is a standing slot, not a
+message to be consumed: once a request has been carried out it is remembered by
+fingerprint and ignored, and its owner clears or changes it whenever it likes.
+An earlier version stripped the block, which made Tech a second writer of a
+file its owner also writes - and on 2026-09-21 a save from a stale buffer
+overwrote that strip and the request ran twice. One writer per file.
 """
 
 import argparse
@@ -158,15 +161,7 @@ def handle(brief, surface, no_push=False):
     message, paths, start, end = found
     fp = fingerprint(message, paths)
     if already_consumed(brief, fp):
-        print("")
-        print("--- %s: SAME request again, not committing (%s) ---"
-              % (surface, time.strftime("%H:%M:%S")))
-        print("  This exact request was already carried out. The brief was")
-        print("  written back from a buffer that still held the block, which")
-        print("  overwrote the strip - the drift guard in your own brief says")
-        print("  read the file from disk in the same session before any write.")
-        print("  Remove the block, or change it if the request is genuinely new.")
-        return False
+        return False  # standing slot, already carried out - silent by design
     print("\n--- %s asks to commit (%s) ---" % (surface, time.strftime("%H:%M:%S")))
     if not message or not paths:
         print("REFUSED: the block needs a 'Message:' line and at least one path.")
@@ -182,13 +177,14 @@ def handle(brief, surface, no_push=False):
         print("nothing to commit.")
         return False
 
-    # Strip the consumed request BEFORE committing, so the requesting lead's own
-    # brief edits land in ITS commit under ITS name. The first version excluded
-    # the brief and cleared it afterwards in a separate commit of Tech's, which
-    # would have attributed a lead's own writing to Tech - the exact error this
-    # mechanism exists to prevent, built into the mechanism.
-    stripped = (text[:start] + text[end:]).rstrip() + chr(10)
-    (ROOT / brief).write_text(stripped, encoding="utf-8", newline=chr(10))
+    # Tech does NOT edit the requesting brief. Earlier versions stripped the
+    # consumed block out of it, which made Tech a second writer of a file its
+    # owner also writes - and on 2026-09-21 the owner saved that brief from a
+    # buffer still holding the block, overwrote the strip, and the request was
+    # carried out twice. The fingerprint above makes the strip unnecessary: a
+    # request that has already been carried out is ignored, so the block can sit
+    # in the brief as a standing slot and its owner clears or changes it
+    # whenever it likes. One writer per file, no exception for Tech.
     if brief not in live:
         live.append(brief)
 
@@ -205,15 +201,13 @@ def handle(brief, surface, no_push=False):
                "-m", chr(10).join(body), check=False)
     print(done.stdout or "", done.stderr or "")
     if done.returncode != 0:
-        # Put the request back exactly as it was: a refused commit must leave the
-        # tree as it found it, or the lead loses its request to a failed attempt.
-        (ROOT / brief).write_text(text, encoding="utf-8", newline=chr(10))
         git("reset", "-q", check=False)
-        print("REFUSED by a guard rail. Request restored; nothing retried.")
+        print("REFUSED by a guard rail. Nothing retried, nothing rewritten;")
+        print("the request stands and will be carried once the cause is fixed.")
         return False
 
     mark_consumed(brief, fp)
-    print("committed, request consumed: %s" % git("log", "-1", "--format=%h %s").stdout.strip())
+    print("committed: %s" % git("log", "-1", "--format=%h %s").stdout.strip())
     push(no_push)
     return True
 
