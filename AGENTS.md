@@ -62,15 +62,8 @@ Every file in `design/` follows `design/_TEMPLATE.md`: Purpose → Player experi
 - Do not lock architecture prematurely. Do not treat unresolved items as settled.
 - Bold, multitudinous design thinking is welcome; scope discipline is mandatory.
 
-## 6. Leads and routing (2026-09-20)
+## 6. How we work — see `PROTOCOL.md`
 
-Owner decides; **leads** are agent roles that track status and direct next steps per discipline. Briefs in `leads/` (start at `leads/README.md`); one board in `STATUS.md`; owner feedback lands verbatim in `inbox/` and is triaged to lead inboxes with C-refs.
+Roles, the session contract, the git rule, the decision rule and the budgets live in `PROTOCOL.md` (two pages, kept by Builder), and every change to them is one dated line in its §Changes. Charters are `roles/<role>.md`. Nothing about working practice is restated here — two copies of a rule is how this project spent 2026-09-20.
 
-| Lead | Owns the question |
-|---|---|
-| `leads/chief-of-staff.md` | is the project organized? — `STATUS.md` (**author**; Tech keeps and commits it, D5.38), decisions queue, triage, milestones, conflicts. **Run by Cowork** (owner 2026-09-20; D5.29) |
-| `leads/systems.md` | the game: ontology + rules. Directs `systems/content.md` (what's included) and `systems/tech.md` (what runs it + repo custody — the **Tech lead, run by Claude Code**: Godot, validator, tooling, **git execution**, `.claude/`, housekeeping) |
-| `leads/direction/` | authoritative art · level · scenario direction; defines clusters Content produces |
-| `leads/marketing.md` | YouTube / devlog |
-
-Rules 1–7 above are unchanged: a lead writes to `proposals/` unless the owner is in the session; a lead never logs a D-number on its own. **Single-writer (D5.27, reassigned D5.29, split D5.38):** a lead's own brief is written only by that lead; `STATUS.md` is **authored** by Chief of Staff (what every row says) and **written and committed** by Tech, which transcribes without paraphrase that changes meaning and never re-sequences. **Decisions reach the owner only through the queue in `STATUS.md`** (`leads/README.md` §Adjudication). Session prompt: *"Act as `<lead>`. Read `AGENTS.md`, `design/00-steer.md`, `leads/<lead>.md`, then only the docs the task touches."*
+Rules 1–7 above are unchanged and outrank it.

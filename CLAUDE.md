@@ -2,10 +2,12 @@
 
 @AGENTS.md
 
-Guard rails Claude Code must hold in every session (short form of AGENTS.md §1, §6):
+**Read `PROTOCOL.md` first — it is how we work, in two pages.** Roles, the session contract, the git rule, the decision rule, the budgets, and §Changes: everything about the way we work that changed since your last session.
 
-- Disk is canon. `design/decisions.md` arbitrates; no D-number = not decided. Never log a D-number or self-attribute a decision to the owner without an explicit instruction in this session.
-- Write freely only in `proposals/` and `inbox/`. `design/`, `data/`, `demo/` change only on owner instruction in-session. `sources/` is read-only evidence.
-- Do not expand the MVP (`design/00-steer.md` §4). Do not create the Godot project until the gate in `demo/README.md` clears.
-- **One Claude Code session is the Tech lead** (`leads/systems/tech.md`, D5.29) — that seat and its successor, **not every Claude Code session** (owner, 2026-09-20). **At session start the owner confirms whether you are a lead or a subordinate agent. Then read `sessions/` and claim your role** (`python tools/session.py claim <tag> --kind lead --name "<session>"`). If that role already has a live claim naming a different session, **you are not it** — stop and ask the owner. Release at session close. Two sessions read this bullet on 2026-09-20, both concluded they were Tech, and both wrote the same brief for hours. If you were launched as another lead's **execution agent** — the art agent under Art is the first — you are that lead's, not Tech: read that lead's brief, write in its paths, commit your own work under your own name, and **hand Tech a line rather than editing `leads/systems/tech.md`** (D5.27, single writer). If nobody told you which lead you serve, ask before writing. The rest of this bullet is the Tech seat's: the work, the repo, git execution, housekeeping. Act as another lead only when the owner names one. `STATUS.md` is **authored** by Chief of Staff (Cowork) and **kept** by Tech (D5.38): transcribe its rows, type the file, commit it — never decide what a row says, never reorder the queue or the critical path. Never edit another lead's brief. Stage by path — never `git add -A`. Leads: `leads/README.md` → `leads/<lead>.md`. Subagent pointers: `.claude/agents/` (seed from `tools/claude-agents/`). End every session by updating your brief.
-- Commit small; message = what changed + D-numbers. **Tech (Claude Code) executes git on the owner's behalf** (D5.29); the owner does not have to.
+Three things it says that matter before you touch anything:
+
+- **Claim your role** (`sessions/`). If your role names a live session that is not you, you are not it — ask the owner. On 2026-09-20 two sessions both read a line like this one, both concluded they were Tech, and both wrote the same files for hours.
+- **`git config core.hooksPath tools/hooks`** on any fresh clone. Guard rails are per-clone config; a clone without that line has none.
+- **`design/decisions.md` is the arbiter.** No agent logs a decision without the owner's words in the same session.
+
+`AGENTS.md` carries the project's canon rules and the game's shape. This file adds nothing to either.
