@@ -119,7 +119,7 @@ def find_block(text):
     return message, paths, m.start(), end
 
 
-def handle(brief, surface):
+def handle(brief, surface, no_push=False):
     text = (ROOT / brief).read_text(encoding="utf-8", errors="replace")
     found = find_block(text)
     if not found:
@@ -171,7 +171,36 @@ def handle(brief, surface):
         return False
 
     print("committed, request consumed: %s" % git("log", "-1", "--format=%h %s").stdout.strip())
+    push(no_push)
     return True
+
+
+def push(no_push=False):
+    """Push after a requested commit (owner, 2026-09-21).
+
+    A commit that never leaves this machine is not in the record any other
+    surface or machine can see - and the whole point of the remote is that the
+    repo stopped existing on one disk. A lead directing a commit is directing
+    it into the record, not into this clone.
+
+    Never force. A rejected push is reported and left alone: the commit is
+    safe locally and the next push takes it, whereas a force would discard
+    whatever the rejection was protecting.
+    """
+    if no_push:
+        print("push skipped (--no-push).")
+        return
+    if not git("remote", check=False).stdout.strip():
+        print("no remote configured; commit is local only.")
+        return
+    branch = git("rev-parse", "--abbrev-ref", "HEAD").stdout.strip()
+    done = git("push", "origin", branch, check=False)
+    if done.returncode == 0:
+        print("pushed to origin/%s." % branch)
+    else:
+        print((done.stderr or "").strip())
+        print("PUSH FAILED. The commit is safe locally and unpushed; nothing")
+        print("was forced and nothing retried. Next push carries it.")
 
 
 def report():
@@ -218,11 +247,11 @@ def report():
     return 0
 
 
-def sweep_once():
+def sweep_once(no_push=False):
     acted = False
     for brief, surface in BRIEFS.items():
         if (ROOT / brief).exists():
-            acted = handle(brief, surface) or acted
+            acted = handle(brief, surface, no_push) or acted
     return acted
 
 
@@ -230,6 +259,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--interval", type=int, default=20)
     ap.add_argument("--once", action="store_true")
+    ap.add_argument("--no-push", action="store_true",
+                    help="commit but do not push; the default is to push")
     ap.add_argument("--report", action="store_true",
                     help="list unrecorded work, declared vs unclaimed; commit nothing")
     a = ap.parse_args()
@@ -238,7 +269,7 @@ def main():
     print("watching %d briefs for '## Commit me' (every %ds) - Ctrl-C to stop"
           % (len(BRIEFS), a.interval))
     while True:
-        sweep_once()
+        sweep_once(a.no_push)
         if a.once:
             return 0
         time.sleep(a.interval)
