@@ -66,7 +66,7 @@ Rules for the writer: **no D-numbers** (AGENTS §1.4), no board rows (D5.38 — 
 ## 5. What Tech does with it
 
 1. Reads the custody half. Anything outside the agent's lane, any bent rule, anything uncommitted → `leads/systems/tech.md` §For Chief of Staff, one line each.
-2. Checks the claimed commits exist and are attributed to the agent that wrote them. Tonight's three misattributions would have been caught here in seconds.
+2. Checks the claimed commits exist and that the **subject line** names the surface that wrote them. **Git's author field cannot do this** — see §6b. Tonight's three misattributions would have been caught here in seconds.
 3. Transcribes any brief row the agent hands over, and nothing else.
 4. **Does not** read the board document, the prompts, the images, or the tool diffs unless a custody line points at them.
 
@@ -77,6 +77,18 @@ A session with no report is the exception worth noticing: it means work exists i
 - A short report per session, written by the agent that already has the context — cheap for it, and the only moment the information exists.
 - It is a *claim*, not evidence. An agent can misreport. That is what the hooks and the sweep are for: they check the record itself, and they do not read reports.
 - If reports become long, the mechanism has failed. The form above is a page; the detail belongs in the board document or the tool, cited by path.
+
+### 6b. Attribution is prose, not data — found while reviewing the first report
+
+Every commit in this repo is authored **`Chris <chris-egan@users.noreply.github.com>`**, the art agent's included. Git identity is **repo-local config**, and three surfaces share one working tree, so they share one identity. "Commits under its own name" is true of the **subject line** and of nothing git can filter on.
+
+Consequences:
+
+- `git log --author` can never separate the surfaces. Chief of Staff's audit (D5.39), and any future tooling, has only prose to work with.
+- Tonight's three misattributions were **invisible to every check in the repo** by construction. The hooks could not have caught them; only a human or an agent reading subject lines could.
+- **Per-session identity is not available on a shared tree.** `git config user.email` writes to `.git/config`, which all three surfaces share — one session setting it changes it underneath the others mid-commit. This is a third, sharper argument for one clone per surface (`2026-09-20-execution-agents.md` §4.2).
+
+**Cheap fix available today, on the shared tree:** a required trailer, `Surface: <name>`, on every commit — machine-readable via `git log --format='%(trailers:key=Surface)'`, checkable by a fifth hook, and it survives the move to separate clones rather than being replaced by it. Tech recommends it; **the owner and Chief of Staff rule**, because it binds every surface's commit message and Tech does not impose conventions on other agents.
 
 ## 7. For the owner and Chief of Staff
 
