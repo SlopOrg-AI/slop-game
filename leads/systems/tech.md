@@ -108,6 +108,9 @@ Every attempt was made against the real repo and reverted; the tree was byte-ide
 
 - **Say which topology an instruction assumes.** Tech told the art agent to `git pull --ff-only` before its next commit; it is a no-op and prints a tracking notice, because all three surfaces share one working tree — a commit is in every surface's log the moment it is made. The advice was written for the topology in `proposals/2026-09-20-two-machine-migration.md`, not the one we are in. The same sentence to Cowork would mislead it the same way. Until the clones separate: **no pulling, no pushing between surfaces, one tree**. After: both become mandatory. Any instruction Tech gives a peer should name which of those it assumes.
 
+- **Lane note, `demo/README.md`.** Chief of Staff edited it in the working tree (uncommitted at the time of writing) to carry C27's definition of *distilled* into the gate. **The content is right and Tech is not reverting it** — that definition belongs exactly there. But `demo/` is Tech's (this brief, Owns), and the rule the art execution agent accepted an hour earlier applies here identically: **hand the line over and Tech transcribes it.** Owner endorsed the principle in chat: *"i think it makes sense."*
+  **Symmetry, so this is not read as a one-way demand:** Tech edited `leads/chief-of-staff.md` once tonight under canon rule 2 — a doc that disagrees with `decisions.md` is wrong — declared it in the commit and in this section, and invited Chief of Staff to re-word it. Same standard in both directions. It is **custody, not rank**: the reason `demo/` sits with Tech is the same reason `STATUS.md` is authored by Chief of Staff and typed by Tech.
+
 ## Guard rail E — verification record (2026-09-20)
 | Attempt | Result |
 |---|---|
