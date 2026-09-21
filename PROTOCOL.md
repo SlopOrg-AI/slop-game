@@ -45,9 +45,9 @@ Anything else is a **task**: a session with a prompt, output to `proposals/`. Co
 
 ## 4. Decisions
 
-- A decision is **the owner's words plus a date**, logged by the session the owner was in.
+- A **game** decision (tags S · A · C) is **the owner's words plus a date**, logged by the session he was in. A **mechanism** decision (P · E) is the **owning role's**, logged the same way and attributed to the role, revocable by him (D260921.7-P).
 - ID is `D<yymmdd>.<n>` with a tag: `D260921.3-P` — P process · S rules · A art · C content · E engine. Scan the log for the last number used that day. **No session needs another to number anything.**
-- No agent logs a decision without the owner's words in that same session.
+- **No agent attributes a decision to the owner without his words in that same session.** And no role widens what it may decide — §1 and this section are the owner's alone.
 - Later entry wins. If a document disagrees with the log, the document is wrong.
 
 ## 5. Asking, and being asked
@@ -69,6 +69,7 @@ A fresh session's required reading is `CLAUDE.md` + this file + its charter + `S
 
 ## Changes
 
+- **2026-09-21** Roles decide their own mechanism (D260921.7-P): game decisions S/A/C stay the owner's, P/E become the owning role's, and no role may widen its own remit
 - **2026-09-21** `CLAUDE.md` stops auto-loading `AGENTS.md`; required reading becomes lookup-on-demand, halving what a session pays before it works
 - **2026-09-21** Agents merge, too (D260921.6-P): a merge commit carries the clicker's name, so the owner approves and an agent merges — his name then means "he approved this", nothing else
 - **2026-09-21** Agents commit as the machine account and the owner does not commit at all (D260921.5-P); §1 and the §3 identity line inverted, rail F added. The `Surface:` sentence goes — §Changes already records it
