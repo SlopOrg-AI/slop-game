@@ -1,11 +1,17 @@
 # Review is enforced by identity, not by convention (D260921.3-P).
 #
 # GitHub refuses to let an author approve their own pull request. That is the
-# whole mechanism: agents implement as the machine account, so they cannot
-# approve their own work, and approval has to come from this account. With one
-# shared identity there was nothing here to enforce - every agent was the owner.
+# whole mechanism, and it only works once there are two identities:
 #
-# Consequence to know: a PR opened BY @chris-egan cannot be approved by
-# @chris-egan either. Work is meant to arrive from the machine lane; a PR
-# raised from this account needs a second reviewer or an admin merge.
-* @chris-egan
+#   @chris-egan   the owner
+#   @sloporgAI    the machine account, the implementing lane
+#
+# Both are listed, and GitHub requires approval from at least ONE code owner
+# who is not the author. So a PR raised by the machine lane needs the owner,
+# and a PR raised by the owner needs the machine lane. Neither can wave its
+# own work through, and neither can be blocked by having nobody to ask.
+#
+# Listing only one account would deadlock that account's own PRs permanently,
+# which is a worse failure than no rule at all: it looks like enforcement and
+# is actually a wall.
+* @chris-egan @sloporgAI
