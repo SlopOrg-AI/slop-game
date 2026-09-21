@@ -46,6 +46,7 @@ All technical execution. Builds what Systems specifies and Direction/Content han
 | Local image-gen pipeline | **DONE, verified** — ComfyUI v0.36.0 + Qwen-Image / Qwen-Image-Edit-2509 on the 5090 | — | `proposals/2026-09-20-local-imagegen-handoff.md` |
 | `tools/workflows/build_workflows.py` | **DONE** — generates all 4 Qwen graphs; edit this, not the JSON | — | this session |
 | `tools/annotate/` (server, UI, `regional_edit.py`) | **DONE, verified** — Content owns its use | — | `tools/annotate/README.md` |
+| `tools/gen_board.py` + `tools/contact_sheet.py` | **NEW, used once** — queue a t2i board from `prompt.txt`/`negative.txt` in the board folder and tile it into the one PNG D5.28 allows. Settings mirror `build_workflows.py`; PC only | — | `proposals/art/2026-09-20-river-nomads/board.md` |
 | Style distiller (Qwen3-VL 8B) | **DONE** — one card produced, Art has not accepted it | — | handoff §4 |
 | Git | `main`, local only, clean tree. **Tech executes git** (D5.29), staging by path; two surfaces write this repo | — | D5.29 |
 | Roles: Chief of Staff (Cowork) + Tech (Claude Code); `admin` retired after eleven commits | DECIDED — **D5.29** | all | this session |
@@ -88,7 +89,7 @@ Qwen-Image-Edit 2511 reported better at character consistency (21 GB).
 | Runs where | What |
 |---|---|
 | Either machine | repo, git, docs, `data/`, Godot (when the gate clears), `tools/annotate/server.py` |
-| **PC only** | ComfyUI + Qwen weights on the RTX 5090; `tools/workflows/build_workflows.py`, `tools/annotate/regional_edit.py` — they now read `SHINOBI_COMFY_ROOT` and **fail with one clear sentence** off-machine (step 6) · the 177 MB v1 Godot archive, not rescued |
+| **PC only** | ComfyUI + Qwen weights on the RTX 5090; `tools/workflows/build_workflows.py`, `tools/annotate/regional_edit.py` — they now read `SHINOBI_COMFY_ROOT` and **fail with one clear sentence** off-machine (step 6) · `tools/gen_board.py` needs the ComfyUI server on 127.0.0.1:8188, so it fails off-machine with a connection error, not a sentence · the 177 MB v1 Godot archive, not rescued |
 | **Remote** | `origin` → the owner's private `chris-egan/slop-game`. Pushed and verified 2026-09-20. Every clone runs `git config core.hooksPath tools/hooks` on arrival |
 | **Deadline** | ~~the text behind D1–D4 and the v1 bible live only on the PC disk~~ **DONE 2026-09-20** — `sources/v1/` holds all of v1 `docs/` and the v4 wireframe; every stub and the D1–D4 note now cite the in-repo copies |
 

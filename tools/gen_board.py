@@ -102,18 +102,24 @@ def main():
     ap.add_argument("--seeds", type=int, default=4)
     ap.add_argument("--seed0", type=int, default=20260920)
     ap.add_argument("--aspect", choices=sorted(SIZES), default="16:9")
+    ap.add_argument("--prompt", default="prompt",
+                    help="reads <name>.txt / negative.txt from the board folder and "
+                         "tags the frames with it, so revisions sit beside the first try")
     args = ap.parse_args()
 
     folder = ART / args.topic
-    pos = (folder / "prompt.txt").read_text(encoding="utf-8").strip()
-    neg = (folder / "negative.txt").read_text(encoding="utf-8").strip()
+    pos = (folder / f"{args.prompt}.txt").read_text(encoding="utf-8").strip()
+    negf = folder / f"negative-{args.prompt}.txt"
+    if not negf.exists():
+        negf = folder / "negative.txt"
+    neg = negf.read_text(encoding="utf-8").strip()
     w, h = SIZES[args.aspect]
     fast = args.mode == "fast"
 
     pids = []
     for i in range(args.seeds):
         seed = args.seed0 + i
-        prefix = f"{args.topic}/{args.mode}-s{seed}"
+        prefix = f"{args.topic}/{args.prompt}-{args.mode}-s{seed}"
         pids.append((seed, submit(graph(pos, neg, w, h, seed, fast, prefix))))
     print(f"queued {len(pids)} x {args.mode} at {w}x{h}", flush=True)
     for seed, pid in pids:

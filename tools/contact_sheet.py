@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import math
+import re
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -24,10 +25,22 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("topic")
     ap.add_argument("--cols", type=int, default=0, help="0 = square-ish")
+    ap.add_argument("--glob", default="*.png", help="which frames to tile")
+    ap.add_argument("--files", nargs="*", help="explicit frame names, instead of --glob")
+    # D5.28 keeps exactly one PNG per board folder: the ignore rule and hook
+    # check C both match the literal name _contact-sheet.png, so a sheet under
+    # any other name stays local. Name the one that is meant to be committed.
+    ap.add_argument("--out", default="", help="output name (default _contact-sheet.png)")
     args = ap.parse_args()
 
     folder = ART / args.topic
-    frames = sorted(p for p in folder.glob("*.png") if p.name != "_contact-sheet.png")
+    if args.files:
+        frames = [folder / n for n in args.files]
+        missing = [str(f) for f in frames if not f.exists()]
+        if missing:
+            raise SystemExit("no such frame: " + ", ".join(missing))
+    else:
+        frames = sorted(p for p in folder.glob(args.glob) if not p.name.startswith("_"))
     if not frames:
         raise SystemExit(f"no frames in {folder}")
     cols = args.cols or math.ceil(math.sqrt(len(frames)))
@@ -54,7 +67,13 @@ def main():
         sheet.paste(im, (x + (cw - im.width) // 2, y))
         draw.text((x + 2, y + ch + 5), name, fill=FG, font=font)
 
-    out = folder / "_contact-sheet.png"
+    if args.out:
+        out = folder / args.out
+    elif args.files or args.glob == "*.png":
+        out = folder / "_contact-sheet.png"
+    else:
+        slug = re.sub(r"[^A-Za-z0-9]+", "-", args.glob.replace(".png", "")).strip("-")
+        out = folder / f"_contact-sheet-{slug}.png"
     sheet.save(out)
     print(f"{out}  {sheet.width}x{sheet.height}  {len(thumbs)} frames")
 
