@@ -38,9 +38,11 @@ Is the project organized? Triages `inbox/`, keeps `STATUS.md` true, runs the **d
 | `40-production.md` §5 M1/M2 definitions | PENDING on Q1, Q2 | MVP | `00-steer` §3 |
 
 ## Next actions
-1. Transcribe owner verdicts on Q1–Q5 as they arrive; hand each to its lead. Gate: owner.
-2. Reduce `c-coherence` clashes C–F and readings, and `vision-coherence` P2a/P3a, to queue form as slots free up. Gate: Q1–Q3 ruled.
-3. After Tech logs D5.29 and applies the renames: verify cross-references, re-sync mirror. Gate: Tech session.
+1. Transcribe owner verdicts on Q1–Q5 as they arrive (Q1 first restated by Systems against D5.31); hand each to its lead. Gate: owner.
+2. Reduce Waiting items to queue form as slots free: coherence clashes C–F, pillar strains, D5.39 guard rails + sweep, agent-experience R1–R8. Gate: Q1–Q3 ruled.
+3. Re-check `00-steer` §1 clause 1 against D5.34/D5.35 (card battler now has a mechanism); queue the git-remote question with the Mac move (C24). Gate: next session.
+
+Handoff: `proposals/2026-09-20-cos-handoff.md`.
 
 ## Open questions
 1. Queue size 5 — right for hobby cadence? Adjust after two rounds.
